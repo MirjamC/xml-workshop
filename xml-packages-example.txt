@@ -19,7 +19,7 @@ Before we can use the package, we have to let Python know we want to use it. We 
 Type in a code cell:
 
 ```
-import xml.etree.ElementTree as ET
+jupyter-book myst init path/to/markdownfile.md
 ```
 
 
