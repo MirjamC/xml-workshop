@@ -1,3 +1,20 @@
+---
+jupytext:
+  cell_metadata_filter: -all
+  formats: md:myst
+  text_representation:
+    extension: .md
+    format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.5
+kernelspec:
+  display_name: Python 3
+  language: python
+  name: python3
+---
+
+
+
 # Lesson ?: Practical session: Working with XMLX, ElemenTree and Beautiful Soup
 
 In this lesson, we are going to explore how the different packages work. We use the same example file that was used in lesson 2 (click here to download the file).
