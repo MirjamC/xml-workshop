@@ -74,7 +74,7 @@ We need the child element 'book', and his subchildren 'title' and 'description'.
 
 First, we type in the code to get the title from every book:
 
-```{code-cell} ipython3
+```{code-cell}
 :tags: [hide-output]
 
 # This cell should have its output hidden!

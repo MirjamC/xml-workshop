@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Lesson 1: Introduction to Python and Jupyter Notebooks" href="markdown.html" />
+    <link rel="next" title="Lesson 4: Practical session: Working with ElemenTree and Beautiful Soup" href="example_xml.html" />
     <link rel="prev" title="Welcome to this XML course" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -105,8 +105,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="example_xml.html">
+   Lesson 4: Practical session: Working with ElemenTree and Beautiful Soup
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="markdown.html">
-   Lesson 1: Introduction to Python and Jupyter Notebooks
+   Markdown
   </a>
  </li>
  <li class="toctree-l1">
@@ -201,6 +206,58 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-does-a-notebook-work">
+   How does a Notebook work?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#different-cells">
+     Different cells
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comments">
+     Comments
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python">
+   Python
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#input-en-variables">
+     Input en variables
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     Functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#packages">
+     Packages
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-end">
+   The End
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -213,6 +270,58 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-does-a-notebook-work">
+   How does a Notebook work?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#different-cells">
+     Different cells
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comments">
+     Comments
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python">
+   Python
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#input-en-variables">
+     Input en variables
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functions">
+     Functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#packages">
+     Packages
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-end">
+   The End
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -221,7 +330,94 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="lesson-1-introduction-to-python-and-jupyter-notebooks">
 <h1>Lesson 1: Introduction to Python and Jupyter Notebooks<a class="headerlink" href="#lesson-1-introduction-to-python-and-jupyter-notebooks" title="Permalink to this headline">¶</a></h1>
-<p>Here comes the introduction to Python and Jupyter Notebooks.</p>
+<p>To add: how to open a Jupyter Notebook with a screenshot of how it looks.</p>
+<p>A Notebook is not a static webpage, but an interactive enviroment. Within the blocks (cells) of a Notebook code can be written ánd executed.</p>
+<p>This Notebook will give a short introduction on how to work with Notebook in combination with Python.</p>
+<div class="section" id="how-does-a-notebook-work">
+<h2>How does a Notebook work?<a class="headerlink" href="#how-does-a-notebook-work" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="different-cells">
+<h3>Different cells<a class="headerlink" href="#different-cells" title="Permalink to this headline">¶</a></h3>
+<p>Notebooks are comprimised of different types of cells. The cell containing this text is a <em>textcel</em>. Text cells are generally used for descriptions and explantions.</p>
+<p>The layout is managed through <em>markdown</em> (see <a class="reference external" href="https://www.markdownguide.org/basic-syntax/">markdown syntax</a> for more information).</p>
+<p>The second main type of cell is the code cell. Such as teh example below:</p>
+<p>Code cells are used to write and execute code. In our case Python. When a code cell is run, Python will execute the code in the cell.</p>
+<p>There are multiple ways to run a cell:</p>
+<ul class="simple">
+<li><p>By clicking the ‘Run’ button bovenaan te klikken;</p></li>
+<li><p>By pressing ‘shift + enter when the cell is selected (green frame)’</p></li>
+</ul>
+<p>The moment a cell generates <em>output</em> the output is displayed beneath the cell, keeping code and output together.</p>
+<p><strong>Assignment:</strong> run the code cell above and look at the output.</p>
+</div>
+<div class="section" id="comments">
+<h3>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
+<p>Comments can be added to a code cell. Comments can be used to describe what a piece of code does, or can be used to tell where values can be changed.</p>
+<p>The moment a # is typed in a code cell, everything after it will be regarded as a comment. Lines that have been marked as a comment will <strong>not</strong> be executed by Python when the cell is run.</p>
+<p><strong>Assignment:</strong> run the cell below. Does Python return output?</p>
+<p>When the <strong>#</strong> is removed and the cell is run again, Python wil recognize the code and execute it.</p>
+<p><strong>Assignment:</strong> Ensure that Python executes the code and run the cell again.</p>
+</div>
+</div>
+<div class="section" id="python">
+<h2>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h2>
+<p>Below will follow a short introduction of Python.
+Python was developed in 1991 by Guido van Rossum. The purpose of Python was to create a programming language that is both simple to understand and readable.  Python is open source, and can be used for free.</p>
+<div class="section" id="input-en-variables">
+<h3>Input en variables<a class="headerlink" href="#input-en-variables" title="Permalink to this headline">¶</a></h3>
+<p>When using Python there are multiple types of input data, such as lists, numbers, text, and even whole tables.
+We put this input into <em>variables</em>. Essentially a container for the data. The name of a variable is up to your own discretion, although there are some <a class="reference external" href="https://www.w3schools.com/python/gloss_python_variable_names.asp">rules and guidlines</a>.</p>
+<p>Python remembers which input was loaded into which variable. This means that the variables can be used in the code instead of the data itself.</p>
+<p>It is important to input data correctly, for numbers <em>no</em> quotation marks are used, for text quotation marks <em>must be</em> used!</p>
+<p>The command <em>type()</em> can be used to determine what type of input a variable contains.</p>
+<p><em>int</em> indicates a variable contains an integer, or whole number
+<em>str</em> indicates a variable contains a string, a piece of text.</p>
+<p><strong>Assignment</strong> Run the cell below</p>
+<p><strong>Important!</strong> If you input a number <em>with</em> quotation marks Python will see it as text!</p>
+<p><strong>Assignment:</strong> Run the cell below</p>
+<p>As mentioned above it is possible to use previously assigned variables in your code.</p>
+<p><strong>Assignment:</strong> Run the cell below</p>
+<p><strong>Assignment:</strong> Using Python, calculate the sum of “35 + 69” in teh cell below. Start with making two variables to assign the numbers <em>35</em> and <em>69</em> to. Calculate the sum using these variables.</p>
+<p>The plus sign can be used to calculate sums, as you did in the above assignment. However, the plus sign can also be used to stick two different texts together.</p>
+<p><strong>Assignment:</strong> run the cell below</p>
+<p><strong>Assignment:</strong> Ensure that the four lines below are printed as one sentence in the output.</p>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<p>When you program in Python you will make use of functions. Apart from ready made functions from packages (see below) Python contains a lot of ready to use built-in functions. Saving us a lot of manual coding!</p>
+<p>Functions need to be passed one or more parameters as input. The syntax of a function is as follows: <em>functionname(parameters)</em>. When there are multiple parameters these are seperated with a comma.</p>
+<p>You can find some examples below.</p>
+<p><strong>Assignment:</strong> Run the cells below</p>
+<p><strong>Assignment:</strong> Calculate the <em>lowest</em> number using the function min(). This functions works similarly to the previously used max() function.
+Use the following numbers: 6, 24, 8, 2, 14.</p>
+</div>
+<div class="section" id="packages">
+<h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h3>
+<p>The last important thing to know is that Python works with packages. A package is a collection of modules with predefined functions. These functions can than be used in your own code. Using packages can save a lot of programming work and enhances the functionality of base Python. Most Python programmers regularly use packages.</p>
+<p>Before using a Python package it needs to be <em>installed</em>. This preferably done using the command line but can also be done within your Jupyter Notebook.</p>
+<p>Afterwards the package needs to be <em>imported</em> into the Notebook. After importing the package is ready for use.</p>
+<p>Below you can find an example of installing, importing and using a package that measures the distances between two texts.</p>
+<p><strong>Assignment:</strong> Run the cells below</p>
+<p>A package can be used in the same way as a function.
+In the case of the package used below, there are multiple methods for the calculation of the difference between texts. Among others there are the options ‘hamming’ and ‘levenshtein’. The option that you want to use is added afte the name of the package.</p>
+<p>Syntax: <em>packagename.option(parameters)</em></p>
+<p><strong>Assignment:</strong> Run the cell below</p>
+<p><strong>Assignment:</strong> Calculate the difference between texts using the levenshtein option.</p>
+<p><strong>Assignemnt:</strong> For this assignment you will combine the previous steps to use the package ‘passwordmeter’. You will use this package to measure the strength of three passwords, and determine how they can be improved.</p>
+<p>You will test the following passwords:
+1: Welcome1234!
+2: idJH$ndjj165&#64;&amp;4SGDJEh
+3: PythonIsAweSome!?!</p>
+<p>To complete this assignemnt you will need to complete the following steps:</p>
+<ul class="simple">
+<li><p>Install the package ‘passwordmeter’</p></li>
+<li><p>Import the package</p></li>
+<li><p>Calculate the password strenght using the in-built function ‘test’ using the following syntax: <em>packagename.function(password)</em></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="the-end">
+<h2>The End<a class="headerlink" href="#the-end" title="Permalink to this headline">¶</a></h2>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -256,10 +452,10 @@ const thebe_selector_output = ".output, .cell_output"
             <p class="prev-next-title">Welcome to this XML course</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="markdown.html" title="next page">
+    <a class='right-next' id="next-link" href="example_xml.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lesson 1: Introduction to Python and Jupyter Notebooks</p>
+        <p class="prev-next-title">Lesson 4: Practical session: Working with ElemenTree and Beautiful Soup</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
