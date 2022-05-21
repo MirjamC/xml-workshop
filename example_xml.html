@@ -287,51 +287,14 @@ With every package, we follow these steps:</p>
 <p>ElemenTree is part of the standard library and therefore does not need to be installed.</p>
 <p>Before we can use the package, we have to let Python know we want to use it. We do this by importing the package.
 Type in a code cell:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
 </pre></div>
-</div>
-</div>
 </div>
 <p>Now, we want to open the XML file from which we want to extract information.
 Add a new code cell and type:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;path_to_file/name_file.xml&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;path_to_file/name_file.xml&#39;</span><span class="p">)</span>
 <span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;path_to_file/name_file.xml&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
-
-<span class="nn">File ~\anaconda3\lib\xml\etree\ElementTree.py:1229,</span> in <span class="ni">parse</span><span class="nt">(source, parser)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1220</span> <span class="sd">&quot;&quot;&quot;Parse XML document into element tree.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1221</span><span class="sd"> </span>
-<span class="g g-Whitespace">   </span><span class="mi">1222</span><span class="sd"> *source* is a filename or file object containing XML data,</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1226</span><span class="sd"> </span>
-<span class="g g-Whitespace">   </span><span class="mi">1227</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">   </span><span class="mi">1228</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">ElementTree</span><span class="p">()</span>
-<span class="ne">-&gt; </span><span class="mi">1229</span> <span class="n">tree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1230</span> <span class="k">return</span> <span class="n">tree</span>
-
-<span class="nn">File ~\anaconda3\lib\xml\etree\ElementTree.py:569,</span> in <span class="ni">ElementTree.parse</span><span class="nt">(self, source, parser)</span>
-<span class="g g-Whitespace">    </span><span class="mi">567</span> <span class="n">close_source</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">568</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">569</span>     <span class="n">source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">570</span>     <span class="n">close_source</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">    </span><span class="mi">571</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;path_to_file/name_file.xml&#39;
-</pre></div>
-</div>
-</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

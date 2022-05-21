@@ -13,8 +13,6 @@ kernelspec:
   name: python3
 ---
 
-
-
 # Lesson ?: Practical session: Working with XMLX, ElemenTree and Beautiful Soup
 
 In this lesson, we are going to explore how the different packages work. We use the same example file that was used in lesson 2 (click here to download the file).
@@ -35,14 +33,14 @@ ElemenTree is part of the standard library and therefore does not need to be ins
 Before we can use the package, we have to let Python know we want to use it. We do this by importing the package.
 Type in a code cell:
 
-```{code-cell}
+```
 import xml.etree.ElementTree as ET
 ```
 
 Now, we want to open the XML file from which we want to extract information. 
 Add a new code cell and type:
 
-```{code-cell}
+```
 tree = ET.parse('path_to_file/name_file.xml')
 root = tree.getroot()
 ```
