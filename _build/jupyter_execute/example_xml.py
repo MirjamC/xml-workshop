@@ -43,15 +43,7 @@ root = tree.getroot()
 # ```
 # 
 # When you want to extract information from an XML file, it is important that you are familair with the structure of the file. 
-# There are two ways to do this. 
-# 
-# ```json
-# {
-#     "tags": [
-#         "hide-output"
-#     ]
-# }
-# ```
+# There are two ways to do this.
 
 # In[3]:
 
