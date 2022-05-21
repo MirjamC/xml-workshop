@@ -43,10 +43,19 @@ root = tree.getroot()
 # ```
 # 
 # When you want to extract information from an XML file, it is important that you are familair with the structure of the file. 
-# There are two ways to do this.
+# There are two ways to do this. 
+# 
+# ```json
+# {
+#     "tags": [
+#         "hide-output"
+#     ]
+# }
+# ```
 
 # In[3]:
 
 
+# This cell should have its output hidden!
 print(ET.tostring(root, encoding='utf8').decode('utf8'))
 
