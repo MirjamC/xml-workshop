@@ -1,11 +1,13 @@
-# Welcome to your Jupyter Book
+# Welcome to this XML course
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+This course is designed for students and employees of Digital Heritage institutes that working with XML and seek for ways to 
+automatically extract content and metadata from these XML files. 
 
-Check out the content pages bundled with this sample book to see more.
+In this course, students learn the basics of the XML format and how to extract information from them with three various Python packages: XMLX, ElementTree 
+and BeautifullSoap. We will work with the three XML formats that are commonly provided by the KB, the national library of the Netherlands: Alto, XML and Page. 
 
+The course is structured als follows:
 ```{tableofcontents}
 ```
+
+This course is created by the KB, the national library of the Netherlands
