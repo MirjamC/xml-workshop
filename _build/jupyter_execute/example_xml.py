@@ -20,18 +20,23 @@
 # 
 # Before we can use the package, we have to let Python know we want to use it. We do this by importing the package.
 # Type in a code cell:
-# 
-# ```
-# import xml.etree.ElementTree as ET
-# ```
-# 
+
+# In[1]:
+
+
+import xml.etree.ElementTree as ET
+
+
 # Now, we want to open the XML file from which we want to extract information. 
 # Add a new code cell and type:
-# 
-# ```
-# tree = ET.parse('path_to_file/name_file.xml')
-# root = tree.getroot()
-# ```
+
+# In[2]:
+
+
+tree = ET.parse('data/example.xml')
+root = tree.getroot()
+
+
 # ```{note}
 # In the code above, alter the 'path_to_file/name_file' with the path to the folder and the filename. 
 # For example: D:\Projects\XML workshop\data\example.xml 
