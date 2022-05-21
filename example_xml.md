@@ -52,6 +52,7 @@ For example: D:\Projects\XML workshop\data\example.xml
 When you want to extract information from an XML file, it is important that you are familair with the structure of the file. 
 There are two ways to do this. 
 
-
-
+```{code-cell}
+print(ET.tostring(root, encoding='utf8').decode('utf8'))
+```
 
