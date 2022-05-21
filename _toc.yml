@@ -5,6 +5,7 @@ format: jb-book
 root: intro
 chapters:
 - file: introduction_python
+- file: example-xml
 - file: markdown
 - file: notebooks
 - file: markdown-notebooks
