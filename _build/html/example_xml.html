@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lesson ?: Practical session: Working with XMLX, ElemenTree and Beautiful Soup &#8212; Automatically extract XML content with Python</title>
+    <title>Lesson 4: Practical session: Working with ElemenTree and Beautiful Soup &#8212; Automatically extract XML content with Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Lesson 1: Introduction to Python and Jupyter Notebooks" href="markdown.html" />
+    <link rel="next" title="Markdown" href="markdown.html" />
     <link rel="prev" title="Lesson 1: Introduction to Python and Jupyter Notebooks" href="introduction_python.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -106,12 +106,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Lesson ?: Practical session: Working with XMLX, ElemenTree and Beautiful Soup
+   Lesson 4: Practical session: Working with ElemenTree and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="markdown.html">
-   Lesson 1: Introduction to Python and Jupyter Notebooks
+   Markdown
   </a>
  </li>
  <li class="toctree-l1">
@@ -233,8 +233,20 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#a-the-elementree">
-   ?a: The ElemenTree
+   4a: The ElemenTree
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#examine-the-structure-of-the-file">
+     Examine the structure of the file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extract-the-book-titles-and-descriptions">
+     Extract the book titles and descriptions
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -246,7 +258,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Lesson ?: Practical session: Working with XMLX, ElemenTree and Beautiful Soup</h1>
+                <h1>Lesson 4: Practical session: Working with ElemenTree and Beautiful Soup</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -258,8 +270,20 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#a-the-elementree">
-   ?a: The ElemenTree
+   4a: The ElemenTree
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#examine-the-structure-of-the-file">
+     Examine the structure of the file
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extract-the-book-titles-and-descriptions">
+     Extract the book titles and descriptions
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -270,20 +294,20 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="lesson-practical-session-working-with-xmlx-elementree-and-beautiful-soup">
-<h1>Lesson ?: Practical session: Working with XMLX, ElemenTree and Beautiful Soup<a class="headerlink" href="#lesson-practical-session-working-with-xmlx-elementree-and-beautiful-soup" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="lesson-4-practical-session-working-with-elementree-and-beautiful-soup">
+<h1>Lesson 4: Practical session: Working with ElemenTree and Beautiful Soup<a class="headerlink" href="#lesson-4-practical-session-working-with-elementree-and-beautiful-soup" title="Permalink to this headline">¶</a></h1>
 <p>In this lesson, we are going to explore how the different packages work. We use the same example file that was used in lesson 2 (click here to download the file).</p>
 <p>This lesson is divided intro three sessions, where every session works with one of the Python packages that was introduced in lesson ?.
 With every package, we follow these steps:</p>
 <ul class="simple">
-<li><p>Open the XML file</p></li>
-<li><p>Display the structure of the XML file</p></li>
-<li><p>Extraxt the booktitles</p></li>
-<li><p>Extract name and surname of the author</p></li>
-<li><p>Store the information in a .csv of .txt file</p></li>
+<li><p>Load the XML file;</p></li>
+<li><p>Display the structure of the XML file;</p></li>
+<li><p>Extraxt the booktitles and descriptions;</p></li>
+<li><p>Extract name and surname of the author;</p></li>
+<li><p>Store the information in a .csv or .txt file.</p></li>
 </ul>
 <div class="section" id="a-the-elementree">
-<h2>?a: The ElemenTree<a class="headerlink" href="#a-the-elementree" title="Permalink to this headline">¶</a></h2>
+<h2>4a: The ElemenTree<a class="headerlink" href="#a-the-elementree" title="Permalink to this headline">¶</a></h2>
 <p>ElemenTree is part of the standard library and therefore does not need to be installed.</p>
 <p>Before we can use the package, we have to let Python know we want to use it. We do this by importing the package.
 Type in a code cell:</p>
@@ -294,6 +318,8 @@ Type in a code cell:</p>
 </div>
 </div>
 </div>
+<div class="section" id="examine-the-structure-of-the-file">
+<h3>Examine the structure of the file<a class="headerlink" href="#examine-the-structure-of-the-file" title="Permalink to this headline">¶</a></h3>
 <p>Now, we want to open the XML file from which we want to extract information.
 Add a new code cell and type:</p>
 <div class="cell docutils container">
@@ -311,6 +337,10 @@ For example: D:\Projects\XML workshop\data\example.xml</p>
 </div>
 <p>When you want to extract information from an XML file, it is important that you are familair with the structure of the file.
 There are two ways to do this.</p>
+<ol class="simple">
+<li><p>You can open the file in a programme like Notepad++ or open it in your browser</p></li>
+<li><p>You can show the file in your Jupyter Notebook with the following code:</p></li>
+</ol>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its output hidden!</span>
@@ -480,6 +510,42 @@ There are two ways to do this.</p>
 </div>
 </div>
 </div>
+<div class="section" id="extract-the-book-titles-and-descriptions">
+<h3>Extract the book titles and descriptions<a class="headerlink" href="#extract-the-book-titles-and-descriptions" title="Permalink to this headline">¶</a></h3>
+<p>Look at the XML structure. Which elements do we need do find the title and the description?</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>We need the child element ‘book’, and his subchildren ‘title’ and ‘description’.</p>
+</div>
+<p>First, we type in the code to get the title from every book:</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its output hidden!</span>
+<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>XML Developer&#39;s Guide
+Midnight Rain
+Maeve Ascendant
+Oberon&#39;s Legacy
+The Sundered Grail
+Lover Birds
+Splish Splash
+Creepy Crawlies
+Paradox Lost
+Microsoft .NET: The Programming Bible
+MSXML3: A Comprehensive Guide
+Visual Studio 7: A Comprehensive Guide
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -517,7 +583,7 @@ There are two ways to do this.</p>
     <a class='right-next' id="next-link" href="markdown.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Lesson 1: Introduction to Python and Jupyter Notebooks</p>
+        <p class="prev-next-title">Markdown</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
