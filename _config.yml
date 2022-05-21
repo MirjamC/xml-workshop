@@ -1,7 +1,7 @@
 # Book settings
 # Learn more at https://jupyterbook.org/customize/config.html
 
-title: Automatically extract text, layout and metadata information from XML-files of OCR-ed historical texts 
+title: Automatically extract XML content with Python
 author: Mirjam Cuper & Ethan den Boer
 logo: logo.png
 
