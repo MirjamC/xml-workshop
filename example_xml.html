@@ -311,6 +311,173 @@ For example: D:\Projects\XML workshop\data\example.xml</p>
 </div>
 <p>When you want to extract information from an XML file, it is important that you are familair with the structure of the file.
 There are two ways to do this.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf8&#39;?&gt;
+&lt;catalog&gt;
+   &lt;book id=&quot;bk101&quot;&gt;
+      &lt;author&gt;
+&lt;name&gt;Matthew&lt;/name&gt;
+&lt;surname&gt;Gambardella&lt;/surname&gt;
+      &lt;/author&gt;
+      &lt;title&gt;XML Developer&#39;s Guide&lt;/title&gt;
+      &lt;genre&gt;Computer&lt;/genre&gt;
+      &lt;price&gt;44.95&lt;/price&gt;
+      &lt;publish_date&gt;2000-10-01&lt;/publish_date&gt;
+      &lt;description&gt;An in-depth look at creating applications 
+      with XML.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk102&quot;&gt;
+      &lt;author&gt;
+&lt;name&gt;Kim&lt;/name&gt;
+&lt;surname&gt;Ralls&lt;/surname&gt;
+      &lt;/author&gt;
+      &lt;title&gt;Midnight Rain&lt;/title&gt;
+      &lt;genre&gt;Fantasy&lt;/genre&gt;
+      &lt;price&gt;5.95&lt;/price&gt;
+      &lt;publish_date&gt;2000-12-16&lt;/publish_date&gt;
+      &lt;description&gt;A former architect battles corporate zombies, 
+      an evil sorceress, and her own childhood to become queen 
+      of the world.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk103&quot;&gt;
+      &lt;author&gt;
+ 	&lt;name&gt;Eva&lt;/name&gt;
+&lt;surname&gt;Corets&lt;/surname&gt;	
+      &lt;/author&gt;
+      &lt;title&gt;Maeve Ascendant&lt;/title&gt;
+      &lt;genre&gt;Fantasy&lt;/genre&gt;
+      &lt;price&gt;5.95&lt;/price&gt;
+      &lt;publish_date&gt;2000-11-17&lt;/publish_date&gt;
+      &lt;description&gt;After the collapse of a nanotechnology 
+      society in England, the young survivors lay the 
+      foundation for a new society.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk104&quot;&gt;
+       &lt;author&gt;
+ 	&lt;name&gt;Eva&lt;/name&gt;
+&lt;surname&gt;Corets&lt;/surname&gt;	
+      &lt;/author&gt;
+      &lt;title&gt;Oberon&#39;s Legacy&lt;/title&gt;
+      &lt;genre&gt;Fantasy&lt;/genre&gt;
+      &lt;price&gt;5.95&lt;/price&gt;
+      &lt;publish_date&gt;2001-03-10&lt;/publish_date&gt;
+      &lt;description&gt;In post-apocalypse England, the mysterious 
+      agent known only as Oberon helps to create a new life 
+      for the inhabitants of London. Sequel to Maeve 
+      Ascendant.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk105&quot;&gt;
+      &lt;author&gt;
+ 	&lt;name&gt;Eva&lt;/name&gt;
+&lt;surname&gt;Corets&lt;/surname&gt;	
+      &lt;/author&gt;
+      &lt;title&gt;The Sundered Grail&lt;/title&gt;
+      &lt;genre&gt;Fantasy&lt;/genre&gt;
+      &lt;price&gt;5.95&lt;/price&gt;
+      &lt;publish_date&gt;2001-09-10&lt;/publish_date&gt;
+      &lt;description&gt;The two daughters of Maeve, half-sisters, 
+      battle one another for control of England. Sequel to 
+      Oberon&#39;s Legacy.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk106&quot;&gt;
+      &lt;author&gt;
+&lt;name&gt;Cynthia&lt;/name&gt;
+&lt;surname&gt;Randall&lt;/surname&gt;
+      &lt;/author&gt;
+      &lt;title&gt;Lover Birds&lt;/title&gt;
+      &lt;genre&gt;Romance&lt;/genre&gt;
+      &lt;price&gt;4.95&lt;/price&gt;
+      &lt;publish_date&gt;2000-09-02&lt;/publish_date&gt;
+      &lt;description&gt;When Carla meets Paul at an ornithology 
+      conference, tempers fly as feathers get ruffled.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk107&quot;&gt;
+      &lt;author&gt;
+&lt;name&gt;Paula&lt;/name&gt;
+&lt;surname&gt;Thurman&lt;/surname&gt;
+      &lt;/author&gt;
+      &lt;title&gt;Splish Splash&lt;/title&gt;
+      &lt;genre&gt;Romance&lt;/genre&gt;
+      &lt;price&gt;4.95&lt;/price&gt;
+      &lt;publish_date&gt;2000-11-02&lt;/publish_date&gt;
+      &lt;description&gt;A deep sea diver finds true love twenty 
+      thousand leagues beneath the sea.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk108&quot;&gt;
+      &lt;author&gt;
+&lt;name&gt;Stefan&lt;/name&gt;
+&lt;surname&gt;Knorr&lt;/surname&gt;
+      &lt;/author&gt;
+      &lt;title&gt;Creepy Crawlies&lt;/title&gt;
+      &lt;genre&gt;Horror&lt;/genre&gt;
+      &lt;price&gt;4.95&lt;/price&gt;
+      &lt;publish_date&gt;2000-12-06&lt;/publish_date&gt;
+      &lt;description&gt;An anthology of horror stories about roaches,
+      centipedes, scorpions  and other insects.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk109&quot;&gt;
+      &lt;author&gt;
+&lt;name&gt;Peter&lt;/name&gt;
+&lt;surname&gt;Kress&lt;/surname&gt;
+      &lt;/author&gt;
+      &lt;title&gt;Paradox Lost&lt;/title&gt;
+      &lt;genre&gt;Science Fiction&lt;/genre&gt;
+      &lt;price&gt;6.95&lt;/price&gt;
+      &lt;publish_date&gt;2000-11-02&lt;/publish_date&gt;
+      &lt;description&gt;After an inadvertant trip through a Heisenberg
+      Uncertainty Device, James Salway discovers the problems 
+      of being quantum.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk110&quot;&gt;
+      &lt;author&gt;
+&lt;name&gt;Tim&lt;/name&gt;
+&lt;surname&gt;O&#39;Brien&lt;/surname&gt;
+      &lt;/author&gt;
+      &lt;title&gt;Microsoft .NET: The Programming Bible&lt;/title&gt;
+      &lt;genre&gt;Computer&lt;/genre&gt;
+      &lt;price&gt;36.95&lt;/price&gt;
+      &lt;publish_date&gt;2000-12-09&lt;/publish_date&gt;
+      &lt;description&gt;Microsoft&#39;s .NET initiative is explored in 
+      detail in this deep programmer&#39;s reference.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk111&quot;&gt;
+      &lt;author&gt;
+&lt;name&gt;Tim&lt;/name&gt;
+&lt;surname&gt;O&#39;Brien&lt;/surname&gt;
+      &lt;/author&gt;
+      &lt;title&gt;MSXML3: A Comprehensive Guide&lt;/title&gt;
+      &lt;genre&gt;Computer&lt;/genre&gt;
+      &lt;price&gt;36.95&lt;/price&gt;
+      &lt;publish_date&gt;2000-12-01&lt;/publish_date&gt;
+      &lt;description&gt;The Microsoft MSXML3 parser is covered in 
+      detail, with attention to XML DOM interfaces, XSLT processing, 
+      SAX and more.&lt;/description&gt;
+   &lt;/book&gt;
+   &lt;book id=&quot;bk112&quot;&gt;
+      &lt;author&gt;
+&lt;name&gt;Mike&lt;/name&gt;
+&lt;surname&gt;Galos&lt;/surname&gt;
+      &lt;/author&gt;
+      &lt;title&gt;Visual Studio 7: A Comprehensive Guide&lt;/title&gt;
+      &lt;genre&gt;Computer&lt;/genre&gt;
+      &lt;price&gt;49.95&lt;/price&gt;
+      &lt;publish_date&gt;2001-04-16&lt;/publish_date&gt;
+      &lt;description&gt;Microsoft Visual Studio 7 is explored in depth,
+      looking at how Visual Basic, Visual C++, C#, and ASP+ are 
+      integrated into a comprehensive development 
+      environment.&lt;/description&gt;
+   &lt;/book&gt;
+&lt;/catalog&gt;
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
