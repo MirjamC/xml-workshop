@@ -25,7 +25,7 @@ With every package, we follow these steps:
 - Extract name and surname of the author;
 - Extraxt the book identifier;
 - Structure all information;
-- Store the information in a .csv or .txt file.
+- Extra: Filter information
 
 Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. 
 
@@ -203,7 +203,19 @@ The above code extraxts only the name of an author. Alter the code, so that it e
 			name = author.find('name').text
 			surname = author.find('surname').text
 			print(name, surname) 
-	
+```
+
+Another option is to 'escape' the element hiearchy and directly select all subelements, on all levels beneath the current element.
+This is usefull if you have an XML with a lot of children, and you want only specific content which you want to extract apart from their parents. 
+To escape  the hierarchy, you typ './/' before the name of the element you want to extract, as shown in the following code:
+
+```{code-cell}
+:tags: [hide-output]
+
+for book in root.findall('.//author'):
+    name = book.find('name').text
+    surname = book.find('surname').text
+    print(name, surname)  
 ```
 
 ## Extraxt the book identifier
@@ -458,7 +470,7 @@ for book in root.findall('book'):
     myfile.close()
 ```
 
-## Extra: Find book information based on the identifier
+## Extra: Filter information
 
 You can also search for specific elements in you XML. For example, only the title information from the book 'bk109'.
 To do so, you can start with the same for loop as we created in this lessons. However, before you print the output, you first check

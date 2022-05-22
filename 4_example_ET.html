@@ -131,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Alto and Elementree
+   7. Practical: Extract information from the Alto format with ElemenTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -344,8 +344,8 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extra-find-book-information-based-on-the-identifier">
-   Extra: Find book information based on the identifier
+  <a class="reference internal nav-link" href="#extra-filter-information">
+   Extra: Filter information
   </a>
  </li>
 </ul>
@@ -416,8 +416,8 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extra-find-book-information-based-on-the-identifier">
-   Extra: Find book information based on the identifier
+  <a class="reference internal nav-link" href="#extra-filter-information">
+   Extra: Filter information
   </a>
  </li>
 </ul>
@@ -441,7 +441,7 @@ With every package, we follow these steps:</p>
 <li><p>Extract name and surname of the author;</p></li>
 <li><p>Extraxt the book identifier;</p></li>
 <li><p>Structure all information;</p></li>
-<li><p>Store the information in a .csv or .txt file.</p></li>
+<li><p>Extra: Filter information</p></li>
 </ul>
 <p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.</p>
 <div class="section" id="import-elementree-and-import-the-xml-file">
@@ -836,6 +836,35 @@ Mike
 </pre></div>
 </div>
 </div>
+<p>Another option is to ‘escape’ the element hiearchy and directly select all subelements, on all levels beneath the current element.
+This is usefull if you have an XML with a lot of children, and you want only specific content which you want to extract apart from their parents.
+To escape  the hierarchy, you typ ‘.//’ before the name of the element you want to extract, as shown in the following code:</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//author&#39;</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">surname</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;surname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">surname</span><span class="p">)</span>  
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matthew Gambardella
+Kim Ralls
+Eva Corets
+Eva Corets
+Eva Corets
+Cynthia Randall
+Paula Thurman
+Stefan Knorr
+Peter Kress
+Tim O&#39;Brien
+Tim O&#39;Brien
+Mike Galos
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="extraxt-the-book-identifier">
 <h2>Extraxt the book identifier<a class="headerlink" href="#extraxt-the-book-identifier" title="Permalink to this headline">¶</a></h2>
@@ -1214,10 +1243,10 @@ We then tell Python what we want the name of all columns to be (this is in the s
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>description</th>
       <th>name</th>
       <th>title</th>
       <th>identifier</th>
-      <th>description</th>
     </tr>
   </thead>
   <tbody>
@@ -1355,8 +1384,8 @@ This code looks like this:</p>
 </div>
 </div>
 </div>
-<div class="section" id="extra-find-book-information-based-on-the-identifier">
-<h2>Extra: Find book information based on the identifier<a class="headerlink" href="#extra-find-book-information-based-on-the-identifier" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="extra-filter-information">
+<h2>Extra: Filter information<a class="headerlink" href="#extra-filter-information" title="Permalink to this headline">¶</a></h2>
 <p>You can also search for specific elements in you XML. For example, only the title information from the book ‘bk109’.
 To do so, you can start with the same for loop as we created in this lessons. However, before you print the output, you first check
 if you have the element you want (in this case: book 109). This can be done with an ‘if’ statement and it looks like this:</p>
