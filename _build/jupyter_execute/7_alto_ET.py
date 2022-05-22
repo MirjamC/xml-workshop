@@ -16,53 +16,103 @@
 # - Save the content in one file and in seperate textfiles; 
 # 
 # Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. 
+# (see explantion in {ref}`ET:import`)
 # 
 # ## Import ElemenTree and import the xml file
 # 
-# ElemenTree is part of the standard library and therefore does not need to be installed.
+# ```{admonition} Exercise
+# Import the package and load the xml file. 
 # 
-# Before we can use the package, we have to let Python know we want to use it. We do this by importing the package.
-# Type in a code cell:
-
-# In[1]:
-
-
-import xml.etree.ElementTree as ET
-
-
-# ## Examine the structure of the file
-# 
-# Now, we want to open the XML file from which we want to extract information. 
-# Add a new code cell and type:
-
-# In[2]:
-
-
-tree = ET.parse('data/example.xml')
-root = tree.getroot()
-
-
-# ```{note}
-# In the code above, alter the 'path_to_file/name_file' with the path to the folder and the filename. 
-# For example: D:\Projects\XML workshop\data\example.xml 
 # ```
 # 
-# When you want to extract information from an XML file, it is important that you are familair with the structure of the file. 
-# There are two ways to do this. 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# 	tree = ET.parse('xml-workshop/data/alto.xml')
+# 	root = tree.getroot()
+# ```
 # 
-# 1. You can open the file in a programme like Notepad++ or open it in your browser
-# 2. You can show the file in your Jupyter Notebook with the following code:
-
-# In[3]:
-
-
-# This cell should have its output hidden!
-print(ET.tostring(root, encoding='utf8').decode('utf8'))
-
-
-# Wat vragen over de structuur bedenken
+# ## Examine the structure of the file
 # 
-# ## Extract the book titles and descriptions
+# Before you can extraxt content from a XML file, you have to see what inside and how it is structured. 
+# 
+# ```{admonition} Exercise
+# Show the XML file in your Notebook
+# ```
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# 	print(ET.tostring(root, encoding='utf8').decode('utf8'))
+# ```
+# 
+# As you can see, this XML file has a lot more elements and attributes than our example file. 
+# Our goal is to extraxt the text from the news paper, to seperate the text into articles and to store them on our computer with the page number. 
+# 
+# So first, lets see if we can see where the textual content of the news paper is stored. 
+# 
+# ```{admonition} Exercise
+# Scroll through the XML file and see if you can find the element in which the text of the newspaper is stored. Hint: one of the news articles mentioned
+# 'olifant'. 
+# ```
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# The content of the news paper articles is stored in the element 'ns0:String'
+# 
+# 	<String ID="P3_ST00483" HPOS="557" VPOS="3994" WIDTH="109" HEIGHT="26" CONTENT="olifant" WC="0.99" CC="6000010"/>
+# 	
+# ```
+# 
+# ```{admonition} Exercise
+# If we compare the element 'String' to our example XML, we see that there is a difference in how the content is stored. What is the difference? 
+# ```
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# The content of the elements of the example XML where stored als values from the elements. 
+# The content of the String element is stored in an attribute called 'CONTENT'. 
+# ```
+# 
+# ```{admonition} Exercise
+# There are a lot of nested element in this XML file. What are the parents, grand parents and grand grandparents of the 'String' element? Are their more parents than this?
+# ```
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# The parent of the 'String' element is 'Textline'
+# The grandparent is 'TextBlock'
+# The grandgrandparent is 'Page'.
+# The complete line is alto/Layout/Page/TextBlock/Textline/String
+# ```
+# Now we know some first important information about this Alto file, so let's see if we can extract the content. 
+# 
+# ## Extract the plain text
+# 
+# We will start by extracting all the text, without worrying about the division between the articles. 
+# 
+# ```{admonition} Exercise
+# As you have seen, the plain text of the news paper is stored in the 'CONTENT' attribute of the 'String' element. How can you extract the values from attributes?
+# ```
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# This can be done with the .get method, for example: book.get('id'). 
+# ```
+# 
+# 
+# 
+# 
+# 
+# # This is old stuff!
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
 # 
 # ```{admonition} Exercise
 # :class: attention
@@ -77,7 +127,7 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # 
 # First, type the following code in your Jupyter Notebook to get the title from every book:
 
-# In[4]:
+# In[1]:
 
 
 # This cell should have its output hidden!
@@ -126,7 +176,7 @@ for book in root.findall('book'):
 # 
 # Combining the two codes above leads to the following code:
 
-# In[5]:
+# In[ ]:
 
 
 # This cell should have its output hidden!
@@ -173,7 +223,7 @@ for book in root.findall('book'):
 # Because of the difference between the place of the elements, we need to alter our code a bit. Instead of one for loop, that iterates through all the 'book' elements, 
 # we also need a for loop that runs through the 'author' element of book. We can do this with the following code:
 
-# In[6]:
+# In[ ]:
 
 
 # This cell should have its output hidden!
@@ -232,7 +282,7 @@ for book in root.findall('book'):
 # To extract content from attributes, we need to use a 'get' method. 
 # We still use the for loop to iterate through all the books, but instead of the content of certain elements, we now extract the content of the attribute.
 
-# In[7]:
+# In[ ]:
 
 
 # This cell should have its output hidden!
@@ -276,7 +326,7 @@ for book in root.findall('book'):
 # 
 # This leads to the following output:
 
-# In[8]:
+# In[ ]:
 
 
 # This cell should have its input hidden!
@@ -300,7 +350,7 @@ for book in root.findall('book'):
 # 
 # So in our example, this leads to:
 
-# In[9]:
+# In[ ]:
 
 
 # This cell should have its input hidden!
@@ -318,7 +368,7 @@ for book in root.findall('book'):
 # To resolve this, we can add linebreaks between each variable and between the different books. We add a line break by adding '\n' after each variable, 
 # leading to the following code:
 
-# In[10]:
+# In[ ]:
 
 
 # This cell should have its input hidden!
@@ -352,7 +402,7 @@ for book in root.findall('book'):
 # Now, we alter our for loop a bit. Instead of printing the output to the screen, as we did above, we store our output in a list. 
 # We therefor use the following code:
 
-# In[11]:
+# In[ ]:
 
 
 # This cell should have its input hidden!
@@ -392,7 +442,7 @@ for book in root.findall('book'):
 # 
 # This results in the following output:
 
-# In[12]:
+# In[ ]:
 
 
 # This cell should have its input hidden!
@@ -456,7 +506,7 @@ books
 # To do so, you can start with the same for loop as we created in this lessons. However, before you print the output, you first check
 # if you have the element you want (in this case: book 109). This can be done with an 'if' statement and it looks like this:
 
-# In[13]:
+# In[ ]:
 
 
 for book in root.findall('book'):
@@ -468,7 +518,7 @@ for book in root.findall('book'):
 # You can also search the content from xml elements, searching the content for a match. For example, if we want to print all title that contain the word 'XML', 
 # we can use the following code:
 
-# In[14]:
+# In[ ]:
 
 
 for book in root.findall('book'):
