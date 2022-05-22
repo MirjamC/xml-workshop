@@ -64,7 +64,11 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # 
 # #### Extract the book titles and descriptions
 # 
+# ```{admonition} Exercise
+# :class: attention
 # Look at the XML structure. Which elements do we need do find the title and the description?
+# ```
+# 
 # 
 # ```{admonition} Solution
 # :class: tip, dropdown
@@ -129,6 +133,31 @@ for book in root.findall('book'):
 
 
 # #### Extract name and surname of the author
+# You can use the same method as described above to extraxt all names and surname from the authors from the XML. 
+# However, if we look at the structure of the xml file, there is a different between the title and the names part.
+# 
+# ```
+# <catalog>
+# 	<book id="bk101">
+# 		<author>
+# 			<name>Matthew</name>
+# 			<surname>Gambardella</surname>
+# 		</author>
+# 		<title>XML Developer's Guide</title>
+# 		<genre>Computer</genre>
+# 		<price>44.95</price>
+# 		<publish_date>2000-10-01</publish_date>
+# 		<description>An in-depth look at creating applications with XML.</description>
+#    </book>
+# ```
+# 
+# 
+# 
+# 
 # #### Extraxt the book identifier;
+# 
+# 
 # #### Structure all information;
+# 
+# 
 # #### Store the information in a .csv or .txt file.

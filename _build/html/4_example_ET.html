@@ -621,7 +621,10 @@ There are two ways to do this.</p>
 </div>
 <div class="section" id="extract-the-book-titles-and-descriptions">
 <h3>Extract the book titles and descriptions<a class="headerlink" href="#extract-the-book-titles-and-descriptions" title="Permalink to this headline">¶</a></h3>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
 <p>Look at the XML structure. Which elements do we need do find the title and the description?</p>
+</div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <p>We need the child element ‘book’, and his subchildren ‘title’ and ‘description’.</p>
@@ -730,6 +733,22 @@ Visual Studio 7: A Comprehensive Guide Microsoft Visual Studio 7 is explored in 
 </div>
 <div class="section" id="extract-name-and-surname-of-the-author">
 <h3>Extract name and surname of the author<a class="headerlink" href="#extract-name-and-surname-of-the-author" title="Permalink to this headline">¶</a></h3>
+<p>You can use the same method as described above to extraxt all names and surname from the authors from the XML.
+However, if we look at the structure of the xml file, there is a different between the title and the names part.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">catalog</span><span class="o">&gt;</span>
+	<span class="o">&lt;</span><span class="n">book</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;bk101&quot;</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="n">author</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">Matthew</span><span class="o">&lt;/</span><span class="n">name</span><span class="o">&gt;</span>
+			<span class="o">&lt;</span><span class="n">surname</span><span class="o">&gt;</span><span class="n">Gambardella</span><span class="o">&lt;/</span><span class="n">surname</span><span class="o">&gt;</span>
+		<span class="o">&lt;/</span><span class="n">author</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="n">XML</span> <span class="n">Developer</span><span class="s1">&#39;s Guide&lt;/title&gt;</span>
+		<span class="o">&lt;</span><span class="n">genre</span><span class="o">&gt;</span><span class="n">Computer</span><span class="o">&lt;/</span><span class="n">genre</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="n">price</span><span class="o">&gt;</span><span class="mf">44.95</span><span class="o">&lt;/</span><span class="n">price</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="n">publish_date</span><span class="o">&gt;</span><span class="mi">2000</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">01</span><span class="o">&lt;/</span><span class="n">publish_date</span><span class="o">&gt;</span>
+		<span class="o">&lt;</span><span class="n">description</span><span class="o">&gt;</span><span class="n">An</span> <span class="ow">in</span><span class="o">-</span><span class="n">depth</span> <span class="n">look</span> <span class="n">at</span> <span class="n">creating</span> <span class="n">applications</span> <span class="k">with</span> <span class="n">XML</span><span class="o">.&lt;/</span><span class="n">description</span><span class="o">&gt;</span>
+   <span class="o">&lt;/</span><span class="n">book</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="extraxt-the-book-identifier">
 <h3>Extraxt the book identifier;<a class="headerlink" href="#extraxt-the-book-identifier" title="Permalink to this headline">¶</a></h3>
