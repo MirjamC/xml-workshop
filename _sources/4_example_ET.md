@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Lesson 4: Practical session: Working with ElemenTree and Beautiful Soup
+# 4. Practical session: Working with ElemenTree
 
 In this lesson, we are going to explore how the different packages work. We use the same example file that was used in lesson 2 (click here to download the file).
 
