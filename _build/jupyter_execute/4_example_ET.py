@@ -13,7 +13,7 @@
 # - Extract name and surname of the author;
 # - Extraxt the book identifier;
 # - Structure all information;
-# - Store the information in a .csv or .txt file.
+# - Extra: Filter information
 # 
 # Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. 
 # 
@@ -195,9 +195,21 @@ for book in root.findall('book'):
 # 			name = author.find('name').text
 # 			surname = author.find('surname').text
 # 			print(name, surname) 
-# 	
 # ```
 # 
+# Another option is to 'escape' the element hiearchy and directly select all subelements, on all levels beneath the current element.
+# This is usefull if you have an XML with a lot of children, and you want only specific content which you want to extract apart from their parents. 
+# To escape  the hierarchy, you typ './/' before the name of the element you want to extract, as shown in the following code:
+
+# In[7]:
+
+
+for book in root.findall('.//author'):
+    name = book.find('name').text
+    surname = book.find('surname').text
+    print(name, surname)  
+
+
 # ## Extraxt the book identifier
 # 
 # As you can see in the XML, each book has its own ***identifier***. As books can have the same name, and authors can have written multiple books, it 
@@ -232,7 +244,7 @@ for book in root.findall('book'):
 # To extract content from attributes, we need to use a 'get' method. 
 # We still use the for loop to iterate through all the books, but instead of the content of certain elements, we now extract the content of the attribute.
 
-# In[7]:
+# In[8]:
 
 
 # This cell should have its output hidden!
@@ -276,7 +288,7 @@ for book in root.findall('book'):
 # 
 # This leads to the following output:
 
-# In[8]:
+# In[9]:
 
 
 # This cell should have its input hidden!
@@ -300,7 +312,7 @@ for book in root.findall('book'):
 # 
 # So in our example, this leads to:
 
-# In[9]:
+# In[10]:
 
 
 # This cell should have its input hidden!
@@ -318,7 +330,7 @@ for book in root.findall('book'):
 # To resolve this, we can add linebreaks between each variable and between the different books. We add a line break by adding '\n' after each variable, 
 # leading to the following code:
 
-# In[10]:
+# In[11]:
 
 
 # This cell should have its input hidden!
@@ -352,7 +364,7 @@ for book in root.findall('book'):
 # Now, we alter our for loop a bit. Instead of printing the output to the screen, as we did above, we store our output in a list. 
 # We therefor use the following code:
 
-# In[11]:
+# In[12]:
 
 
 # This cell should have its input hidden!
@@ -392,7 +404,7 @@ for book in root.findall('book'):
 # 
 # This results in the following output:
 
-# In[12]:
+# In[13]:
 
 
 # This cell should have its input hidden!
@@ -450,13 +462,13 @@ books
 #     myfile.close()
 # ```
 # 
-# ## Extra: Find book information based on the identifier
+# ## Extra: Filter information
 # 
 # You can also search for specific elements in you XML. For example, only the title information from the book 'bk109'.
 # To do so, you can start with the same for loop as we created in this lessons. However, before you print the output, you first check
 # if you have the element you want (in this case: book 109). This can be done with an 'if' statement and it looks like this:
 
-# In[13]:
+# In[14]:
 
 
 for book in root.findall('book'):
@@ -468,7 +480,7 @@ for book in root.findall('book'):
 # You can also search the content from xml elements, searching the content for a match. For example, if we want to print all title that contain the word 'XML', 
 # we can use the following code:
 
-# In[14]:
+# In[15]:
 
 
 for book in root.findall('book'):
