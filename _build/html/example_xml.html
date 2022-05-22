@@ -246,6 +246,26 @@ const thebe_selector_output = ".output, .cell_output"
      Extract the book titles and descriptions
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extract-name-and-surname-of-the-author">
+     Extract name and surname of the author
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extraxt-the-book-identifier">
+     Extraxt the book identifier;
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#structure-all-information">
+     Structure all information;
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#store-the-information-in-a-csv-or-txt-file">
+     Store the information in a .csv or .txt file.
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -283,6 +303,26 @@ const thebe_selector_output = ".output, .cell_output"
      Extract the book titles and descriptions
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extract-name-and-surname-of-the-author">
+     Extract name and surname of the author
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extraxt-the-book-identifier">
+     Extraxt the book identifier;
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#structure-all-information">
+     Structure all information;
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#store-the-information-in-a-csv-or-txt-file">
+     Store the information in a .csv or .txt file.
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -301,11 +341,14 @@ const thebe_selector_output = ".output, .cell_output"
 With every package, we follow these steps:</p>
 <ul class="simple">
 <li><p>Load the XML file;</p></li>
-<li><p>Display the structure of the XML file;</p></li>
+<li><p>Examine the structure of the XML file;</p></li>
 <li><p>Extraxt the booktitles and descriptions;</p></li>
 <li><p>Extract name and surname of the author;</p></li>
+<li><p>Extraxt the book identifier;</p></li>
+<li><p>Structure all information;</p></li>
 <li><p>Store the information in a .csv or .txt file.</p></li>
 </ul>
+<p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.</p>
 <div class="section" id="a-the-elementree">
 <h2>4a: The ElemenTree<a class="headerlink" href="#a-the-elementree" title="Permalink to this headline">¶</a></h2>
 <p>ElemenTree is part of the standard library and therefore does not need to be installed.</p>
@@ -509,6 +552,7 @@ There are two ways to do this.</p>
 </div>
 </div>
 </div>
+<p>Wat vragen over de structuur bedenken</p>
 </div>
 <div class="section" id="extract-the-book-titles-and-descriptions">
 <h3>Extract the book titles and descriptions<a class="headerlink" href="#extract-the-book-titles-and-descriptions" title="Permalink to this headline">¶</a></h3>
@@ -517,7 +561,7 @@ There are two ways to do this.</p>
 <p class="admonition-title">Solution</p>
 <p>We need the child element ‘book’, and his subchildren ‘title’ and ‘description’.</p>
 </div>
-<p>First, we type in the code to get the title from every book:</p>
+<p>First, type the following code in your Jupyter Notebook to get the title from every book:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its output hidden!</span>
@@ -544,6 +588,92 @@ Visual Studio 7: A Comprehensive Guide
 </div>
 </div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Explanation of the code.
+The line:
+<code class="docutils literal notranslate"> <span class="pre">	for</span> <span class="pre">book</span> <span class="pre">in</span> <span class="pre">root.findall('book'):</span>  </code>
+starts loop that iterates through all ‘book’ elements in the XML. For each elements, it executes the rest of the code.
+<code class="docutils literal notranslate">  <span class="pre">	title</span> <span class="pre">=</span> <span class="pre">book.find('title').text</span>  </code>
+This line creates a new variabele called ‘title’. The content of the variable is content from the XML. For every ‘book’ elements, it searchs for
+a child element with the name ‘title’. Then, it extraxts the content from the title element. To extract contents from elements, we use .text.
+<code class="docutils literal notranslate"> <span class="pre">	title</span> <span class="pre">=</span> <span class="pre">book.find('title').text</span>  </code>
+This line displays the output. In this case, it shows the title of every book.</p>
+</div>
+<p>We can get the description of each book in the same way.
+Try to alter the code above to retreive all the descriptions and print out the descriptions.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.findall(&#39;book&#39;):
+	description = book.find(&#39;description&#39;).text
+	print(description)
+</pre></div>
+</div>
+</div>
+<p>We can use one for loop to extract both the book title and description from the XML file.
+Combining multiple items is preferable because it save unnecessary lines of codes and merges the part of code which does the same thing.
+This makes the code more readable and maintainable.</p>
+<p>Combining the two codes above leads to the following code:</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its output hidden!</span>
+<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+	<span class="n">title</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+	<span class="n">description</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>XML Developer&#39;s Guide An in-depth look at creating applications 
+      with XML.
+Midnight Rain A former architect battles corporate zombies, 
+      an evil sorceress, and her own childhood to become queen 
+      of the world.
+Maeve Ascendant After the collapse of a nanotechnology 
+      society in England, the young survivors lay the 
+      foundation for a new society.
+Oberon&#39;s Legacy In post-apocalypse England, the mysterious 
+      agent known only as Oberon helps to create a new life 
+      for the inhabitants of London. Sequel to Maeve 
+      Ascendant.
+The Sundered Grail The two daughters of Maeve, half-sisters, 
+      battle one another for control of England. Sequel to 
+      Oberon&#39;s Legacy.
+Lover Birds When Carla meets Paul at an ornithology 
+      conference, tempers fly as feathers get ruffled.
+Splish Splash A deep sea diver finds true love twenty 
+      thousand leagues beneath the sea.
+Creepy Crawlies An anthology of horror stories about roaches,
+      centipedes, scorpions  and other insects.
+Paradox Lost After an inadvertant trip through a Heisenberg
+      Uncertainty Device, James Salway discovers the problems 
+      of being quantum.
+Microsoft .NET: The Programming Bible Microsoft&#39;s .NET initiative is explored in 
+      detail in this deep programmer&#39;s reference.
+MSXML3: A Comprehensive Guide The Microsoft MSXML3 parser is covered in 
+      detail, with attention to XML DOM interfaces, XSLT processing, 
+      SAX and more.
+Visual Studio 7: A Comprehensive Guide Microsoft Visual Studio 7 is explored in depth,
+      looking at how Visual Basic, Visual C++, C#, and ASP+ are 
+      integrated into a comprehensive development 
+      environment.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="extract-name-and-surname-of-the-author">
+<h3>Extract name and surname of the author<a class="headerlink" href="#extract-name-and-surname-of-the-author" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="extraxt-the-book-identifier">
+<h3>Extraxt the book identifier;<a class="headerlink" href="#extraxt-the-book-identifier" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="structure-all-information">
+<h3>Structure all information;<a class="headerlink" href="#structure-all-information" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="store-the-information-in-a-csv-or-txt-file">
+<h3>Store the information in a .csv or .txt file.<a class="headerlink" href="#store-the-information-in-a-csv-or-txt-file" title="Permalink to this headline">¶</a></h3>
 </div>
 </div>
 </div>

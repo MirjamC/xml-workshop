@@ -8,10 +8,14 @@
 # This lesson is divided intro three sessions, where every session works with one of the Python packages that was introduced in lesson ?.
 # With every package, we follow these steps:
 # - Load the XML file;
-# - Display the structure of the XML file;
+# - Examine the structure of the XML file;
 # - Extraxt the booktitles and descriptions;
 # - Extract name and surname of the author;
+# - Extraxt the book identifier;
+# - Structure all information;
 # - Store the information in a .csv or .txt file.
+# 
+# Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. 
 # 
 # ## 4a: The ElemenTree
 # 
@@ -56,6 +60,8 @@ root = tree.getroot()
 print(ET.tostring(root, encoding='utf8').decode('utf8'))
 
 
+# Wat vragen over de structuur bedenken
+# 
 # #### Extract the book titles and descriptions
 # 
 # Look at the XML structure. Which elements do we need do find the title and the description?
@@ -65,7 +71,7 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # We need the child element 'book', and his subchildren 'title' and 'description'. 
 # ```
 # 
-# First, we type in the code to get the title from every book:
+# First, type the following code in your Jupyter Notebook to get the title from every book:
 
 # In[4]:
 
@@ -75,3 +81,54 @@ for book in root.findall('book'):
     title = book.find('title').text
     print(title)
 
+
+# ```{note}
+# Explanation of the code.
+# The line:
+# 	```
+# 	for book in root.findall('book'):
+# 	```
+# starts loop that iterates through all 'book' elements in the XML. For each elements, it executes the rest of the code.
+# 	```	
+# 	title = book.find('title').text
+# 	```
+# This line creates a new variabele called 'title'. The content of the variable is content from the XML. For every 'book' elements, it searchs for 
+# a child element with the name 'title'. Then, it extraxts the content from the title element. To extract contents from elements, we use .text. 
+# 	```
+# 	title = book.find('title').text
+# 	```
+# This line displays the output. In this case, it shows the title of every book. 
+# ```
+# 	
+# We can get the description of each book in the same way.
+# Try to alter the code above to retreive all the descriptions and print out the descriptions. 
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# 	
+# 	for book in root.findall('book'):
+# 		description = book.find('description').text
+# 		print(description)
+# 	
+# ```
+# 
+# We can use one for loop to extract both the book title and description from the XML file. 
+# Combining multiple items is preferable because it save unnecessary lines of codes and merges the part of code which does the same thing.
+# This makes the code more readable and maintainable. 
+# 
+# Combining the two codes above leads to the following code:
+
+# In[5]:
+
+
+# This cell should have its output hidden!
+for book in root.findall('book'):
+	title = book.find('title').text
+	description = book.find('description').text
+	print(title, description)
+
+
+# #### Extract name and surname of the author
+# #### Extraxt the book identifier;
+# #### Structure all information;
+# #### Store the information in a .csv or .txt file.

@@ -163,7 +163,10 @@ const thebe_selector_output = ".output, .cell_output"
 
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
-        
+        <a class="dropdown-buttons"
+            href="_sources/introduction_python.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
         <a class="dropdown-buttons" href="_sources/introduction_python.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
@@ -200,6 +203,23 @@ const thebe_selector_output = ".output, .cell_output"
             class="fas fa-expand"></i></button></a>
 
             <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/xml-workshop/master?urlpath=tree/docs/introduction_python.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
 
         </div>
 
@@ -340,6 +360,18 @@ const thebe_selector_output = ".output, .cell_output"
 <p>Notebooks are comprimised of different types of cells. The cell containing this text is a <em>textcel</em>. Text cells are generally used for descriptions and explantions.</p>
 <p>The layout is managed through <em>markdown</em> (see <a class="reference external" href="https://www.markdownguide.org/basic-syntax/">markdown syntax</a> for more information).</p>
 <p>The second main type of cell is the code cell. Such as teh example below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span><span class="o">*</span><span class="mi">8</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16
+</pre></div>
+</div>
+</div>
+</div>
 <p>Code cells are used to write and execute code. In our case Python. When a code cell is run, Python will execute the code in the cell.</p>
 <p>There are multiple ways to run a cell:</p>
 <ul class="simple">
@@ -352,8 +384,23 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="section" id="comments">
 <h3>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
 <p>Comments can be added to a code cell. Comments can be used to describe what a piece of code does, or can be used to tell where values can be changed.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is an example of a comment in a code cell.</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>The moment a # is typed in a code cell, everything after it will be regarded as a comment. Lines that have been marked as a comment will <strong>not</strong> be executed by Python when the cell is run.</p>
 <p><strong>Assignment:</strong> run the cell below. Does Python return output?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#print(&quot;The solution to 35+12 is:&quot;)</span>
+<span class="c1">#print(35+12)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>When the <strong>#</strong> is removed and the cell is run again, Python wil recognize the code and execute it.</p>
 <p><strong>Assignment:</strong> Ensure that Python executes the code and run the cell again.</p>
 </div>
@@ -372,14 +419,120 @@ We put this input into <em>variables</em>. Essentially a container for the data.
 <p><em>int</em> indicates a variable contains an integer, or whole number
 <em>str</em> indicates a variable contains a string, a piece of text.</p>
 <p><strong>Assignment</strong> Run the cell below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;this is a text&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>int
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>Important!</strong> If you input a number <em>with</em> quotation marks Python will see it as text!</p>
 <p><strong>Assignment:</strong> Run the cell below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_but_wrong</span> <span class="o">=</span> <span class="s2">&quot;9&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">number_but_wrong</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
+</pre></div>
+</div>
+</div>
+</div>
 <p>As mentioned above it is possible to use previously assigned variables in your code.</p>
 <p><strong>Assignment:</strong> Run the cell below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_1</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">number_2</span> <span class="o">=</span> <span class="mi">6</span>
+
+<span class="n">number_1</span> <span class="o">+</span> <span class="n">number_2</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>Assignment:</strong> Using Python, calculate the sum of “35 + 69” in teh cell below. Start with making two variables to assign the numbers <em>35</em> and <em>69</em> to. Calculate the sum using these variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a variable for the number 35</span>
+
+
+<span class="c1"># Make a variable for the number 69</span>
+
+
+<span class="c1"># Calculate the sum using the variables</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>The plus sign can be used to calculate sums, as you did in the above assignment. However, the plus sign can also be used to stick two different texts together.</p>
 <p><strong>Assignment:</strong> run the cell below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;This is a &quot;</span>
+<span class="n">line_2</span> <span class="o">=</span> <span class="s2">&quot;stuck together text&quot;</span>
+
+<span class="n">line_1</span> <span class="o">+</span> <span class="n">line_2</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;This is a stuck together text&#39;
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>Assignment:</strong> Ensure that the four lines below are printed as one sentence in the output.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;Because of this Notebook &quot;</span>
+<span class="n">line_2</span> <span class="o">=</span> <span class="s2">&quot;I now know &quot;</span>
+<span class="n">line_3</span> <span class="o">=</span> <span class="s2">&quot;that programming with Python &quot;</span>
+<span class="n">line_4</span> <span class="o">=</span> <span class="s2">&quot;is very fun!&quot;</span>
+
+<span class="c1"># Stick the lines together</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="functions">
 <h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
@@ -387,8 +540,43 @@ We put this input into <em>variables</em>. Essentially a container for the data.
 <p>Functions need to be passed one or more parameters as input. The syntax of a function is as follows: <em>functionname(parameters)</em>. When there are multiple parameters these are seperated with a comma.</p>
 <p>You can find some examples below.</p>
 <p><strong>Assignment:</strong> Run the cells below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the highest number using the max() function.</span>
+<span class="nb">max</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>75
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Round a number using the round() function</span>
+<span class="c1"># The first parameter is the number to round</span>
+<span class="c1"># De second number is the required number of decimals. </span>
+<span class="nb">round</span><span class="p">(</span><span class="mf">36.53343</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>36.53
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>Assignment:</strong> Calculate the <em>lowest</em> number using the function min(). This functions works similarly to the previously used max() function.
 Use the following numbers: 6, 24, 8, 2, 14.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use this cell to calculate the lowest number using the min() function.</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 <div class="section" id="packages">
 <h3>Packages<a class="headerlink" href="#packages" title="Permalink to this headline">¶</a></h3>
@@ -397,11 +585,56 @@ Use the following numbers: 6, 24, 8, 2, 14.</p>
 <p>Afterwards the package needs to be <em>imported</em> into the Notebook. After importing the package is ready for use.</p>
 <p>Below you can find an example of installing, importing and using a package that measures the distances between two texts.</p>
 <p><strong>Assignment:</strong> Run the cells below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the package</span>
+<span class="o">!</span>pip install textdistance
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: textdistance in c:\users\mirjam\anaconda3\lib\site-packages (4.2.1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the package</span>
+<span class="kn">import</span> <span class="nn">textdistance</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p>A package can be used in the same way as a function.
 In the case of the package used below, there are multiple methods for the calculation of the difference between texts. Among others there are the options ‘hamming’ and ‘levenshtein’. The option that you want to use is added afte the name of the package.</p>
 <p>Syntax: <em>packagename.option(parameters)</em></p>
 <p><strong>Assignment:</strong> Run the cell below</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Make two variables wit ha line of text.</span>
+<span class="n">text1</span> <span class="o">=</span> <span class="s2">&quot;Lesser leather never weathered wetter weather better&quot;</span>
+<span class="n">text2</span> <span class="o">=</span> <span class="s2">&quot;Lesser leather never weathered wethter weater better&quot;</span>
+
+<span class="c1">## Calculate the difference using the hamming option</span>
+<span class="n">textdistance</span><span class="o">.</span><span class="n">hamming</span><span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">text2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>Assignment:</strong> Calculate the difference between texts using the levenshtein option.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Calculate the difference using the levenshtein option</span>
+</pre></div>
+</div>
+</div>
+</div>
 <p><strong>Assignemnt:</strong> For this assignment you will combine the previous steps to use the package ‘passwordmeter’. You will use this package to measure the strength of three passwords, and determine how they can be improved.</p>
 <p>You will test the following passwords:
 1: Welcome1234!
@@ -413,6 +646,41 @@ In the case of the package used below, there are multiple methods for the calcul
 <li><p>Import the package</p></li>
 <li><p>Calculate the password strenght using the in-built function ‘test’ using the following syntax: <em>packagename.function(password)</em></p></li>
 </ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install the package</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the package</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the strength of password 1 </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the strength of password 2 </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the strength of password 3</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="the-end">
