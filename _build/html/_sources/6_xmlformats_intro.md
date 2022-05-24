@@ -13,4 +13,4 @@ kernelspec:
   name: python3
 ---
 
-# 6. Introduction to the Alto, TEI and Page format
+# 6. Introduction to the Alto/Didle, TEI and Page format

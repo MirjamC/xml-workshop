@@ -1,4 +1,4 @@
-# Lesson 2: Introduction to XML 
+# 2. Introduction to XML 
 
 ## XML
 
