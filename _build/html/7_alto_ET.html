@@ -101,7 +101,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="1_introduction_python.html">
-   1. Introduction to Python and Jupyter Notebooks
+   Lesson 1: Introduction to Python and Jupyter Notebooks
   </a>
  </li>
  <li class="toctree-l1">
@@ -121,7 +121,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="5_example_BS.html">
-   5: Practical session: Working with Beautiful Soup
+   5. Practical session: Working with Beautful Soup
   </a>
  </li>
  <li class="toctree-l1">
@@ -296,71 +296,69 @@ const thebe_selector_output = ".output, .cell_output"
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   7. Practical: Extract information from the Alto format with ElemenTree
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-elementree-and-import-the-xml-file">
+   Import ElemenTree and import the xml file
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#import-elementree-and-import-the-xml-file">
-     Import ElemenTree and import the xml file
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examine-the-structure-of-the-file">
+   Examine the structure of the file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-plain-text">
+   Extract the plain text
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#namespaces">
+     namespaces
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#examine-the-structure-of-the-file">
-     Examine the structure of the file
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extract-the-plain-text">
-     Extract the plain text
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#this-is-old-stuff">
+     This is old stuff!
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#this-is-old-stuff">
-   This is old stuff!
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-name-and-surname-of-the-author">
+   Extract name and surname of the author
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extract-name-and-surname-of-the-author">
-     Extract name and surname of the author
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extraxt-the-book-identifier">
+   Extraxt the book identifier
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#structure-all-information">
+   Structure all information
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#store-the-information-in-a-csv-or-txt-file">
+   Store the information in a .csv or .txt file.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#store-in-one-file">
+     Store in one file
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extraxt-the-book-identifier">
-     Extraxt the book identifier
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#structure-all-information">
-     Structure all information
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#store-the-information-in-a-csv-or-txt-file">
-     Store the information in a .csv or .txt file.
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#store-in-one-file">
-       Store in one file
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#create-a-textfile-per-book">
-       Create a textfile per book
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extra-filter-information">
-     Extra: Filter information
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-a-textfile-per-book">
+     Create a textfile per book
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extra-filter-information">
+   Extra: Filter information
+  </a>
  </li>
 </ul>
 
@@ -382,71 +380,69 @@ const thebe_selector_output = ".output, .cell_output"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   7. Practical: Extract information from the Alto format with ElemenTree
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#import-elementree-and-import-the-xml-file">
+   Import ElemenTree and import the xml file
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#import-elementree-and-import-the-xml-file">
-     Import ElemenTree and import the xml file
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examine-the-structure-of-the-file">
+   Examine the structure of the file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-plain-text">
+   Extract the plain text
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#namespaces">
+     namespaces
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#examine-the-structure-of-the-file">
-     Examine the structure of the file
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extract-the-plain-text">
-     Extract the plain text
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#this-is-old-stuff">
+     This is old stuff!
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#this-is-old-stuff">
-   This is old stuff!
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-name-and-surname-of-the-author">
+   Extract name and surname of the author
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extract-name-and-surname-of-the-author">
-     Extract name and surname of the author
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extraxt-the-book-identifier">
+   Extraxt the book identifier
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#structure-all-information">
+   Structure all information
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#store-the-information-in-a-csv-or-txt-file">
+   Store the information in a .csv or .txt file.
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#store-in-one-file">
+     Store in one file
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extraxt-the-book-identifier">
-     Extraxt the book identifier
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#structure-all-information">
-     Structure all information
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#store-the-information-in-a-csv-or-txt-file">
-     Store the information in a .csv or .txt file.
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#store-in-one-file">
-       Store in one file
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#create-a-textfile-per-book">
-       Create a textfile per book
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extra-filter-information">
-     Extra: Filter information
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#create-a-textfile-per-book">
+     Create a textfile per book
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extra-filter-information">
+   Extra: Filter information
+  </a>
  </li>
 </ul>
 
@@ -474,13 +470,15 @@ We assume that you have followed the practical lesson 4. We will reference to co
 (see explantion in <span class="xref std std-ref">ET:import</span>)</p>
 <div class="section" id="import-elementree-and-import-the-xml-file">
 <h2>Import ElemenTree and import the xml file<a class="headerlink" href="#import-elementree-and-import-the-xml-file" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-exercise admonition">
+<div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Import the package and load the xml file.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>tree = ET.parse(&#39;xml-workshop/data/alto.xml&#39;)
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import xml.etree.ElementTree as ET
+
+tree = ET.parse(&#39;xml-workshop/data/alto.xml&#39;)
 root = tree.getroot()
 </pre></div>
 </div>
@@ -489,7 +487,7 @@ root = tree.getroot()
 <div class="section" id="examine-the-structure-of-the-file">
 <h2>Examine the structure of the file<a class="headerlink" href="#examine-the-structure-of-the-file" title="Permalink to this headline">¶</a></h2>
 <p>Before you can extraxt content from a XML file, you have to see what inside and how it is structured.</p>
-<div class="admonition-exercise admonition">
+<div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Show the XML file in your Notebook</p>
 </div>
@@ -502,7 +500,7 @@ root = tree.getroot()
 <p>As you can see, this XML file has a lot more elements and attributes than our example file.
 Our goal is to extraxt the text from the news paper, to seperate the text into articles and to store them on our computer with the page number.</p>
 <p>So first, lets see if we can see where the textual content of the news paper is stored.</p>
-<div class="admonition-exercise admonition">
+<div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Scroll through the XML file and see if you can find the element in which the text of the newspaper is stored. Hint: one of the news articles mentioned
 ‘olifant’.</p>
@@ -514,7 +512,7 @@ Our goal is to extraxt the text from the news paper, to seperate the text into a
 </pre></div>
 </div>
 </div>
-<div class="admonition-exercise admonition">
+<div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>If we compare the element ‘String’ to our example XML, we see that there is a difference in how the content is stored. What is the difference?</p>
 </div>
@@ -523,7 +521,7 @@ Our goal is to extraxt the text from the news paper, to seperate the text into a
 <p>The content of the elements of the example XML where stored als values from the elements.
 The content of the String element is stored in an attribute called ‘CONTENT’.</p>
 </div>
-<div class="admonition-exercise admonition">
+<div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>There are a lot of nested element in this XML file. What are the parents, grand parents and grand grandparents of the ‘String’ element? Are their more parents than this?</p>
 </div>
@@ -539,7 +537,7 @@ The complete line is alto/Layout/Page/TextBlock/Textline/String</p>
 <div class="section" id="extract-the-plain-text">
 <h2>Extract the plain text<a class="headerlink" href="#extract-the-plain-text" title="Permalink to this headline">¶</a></h2>
 <p>We will start by extracting all the text, without worrying about the division between the articles.</p>
-<div class="admonition-exercise admonition">
+<div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>As you have seen, the plain text of the news paper is stored in the ‘CONTENT’ attribute of the ‘String’ element. How can you extract the values from attributes?</p>
 </div>
@@ -547,10 +545,97 @@ The complete line is alto/Layout/Page/TextBlock/Textline/String</p>
 <p class="admonition-title">Solution</p>
 <p>This can be done with the .get method, for example: book.get(‘id’).</p>
 </div>
+<p>We learned in lesson 4 that you can acces the elements with a for loop, like</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>However, as you have seen above, the element ‘String’ is a grandgrandgrandgrandchild from the start element ‘alto’.
+One way to access the String element is by typing all ancestors, leading to a code like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;alto/Layout/Page/TextBlock/Textline/String&#39;</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>However, we preferably avoid that, since it takes a lot of time and leads easliy to mistake.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>In lesson 4, we learned a way to escapte all the ancestors, how did you do this?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>By adding ‘.//’, for example  for book in root.findall(‘’.//author’):</p>
+</div>
+<p>So, we can easily loop through all String elements by using the .// escape, and we can extract the content from the CONTENT attribute with the .get method.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Create the for loop to extract the content. This loop looks like this:
+for text in the String elements:
+print(the value of the CONTENT attribute)
+Complete the code and run it. What happens?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.findall(&#39;ns0:String&#39;):
+	print(book.get(&#39;CONTENT&#39;))
+</pre></div>
+</div>
+<p>The code doesn’t produce any outcome.</p>
+</div>
+<div class="section" id="namespaces">
+<h3>namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline">¶</a></h3>
+<p>So, what is going on? Why isn’t there any output?
+As described in lesson <em><strong>2</strong></em>, some XML documents make use of <em>namespaces</em>.
+If we look at the first line of the Alto file, we see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf8&#39;?&gt;
+&lt;ns0:alto xmlns:ns0=&quot;http://schema.ccs-gmbh.com/ALTO&quot;&gt;
+</pre></div>
+</div>
+<p>The second line shows us that this XML make use of namespaces.
+‘ns0’ is used as a shortcut for ‘<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>’.</p>
+<p>We have now to options to handle the namespaces in ElemenTree:</p>
+<ol class="simple">
+<li><p>Type the namespace before the elementname between curly brackets: {<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>}</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//{http://schema.ccs-gmbh.com/ALTO}String&#39;</span><span class="p">):</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Declare the namespace in elemenTree. You therefore provide Python with a dictionary of the used namespaces, which it can use.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ns0&#39;</span><span class="p">:</span> <span class="s1">&#39;http://schema.ccs-gmbh.com/ALTO&#39;</span><span class="p">}</span>
+</pre></div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="this-is-old-stuff">
-<h1>This is old stuff!<a class="headerlink" href="#this-is-old-stuff" title="Permalink to this headline">¶</a></h1>
+</div>
+<p>Now you can use the abbreviation of the namespace in your code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you declare the namespace in Python with a dictionary, to not forget to put ‘, ns’ after your elementname in the findall.
+Without this ns, Python does not recognize the namespace.
+You only have to declare the namespaces ones, Python will then recognize them in de rest of your Jupyter Notebook.</p>
+</div>
+<p>For the remainder of this lesson, we will use the second option.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Choose one of the namespace option and run the code to extract all the text from the CONTENT attribute.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.findall(&#39;.//ns0:String&#39;, ns):
+	print(book.get(&#39;CONTENT&#39;))		
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="this-is-old-stuff">
+<h3>This is old stuff!<a class="headerlink" href="#this-is-old-stuff" title="Permalink to this headline">¶</a></h3>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Look at the XML structure. Which elements do we need do find the title and the description?</p>
@@ -572,7 +657,7 @@ The complete line is alto/Layout/Page/TextBlock/Textline/String</p>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># This cell should have its output hidden!</span>
 <span class="ne">----&gt; </span><span class="mi">2</span> <span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">title</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
@@ -620,6 +705,8 @@ This makes the code more readable and maintainable.</p>
 	<span class="n">description</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
 	<span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -17,16 +17,20 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# This cell should have its output hidden!
-print(ET.tostring(root, encoding='utf8').decode('utf8'))
+for book in root.find_all('book'):
+    if book.attrib['id']=="bk109":
+        title = book.find('title').text
+        print(title)
 ------------------
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mNameError[0m                                 Traceback (most recent call last)
-Input [1;32mIn [2][0m, in [0;36m<cell line: 2>[1;34m()[0m
-[0;32m      1[0m [38;5;66;03m# This cell should have its output hidden![39;00m
-[1;32m----> 2[0m [38;5;28mprint[39m(ET[38;5;241m.[39mtostring([43mroot[49m, encoding[38;5;241m=[39m[38;5;124m'[39m[38;5;124mutf8[39m[38;5;124m'[39m)[38;5;241m.[39mdecode([38;5;124m'[39m[38;5;124mutf8[39m[38;5;124m'[39m))
+[1;31mTypeError[0m                                 Traceback (most recent call last)
+Input [1;32mIn [14][0m, in [0;36m<cell line: 1>[1;34m()[0m
+[0;32m      1[0m [38;5;28;01mfor[39;00m book [38;5;129;01min[39;00m root[38;5;241m.[39mfind_all([38;5;124m'[39m[38;5;124mbook[39m[38;5;124m'[39m):
+[1;32m----> 2[0m     [38;5;28;01mif[39;00m [43mbook[49m[38;5;241;43m.[39;49m[43mattrib[49m[43m[[49m[38;5;124;43m'[39;49m[38;5;124;43mid[39;49m[38;5;124;43m'[39;49m[43m][49m[38;5;241m==[39m[38;5;124m"[39m[38;5;124mbk109[39m[38;5;124m"[39m:
+[0;32m      3[0m         title [38;5;241m=[39m book[38;5;241m.[39mfind([38;5;124m'[39m[38;5;124mtitle[39m[38;5;124m'[39m)[38;5;241m.[39mtext
+[0;32m      4[0m         [38;5;28mprint[39m(title)
 
-[1;31mNameError[0m: name 'root' is not defined
-NameError: name 'root' is not defined
+[1;31mTypeError[0m: 'NoneType' object is not subscriptable
+TypeError: 'NoneType' object is not subscriptable
 
