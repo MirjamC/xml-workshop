@@ -13,4 +13,4 @@ kernelspec:
   name: python3
 ---
 
-# 12. Practical session: Page and Beautiful Soup
+# 10. Practical session: Tei and Beautiful Soup

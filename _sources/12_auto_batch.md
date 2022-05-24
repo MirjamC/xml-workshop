@@ -13,4 +13,4 @@ kernelspec:
   name: python3
 ---
 
-# 8. Practical session: Alto and Elementree
+# 12. Practical session: Automatically extraxt information from a batch of files

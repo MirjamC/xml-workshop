@@ -13,4 +13,4 @@ kernelspec:
   name: python3
 ---
 
-# 13. Practical session: Automatically extraxt information from a batch of files
+# 9. Practical session: Alto and Beautiful Soup
