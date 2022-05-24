@@ -101,12 +101,12 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="1_introduction_python.html">
-   Lesson 1: Introduction to Python and Jupyter Notebooks
+   1. Introduction to Python and Jupyter Notebooks
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="2_introduction_xml.html">
-   2. Introduction to XML
+   Lesson 2: Introduction to XML
   </a>
  </li>
  <li class="toctree-l1">
@@ -316,6 +316,13 @@ const thebe_selector_output = ".output, .cell_output"
      namespaces
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#divide-the-plain-text-into-seperate-articles">
+   Divide the plain text into seperate articles
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#this-is-old-stuff">
      This is old stuff!
@@ -400,6 +407,13 @@ const thebe_selector_output = ".output, .cell_output"
      namespaces
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#divide-the-plain-text-into-seperate-articles">
+   Divide the plain text into seperate articles
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#this-is-old-stuff">
      This is old stuff!
@@ -634,6 +648,20 @@ You only have to declare the namespaces ones, Python will then recognize them in
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="divide-the-plain-text-into-seperate-articles">
+<h2>Divide the plain text into seperate articles<a class="headerlink" href="#divide-the-plain-text-into-seperate-articles" title="Permalink to this headline">¶</a></h2>
+<p>As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit onreadable. We can store the text in a <em>string</em> variable,
+in which we concatenate all words.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">all_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+    <span class="n">all_content</span> <span class="o">=</span> <span class="n">all_content</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">content</span>
+</pre></div>
+</div>
+<p>The content is now more readable, however, it is still one long blob of the complete text of the newspaper.
+We would like to divide the texts in articles.</p>
 <div class="section" id="this-is-old-stuff">
 <h3>This is old stuff!<a class="headerlink" href="#this-is-old-stuff" title="Permalink to this headline">¶</a></h3>
 <div class="attention admonition">

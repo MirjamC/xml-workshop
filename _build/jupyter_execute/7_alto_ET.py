@@ -23,7 +23,6 @@
 # ```{admonition} Exercise
 # :class: attention
 # Import the package and load the xml file. 
-# 
 # ```
 # 
 # ```{admonition} Solution
@@ -203,13 +202,31 @@ ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
 # 		print(book.get('CONTENT'))		
 # ``` 
 # 
+# ## Divide the plain text into seperate articles
+# 
+# As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit onreadable. We can store the text in a *string* variable, 
+# in which we concatenate all words. 
+# 
+# ```
+# all_content = ""
+# 
+# for book in root.findall('.//ns0:String', ns):
+#     content = book.get('CONTENT')
+#     all_content = all_content + " " + content
+# ```
+# 
+# The content is now more readable, however, it is still one long blob of the complete text of the newspaper.
+# We would like to divide the texts in articles. 
+# 
+# 
+# 
+# 
+# 
+# 
+# 
 # 
 # 
 # ### This is old stuff!
-# 
-# 
-# 
-# 
 # 
 # 
 # 

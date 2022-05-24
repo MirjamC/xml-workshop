@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>2. Introduction to XML &#8212; Automatically extract XML content with Python</title>
+    <title>Lesson 2: Introduction to XML &#8212; Automatically extract XML content with Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -106,7 +106,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   2. Introduction to XML
+   Lesson 2: Introduction to XML
   </a>
  </li>
  <li class="toctree-l1">
@@ -121,7 +121,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="5_example_BS.html">
-   5: Practical session: Working with Beautiful Soup
+   5. Practical session: Working with Beautful Soup
   </a>
  </li>
  <li class="toctree-l1">
@@ -131,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Alto and Elementree
+   7. Practical: Extract information from the Alto format with ElemenTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -271,6 +271,64 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#xml">
+   XML
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#xml-structure">
+     XML Structure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#elements">
+     Elements
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#xml-tree">
+     XML Tree
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes">
+     Attributes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#namespaces-wip">
+     Namespaces
+     <em>
+      WIP
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prolog">
+     Prolog
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comments">
+     Comments
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rules">
+     Rules
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -278,19 +336,315 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>2. Introduction to XML</h1>
+                <h1>Lesson 2: Introduction to XML</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#xml">
+   XML
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#xml-structure">
+     XML Structure
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#elements">
+     Elements
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#xml-tree">
+     XML Tree
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#attributes">
+     Attributes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#namespaces-wip">
+     Namespaces
+     <em>
+      WIP
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#prolog">
+     Prolog
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#comments">
+     Comments
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#rules">
+     Rules
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-xml">
-<h1>2. Introduction to XML<a class="headerlink" href="#introduction-to-xml" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="lesson-2-introduction-to-xml">
+<h1>Lesson 2: Introduction to XML<a class="headerlink" href="#lesson-2-introduction-to-xml" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="xml">
+<h2>XML<a class="headerlink" href="#xml" title="Permalink to this headline">¶</a></h2>
+<p>XML stands for eXtensible Markup Language. It is a language (but not a programming language) which goal is to store and transport data in a structured manner. It was designed to be self-descriptive and to be both human and machine readable. Because XML presents data in a structured format, and because it is platform independent, it is a popular format for applications to communicate.
+XML itself does not do anything.</p>
+<p>XML is very common in DH research and knowing how to process XML documents is an invaluable skill.</p>
+<div class="section" id="xml-structure">
+<h3>XML Structure<a class="headerlink" href="#xml-structure" title="Permalink to this headline">¶</a></h3>
+<p>Below is a short example of XML:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;catalog&gt;</span>
+	<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;author&gt;</span>
+			<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
+			<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+		<span class="nt">&lt;/author&gt;</span>
+		<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
+		<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
+		<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
+		<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
+		<span class="nt">&lt;description&gt;</span>An in-depth look at creating applicationswith XML.<span class="nt">&lt;/description&gt;</span>
+	<span class="nt">&lt;/book&gt;</span>
+<span class="nt">&lt;/catalog&gt;</span>
+</pre></div>
+</div>
+<p>Although at first this may look unfamiliar, the XML above is mostly self-descriptive:</p>
+<ul class="simple">
+<li><p>it is a catalog</p></li>
+<li><p>it contains a book</p></li>
+<li><p>it contains information about that book</p></li>
+<li><p>it has a description of the book</p></li>
+</ul>
+<p>This XML structure is called a <em>tree</em> and contains so-called elements.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Looking at the example XML, what is the title of the book?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The title of the book is: “XML Developer’s Guide”. This can be found by looking at the flanking <em>tags</em>, more about these later.</p>
+</div>
+</div>
+<div class="section" id="elements">
+<h3>Elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h3>
+<p>An XML tree consists of elements.</p>
+<p>All elements follow the same basic structure:</p>
+<p>Opening tag + content + closing tag = element</p>
+<p>Elements consist of tags that describe the element, and content.
+Tags come in pairs, an opening tag and a closing tag. These are enclosed in <strong>&lt;&gt;</strong>.
+Tags of an element must always be identical to each other, except that the closing tag includes a <strong>/</strong> before the tagname.</p>
+<p>Because of this structured build elements are self-describing.
+One element in the example XML above is the title:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
+</pre></div>
+</div>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;title&gt;</span> - is the opening tag
+XML Developer&#39;s Guide - is the content 
+<span class="nt">&lt;/title&gt;</span> - is the closing tag
+</pre></div>
+</div>
+<p>An element can contain other elements, such as in the example above.
+The element <em>book</em> contains the elements <em>author</em>, <em>title</em>, <em>genre</em>, <em>price</em>, <em>publish_date</em>, and <em>description</em></p>
+<p>Elements can also be empty, having tags but no content.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Looking at the example XML, what elements does the element <em>author</em> contain?</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>	<span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+	<span class="nt">&lt;catalog&gt;</span>
+		<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;author&gt;</span>
+				<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
+				<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+			<span class="nt">&lt;/author&gt;</span>
+			<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
+			<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
+			<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
+			<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
+			<span class="nt">&lt;description&gt;</span>An in-depth look at creating applicationswith XML.<span class="nt">&lt;/description&gt;</span>
+		<span class="nt">&lt;/book&gt;</span>
+	<span class="nt">&lt;/catalog&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The element <em>author</em> contains the elements <em>name</em> and <em>surname</em>.</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>	<span class="nt">&lt;author&gt;</span>
+		<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span> 
+		<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+	<span class="nt">&lt;/author&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="xml-tree">
+<h3>XML Tree<a class="headerlink" href="#xml-tree" title="Permalink to this headline">¶</a></h3>
+<p>Similar to a real tree, an XML tree starts at a <em>root element</em> and branches out into <em>child elements</em>.
+Each of these elements can have <em>sub elements</em> or <em>child elements</em>.</p>
+<p>The basic structure is this:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;root&gt;</span>
+  <span class="nt">&lt;child&gt;</span>
+    <span class="nt">&lt;subchild&gt;</span>.....<span class="nt">&lt;/subchild&gt;</span>
+  <span class="nt">&lt;/child&gt;</span>
+<span class="nt">&lt;/root&gt;</span>
+</pre></div>
+</div>
+<p>The relation between elements is described with the terms <em>parent</em>, <em>child</em>, and <em>sibling</em>.
+Like family trees, parents are on the top level, children below parents and siblings are on the same level.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Looking at the example XML,</p>
+<ol class="simple">
+<li><p>What is the root element?</p></li>
+<li><p>Does the element <em>book</em> have subchildren?</p></li>
+<li><p>What are the siblings of <em>author</em>?</p></li>
+</ol>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+	<span class="nt">&lt;catalog&gt;</span>
+		<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;author&gt;</span>
+				<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
+				<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+			<span class="nt">&lt;/author&gt;</span>
+			<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
+			<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
+			<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
+			<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
+			<span class="nt">&lt;description&gt;</span>An in-depth look at creating applicationswith XML.<span class="nt">&lt;/description&gt;</span>
+		<span class="nt">&lt;/book&gt;</span>
+	<span class="nt">&lt;/catalog&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<ol class="simple">
+<li><p>The root element is the first element of the tree. In this case it is <em>catalog</em>.</p></li>
+<li><p>The element <em>book</em> has 2 subchildren, <em>name</em> and <em>surname</em>.</p></li>
+<li><p>The siblings of author are: <em>title</em>, <em>genre</em>, <em>price</em>, <em>publish_date</em>, and <em>description</em>.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Permalink to this headline">¶</a></h3>
+<p>Elements can have attributes. Attributes give more information about XML elements and are used to distinguish between elements with the same name. Attributes always consists of a name-value pair.</p>
+<p>Returning to our example XML, the element <em>book</em> has an atribute <em>id</em>.</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span> <span class="nt">&lt;/book&gt;</span>
+</pre></div>
+</div>
+<p>This attribute contains the unique id of the book. This is usefull as there may be books with the same name, and this way these can be identified separately. Attribute values are always quoted.</p>
+</div>
+<div class="section" id="namespaces-wip">
+<h3>Namespaces <em>WIP</em><a class="headerlink" href="#namespaces-wip" title="Permalink to this headline">¶</a></h3>
+<p>Tag names are defined by the person or application building the XML. This can lead to problems when mixing XML from different applications. These name conflicts can be</p>
+<p>For example, below are two pieces of XML, <em>catalog</em> and <em>author</em>. Both contain elements of the same name: <em>name</em> and <em>surname</em>.
+If these two pieces were added together, there would be a name conflict.</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;catalog&gt;</span>
+	<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;author&gt;</span>
+			<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
+			<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+		<span class="nt">&lt;/author&gt;</span>
+		<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
+		<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
+		<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
+		<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
+		<span class="nt">&lt;description&gt;</span>An in-depth look at creating applicationswith XML.<span class="nt">&lt;/description&gt;</span>
+	<span class="nt">&lt;/book&gt;</span>
+<span class="nt">&lt;/catalog&gt;</span>
+
+<span class="nt">&lt;singers&gt;</span>
+	<span class="nt">&lt;name&gt;</span>Katy<span class="nt">&lt;/name&gt;</span>
+	<span class="nt">&lt;surname&gt;</span>Perry<span class="nt">&lt;/surname&gt;</span>
+<span class="nt">&lt;/singers&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="prolog">
+<h3>Prolog<a class="headerlink" href="#prolog" title="Permalink to this headline">¶</a></h3>
+<p>XML usually starts with the <em>prolog</em> a piece of code that defines the XML version and can contain character encoding. The prolog is optional, and if present it must come first in the document. It is good practice to include it.</p>
+<p>For our example the prolog is:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="comments">
+<h3>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
+<p>In XML comments may be added, these can contain descriptions about the data or other information.
+Comments are written as:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- This is a comment --&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rules">
+<h3>Rules<a class="headerlink" href="#rules" title="Permalink to this headline">¶</a></h3>
+<p>There are some rules regarding XML.
+As mentioned above tags must always come in pairs. Each opening tag needs its closing tag.
+Tag names are case sensitive, in XML title, Title, and TITLE are three different tag names
+Tag names can only begin with a letter or an underscore.
+Tag names can contain letters, digits, hyphens, underscores, and periods. No other signs are allowed, mnot even spaces.
+XML documents <strong>must</strong> have a root element.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Keeping the rules in mind, are the following elements correctly defined?</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>1.	<span class="nt">&lt;author&gt;</span>
+		<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
+		<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+	<span class="nt">&lt;/Author&gt;</span>
+
+2.	<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide
+	
+3.		<span class="nt">&lt;author&gt;</span>
+			<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
+			<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+		<span class="nt">&lt;/author&gt;</span>
+		<span class="nt">&lt;/book&gt;</span>
+	
+4.	<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
+	
+5.	<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publishdate&gt;</span>
+	
+6.	<span class="nt">&lt;description&gt;</span>An in-depth look at creating applications with XML. /description&gt;
+</pre></div>
+</div>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>1. No, the root tags are not the same, <span class="nt">&lt;author&gt;</span> and <span class="nt">&lt;/Author&gt;</span>. XML is case-sensitive.
+2. No, the closing tag <span class="nt">&lt;/title&gt;</span> is missing. Elements must always have both tags.
+3. No, the opening tag <span class="nt">&lt;book&gt;</span> is missing. Elements must always have both tags.
+4. Yes, this element is correctly defined.
+5. No, the tags are not the same. The closing tag misses an underscore
+6. No, the closing tag misses the <span class="nt">&lt;.</span>
+</pre></div>
+</div>
+</div>
+<p>This concludes this brief introduction to XML. The next section will forcus on some common Python packages that are used to extract data and information from XML.</p>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">

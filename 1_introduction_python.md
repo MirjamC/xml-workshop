@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# Lesson 1: Introduction to Python and Jupyter Notebooks
+# 1. Introduction to Python and Jupyter Notebooks
 This lesson will give a short introduction on how to work with Notebooks in combination with Python. 
 It consists of explanation followed by pratical exercises. To get the most out of this lesson it is best to manually type the code into your Jupyter Notebook instead of copy-pasting.
 
