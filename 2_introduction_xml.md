@@ -163,33 +163,64 @@ Returning to our example XML, the element *book* has an atribute *id*.
 ```
 This attribute contains the unique id of the book. This is usefull as there may be books with the same name, and this way these can be identified separately. Attribute values are always quoted. 
 
-### Namespaces *WIP*
+### Namespaces
 
-Tag names are defined by the person or application building the XML. This can lead to problems when mixing XML from different applications. These name conflicts can be 
+Tag names are defined by the person or application building the XML. Therefore, it is possible that different software use the same tag names for some or even all their elements. This can lead to problems when mixing XML from different applications. 
 
 For example, below are two pieces of XML, *catalog* and *author*. Both contain elements of the same name: *name* and *surname*.
 If these two pieces were added together, there would be a name conflict.
 
+Take for example the following two pieces of XML:
 ```XML
-<catalog>
-	<book id="bk101">
-		<author>
-			<name>Matthew</name>
-			<surname>Gambardella</surname>
-		</author>
-		<title>XML Developer's Guide</title>
-		<genre>Computer</genre>
-		<price>44.95</price>
-		<publish_date>2000-10-01</publish_date>
-		<description>An in-depth look at creating applicationswith XML.</description>
-	</book>
-</catalog>
+<student>
+  <id>3235329</id>
+  <name>Jeff Smith</name>
+  <language>Python</language>
+  <rating>9.5</rating>
+</student>
 
-<singers>
-	<name>Katy</name>
-	<surname>Perry</surname>
-</singers>
+<student>
+  <id>534-22-5252</id>
+  <name>Jill Smith</name>
+  <language>Spanish</language>
+  <rating>3.2</rating>
+</student>
 ```
+
+The first contains information about a student following a Python course: their student number, name, the language studied in the course, and how they rated the course on a ten-point scale. The second contains information about an elementary school student: their social security number, name, native language and average rating on a five-point scale. 
+The tag names in both XML have very different meanings and are quite unmixable. But when querying the XML a machine will not know that difference and simply lump them together.
+
+These naming conflicts can be resolved by using prefixes.
+
+```XML
+<p:student xmlns:h="http//www.imaginarypythoncourses.com/student">
+  <p:id>3235329</p:id>
+  <p:name>Jeff Smith</p:name>
+  <p:language>Python</p:language>
+  <p:rating>9.5</p:rating>
+</p:student>
+
+<e:student xmlns:e="http//www.isthisevenarealschool.com/students">
+  <e:id>534-22-5252</e:id>
+  <e:name>Jill Smith</e:name>
+  <e:language>Spanish</e:language>
+  <e:rating>3.2</e:rating>
+</e:student>
+```
+
+Now there will not be any conflict as the prefix ensures that a machine will see the difference between the tag names. These essentially work as an identifier for a specific XML structure.
+The prefix is not the only addition to the code. This is because when using prefixes, they must be assigned to a ***namespace***. A namespace must be declared within the XML structure, be it the root or the element it applies to. A namespace helps the machine to interpret the prefixes. Multiple namespaces can be used in an XML file. 
+
+Namespace syntax is:
+```XML
+xmlns:<prefix>='<namespace identifier>'
+```
+
+Most OCR software use namespaces, so being able to understand and utilize namespaces is very important.
+
+### Example ALTO namespace
+
+
 ### Prolog
 
 XML usually starts with the *prolog* a piece of code that defines the XML version and can contain character encoding. The prolog is optional, and if present it must come first in the document. It is good practice to include it.
@@ -198,6 +229,7 @@ For our example the prolog is:
 ```XML
 <?xml version="1.0"?>
 ```
+
 ### Comments
 
 In XML comments may be added, these can contain descriptions about the data or other information.
@@ -205,6 +237,7 @@ Comments are written as:
 ```XML
 <!-- This is a comment -->
 ```
+
 ### Rules
 
 There are some rules regarding XML.
@@ -248,6 +281,54 @@ Keeping the rules in mind, are the following elements correctly defined?
 4. Yes, this element is correctly defined.
 5. No, the tags are not the same. The closing tag misses an underscore
 6. No, the closing tag misses the <.
+```
+````
+
+You should now have a decent grasp of the structure and rules of XML. As a final excercise you will construct your own piece of XML using the data below.
+
+````{admonition} Exercise
+:class: attention
+Create a small piece of XML containing information about this workshop. The following data must be in the XML:
+- year
+- authors
+- title
+- track
+- cap
+
+The proposed structure is:
+
+workshops DHBenelux
+	workshop
+		title
+		first author
+			name
+			surname
+		track
+		cap
+
+Below is the workshop information:
+
+> - Track 3 (MSH DHLab – cap: 20) Automatically extract text, layout and metadata information from XML-files of OCR-ed historical texts
+> - Mirjam Cuper
+````
+
+````{admonition} Solution
+:class: tip, dropdown
+There are multiple ways to define this XML structure, but it should look close to this:
+
+```XML
+<?xml version="1.0"?>
+<workshops_DHBenelux year="2022">
+	<workshop>
+		<first_author>
+			<name>Mirjam</name>
+			<surname>Cuper</surname>
+		</first_author>
+		<title>Automatically extract text, layout and metadata information from XML-files of OCR-ed historical texts</title>
+		<track>3</track?
+		<cap>20</cap>
+	</workshop>
+</workshops_DHBenelux>
 ```
 ````
 

@@ -342,12 +342,16 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-page-and-elementree">
 <h1>8. Practical session: Page and Elementree<a class="headerlink" href="#practical-session-page-and-elementree" title="Permalink to this headline">¶</a></h1>
-<p>Steps:</p>
+<p>In this section we will use ElemenTree to extract data from Page format XML files and print this with the reading order. As you should by now be a bit more familiar with Python and handling XML explanations will be a bit more brief. When needed, refer back to previous sections.</p>
+<p>We will follow these steps:</p>
 <ul class="simple">
-<li><p>Import package and load file</p></li>
-<li><p>Examine structure</p></li>
-<li><p>Print the content with reading order</p></li>
+<li><p>Import the package and the Page file;</p></li>
+<li><p>Examine the structure;</p></li>
+<li><p>Extract reading order;</p></li>
+<li><p>Extract the plain text;</p></li>
+<li><p>Print the content with reading order.</p></li>
 </ul>
+<p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. (see explanation in ET:import)</p>
 <div class="section" id="import-package-and-load-the-file">
 <h2>Import package and load the file<a class="headerlink" href="#import-package-and-load-the-file" title="Permalink to this headline">¶</a></h2>
 <div class="attention admonition">
@@ -356,26 +360,26 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import xml.etree.ElementTree as ET	
-tree = ET.parse(&#39;data/page.xml&#39;)
-root = tree.getroot()
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>	
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;data/page.xml&#39;</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="examine-the-structure-of-the-file">
 <h2>Examine the structure of the file<a class="headerlink" href="#examine-the-structure-of-the-file" title="Permalink to this headline">¶</a></h2>
-<p>In order to extract the wanted information from the file, we have to examine the structure.</p>
+<p>In order to extract the required information from the file, we have to examine the structure.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Print the file in your Notebook or look at the file in you webpage, either way you preffer.</p>
+<p>Print the file in your Notebook or look at the file in your browser, either way you prefer.</p>
 </div>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>	<span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>	
-	<span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;data/page.xml&#39;</span><span class="p">)</span>
-	<span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
-	<span class="nb">print</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>	
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;data/page.xml&#39;</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -10240,8 +10244,31 @@ prijzen. (19978)&lt;/ns0:Unicode&gt;&lt;/ns0:TextEquiv&gt;&lt;/ns0:TextRegion&gt
 </div>
 </div>
 </div>
+<p>The Page XML contains a lot of information that is not the text. Rather they describe something about the location of the text on the scan.</p>
 <p>We want to be able to extract the text. Therefore, we need to know in which element the content is stored, and whether this is as a value of the tags or as an attributes value.</p>
-<p>Oefening: zijn er namespaces waar op gelet moet worden? Zo ja, hoe kunnen we die declaren (twee manieren)</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Remember namespaces? Are there any namespaces in the file that we have to take into account?
+If there are, how can we declare these?
+Oefening: zijn er namespaces waar op gelet moet worden? Zo ja, hoe kunnen we die declaren (twee manieren)</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<ul class="simple">
+<li><p>Yes, there are multiple namespaces to take into account. These are declared in the root of the XML:</p></li>
+</ul>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ns0:PcGts</span> <span class="na">xmlns:ns0=</span><span class="s">&quot;http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19&quot;</span> <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>If you remember from section 7, there are two ways of using namespaces:</p>
+<ol class="simple">
+<li><p>Type the namespace before the element name between curly brackets: {<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>}</p></li>
+<li><p>Declare the namespace in elemenTree. This provides Python with a dictionary of the used namespaces, which it can then use.</p></li>
+</ol>
+</li>
+</ul>
+</div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Look at the XML structure, how is the content stored?</p>
@@ -10268,28 +10295,52 @@ To determine the correct reading order, we need three clues.</p>
 </div>
 <div class="section" id="extracting-the-content-and-reading-order">
 <h2>Extracting the content and reading order<a class="headerlink" href="#extracting-the-content-and-reading-order" title="Permalink to this headline">¶</a></h2>
-<p>– Opdracht: content staat in Unicode, extract the content. Let op eventuele namespaces!!!</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Unicode&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>The text content that we wish to extract is stored in the Unicode element.
+Use Python and ElementTree to extract this content.
+*Dont’t forget about namespaces!! *</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The following code should print out all the content.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Unicode&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>– nu hebben we de tekst maar deze staat niet in de goede volgorde, dus we willen region
-ding toevoegen
-Opdracht: waar moet je op letten?
-Antwoord: content is value tussen de tags, id is attribute</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+</div>
+<p>Now we have all the text content, but it is not in the right order. We need to add the TextRegion id to get the data to print out in the right order.</p>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>What should we pay attention to when adding the TextRegion id?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The content we are interested in is the value between the tags. However, the TextRegion id is an <em>attribute</em>.</p>
+</div>
+<p>Expand the code include the TextRegion id and print out the TextRegion id and the content per newpaper.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The following code should print out all the content.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
     <span class="n">regionid</span> <span class="o">=</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Unicode&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">regionid</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Nu hebben we alles onder elkaar maar het is niet echt leesbaar en het is nu
-ook niet makkelijk om de juiste leesvolgorde te krijgen.
-Daarom gaan we het weergeven in een dataframe.
-Net als in les 4 doen we dat door eerst de boel in een lijst te zetten.</p>
-<p>Opdracht: sla de input op in een lijst</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Create an empty list</span>
+</div>
+<p>Now we have all the data with its corresponding TextRegion id, however it is not very readable. Also, the getting the correct reading other from this printout is not easy.
+So we will put the data into a dataframe.
+As seen before in section 4 we will first put the whole set into a list.</p>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>Instead of printing the TextRegion id and content, store it into a list.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The code below should store the  TextRegion id and content into a list.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Create an empty list</span>
 <span class="n">content_list</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
@@ -10299,42 +10350,53 @@ Net als in les 4 doen we dat door eerst de boel in een lijst te zetten.</p>
     <span class="n">content_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">regionid</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>Lijst tonen:</p>
+</div>
+<p>Let us just peek at the list to see if everything went as expected.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">content_list</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Nu kunnen we van de lijst makkelijk een dataframe maken met de kolommen region en content</p>
-<p>Opdracht: stop de lijst in een dataframe</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<p>Now we can easily make a dataframe using the list we have just created with as column ‘region’ and ‘content’.</p>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>Make a dataframe from the list we have just created.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">content_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">content_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Region&quot;</span><span class="p">,</span> <span class="s2">&quot;Content&quot;</span><span class="p">})</span>
 </pre></div>
 </div>
+</div>
+<p>As before, check the result to make sure everything went as expected.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">content_table</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Als laatste kunnen we de dataframe nu opslaan als csv, waarna het gebruikt kan worden voor verder onderzoek.
 of om bijv. makkelijk de volgorde aan de readingorder aan te kunnen passen.</p>
+<p>Finally we can now save the dataframe to csv, after which it can be used for further research or manipulation.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">content_table</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;page_content.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="automatically-order-in-the-right-way">
 <h2>Automatically order in the right way<a class="headerlink" href="#automatically-order-in-the-right-way" title="Permalink to this headline">¶</a></h2>
-<p>Met behulp van bovenstaande bestand en de informatie over de reading order in de csv,
-kan je handmatig de volgorde juist krijgen.</p>
-<p>Maar dit is natuurlijk best veel werk en vooral bij meerdere bestanden niet handig.</p>
-<p>Gelukkig is het ook mogelijk om dit geautomatiseerd te doen.</p>
-<p>Omdat de informatie over de reading order en de indexen op een andere plek opgeslagen is dan
-de content zelf, doen we dit in drie stappen</p>
+<p>Using the XML file  and the information about the reading order in the csv file it is possible to order the file in the correct reading order manually.
+However this is a lot of work and when there are multiple, or very large files this is not the best use of our time.
+Luckily Python offers us ways to automate this.</p>
+<p>Because the information about the reading order and indexes stored in a different location that the content itself we will go through three steps to get this done.</p>
 <ul class="simple">
-<li><p>Uit de xml halen we de drie elementn die de volgorde bepalen en deze slaan op in een Pthon dictionary (lnk naar
-info ove dict)</p></li>
-<li><p>We halen de content en de region informatie op</p></li>
-<li><p>We koppelen de regio informatie aan de group en index, zodat we dat hebben</p></li>
+<li><p>From the XML we will take three elements that determine te order. These are stored into a Python dictionary [Python dictionaries]</p></li>
+<li><p>We retrieve the content and region information.</p></li>
+<li><p>We connect the region information to the group and index.</p></li>
 </ul>
-<p>Dit kunnen we vervolgens opslaan in en dataframe en dan makkelijk sorteren.</p>
-<p>Opdracht: haal de elementen op uit de xml</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:ReadingOrder&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+<p>This can than be stored in a dataframe and sorted.</p>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>Using Python, extract the elements we want from the XML.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:ReadingOrder&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:OrderedGroup&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
         <span class="n">groupnr</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">groupnr</span><span class="p">)</span>
@@ -10344,7 +10406,8 @@ info ove dict)</p></li>
             <span class="nb">print</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Voorbeeld: hoe sla je zoiets op in een dict</p>
+</div>
+<p>Example: how to save the above output to a Python dictionary:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dict_order</span> <span class="o">=</span> <span class="p">{}</span>
 
 <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:ReadingOrder&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
@@ -10353,15 +10416,15 @@ info ove dict)</p></li>
         <span class="k">for</span> <span class="n">suborder</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:RegionRefIndexed&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>  
             <span class="n">region</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;regionRef&#39;</span><span class="p">)</span>
             <span class="n">index</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
-            <span class="n">dict_order</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">region</span><span class="p">,[])</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">groupnr</span><span class="p">,</span> <span class="n">index</span><span class="p">])</span>
+			<span class="n">dict_order</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">region</span><span class="p">,[])</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">groupnr</span><span class="p">,</span> <span class="n">index</span><span class="p">])</span>
 </pre></div>
 </div>
+<p>Let’s print the dictionary to make certain it works.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">dict_order</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>De code van de content en region hebben we al gemaakt. Nu gaan we dit samenvoegen doro de waardes
-van de dict te vergelijken met de waarde van de regio id.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+<p>We have previously made the code to obtain the content and the region from the XML file. Now we will combine this by comparing the values from the dictionary with the value of the TextRegion id.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
     <span class="n">region</span> <span class="o">=</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
     <span class="n">groupvalues</span> <span class="o">=</span> <span class="n">dict_order</span><span class="p">[</span><span class="n">region</span><span class="p">]</span>
     <span class="n">group</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
@@ -10371,8 +10434,14 @@ van de dict te vergelijken met de waarde van de regio id.</p>
     <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Opdracht: Pas bovestaande code aan zodat hij alle relevante informatie in een ljst opslaat</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">content_list</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>Adapt the code above to store all relevant information in a list.</p>
+<p>Don’t forget to declare an empty list first.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">content_list</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
     <span class="n">region</span> <span class="o">=</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
@@ -10384,24 +10453,34 @@ van de dict te vergelijken met de waarde van de regio id.</p>
     <span class="n">content_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">group</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>Opdracht: sla de lijst op als df NOTE: let op de volgorde van de input lijst en de kolommen (ookb ij andere lijsten
-dit neerzetten)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</div>
+<div class="admonition-exercise admonition">
+<p class="admonition-title">Exercise</p>
+<p>Store the list in a dataframe.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">newspaper_with_order</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">content_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Group&quot;</span><span class="p">,</span> <span class="s2">&quot;Index&quot;</span><span class="p">,</span> <span class="s2">&quot;Region&quot;</span><span class="p">,</span> <span class="s2">&quot;Content&quot;</span><span class="p">])</span>  
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">newspaper_with_order</span>
+</div>
+<p>Check if the result is as expected.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">newspaper_with_order</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Voorbeeld: volgorde aanpassen</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">newspaper_with_order</span> <span class="o">=</span> <span class="n">newspaper_with_order</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="s1">&#39;Index&#39;</span><span class="p">],</span>
+<p>Example: changing the order.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">newspaper_with_order</span> <span class="o">=</span> <span class="n">newspaper_with_order</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="s1">&#39;Index&#39;</span><span class="p">],</span>
               <span class="n">ascending</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">newspaper_with_order</span>
+<p>Print the reordered dataframe.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">newspaper_with_order</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Tada, nu klaar.</p>
+<p>If everything worked as it was supposed to, the new dataframe should now be ordered by the Group and Index columns.
+Much easier to read, and better structured. Well done!</p>
+<p>Of course, like before this can be used for further analysis, or saved to csv for later use.</p>
 </div>
 </div>
 

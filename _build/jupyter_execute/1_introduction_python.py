@@ -12,7 +12,7 @@
 # This folder will act as your home folder for jupyter.
 # All Notebooks you make will be stored here unless explicitely saved elsewhere or moved.
 # 
-# To open a new Python Jupyter Notebook click the **new** button in the topright corner and select **python3** from the drowdown list.
+# To open a new Python Jupyter Notebook click the **new** button in the topright corner and select **python3** from the dropdown list.
 # A new tab should open dispaying your new Notebook, usually called *Untitled*
 # 
 # Notebooks can be renamed by clicking on the name and typing a different name. It is best to make these names descriptive so they are still recognizable after a while. 
@@ -35,7 +35,7 @@
 # The layout is managed through *markdown* (see [markdown syntax](https://www.markdownguide.org/basic-syntax/) for more information).
 # 
 # The second main type of cell is the code cell. 
-# Code cells are used to write and execute code. In our case Python. When a code cell is run, Python will execute the code in the cell.
+# Code cells are used to write and execute code. In our case Python. When a code cell is run, Python will execute the code in the cell. More information about Python will follow in the next section.
 # 
 # **To add:** screenshot code  cell
 # 
@@ -54,7 +54,7 @@
 # There are multiple ways to run a cell:
 # * By clicking the 'Run' button in the taskbar;
 # * By pressing 'shift + enter when the cell is selected (green frame)'
-# 	*Note that this will add a new cell below the cell that was run.*
+# 	*Note that this will add move the selection box down one cell. When the end of the cells is reached this will add new empty cells to the Notebook.*
 # 
 # The moment a cell generates *output* the output is displayed beneath the cell, keeping code and output together.
 # 
@@ -69,9 +69,17 @@
 2*8
 
 
-# ```{note}
-# When the code does not give output after running it, check the cell type!
-# ```
+# ### Adding new cells
+# 
+# One cell is rarely enough to make a clearly structured Notebook. Adding more cells can be done by pressing the '+' button in the taskbar. 
+# 
+# **To add** printsscreen +
+# 
+# This will add a new cell directly below the currently active cell.
+# 
+# Another way is to use the menu 'Insert', where the choice is given between adding a cell above or below the current active cell.
+# 
+# **To add** printscreen menu
 # 
 # ### Comments
 # 
@@ -83,9 +91,7 @@
 # This is an example of a comment in a code cell.
 
 
-# **To Add** screenshot of comment in cell, remove about codecell
-# 
-# The moment a # is typed in a code cell, everything after it will be regarded as a comment. Lines that have been marked as a comment will **not** be executed by Python when the cell is run.
+# The moment a # is typed in a code cell, everything after it *on the same line* will be regarded as a comment. Lines that have been marked as a comment will **not** be executed by Python when the cell is run.
 # 
 # ```{admonition} Exercise 
 # :class: attention
@@ -95,20 +101,20 @@
 # In[3]:
 
 
-#print("The solution to 35+12 is:")
+#print("The solution to 35+12 is:"
 #print(35+12)
 
 
 # ```{admonition} Solution
 # :class: tip, dropdown
-# The cell should not return any input as the code is blocked by the #.
+# The cell should not return any input as the code is commented out by the #.
 # ```
 # 
 # When the **#** is removed and the cell is run again, Python wil recognize the code and execute it.
 # 
 # ```{admonition} Exercise
 # :class: attention
-# Ensure that Python executes the code and run the cell again.
+# Alter the cell so the code is no longer seen as a comment.
 # ```
 # 
 # ```{admonition} Solution
@@ -165,7 +171,7 @@ type(text)
 # 
 # ```{admonition} Exercise 
 # :class: attention
-# Type the code below in a cell in your Notebook and run the cell.
+# Type the code below in a cell in your Notebook and run the cell. What data type is the number?
 # ```
 
 # In[7]:
@@ -175,7 +181,13 @@ number_but_wrong = "9"
 type(number_but_wrong)
 
 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# The cell should return 'str'. The number is seen as a string because of the quotation marks. Sometimes an error in the code is due to the wrong data type, checking data type is always a good start when error checking.
+# ```
+# 
 # As mentioned above it is possible to use previously assigned variables in your code. 
+# This makes it possible to input a value just one time when it is needed more than once in the code.
 # 
 # ```{admonition} Exercise
 # :class: attention
@@ -208,7 +220,16 @@ number_1 + number_2
 # Calculate the sum using the variables
 
 
-# The plus sign can be used to calculate sums, as you did in the above exercise. However, the plus sign can also be used to stick two different texts together. 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# Your code should look a bit like this:
+# 	
+# 	number_1 = 35
+# 	number_2 = 69
+# 	number_1 + number_2 
+# ```
+# 
+# The plus sign can be used to calculate sums, as you did in the above exercise. However, the plus sign can also be used to stick different strings together. 
 # 
 # ```{admonition} Exercise
 # :class: attention
@@ -240,11 +261,18 @@ line_3 = "that programming with Python "
 line_4 = "is very fun!"
 
 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# Your code should look a bit like this:
+# 
+# 	line_1 + line_2 + line_3 + line_4
+# ```
+# 
 # Now, what about adding text and numbers from variables together?
 # 
 # ```{admonition} Exercise
 # :class: attention
-# Type the code below in a cell in your Notebook and run the cell.
+# Type the code below in a cell in your Notebook and see what happens when you run the code.
 # ```
 
 # In[12]:
@@ -252,14 +280,15 @@ line_4 = "is very fun!"
 
 line_1 = "The amount of abstracts for DHBenelux is: "
 amount_1 = 43
-
 line_1 + amount_1
 
 
 # ```{admonition} Solution
 # :class: tip, dropdown
 # This gives an error:
-# TypeError: unsupported operand type(s) for +: 'int' and 'str'
+# 	
+# 	TypeError: unsupported operand type(s) for +: 'int' and 'str'
+# 
 # Just adding numbers and text does not work. Some extra work needs to be done in order for Python to correctly return output without errors
 # ```
 # 
@@ -274,12 +303,11 @@ line_1 + amount_1
 # Type the code below in a cell in your Notebook and run the cell.
 # ```
 
-# In[ ]:
+# In[13]:
 
 
 line_1 = "The amount of abstracts for DHBenelux is: "
 amount_1 = 43
-
 line_1 + str(amount_1)
 
 
@@ -290,7 +318,7 @@ line_1 + str(amount_1)
 # Type the code below in a cell in your Notebook and run the cell.
 # ```
 
-# In[ ]:
+# In[14]:
 
 
 line_1 = "coffee breaks "
@@ -307,19 +335,18 @@ amount_1 = 2
 # Another option is the use of *f strings*. This is a way of telling Python where to insert the contents of a variable into a string. 
 # 
 # The syntax for *f strings* is:
-
-# In[ ]:
-
-
-f"This is the string we type and {this_is_the_variable}"
-
-
+# 
+# ```python
+# f"This is the string we type and {this_is_the_variable}"
+# ```
+# 
+# 
 # ```{admonition} Exercise
 # :class: attention
 # Type the code below in a cell in your Notebook and run the cell.
 # ```
 
-# In[ ]:
+# In[15]:
 
 
 line_1 = "coffee breaks "
@@ -341,7 +368,7 @@ f"The amount of {line_1} in this workshop is: {amount_1}"
 # Type the code below in a cell in your Notebook and run the cell
 # ```
 
-# In[ ]:
+# In[16]:
 
 
 # Calculate the highest number using the max() function.
@@ -353,7 +380,7 @@ max(5, 8, 35, 4, 75, 2)
 # Round the number below using the round() function. The first parameter is the number to round. The second number is the required number of decimals. Type the code below in a cell in your Notebook and run the cell
 # ```
 
-# In[ ]:
+# In[17]:
 
 
 round(36.53343, 2)
@@ -363,6 +390,11 @@ round(36.53343, 2)
 # :class: attention
 # Calculate the *lowest* number using the function min(). This functions works similarly to the previously used max() function.
 # Use the following numbers: 6, 24, 8, 2, 14. 
+# ```
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# The min() function should return **2**
 # ```
 # 
 # ### Packages
@@ -388,26 +420,23 @@ round(36.53343, 2)
 # :class: attention
 # Type the code below in a cell in your Notebook and run the cell
 # ```
-
-# In[ ]:
-
-
-# Install the package
-get_ipython().system('pip install pandas')
-get_ipython().system('pip install WordCloud')
-get_ipython().system('pip install matplotlib')
-
-
+# 
+# ```python
+# # Install the package
+# !pip install pandas
+# !pip install WordCloud
+# !pip install matplotlib
+# ```
 # ```{note}
 # The exclamation mark before *pip* is needed to activate *pip* within the Notebook enviroment. When installing from the command line this is not needed.
 # ```
 
-# In[ ]:
+# In[18]:
 
 
 # Import the package
 import pandas
-import wordcloud
+from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
 
@@ -432,7 +461,10 @@ import matplotlib.pyplot as plt
 # In[ ]:
 
 
-wordcloud_dict = pandas.read_csv( [path_to_file]\wordcloud_dataset.csv, header=None, index_col=0, squeeze=True).to_dict()
+# Read the dataset into Python using pandas
+wordcloud = pandas.read_csv("C:/Users/broth/Documents/mwxw/testbook/data/wordcloud_dataset.csv", header=None, index_col=0, squeeze=True)
+# Transform into dictionary for use in the WordCloud
+wordcloud_dict = wordcloud.to_dict()
 
 
 # ```{note}
@@ -467,7 +499,7 @@ wordcloud_dict
 # initialise the wordcloud
 wc = WordCloud(background_color="white", max_words=20)
 # generate the wordcloud 
-wc.generate_from_frequencies(words)
+wc.generate_from_frequencies(wordcloud_dict)
 # plt the wordcloud to the output
 plt.figure()
 plt.imshow(wc,interpolation="bilinear")
@@ -478,15 +510,4 @@ plt.show()
 # This should plot a wordcloud showing maximally 20 word in different sizes. Each word is sized by the amount of times it occurs in the titles of the DHBenelux 2022 abstract. Common words have already been removed.
 # This visualiation can give quick insight to which items are popular at the moment. 
 # 
-# ```{admonition} Exercise
-# :class: attention
-# Which are the three most popular words in the abstract titles? 
-# ```
-#  
-# ```{admonition} Solution
-# :class: tip, dropdown
-# The three most common words are:
-# 1. Data
-# 2. Historical
-# 3. History
-# ```
+# Well done! Now you know the basics of working with Jupyter Notebooks and Python. We will use this in the coming chapters.

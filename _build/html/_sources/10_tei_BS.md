@@ -15,68 +15,89 @@ kernelspec:
 
 # 10. Practical session: Tei and Beautiful Soup
 
-TEI alleen met BS want ElementTree kan niet goed omgaan met de spatie (&nbsp)
+For this session we will extract data from TEI format. We will only extract information from TEI using Beautifull Soup as ElementTree does not handle spaces (&nbsp) well.
+
+When working with TEI format it is very important to check the lay-out. This can vary a lot between files.
 
 Opletten: teis kunnen erg verschillen van opmaak 
-(voorbeeld van een TEI waarin de text in een p staat of in een l). 
-Het is dus altijd goed om een check te doen welke elementen je nodig hebt om de juiste gegevens
-te verzamelen.
-TEis van eenzelfde soort (bijv een dichter) zijn doorgaans gelijk, maar dubbelcheck kan nooit kwaad 
+##(voorbeeld van een TEI waarin de text in een p staat of in een l). 
+
+As you can see in the example, it is wise to **always** check which elements you need to ensure you extract the correct data. 
+TEI files of the same kind, for example all about one poet, usually are similar. However, double-checking this can save a lot of work (and frustration) later on.
 
 
-Opdracht: import bS en laad de file in
-
-```
+````{admonition} Exercise
+:class: attention
+Import Beautifull Soup and load the XML file.
+```Python
 from bs4 import BeautifulSoup    
 
 with open("xml-workshop/data/tei.xml", encoding='utf8') as f:
     root = BeautifulSoup(f, 'xml')
 ```
+````
 
-
-Opdracht: bekijk de structuur
-
-```
+````{admonition} Exercise
+:class: attention
+Check the structure
+```Python
 root
 ```
+````
 
-Opdracht: Dit tei bestand is va een boek. In welke elementen zit de tekst van deze boeken?
-En zittn ze als waarde of als attribuut
+````{admonition} Exercise
+:class: attention
+This TEI file contains information of a book. In which elements can you find the main content, the text, of this book?
+Is the content present as a value or as an attribute?
 
-Antwoord: content zit in title, head, l en p. 
+````
 
-Er zijn erg veel elementen, dus een optie zou zijn om alle content van de gehele xml uit te printen. 
-Dit kan je doen met door 
-
+```{admonition} Solution
+:class: tip, dropdown
+The content is contained in the elements *title*, *head*, *l*, and *p*.
 ```
+There are a lot of elements containing the data. One option is to print the whole XML.
+This can be done with:
+```Python
 root.text
 ```
 
-Een nadeel van deze methodes is dat je ook allerhande metadata meekrijgt die je waarschijnlijk niet bij je boek content wil hebbenm 
+A downside of this option is that a lot of metadata is printed out as well. Usually you would not want to have the metadata within the content. Filtering this out afterwards is very work-intensive.
 
-Opdracht: zijn er manieren om de tekst op een logische  manier in te delen ?
-Antwoord: je zou het bijv per chapter kunnen doen. 
-
-## Tekst indelen in hoofdstukken
-
-Je kan door de root itereren en alle elementen met div verzamelen die als type chapter hebben. 
-Vervolgens kan je van deze divs alle content printen met .text.
-
-Opdracht: maak een for loop door de divs en print van alle divs met type chapter de content uit
-
-Antwoord: 
-
+````{admonition} Exercise
+:class: attention
+Can you think of a way to structure the text in a more logical manner?
+````
+```{admonition} Solution
+:class: tip, dropdown
+One option would be to print it out per chapter.
 ```
+
+## Dividing the text in chapters
+
+It is possible to iterate through the root and collect all the *div* elements with as type *chapter*. Having collected these it is now possible to print all *.text* content contained in these *div*s. 
+
+
+
+````{admonition} Exercise
+:class: attention
+Construct a *for looop* that goes through the divs and prints out all content of the divs with *type* 'chapter' 
+````
+
+````{admonition} Solution
+:class: tip, dropdown
+One option would be to print it out per chapter.
+```Python
 for div in root.find_all('div'):
     if div.get('type') == 'chapter':
         print(div.text)
 ```
+````
 
-Hij print nu nog steeds alles als 1 lap onder elkaar zonder onderscheiding. Je kan onderscheid 
-maken door een counter te maken en dan voor elke chapter 'chapter [nr]' te zetten. Na elke div 
-verhoog je de counter met 1
+The code still prints out everything as a single piece of text without anything to distinguish the different chapters. Adding a chapter header is an easy way to be able to seperate the different chapters. 
+This can be done by making a counter and printer the text'chapter [counter]' before every chapter. After every *div* that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.
 
-```
+```Python
 counter = 1
 
 for div in root.find_all('div'):
@@ -86,13 +107,18 @@ for div in root.find_all('div'):
         counter += 1
 ```
 
-Om het overzichtelijke te maken, kun je de hoofdstukken los opslaan als txt bestand,
-of een csv maken met alle hoofstukken in een eigen rij.
+Printing to the output is great for prototyping, but to make sure the extracted data can be used for further analysis and to keep the workspace a bit uncluttered it is best to ave the extracted content. This can be done chapter for chapter, by creating one larger file containting a chapter per row.
 
-Opdracht: sla de hoofdstukken op als text 
+```{admonition} Exercise
+:class: attention
+Expand the code so it saves the extracted chapters as seperate text files, using the chapter name and number as file name.
+Hint: do you remember f strings?
+```
 
-Antwoord:
-```counter = 1
+````{admonition} Solution
+:class: tip, dropdown
+```Python
+counter = 1
 
 for div in root.find_all('div'):
     if div.get('type') == 'chapter':
@@ -101,14 +127,30 @@ for div in root.find_all('div'):
             text_file.write(div.text)
             counter += 1
 ```
+````
 
-Opdracht: Je kan het ook opslaan als een csv. Welke stappen waren daarvoor het handigst?
 
-Antwoord: opslaan als lijst, dan die omzetten naar df. Dan saven
-
-Opdracht: Stop chapter en content in lijst
-Antwoord
+```{admonition} Exercise
+:class: attention
+If you recall, it is also possible to save the data as .csv.  
+What are the easiest steps to do this?
 ```
+
+```{admonition} Solution
+:class: tip, dropdown
+1. Saving the content in a list
+2. Transforming into a Pandas Dataframe
+3. Save the DataFrame to .csv
+```
+
+```{admonition} Exercise
+:class: attention
+Change the code to store the chapter and content in a list. Note that this will create one long list with all the extracted content.
+```
+
+````{admonition} Solution
+:class: tip, dropdown
+```Python
 chapter_list = []
 counter = 1
 
@@ -119,38 +161,55 @@ for div in root.find_all('div'):
         chapter_list.append([chapter, content])
         counter += 1
 ```
+````
 
-Opdracht: maak een df
-
-Antwoord:
-
+```{admonition} Exercise
+:class: attention
+Transform the list into a Dataframe.
 ```
+
+````{admonition} Solution
+:class: tip, dropdown
+```Python
 import pandas as pd
 book = pd.DataFrame(chapter_list , columns = (['chapter', 'content']))
 ```
+````
 
-DF tonen
+It is good practice to check what you transformed.
 
 ```
 book
 ```
 
-Poems extraheren
+## Extracting Poems
 
-Opdracht: kijk welke elementn je nodig hebt om poems eruit te halen
 
-Antwoord: lg met type poems
-
-Opdracht: print alle poems uit
-
-Antwoord: 
+```{admonition} Exercise
+:class: attention
+Check the file to see which elements are needed to extract the poems from the file.
 ```
+
+```{admonition} Solution
+:class: tip, dropdown
+To extract the poems the element **lg** with type **poems** is needed. 
+```
+
+````{admonition} Exercise
+:class: attention
+Print out all the poems from the file.
+```
+
+```{admonition} Solution
+:class: tip, dropdown
+```Python
 for div in root.find_all('lg'):
     if div.get('type') == 'poem':
         print(div.text)
 ```
+````
 
-Sla alle poems op als los tekstbestand met nummering
+As before with the chapters, we will save the extracted poems as seperate, and numbered, files. 
 
 ```
 counter = 1
@@ -163,9 +222,15 @@ for div in root.find_all('lg'):
             counter += 1
 ```
 
-Opdracht: ska op als csv
 
+```{admonition} Exercise
+:class: attention
+Adapt the code above to save the extracted poems to csv. If you feel lost, just go back a few excercises and look at what we did there. Remember, first list, then dataframe.
 ```
+
+````{admonition} Solution
+:class: tip, dropdown
+```Python
 poem_list = []
 counter = 1
 
@@ -181,8 +246,8 @@ poems = pd.DataFrame(poem_list , columns = (['poem', 'content']))
 
 poems.to_csv('poems.csv')
 ```
+````
 
-
-
+Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses. 
 
 

@@ -288,7 +288,7 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#namespaces">
-     namespaces
+     Namespaces
     </a>
    </li>
   </ul>
@@ -335,7 +335,7 @@ const thebe_selector_output = ".output, .cell_output"
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#namespaces">
-     namespaces
+     Namespaces
     </a>
    </li>
   </ul>
@@ -357,7 +357,7 @@ const thebe_selector_output = ".output, .cell_output"
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-extract-information-from-the-alto-didle-format-with-elementree">
 <h1>7. Practical: Extract information from the Alto/Didle format with ElemenTree<a class="headerlink" href="#practical-extract-information-from-the-alto-didle-format-with-elementree" title="Permalink to this headline">¶</a></h1>
 <p>In this lesson, we are going to extract the plain text and some additional information from an Alto file containing a Dutch newspaper.
-We assume that you have followed the practical lesson 4. We will reference to corresponding parts of that lesson so you can check how it worked.</p>
+We assume that you have followed the practical lesson 4. We will reference corresponding parts of that lesson so you can check how it worked.</p>
 <p>We follow these steps:</p>
 <ul class="simple">
 <li><p>Load the XML file;</p></li>
@@ -365,10 +365,10 @@ We assume that you have followed the practical lesson 4. We will reference to co
 <li><p>Extract the plain text;</p></li>
 <li><p>Divide the plain text into seperate articles;</p></li>
 <li><p>Extract the page number;</p></li>
-<li><p>Save the content in one file and in seperate textfiles;</p></li>
+<li><p>Save the content in one file and in seperate textfiles.</p></li>
 </ul>
 <p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.
-(see explantion in <span class="xref std std-ref">ET:import</span>)</p>
+(see explanation in <span class="xref std std-ref">ET:import</span>)</p>
 <div class="section" id="import-elementree-and-import-the-xml-file">
 <h2>Import ElemenTree and import the xml file<a class="headerlink" href="#import-elementree-and-import-the-xml-file" title="Permalink to this headline">¶</a></h2>
 <div class="attention admonition">
@@ -377,30 +377,30 @@ We assume that you have followed the practical lesson 4. We will reference to co
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>import xml.etree.ElementTree as ET
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>    <span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
 
-tree = ET.parse(&#39;xml-workshop/data/alto.xml&#39;)
-root = tree.getroot()
+	<span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;xml-workshop/data/alto.xml&#39;</span><span class="p">)</span>
+	<span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="examine-the-structure-of-the-file">
 <h2>Examine the structure of the file<a class="headerlink" href="#examine-the-structure-of-the-file" title="Permalink to this headline">¶</a></h2>
-<p>Before you can extraxt content from a XML file, you have to see what inside and how it is structured.</p>
+<p>Before you can extract content from a XML file, you have to see what is inside and how it is structured.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Show the XML file in your Notebook</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>print(ET.tostring(root, encoding=&#39;utf8&#39;).decode(&#39;utf8&#39;))
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>	<span class="nb">print</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <p>As you can see, this XML file has a lot more elements and attributes than our example file.
-Our goal is to extraxt the text from the news paper, to seperate the text into articles and to store them on our computer with the page number.</p>
-<p>So first, lets see if we can see where the textual content of the news paper is stored.</p>
+Our goal is to extract the text from the news paper, to seperate the text into articles, and to store them on our computer with the page number.</p>
+<p>So first, let’s see if we can find where the textual content of the news paper is stored.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Scroll through the XML file and see if you can find the element in which the text of the newspaper is stored. Hint: one of the news articles mentioned
@@ -419,21 +419,23 @@ Our goal is to extraxt the text from the news paper, to seperate the text into a
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<p>The content of the elements of the example XML where stored als values from the elements.
+<p>The content of the elements of the example XML were stored als values from the elements.
 The content of the String element is stored in an attribute called ‘CONTENT’.</p>
 </div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>There are a lot of nested element in this XML file. What are the parents, grand parents and grand grandparents of the ‘String’ element? Are their more parents than this?</p>
+<p>There are a lot of nested element in this XML file. What are the parents, grandparents and grandgrandparents of the ‘String’ element? Are there even more parents?</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<p>The parent of the ‘String’ element is ‘Textline’
-The grandparent is ‘TextBlock’
-The grandgrandparent is ‘Page’.
-The complete line is alto/Layout/Page/TextBlock/Textline/String</p>
+<ul class="simple">
+<li><p>The parent of the ‘String’ element is ‘Textline’</p></li>
+<li><p>The grandparent is ‘TextBlock’</p></li>
+<li><p>The grandgrandparent is ‘Page’.</p></li>
+<li><p>The complete line is alto/Layout/Page/TextBlock/Textline/String</p></li>
+</ul>
 </div>
-<p>Now we know some first important information about this Alto file, so let’s see if we can extract the content.</p>
+<p>Now we know some important information about this Alto file, so let’s see if we can extract the content.</p>
 </div>
 <div class="section" id="extract-the-plain-text">
 <h2>Extract the plain text<a class="headerlink" href="#extract-the-plain-text" title="Permalink to this headline">¶</a></h2>
@@ -446,62 +448,67 @@ The complete line is alto/Layout/Page/TextBlock/Textline/String</p>
 <p class="admonition-title">Solution</p>
 <p>This can be done with the .get method, for example: book.get(‘id’).</p>
 </div>
-<p>We learned in lesson 4 that you can acces the elements with a for loop, like</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+<p>In lesson 4 we learned that is is possible to acces the elements with a for loop, like</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
 </pre></div>
 </div>
 <p>However, as you have seen above, the element ‘String’ is a grandgrandgrandgrandchild from the start element ‘alto’.
 One way to access the String element is by typing all ancestors, leading to a code like:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;alto/Layout/Page/TextBlock/Textline/String&#39;</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;alto/Layout/Page/TextBlock/Textline/String&#39;</span><span class="p">):</span>
 </pre></div>
 </div>
-<p>However, we preferably avoid that, since it takes a lot of time and leads easliy to mistake.</p>
+<p>However, we preferably avoid that, since it takes a lot of time and can easily lead to mistakes.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>In lesson 4, we learned a way to escapte all the ancestors, how did you do this?</p>
+<p>In lesson 4, we learned a way to escape all the ancestors, how did we do this?</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<p>By adding ‘.//’, for example  for book in root.findall(‘’.//author’):</p>
+<p>By adding ‘.//’, for example</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.//</span><span class="n">author</span><span class="s1">&#39;):</span>
+</pre></div>
+</div>
 </div>
 <p>So, we can easily loop through all String elements by using the .// escape, and we can extract the content from the CONTENT attribute with the .get method.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Create the for loop to extract the content. This loop looks like this:
-for text in the String elements:
-print(the value of the CONTENT attribute)
-Complete the code and run it. What happens?</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">Create</span> <span class="n">the</span> <span class="k">for</span> <span class="n">loop</span> <span class="n">to</span> <span class="n">extract</span> <span class="n">the</span> <span class="n">content</span><span class="o">.</span> <span class="n">This</span> <span class="n">loop</span> <span class="n">looks</span> <span class="n">like</span> <span class="n">this</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">String</span> <span class="n">elements</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">CONTENT</span> <span class="n">attribute</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Complete the code and run it. What happens?</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.findall(&#39;ns0:String&#39;):
-	print(book.get(&#39;CONTENT&#39;))
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>	<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;ns0:String&#39;</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>The code doesn’t produce any outcome.</p>
+<p>The code doesn’t produce any output.</p>
 </div>
 <div class="section" id="namespaces">
-<h3>namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline">¶</a></h3>
-<p>So, what is going on? Why isn’t there any output?
+<h3>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline">¶</a></h3>
+<p>So, what is going on? Why is not there any output?
 As described in lesson <em><strong>2</strong></em>, some XML documents make use of <em>namespaces</em>.
 If we look at the first line of the Alto file, we see:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf8&#39;?&gt;
-&lt;ns0:alto xmlns:ns0=&quot;http://schema.ccs-gmbh.com/ALTO&quot;&gt;
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf8&#39;?&gt;</span>
+<span class="nt">&lt;ns0:alto</span> <span class="na">xmlns:ns0=</span><span class="s">&quot;http://schema.ccs-gmbh.com/ALTO&quot;</span><span class="nt">&gt;</span>
 </pre></div>
 </div>
 <p>The second line shows us that this XML make use of namespaces.
 ‘ns0’ is used as a shortcut for ‘<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>’.</p>
-<p>We have now to options to handle the namespaces in ElemenTree:</p>
+<p>We have now two options to handle the namespaces in ElemenTree:</p>
 <ol class="simple">
-<li><p>Type the namespace before the elementname between curly brackets: {<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>}</p></li>
+<li><p>Type the namespace before the element name between curly brackets: {<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>}</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//{http://schema.ccs-gmbh.com/ALTO}String&#39;</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//{http://schema.ccs-gmbh.com/ALTO}String&#39;</span><span class="p">):</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
 </pre></div>
 </div>
 <ol class="simple">
-<li><p>Declare the namespace in elemenTree. You therefore provide Python with a dictionary of the used namespaces, which it can use.</p></li>
+<li><p>Declare the namespace in elemenTree. This provides Python with a dictionary of the used namespaces, which it can then use.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -511,26 +518,26 @@ If we look at the first line of the Alto file, we see:</p>
 </div>
 </div>
 <p>Now you can use the abbreviation of the namespace in your code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you declare the namespace in Python with a dictionary, to not forget to put ‘, ns’ after your elementname in the findall.
-Without this ns, Python does not recognize the namespace.
-You only have to declare the namespaces ones, Python will then recognize them in de rest of your Jupyter Notebook.</p>
+<p>If you declare the namespace in Python with a dictionary, do not forget to put ‘, ns’ after your element name in the <em>.findall</em>.
+Without this ‘ns’, Python does not recognize the namespace.
+You only have to declare the namespaces once, Python will then recognize them in de rest of your Jupyter Notebook.</p>
 </div>
 <p>For the remainder of this lesson, we will use the second option.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Choose one of the namespace option and run the code to extract all the text from the CONTENT attribute.</p>
+<p>Choose one of the namespace options and run the code to extract all the text from the CONTENT attribute.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.findall(&#39;.//ns0:String&#39;, ns):
-	print(book.get(&#39;CONTENT&#39;))		
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>	<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">))</span>		
 </pre></div>
 </div>
 </div>
@@ -538,9 +545,8 @@ You only have to declare the namespaces ones, Python will then recognize them in
 </div>
 <div class="section" id="divide-the-plain-text-into-seperate-articles">
 <h2>Divide the plain text into seperate articles<a class="headerlink" href="#divide-the-plain-text-into-seperate-articles" title="Permalink to this headline">¶</a></h2>
-<p>As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit onreadable. We can store the text in a <em>string</em> variable,
-in which we concatenate all words.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">all_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<p>As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit unreadable. We can store the text in a <em>string</em> variable in which we concatenate all words.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">all_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 <span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
     <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
@@ -549,36 +555,43 @@ in which we concatenate all words.</p>
 </div>
 <p>The content is now more readable, however, it is still one long blob of the complete text of the newspaper.
 We would like to divide the texts in articles.</p>
-<p>article_content = “”</p>
-<p>for book in root.findall(‘.//ns0:TextBlock’, ns):
-for article in book.findall(‘.//ns0:String’, ns):
-content = article.get(‘CONTENT’)
-article_content = article_content + ” ” + content
-print(article_content)
-print(“”)
-article_content = “”</p>
-<p>Division between title and not title
-article_content = “”
-txt_type = “”</p>
-<p>for book in root.findall(‘.//ns0:TextBlock’, ns):
-txt = book.get(“STYLEREFS”)
-if “LEFT” in txt:
-txt_type = ‘Title’
-else:
-txt_type = ‘Article’
-for article in book.findall(‘.//ns0:String’, ns):
-content = article.get(‘CONTENT’)
-article_content = article_content + ” ” + content
-print(txt_type)
-print(article_content)
-print(“”)
-article_content = “”</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextBlock&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+        <span class="n">article_content</span> <span class="o">=</span> <span class="n">article_content</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">content</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">article_content</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<span class="n">Division</span> <span class="n">between</span> <span class="n">title</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">title</span>
+<span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">txt_type</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextBlock&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">txt</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;STYLEREFS&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;LEFT&quot;</span> <span class="ow">in</span> <span class="n">txt</span><span class="p">:</span>
+        <span class="n">txt_type</span> <span class="o">=</span> <span class="s1">&#39;Title&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">txt_type</span> <span class="o">=</span> <span class="s1">&#39;Article&#39;</span>
+    <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+        <span class="n">article_content</span> <span class="o">=</span> <span class="n">article_content</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">content</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">txt_type</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">article_content</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
 <ul class="simple">
 <li><p>Extract the page number;</p></li>
 </ul>
-<p>for book in root.findall(‘.//ns0:Page’, ns):
-pagenr = book.get(‘ID’)
-print(pagenr)</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Page&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">pagenr</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pagenr</span><span class="p">)</span>
+</pre></div>
+</div>
 <ul class="simple">
 <li><p>Save the content in one file and in seperate textfiles;</p></li>
 <li><p>Met didle metadata over krant en pagina opslaan</p></li>
