@@ -277,11 +277,13 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#namespaces-wip">
+    <a class="reference internal nav-link" href="#namespaces">
      Namespaces
-     <em>
-      WIP
-     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-alto-namespace">
+     Example ALTO namespace
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -347,11 +349,13 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#namespaces-wip">
+    <a class="reference internal nav-link" href="#namespaces">
      Namespaces
-     <em>
-      WIP
-     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-alto-namespace">
+     Example ALTO namespace
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -532,31 +536,55 @@ Like family trees, parents are on the top level, children below parents and sibl
 </div>
 <p>This attribute contains the unique id of the book. This is usefull as there may be books with the same name, and this way these can be identified separately. Attribute values are always quoted.</p>
 </div>
-<div class="section" id="namespaces-wip">
-<h3>Namespaces <em>WIP</em><a class="headerlink" href="#namespaces-wip" title="Permalink to this headline">¶</a></h3>
-<p>Tag names are defined by the person or application building the XML. This can lead to problems when mixing XML from different applications. These name conflicts can be</p>
+<div class="section" id="namespaces">
+<h3>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline">¶</a></h3>
+<p>Tag names are defined by the person or application building the XML. Therefore, it is possible that different software use the same tag names for some or even all their elements. This can lead to problems when mixing XML from different applications.</p>
 <p>For example, below are two pieces of XML, <em>catalog</em> and <em>author</em>. Both contain elements of the same name: <em>name</em> and <em>surname</em>.
 If these two pieces were added together, there would be a name conflict.</p>
-<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;catalog&gt;</span>
-	<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
-		<span class="nt">&lt;author&gt;</span>
-			<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
-			<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
-		<span class="nt">&lt;/author&gt;</span>
-		<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
-		<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
-		<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
-		<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
-		<span class="nt">&lt;description&gt;</span>An in-depth look at creating applicationswith XML.<span class="nt">&lt;/description&gt;</span>
-	<span class="nt">&lt;/book&gt;</span>
-<span class="nt">&lt;/catalog&gt;</span>
+<p>Take for example the following two pieces of XML:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;student&gt;</span>
+  <span class="nt">&lt;id&gt;</span>3235329<span class="nt">&lt;/id&gt;</span>
+  <span class="nt">&lt;name&gt;</span>Jeff Smith<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;language&gt;</span>Python<span class="nt">&lt;/language&gt;</span>
+  <span class="nt">&lt;rating&gt;</span>9.5<span class="nt">&lt;/rating&gt;</span>
+<span class="nt">&lt;/student&gt;</span>
 
-<span class="nt">&lt;singers&gt;</span>
-	<span class="nt">&lt;name&gt;</span>Katy<span class="nt">&lt;/name&gt;</span>
-	<span class="nt">&lt;surname&gt;</span>Perry<span class="nt">&lt;/surname&gt;</span>
-<span class="nt">&lt;/singers&gt;</span>
+<span class="nt">&lt;student&gt;</span>
+  <span class="nt">&lt;id&gt;</span>534-22-5252<span class="nt">&lt;/id&gt;</span>
+  <span class="nt">&lt;name&gt;</span>Jill Smith<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;language&gt;</span>Spanish<span class="nt">&lt;/language&gt;</span>
+  <span class="nt">&lt;rating&gt;</span>3.2<span class="nt">&lt;/rating&gt;</span>
+<span class="nt">&lt;/student&gt;</span>
 </pre></div>
 </div>
+<p>The first contains information about a student following a Python course: their student number, name, the language studied in the course, and how they rated the course on a ten-point scale. The second contains information about an elementary school student: their social security number, name, native language and average rating on a five-point scale.
+The tag names in both XML have very different meanings and are quite unmixable. But when querying the XML a machine will not know that difference and simply lump them together.</p>
+<p>These naming conflicts can be resolved by using prefixes.</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;p:student</span> <span class="na">xmlns:h=</span><span class="s">&quot;http//www.imaginarypythoncourses.com/student&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;p:id&gt;</span>3235329<span class="nt">&lt;/p:id&gt;</span>
+  <span class="nt">&lt;p:name&gt;</span>Jeff Smith<span class="nt">&lt;/p:name&gt;</span>
+  <span class="nt">&lt;p:language&gt;</span>Python<span class="nt">&lt;/p:language&gt;</span>
+  <span class="nt">&lt;p:rating&gt;</span>9.5<span class="nt">&lt;/p:rating&gt;</span>
+<span class="nt">&lt;/p:student&gt;</span>
+
+<span class="nt">&lt;e:student</span> <span class="na">xmlns:e=</span><span class="s">&quot;http//www.isthisevenarealschool.com/students&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;e:id&gt;</span>534-22-5252<span class="nt">&lt;/e:id&gt;</span>
+  <span class="nt">&lt;e:name&gt;</span>Jill Smith<span class="nt">&lt;/e:name&gt;</span>
+  <span class="nt">&lt;e:language&gt;</span>Spanish<span class="nt">&lt;/e:language&gt;</span>
+  <span class="nt">&lt;e:rating&gt;</span>3.2<span class="nt">&lt;/e:rating&gt;</span>
+<span class="nt">&lt;/e:student&gt;</span>
+</pre></div>
+</div>
+<p>Now there will not be any conflict as the prefix ensures that a machine will see the difference between the tag names. These essentially work as an identifier for a specific XML structure.
+The prefix is not the only addition to the code. This is because when using prefixes, they must be assigned to a <em><strong>namespace</strong></em>. A namespace must be declared within the XML structure, be it the root or the element it applies to. A namespace helps the machine to interpret the prefixes. Multiple namespaces can be used in an XML file.</p>
+<p>Namespace syntax is:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>xmlns:&lt;prefix&gt;=&#39;&lt;namespace identifier&gt;&#39;
+</pre></div>
+</div>
+<p>Most OCR software use namespaces, so being able to understand and utilize namespaces is very important.</p>
+</div>
+<div class="section" id="example-alto-namespace">
+<h3>Example ALTO namespace<a class="headerlink" href="#example-alto-namespace" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="prolog">
 <h3>Prolog<a class="headerlink" href="#prolog" title="Permalink to this headline">¶</a></h3>
@@ -614,6 +642,52 @@ XML documents <strong>must</strong> have a root element.</p>
 4. Yes, this element is correctly defined.
 5. No, the tags are not the same. The closing tag misses an underscore
 6. No, the closing tag misses the <span class="nt">&lt;.</span>
+</pre></div>
+</div>
+</div>
+<p>You should now have a decent grasp of the structure and rules of XML. As a final excercise you will construct your own piece of XML using the data below.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Create a small piece of XML containing information about this workshop. The following data must be in the XML:</p>
+<ul class="simple">
+<li><p>year</p></li>
+<li><p>authors</p></li>
+<li><p>title</p></li>
+<li><p>track</p></li>
+<li><p>cap</p></li>
+</ul>
+<p>The proposed structure is:</p>
+<p>workshops DHBenelux
+workshop
+title
+first author
+name
+surname
+track
+cap</p>
+<p>Below is the workshop information:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Track 3 (MSH DHLab – cap: 20) Automatically extract text, layout and metadata information from XML-files of OCR-ed historical texts</p></li>
+<li><p>Mirjam Cuper</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>There are multiple ways to define this XML structure, but it should look close to this:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;workshops_DHBenelux year=&quot;2022&quot;&gt;
+	&lt;workshop&gt;
+		&lt;first_author&gt;
+			&lt;name&gt;Mirjam&lt;/name&gt;
+			&lt;surname&gt;Cuper&lt;/surname&gt;
+		&lt;/first_author&gt;
+		&lt;title&gt;Automatically extract text, layout and metadata information from XML-files of OCR-ed historical texts&lt;/title&gt;
+		&lt;track&gt;3&lt;/track?
+		&lt;cap&gt;20&lt;/cap&gt;
+	&lt;/workshop&gt;
+&lt;/workshops_DHBenelux&gt;
 </pre></div>
 </div>
 </div>

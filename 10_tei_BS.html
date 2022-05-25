@@ -272,8 +272,13 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tekst-indelen-in-hoofdstukken">
-   Tekst indelen in hoofdstukken
+  <a class="reference internal nav-link" href="#dividing-the-text-in-chapters">
+   Dividing the text in chapters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extracting-poems">
+   Extracting Poems
   </a>
  </li>
 </ul>
@@ -297,8 +302,13 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#tekst-indelen-in-hoofdstukken">
-   Tekst indelen in hoofdstukken
+  <a class="reference internal nav-link" href="#dividing-the-text-in-chapters">
+   Dividing the text in chapters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extracting-poems">
+   Extracting Poems
   </a>
  </li>
 </ul>
@@ -312,49 +322,71 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-tei-and-beautiful-soup">
 <h1>10. Practical session: Tei and Beautiful Soup<a class="headerlink" href="#practical-session-tei-and-beautiful-soup" title="Permalink to this headline">¶</a></h1>
-<p>TEI alleen met BS want ElementTree kan niet goed omgaan met de spatie (&amp;nbsp)</p>
+<p>For this session we will extract data from TEI format. We will only extract information from TEI using Beautifull Soup as ElementTree does not handle spaces (&amp;nbsp) well.</p>
+<p>When working with TEI format it is very important to check the lay-out. This can vary a lot between files.</p>
 <p>Opletten: teis kunnen erg verschillen van opmaak
-(voorbeeld van een TEI waarin de text in een p staat of in een l).
-Het is dus altijd goed om een check te doen welke elementen je nodig hebt om de juiste gegevens
-te verzamelen.
-TEis van eenzelfde soort (bijv een dichter) zijn doorgaans gelijk, maar dubbelcheck kan nooit kwaad</p>
-<p>Opdracht: import bS en laad de file in</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>    
+##(voorbeeld van een TEI waarin de text in een p staat of in een l).</p>
+<p>As you can see in the example, it is wise to <strong>always</strong> check which elements you need to ensure you extract the correct data.
+TEI files of the same kind, for example all about one poet, usually are similar. However, double-checking this can save a lot of work (and frustration) later on.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Import Beautifull Soup and load the XML file.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>    
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;xml-workshop/data/tei.xml&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">root</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Opdracht: bekijk de structuur</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Check the structure</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span>
 </pre></div>
 </div>
-<p>Opdracht: Dit tei bestand is va een boek. In welke elementen zit de tekst van deze boeken?
-En zittn ze als waarde of als attribuut</p>
-<p>Antwoord: content zit in title, head, l en p.</p>
-<p>Er zijn erg veel elementen, dus een optie zou zijn om alle content van de gehele xml uit te printen.
-Dit kan je doen met door</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">text</span>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>This TEI file contains information of a book. In which elements can you find the main content, the text, of this book?
+Is the content present as a value or as an attribute?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The content is contained in the elements <em>title</em>, <em>head</em>, <em>l</em>, and <em>p</em>.</p>
+</div>
+<p>There are a lot of elements containing the data. One option is to print the whole XML.
+This can be done with:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
-<p>Een nadeel van deze methodes is dat je ook allerhande metadata meekrijgt die je waarschijnlijk niet bij je boek content wil hebbenm</p>
-<p>Opdracht: zijn er manieren om de tekst op een logische  manier in te delen ?
-Antwoord: je zou het bijv per chapter kunnen doen.</p>
-<div class="section" id="tekst-indelen-in-hoofdstukken">
-<h2>Tekst indelen in hoofdstukken<a class="headerlink" href="#tekst-indelen-in-hoofdstukken" title="Permalink to this headline">¶</a></h2>
-<p>Je kan door de root itereren en alle elementen met div verzamelen die als type chapter hebben.
-Vervolgens kan je van deze divs alle content printen met .text.</p>
-<p>Opdracht: maak een for loop door de divs en print van alle divs met type chapter de content uit</p>
-<p>Antwoord:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
+<p>A downside of this option is that a lot of metadata is printed out as well. Usually you would not want to have the metadata within the content. Filtering this out afterwards is very work-intensive.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Can you think of a way to structure the text in a more logical manner?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>One option would be to print it out per chapter.</p>
+</div>
+<div class="section" id="dividing-the-text-in-chapters">
+<h2>Dividing the text in chapters<a class="headerlink" href="#dividing-the-text-in-chapters" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to iterate through the root and collect all the <em>div</em> elements with as type <em>chapter</em>. Having collected these it is now possible to print all <em>.text</em> content contained in these <em>div</em>s.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Construct a <em>for looop</em> that goes through the divs and prints out all content of the divs with <em>type</em> ‘chapter’</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>One option would be to print it out per chapter.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;chapter&#39;</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Hij print nu nog steeds alles als 1 lap onder elkaar zonder onderscheiding. Je kan onderscheid
-maken door een counter te maken en dan voor elke chapter ‘chapter [nr]’ te zetten. Na elke div
-verhoog je de counter met 1</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+</div>
+<p>The code still prints out everything as a single piece of text without anything to distinguish the different chapters. Adding a chapter header is an easy way to be able to seperate the different chapters.
+This can be done by making a counter and printer the text’chapter [counter]’ before every chapter. After every <em>div</em> that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;chapter&#39;</span><span class="p">:</span>
@@ -363,24 +395,45 @@ verhoog je de counter met 1</p>
         <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>Om het overzichtelijke te maken, kun je de hoofdstukken los opslaan als txt bestand,
-of een csv maken met alle hoofstukken in een eigen rij.</p>
-<p>Opdracht: sla de hoofdstukken op als text</p>
-<p>Antwoord:</p>
-<div class="highlight-counter notranslate"><div class="highlight"><pre><span></span>
-for div in root.find_all(&#39;div&#39;):
-    if div.get(&#39;type&#39;) == &#39;chapter&#39;:
-        chapter = &quot;chapter_&quot; + str(counter)
-        with open(f&quot;{chapter}.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as text_file:
-            text_file.write(div.text)
-            counter += 1
+<p>Printing to the output is great for prototyping, but to make sure the extracted data can be used for further analysis and to keep the workspace a bit uncluttered it is best to ave the extracted content. This can be done chapter for chapter, by creating one larger file containting a chapter per row.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Expand the code so it saves the extracted chapters as seperate text files, using the chapter name and number as file name.
+Hint: do you remember f strings?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;chapter&#39;</span><span class="p">:</span>
+        <span class="n">chapter</span> <span class="o">=</span> <span class="s2">&quot;chapter_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">chapter</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">text_file</span><span class="p">:</span>
+            <span class="n">text_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>Opdracht: Je kan het ook opslaan als een csv. Welke stappen waren daarvoor het handigst?</p>
-<p>Antwoord: opslaan als lijst, dan die omzetten naar df. Dan saven</p>
-<p>Opdracht: Stop chapter en content in lijst
-Antwoord</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chapter_list</span> <span class="o">=</span> <span class="p">[]</span>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>If you recall, it is also possible to save the data as .csv.<br />
+What are the easiest steps to do this?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<ol class="simple">
+<li><p>Saving the content in a list</p></li>
+<li><p>Transforming into a Pandas Dataframe</p></li>
+<li><p>Save the DataFrame to .csv</p></li>
+</ol>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Change the code to store the chapter and content in a list. Note that this will create one long list with all the extracted content.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">chapter_list</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
@@ -391,27 +444,47 @@ Antwoord</p>
         <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>Opdracht: maak een df</p>
-<p>Antwoord:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Transform the list into a Dataframe.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="n">book</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chapter_list</span> <span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;chapter&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">]))</span>
 </pre></div>
 </div>
-<p>DF tonen</p>
+</div>
+<p>It is good practice to check what you transformed.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">book</span>
 </pre></div>
 </div>
-<p>Poems extraheren</p>
-<p>Opdracht: kijk welke elementn je nodig hebt om poems eruit te halen</p>
-<p>Antwoord: lg met type poems</p>
-<p>Opdracht: print alle poems uit</p>
-<p>Antwoord:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;poem&#39;</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</div>
+<div class="section" id="extracting-poems">
+<h2>Extracting Poems<a class="headerlink" href="#extracting-poems" title="Permalink to this headline">¶</a></h2>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Check the file to see which elements are needed to extract the poems from the file.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>To extract the poems the element <strong>lg</strong> with type <strong>poems</strong> is needed.</p>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Print out all the poems from the file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{admonition} Solution
+:class: tip, dropdown
+```Python
+for div in root.find_all(&#39;lg&#39;):
+    if div.get(&#39;type&#39;) == &#39;poem&#39;:
+        print(div.text)
 </pre></div>
 </div>
-<p>Sla alle poems op als los tekstbestand met nummering</p>
+</div>
+<p>As before with the chapters, we will save the extracted poems as seperate, and numbered, files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
@@ -422,8 +495,13 @@ Antwoord</p>
             <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>Opdracht: ska op als csv</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poem_list</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Adapt the code above to save the extracted poems to csv. If you feel lost, just go back a few excercises and look at what we did there. Remember, first list, then dataframe.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">poem_list</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
@@ -439,6 +517,8 @@ Antwoord</p>
 <span class="n">poems</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;poems.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<p>Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses.</p>
 </div>
 </div>
 
