@@ -266,6 +266,19 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tekst-indelen-in-hoofdstukken">
+   Tekst indelen in hoofdstukken
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -278,6 +291,19 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tekst-indelen-in-hoofdstukken">
+   Tekst indelen in hoofdstukken
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -286,6 +312,134 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-tei-and-beautiful-soup">
 <h1>10. Practical session: Tei and Beautiful Soup<a class="headerlink" href="#practical-session-tei-and-beautiful-soup" title="Permalink to this headline">¶</a></h1>
+<p>TEI alleen met BS want ElementTree kan niet goed omgaan met de spatie (&amp;nbsp)</p>
+<p>Opletten: teis kunnen erg verschillen van opmaak
+(voorbeeld van een TEI waarin de text in een p staat of in een l).
+Het is dus altijd goed om een check te doen welke elementen je nodig hebt om de juiste gegevens
+te verzamelen.
+TEis van eenzelfde soort (bijv een dichter) zijn doorgaans gelijk, maar dubbelcheck kan nooit kwaad</p>
+<p>Opdracht: import bS en laad de file in</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>    
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;xml-workshop/data/tei.xml&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Opdracht: bekijk de structuur</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span>
+</pre></div>
+</div>
+<p>Opdracht: Dit tei bestand is va een boek. In welke elementen zit de tekst van deze boeken?
+En zittn ze als waarde of als attribuut</p>
+<p>Antwoord: content zit in title, head, l en p.</p>
+<p>Er zijn erg veel elementen, dus een optie zou zijn om alle content van de gehele xml uit te printen.
+Dit kan je doen met door</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+<p>Een nadeel van deze methodes is dat je ook allerhande metadata meekrijgt die je waarschijnlijk niet bij je boek content wil hebbenm</p>
+<p>Opdracht: zijn er manieren om de tekst op een logische  manier in te delen ?
+Antwoord: je zou het bijv per chapter kunnen doen.</p>
+<div class="section" id="tekst-indelen-in-hoofdstukken">
+<h2>Tekst indelen in hoofdstukken<a class="headerlink" href="#tekst-indelen-in-hoofdstukken" title="Permalink to this headline">¶</a></h2>
+<p>Je kan door de root itereren en alle elementen met div verzamelen die als type chapter hebben.
+Vervolgens kan je van deze divs alle content printen met .text.</p>
+<p>Opdracht: maak een for loop door de divs en print van alle divs met type chapter de content uit</p>
+<p>Antwoord:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;chapter&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Hij print nu nog steeds alles als 1 lap onder elkaar zonder onderscheiding. Je kan onderscheid
+maken door een counter te maken en dan voor elke chapter ‘chapter [nr]’ te zetten. Na elke div
+verhoog je de counter met 1</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;chapter&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;chapter &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Om het overzichtelijke te maken, kun je de hoofdstukken los opslaan als txt bestand,
+of een csv maken met alle hoofstukken in een eigen rij.</p>
+<p>Opdracht: sla de hoofdstukken op als text</p>
+<p>Antwoord:</p>
+<div class="highlight-counter notranslate"><div class="highlight"><pre><span></span>
+for div in root.find_all(&#39;div&#39;):
+    if div.get(&#39;type&#39;) == &#39;chapter&#39;:
+        chapter = &quot;chapter_&quot; + str(counter)
+        with open(f&quot;{chapter}.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as text_file:
+            text_file.write(div.text)
+            counter += 1
+</pre></div>
+</div>
+<p>Opdracht: Je kan het ook opslaan als een csv. Welke stappen waren daarvoor het handigst?</p>
+<p>Antwoord: opslaan als lijst, dan die omzetten naar df. Dan saven</p>
+<p>Opdracht: Stop chapter en content in lijst
+Antwoord</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chapter_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;chapter&#39;</span><span class="p">:</span>
+        <span class="n">chapter</span> <span class="o">=</span> <span class="s2">&quot;chapter_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">div</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">chapter_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">chapter</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Opdracht: maak een df</p>
+<p>Antwoord:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">book</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chapter_list</span> <span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;chapter&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+<p>DF tonen</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">book</span>
+</pre></div>
+</div>
+<p>Poems extraheren</p>
+<p>Opdracht: kijk welke elementn je nodig hebt om poems eruit te halen</p>
+<p>Antwoord: lg met type poems</p>
+<p>Opdracht: print alle poems uit</p>
+<p>Antwoord:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;poem&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Sla alle poems op als los tekstbestand met nummering</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;poem&#39;</span><span class="p">:</span>
+        <span class="n">poem</span> <span class="o">=</span> <span class="s2">&quot;poem_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">poem</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">text_file</span><span class="p">:</span>
+            <span class="n">text_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Opdracht: ska op als csv</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poem_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;poem&#39;</span><span class="p">:</span>
+        <span class="n">poem</span> <span class="o">=</span> <span class="s2">&quot;poem_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">div</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">poem_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">poem</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">poems</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">poem_list</span> <span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;poem&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">]))</span>
+
+<span class="n">poems</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;poems.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
