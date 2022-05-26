@@ -226,7 +226,7 @@ ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
 
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('data/alto.xml')
+tree = ET.parse('data/alto_id1.xml')
 root_alto = tree.getroot()
 
 for page in root_alto.findall('.//ns0:String', ns):
@@ -239,7 +239,7 @@ for page in root_alto.findall('.//ns0:String', ns):
 # As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit unreadable. We can store the text in a *string* 
 # variable in which we concatenate all words.
 
-# In[ ]:
+# In[3]:
 
 
 ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
@@ -273,7 +273,7 @@ print(all_content)
 # 
 # In code, this looks like this:
 
-# In[ ]:
+# In[4]:
 
 
 article_content = ""
@@ -317,7 +317,7 @@ for book in root_alto.findall('.//ns0:TextBlock', ns):
 # 
 # The page number is:
 
-# In[ ]:
+# In[5]:
 
 
 for book in root_alto.findall('.//ns0:Page', ns):

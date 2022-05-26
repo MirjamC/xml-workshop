@@ -235,7 +235,7 @@ This leads to the following output:
 :tags: [remove-input, hide-output]
 import xml.etree.ElementTree as ET
 
-tree = ET.parse('data/alto.xml')
+tree = ET.parse('data/alto_id1.xml')
 root_alto = tree.getroot()
 
 for page in root_alto.findall('.//ns0:String', ns):
