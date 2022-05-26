@@ -3,22 +3,22 @@
 
 # # 7. Practical: Extract information from the Alto/Didle format with ElemenTree
 # 
+# In this lesson ,we are going to work with the Alto and Didle format. As shown in lesson ***?***, the Alto and Didle are connected to each other. 
+# The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4. 
 # 
-# In this lesson, we are going to extract the plain text and some additional information from an Alto file containing a Dutch newspaper. 
-# We assume that you have followed the practical lesson 4. We will reference corresponding parts of that lesson so you can check how it worked. 
-# 
-# We follow these steps:
-# - Load the XML file;
-# - Examine the structure of the XML file;
-# - Extract the plain text;
-# - Divide the plain text into seperate articles;
-# - Extract the page number;
-# - Save the content in one file and in seperate textfiles.
+# This lesson contains the following content
+# - Import the package and the file
+# - Examine the structure of the file
+# - Extract the complete content of the newspaper page(*basic*)
+# - Extract the news article metadata from the complete page from the Didl (*advanced*)
+# - Extract the news article metadata per page (*advanced*)
+# - Use the news article metadata to retreive the articles and extract the plain text (*advanced*)
+# - Write a function to automatically extract the news paper metadata per page and download the articles (*expert*)
 # 
 # Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. 
 # (see explanation in {ref}`ET:import`)
 # 
-# ## Import ElemenTree and import the xml file
+# ## Import ElemenTree and import the Alto xml file
 # 
 # ```{admonition} Exercise
 # :class: attention
@@ -27,13 +27,18 @@
 # 
 # ````{admonition} Solution
 # :class: tip, dropdown
-# ```Python
+# ```{code-cell}
 #     import xml.etree.ElementTree as ET
 # 
-# 	tree = ET.parse('xml-workshop/data/alto.xml')
-# 	root = tree.getroot()
+# 	tree = ET.parse('data/alto_id1.xml')
+# 	root_alto = tree.getroot()
 # ```
 # ````
+# 
+# ```{note}
+# We work with two xml file in this lesson. Therefore, we name the root of the xml file accordingly to the type of the xml.
+# Thus 'root_alto' for the alto xml and 'root_didl' for the Didl xml. 
+# ```
 # 
 # ## Examine the structure of the file
 # 
@@ -47,26 +52,27 @@
 # ````{admonition} Solution
 # :class: tip, dropdown
 # ```Python
-# 	print(ET.tostring(root, encoding='utf8').decode('utf8'))
+# print(ET.tostring(root_alto, encoding='utf8').decode('utf8'))
 # ```
 # ````
 # 
-# As you can see, this XML file has a lot more elements and attributes than our example file. 
-# Our goal is to extract the text from the news paper, to seperate the text into articles, and to store them on our computer with the page number. 
+# *** print hier de output 
 # 
-# So first, let's see if we can find where the textual content of the news paper is stored. 
+# Our goals is to extract the text of the news paper content from the XML file, and store this in a document with the pagenumber. 
+# 
+# So, let's start to see if we can find where the textual content of the news paper is stored. 
 # 
 # ```{admonition} Exercise
 # :class: attention
-# Scroll through the XML file and see if you can find the element in which the text of the newspaper is stored. Hint: one of the news articles mentioned
-# 'olifant'. 
+# Scroll through the XML file and see if you can find the element in which the text of the newspaper is stored. Hint: one of the news articles mentiones the
+# word 'spoorwegmaatschappij'. 
 # ```
 # 
 # ```{admonition} Solution
 # :class: tip, dropdown
-# The content of the news paper articles is stored in the element 'ns0:String'
+# The content of the news paper articles is stored in the element 'ns0:String', for example:
 # 
-# 	<String ID="P3_ST00483" HPOS="557" VPOS="3994" WIDTH="109" HEIGHT="26" CONTENT="olifant" WC="0.99" CC="6000010"/>
+# 	<String ID="P1_ST00323" HPOS="244" VPOS="2387" WIDTH="318" HEIGHT="35" CONTENT="spoorwegmaatschappij" WC="0.99" CC="88668080809486709965"/>
 # ```
 # 
 # ```{admonition} Exercise
@@ -115,7 +121,7 @@
 # However, as you have seen above, the element 'String' is a grandgrandgrandgrandchild from the start element 'alto'.
 # One way to access the String element is by typing all ancestors, leading to a code like:
 # ```Python
-# for book in root.findall('alto/Layout/Page/TextBlock/Textline/String'):
+# for page in root_alto.findall('alto/Layout/Page/TextBlock/Textline/String'):
 # ```
 # 
 # However, we preferably avoid that, since it takes a lot of time and can easily lead to mistakes. 
@@ -147,13 +153,13 @@
 # ````{admonition} Solution
 # :class: tip, dropdown
 # ```Python
-# 	for book in root.findall('ns0:String'):
-# 		print(book.get('CONTENT'))
+# 	for page in root_alto.findall('ns0:String'):
+# 		print(page.get('CONTENT'))
 # ```
 # The code doesn't produce any output. 		
 # ````
 # 
-# ### Namespaces
+# ### Namespaces 
 # 
 # So, what is going on? Why is not there any output?
 # As described in lesson ***2***, some XML documents make use of *namespaces*. 
@@ -186,8 +192,8 @@ ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
 
 # Now you can use the abbreviation of the namespace in your code:
 # ``` Python
-# for book in root.findall('.//ns0:String', ns):
-#     content = book.get('CONTENT')
+# for page in root_alto.findall('.//ns0:String', ns):
+#     content = page.get('CONTENT')
 #     print(content)
 # ```
 # 
@@ -206,70 +212,212 @@ ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
 # 
 # ````{admonition} Solution
 # :class: tip, dropdown
-# ```Python
-# 	for book in root.findall('.//ns0:String', ns):
-# 		print(book.get('CONTENT'))		
+# ```
+# for page in root_alto.findall('.//ns0:String', ns):
+#     content = page.get('CONTENT')
+#     print(content)	
 # ```
 # ```` 
 # 
-# ## Divide the plain text into seperate articles
+# This leads to the following output:
+
+# In[2]:
+
+
+import xml.etree.ElementTree as ET
+
+tree = ET.parse('data/alto.xml')
+root_alto = tree.getroot()
+
+for page in root_alto.findall('.//ns0:String', ns):
+    content = page.get('CONTENT')
+    print(content)
+
+
+# ### Make the output more readable
 # 
-# As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit unreadable. We can store the text in a *string* variable in which we concatenate all words. 
-# 
-# ```Python
-# all_content = ""
-# 
-# for book in root.findall('.//ns0:String', ns):
-#     content = book.get('CONTENT')
-#     all_content = all_content + " " + content
-# ```
-# 
+# As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit unreadable. We can store the text in a *string* 
+# variable in which we concatenate all words.
+
+# In[ ]:
+
+
+ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
+
+all_content = ""
+
+for page in root_alto.findall('.//ns0:String', ns):
+	content = page.get('CONTENT')
+	all_content = all_content + " " + content
+	
+print(all_content)
+
+
 # The content is now more readable, however, it is still one long blob of the complete text of the newspaper.
-# We would like to divide the texts in articles. 
+# As you can see in the xml file, the content is divide into sections. 
 # 
-# ```Python
-# article_content = ""
-# 
-# for book in root.findall('.//ns0:TextBlock', ns):
-#     for article in book.findall('.//ns0:String', ns):
-#         content = article.get('CONTENT')
-#         article_content = article_content + " " + content
-#     print(article_content)
-#     print("")
-#     article_content = ""
-# 
-# Division between title and not title
-# article_content = ""
-# txt_type = ""
-# 
-# for book in root.findall('.//ns0:TextBlock', ns):
-#     txt = book.get("STYLEREFS")
-#     if "LEFT" in txt:
-#         txt_type = 'Title'
-#     else:
-#         txt_type = 'Article'
-#     for article in book.findall('.//ns0:String', ns):
-#         content = article.get('CONTENT')
-#         article_content = article_content + " " + content
-#     print(txt_type)
-#     print(article_content)
-#     print("")
-#     article_content = ""
+# ```{admonition} Exercise
+# :class: attention
+# Look at the xml file. There are different elements that divide the text. Which element would likely be used to seperate articles from 
+# each other?
 # ```
 # 
-# - Extract the page number;
+# ```{admonition} Solution
+# :class: tip, dropdown
+# The element 'TextBlock'
+# ```
+# 
+# Now that we know how we can divide the various session, let's put this in the code.
+# Instead storing all the output into one variabele, we create a variable, store it with the information of one session.
+# Then we print the variabele and empty it, so it is clean for a new session.
+# 
+# In code, this looks like this:
+
+# In[ ]:
+
+
+article_content = ""
+
+for book in root_alto.findall('.//ns0:TextBlock', ns):
+    for article in book.findall('.//ns0:String', ns):
+        content = article.get('CONTENT')
+        article_content = article_content + " " + content
+    print(article_content)
+    print("") ## add a linebreak between the seperate sessions
+    article_content = ""
+
+
+# Now we have a page of plain text that is better structured. 
+# The only thing left is to retreive the page number, and then we'll have all the information to store this data
+# intro a textfile or a csv. 
+# 
+# ```{admonition} Exercise
+# :class: attention
+# Look at the xml file. Where can we find the page number?
+# ```
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# The page number is stored in the 'Page' element. 
+# ```
+# 
+# ```{admonition} Exercise
+# :class: attention
+# Write the code to extract the page number from the xml. 
+# ```
+# 
+# ````{admonition} Solution
+# :class: tip, dropdown
 # ```Python
-# for book in root.findall('.//ns0:Page', ns):
+# for book in root_alto.findall('.//ns0:Page', ns):
 #     pagenr = book.get('ID')
 #     print(pagenr)
 # ```
+# ````
 # 
-# - Save the content in one file and in seperate textfiles; 
+# The page number is:
+
+# In[ ]:
+
+
+for book in root_alto.findall('.//ns0:Page', ns):
+    pagenr = book.get('ID')
+    print(pagenr)
+
+
+# We have now a more readable page and the corresponding page number. However, if we store this then later we will have
+# no idea from which newspaper this page was. In lesson 3 we described that we can find metadata corresponding to an alto file in an Didle file. 
+# The alto and didle file have the same identifier, so you can match them.
 # 
-# - Met didle metadata over krant en pagina opslaan
-# - Met didle losse artikelen eruit en daarvan de xmls opslaan. Uit deze xmls de tekst halen. (xml of plain text?)
+# In this case, the both have the identifier 1. 
+# 
+# ```{admonition} Exercise
+# :class: attention
+# Load the corresponding Didl file in your notebook. Name the root 'root_didl'. Look at the structure of the file. 
+# ```
+# 
+# ````{admonition} Solution
+# :class: tip, dropdown
+# ```Python
+# 	tree = ET.parse('data/didl_id1.xml')
+# 	root_didl = tree.getroot()
+# 	print(ET.tostring(root_didl, encoding='utf8').decode('utf8'))
+# ```
+# 
+# ```{admonition} Exercise
+# :class: attention
+# Look at the Didle file and see if you can find in which element the title of the newspaper is scored. Hint: the title is 'Algemeen Handelsblad'. 
+# What are the parents of this element?
+# ```
+# 
+# ````{admonition} Solution
+# Element is title, parents are dcx, resource, component and item. 
+# ```
+# 
+# Component kan je gebruiken als degene waar alle informatie instaat. als je goed kijkt zie je dat dit ook het ereste component element is. Er zijn er 
+# meerdere, maar die bevatten andere informatie. We willen dus alleen de eerste hebben. In dit geval gebruiken we geen 'find all' (wat alle elementen teruggeeft),
+# maar 'find'), wat alleen het eerste element weggeeft. Hierna kunnen we met een for loop door het dcx element lopen en bijv de naam van de krant en 
+# de publicatiedatum in een variabele stoppen. 
+# 
+# ```{admonition} Exercise
+# :class: attention
+# Write a code that gets the first 'component' element, and then from this element create a for loop that loops through the dcx element. 
+# Extract the title of the newspaper and the publication date. Store them in two seperate variables. 
+# ```
+# 
+# ````{admonition} Solution
+# ```
+# ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
+#           'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
+#           'ns4' : 'info:srw/schema/1/dc-v1.1' }
+# 
+# for item in root_didl.find('.//ns2:Component', ns_didl):
+#     for info in item.findall('ns4:dcx', ns_didl):
+#         title = info.find('.//dc:title', ns_didl).text
+#         date = info.find('.//dc:date', ns_didl).text 
+# ```
+# ```
+# 
+# -- toon hier de uitkomst zonder input
+# 
+# Now we can store the content of this newspaper page in a text file with as name the title of the newspaper, the publication date and the page number. 
 # 
 # 
 # 
 # 
-# Bonus les: alto aan didle koppelen op basis van positie.
+# 
+# ## Extracting seperate articles
+# 
+# As you saw in the above sections, the Alto format has no clear seperation between the articles and is therefore  especially suitable when you 
+# are interested in the complete newspaper page.
+# 
+# However, there are a lot of cases in which you would be interested in the seperate articles en metadata about this articles (for example, the type of article) 
+# 
+# As for the collection of the national library, you can use the Didle xml to extract these types of information and to gather the articles. 
+# 
+# 
+# Question: how can we link the two files together?
+# Answer: by the identifier
+# 
+# ### Extract the news article metadata per page (*advanced*)
+# 
+# ### Use the news article metadata to retreive the articles and extract the plain text (*advanced*)
+# 
+# ##Write a function to automatically extract the news paper metadata per page and download the articles (*expert*)
+# 
+# 
+# 
+# 
+# -- extract information from the Didle
+# We have now a more readable page and the corresponding page number. However, if we store this then later we will have
+# no idea from which newspaper this page was. In lesson 3 we described how we could find the metadata for an Alto page. 
+# 
+# 
+# Nu zijn er verschillende mogelijkheden om dit op te slaan. 
+# Je kan het bijv in een dataframe zetten met alles op een rij. Dat lijkt voor nu niet effectief maar kan handig zijn als je meerdere paginas hebt. 
+# 
+# --- sla op
+# 
+# Ook kan je bijv het als tekstbestand opslaan, met in de titel de naam van de krant, jaar en paginanummer en in het bestgand zelf de tekst
+# 
+# -- sla het op als txt bestand

@@ -272,8 +272,8 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-elementree-and-import-the-xml-file">
-   Import ElemenTree and import the xml file
+  <a class="reference internal nav-link" href="#import-elementree-and-import-the-alto-xml-file">
+   Import ElemenTree and import the Alto xml file
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -291,12 +291,12 @@ const thebe_selector_output = ".output, .cell_output"
      Namespaces
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-the-output-more-readable">
+     Make the output more readable
+    </a>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#divide-the-plain-text-into-seperate-articles">
-   Divide the plain text into seperate articles
-  </a>
  </li>
 </ul>
 
@@ -319,8 +319,8 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-elementree-and-import-the-xml-file">
-   Import ElemenTree and import the xml file
+  <a class="reference internal nav-link" href="#import-elementree-and-import-the-alto-xml-file">
+   Import ElemenTree and import the Alto xml file
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -338,12 +338,12 @@ const thebe_selector_output = ".output, .cell_output"
      Namespaces
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-the-output-more-readable">
+     Make the output more readable
+    </a>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#divide-the-plain-text-into-seperate-articles">
-   Divide the plain text into seperate articles
-  </a>
  </li>
 </ul>
 
@@ -356,33 +356,33 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-extract-information-from-the-alto-didle-format-with-elementree">
 <h1>7. Practical: Extract information from the Alto/Didle format with ElemenTree<a class="headerlink" href="#practical-extract-information-from-the-alto-didle-format-with-elementree" title="Permalink to this headline">¶</a></h1>
-<p>In this lesson, we are going to extract the plain text and some additional information from an Alto file containing a Dutch newspaper.
-We assume that you have followed the practical lesson 4. We will reference corresponding parts of that lesson so you can check how it worked.</p>
-<p>We follow these steps:</p>
+<p>In this lesson ,we are going to work with the Alto and Didle format. As shown in lesson <em><strong>?</strong></em>, the Alto and Didle are connected to each other.
+The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4.</p>
+<p>This lesson contains the following content</p>
 <ul class="simple">
-<li><p>Load the XML file;</p></li>
-<li><p>Examine the structure of the XML file;</p></li>
-<li><p>Extract the plain text;</p></li>
-<li><p>Divide the plain text into seperate articles;</p></li>
-<li><p>Extract the page number;</p></li>
-<li><p>Save the content in one file and in seperate textfiles.</p></li>
+<li><p>Import the package and the file</p></li>
+<li><p>Examine the structure of the file</p></li>
+<li><p>Extract the complete content of the newspaper page(<em>basic</em>)</p></li>
+<li><p>Extract the news article metadata from the complete page from the Didl (<em>advanced</em>)</p></li>
+<li><p>Extract the news article metadata per page (<em>advanced</em>)</p></li>
+<li><p>Use the news article metadata to retreive the articles and extract the plain text (<em>advanced</em>)</p></li>
+<li><p>Write a function to automatically extract the news paper metadata per page and download the articles (<em>expert</em>)</p></li>
 </ul>
 <p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.
 (see explanation in <span class="xref std std-ref">ET:import</span>)</p>
-<div class="section" id="import-elementree-and-import-the-xml-file">
-<h2>Import ElemenTree and import the xml file<a class="headerlink" href="#import-elementree-and-import-the-xml-file" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="import-elementree-and-import-the-alto-xml-file">
+<h2>Import ElemenTree and import the Alto xml file<a class="headerlink" href="#import-elementree-and-import-the-alto-xml-file" title="Permalink to this headline">¶</a></h2>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Import the package and load the xml file.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>    <span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
-
-	<span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;xml-workshop/data/alto.xml&#39;</span><span class="p">)</span>
-	<span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
-</pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We work with two xml file in this lesson. Therefore, we name the root of the xml file accordingly to the type of the xml.
+Thus ‘root_alto’ for the alto xml and ‘root_didl’ for the Didl xml.</p>
 </div>
 </div>
 <div class="section" id="examine-the-structure-of-the-file">
@@ -394,22 +394,22 @@ We assume that you have followed the practical lesson 4. We will reference corre
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>	<span class="nb">print</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root_alto</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-<p>As you can see, this XML file has a lot more elements and attributes than our example file.
-Our goal is to extract the text from the news paper, to seperate the text into articles, and to store them on our computer with the page number.</p>
-<p>So first, let’s see if we can find where the textual content of the news paper is stored.</p>
+<p>*** print hier de output</p>
+<p>Our goals is to extract the text of the news paper content from the XML file, and store this in a document with the pagenumber.</p>
+<p>So, let’s start to see if we can find where the textual content of the news paper is stored.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Scroll through the XML file and see if you can find the element in which the text of the newspaper is stored. Hint: one of the news articles mentioned
-‘olifant’.</p>
+<p>Scroll through the XML file and see if you can find the element in which the text of the newspaper is stored. Hint: one of the news articles mentiones the
+word ‘spoorwegmaatschappij’.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<p>The content of the news paper articles is stored in the element ‘ns0:String’</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;String ID=&quot;P3_ST00483&quot; HPOS=&quot;557&quot; VPOS=&quot;3994&quot; WIDTH=&quot;109&quot; HEIGHT=&quot;26&quot; CONTENT=&quot;olifant&quot; WC=&quot;0.99&quot; CC=&quot;6000010&quot;/&gt;
+<p>The content of the news paper articles is stored in the element ‘ns0:String’, for example:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;String ID=&quot;P1_ST00323&quot; HPOS=&quot;244&quot; VPOS=&quot;2387&quot; WIDTH=&quot;318&quot; HEIGHT=&quot;35&quot; CONTENT=&quot;spoorwegmaatschappij&quot; WC=&quot;0.99&quot; CC=&quot;88668080809486709965&quot;/&gt;
 </pre></div>
 </div>
 </div>
@@ -454,7 +454,7 @@ The content of the String element is stored in an attribute called ‘CONTENT’
 </div>
 <p>However, as you have seen above, the element ‘String’ is a grandgrandgrandgrandchild from the start element ‘alto’.
 One way to access the String element is by typing all ancestors, leading to a code like:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;alto/Layout/Page/TextBlock/Textline/String&#39;</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;alto/Layout/Page/TextBlock/Textline/String&#39;</span><span class="p">):</span>
 </pre></div>
 </div>
 <p>However, we preferably avoid that, since it takes a lot of time and can easily lead to mistakes.</p>
@@ -481,8 +481,8 @@ One way to access the String element is by typing all ancestors, leading to a co
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>	<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;ns0:String&#39;</span><span class="p">):</span>
-		<span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">))</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>	<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;ns0:String&#39;</span><span class="p">):</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>The code doesn’t produce any output.</p>
@@ -518,8 +518,8 @@ If we look at the first line of the Alto file, we see:</p>
 </div>
 </div>
 <p>Now you can use the abbreviation of the namespace in your code:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
-    <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -536,68 +536,219 @@ You only have to declare the namespaces once, Python will then recognize them in
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>	<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
-		<span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">))</span>		
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>	
 </pre></div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="divide-the-plain-text-into-seperate-articles">
-<h2>Divide the plain text into seperate articles<a class="headerlink" href="#divide-the-plain-text-into-seperate-articles" title="Permalink to this headline">¶</a></h2>
-<p>As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit unreadable. We can store the text in a <em>string</em> variable in which we concatenate all words.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">all_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<p>This leads to the following output:</p>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">Input In [2],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;data/alto.xml&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">root_alto</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
 
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
-    <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
-    <span class="n">all_content</span> <span class="o">=</span> <span class="n">all_content</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">content</span>
+<span class="nn">File ~\anaconda3\lib\xml\etree\ElementTree.py:1229,</span> in <span class="ni">parse</span><span class="nt">(source, parser)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1220</span> <span class="sd">&quot;&quot;&quot;Parse XML document into element tree.</span>
+<span class="g g-Whitespace">   </span><span class="mi">1221</span><span class="sd"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1222</span><span class="sd"> *source* is a filename or file object containing XML data,</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1226</span><span class="sd"> </span>
+<span class="g g-Whitespace">   </span><span class="mi">1227</span><span class="sd"> &quot;&quot;&quot;</span>
+<span class="g g-Whitespace">   </span><span class="mi">1228</span> <span class="n">tree</span> <span class="o">=</span> <span class="n">ElementTree</span><span class="p">()</span>
+<span class="ne">-&gt; </span><span class="mi">1229</span> <span class="n">tree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">parser</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">1230</span> <span class="k">return</span> <span class="n">tree</span>
+
+<span class="nn">File ~\anaconda3\lib\xml\etree\ElementTree.py:569,</span> in <span class="ni">ElementTree.parse</span><span class="nt">(self, source, parser)</span>
+<span class="g g-Whitespace">    </span><span class="mi">567</span> <span class="n">close_source</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="g g-Whitespace">    </span><span class="mi">568</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;read&quot;</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">569</span>     <span class="n">source</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">570</span>     <span class="n">close_source</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">571</span> <span class="k">try</span><span class="p">:</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;data/alto.xml&#39;
 </pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="make-the-output-more-readable">
+<h3>Make the output more readable<a class="headerlink" href="#make-the-output-more-readable" title="Permalink to this headline">¶</a></h3>
+<p>As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit unreadable. We can store the text in a <em>string</em>
+variable in which we concatenate all words.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ns0&#39;</span><span class="p">:</span> <span class="s1">&#39;http://schema.ccs-gmbh.com/ALTO&#39;</span><span class="p">}</span>
+
+<span class="n">all_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+	<span class="n">content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+	<span class="n">all_content</span> <span class="o">=</span> <span class="n">all_content</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">content</span>
+	
+<span class="nb">print</span><span class="p">(</span><span class="n">all_content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 <p>The content is now more readable, however, it is still one long blob of the complete text of the newspaper.
-We would like to divide the texts in articles.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+As you can see in the xml file, the content is divide into sections.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Look at the xml file. There are different elements that divide the text. Which element would likely be used to seperate articles from
+each other?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The element ‘TextBlock’</p>
+</div>
+<p>Now that we know how we can divide the various session, let’s put this in the code.
+Instead storing all the output into one variabele, we create a variable, store it with the information of one session.
+Then we print the variabele and empty it, so it is clean for a new session.</p>
+<p>In code, this looks like this:</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextBlock&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextBlock&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
         <span class="n">article_content</span> <span class="o">=</span> <span class="n">article_content</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">content</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">article_content</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-<span class="n">Division</span> <span class="n">between</span> <span class="n">title</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">title</span>
-<span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-<span class="n">txt_type</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextBlock&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
-    <span class="n">txt</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;STYLEREFS&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="s2">&quot;LEFT&quot;</span> <span class="ow">in</span> <span class="n">txt</span><span class="p">:</span>
-        <span class="n">txt_type</span> <span class="o">=</span> <span class="s1">&#39;Title&#39;</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">txt_type</span> <span class="o">=</span> <span class="s1">&#39;Article&#39;</span>
-    <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
-        <span class="n">content</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
-        <span class="n">article_content</span> <span class="o">=</span> <span class="n">article_content</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">content</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">txt_type</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">article_content</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="c1">## add a linebreak between the seperate sessions</span>
     <span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Extract the page number;</p></li>
-</ul>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Page&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+</div>
+</div>
+<p>Now we have a page of plain text that is better structured.
+The only thing left is to retreive the page number, and then we’ll have all the information to store this data
+intro a textfile or a csv.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Look at the xml file. Where can we find the page number?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>The page number is stored in the ‘Page’ element.</p>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Write the code to extract the page number from the xml.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Page&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
     <span class="n">pagenr</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">pagenr</span><span class="p">)</span>
 </pre></div>
 </div>
-<ul class="simple">
-<li><p>Save the content in one file and in seperate textfiles;</p></li>
-<li><p>Met didle metadata over krant en pagina opslaan</p></li>
-<li><p>Met didle losse artikelen eruit en daarvan de xmls opslaan. Uit deze xmls de tekst halen. (xml of plain text?)</p></li>
-</ul>
-<p>Bonus les: alto aan didle koppelen op basis van positie.</p>
+</div>
+<p>The page number is:</p>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+</div>
+<p>We have now a more readable page and the corresponding page number. However, if we store this then later we will have
+no idea from which newspaper this page was. In lesson 3 we described that we can find metadata corresponding to an alto file in an Didle file.
+The alto and didle file have the same identifier, so you can match them.</p>
+<p>In this case, the both have the identifier 1.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Load the corresponding Didl file in your notebook. Name the root ‘root_didl’. Look at the structure of the file.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>	<span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;data/didl_id1.xml&#39;</span><span class="p">)</span>
+	<span class="n">root_didl</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root_didl</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Look at the Didle file and see if you can find in which element the title of the newspaper is scored. Hint: the title is ‘Algemeen Handelsblad’.
+What are the parents of this element?</p>
+</div>
+<div class="admonition-solution admonition">
+<p class="admonition-title">Solution</p>
+<p>Element is title, parents are dcx, resource, component and item.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+Component kan je gebruiken als degene waar alle informatie instaat. als je goed kijkt zie je dat dit ook het ereste component element is. Er zijn er 
+meerdere, maar die bevatten andere informatie. We willen dus alleen de eerste hebben. In dit geval gebruiken we geen &#39;find all&#39; (wat alle elementen teruggeeft),
+maar &#39;find&#39;), wat alleen het eerste element weggeeft. Hierna kunnen we met een for loop door het dcx element lopen en bijv de naam van de krant en 
+de publicatiedatum in een variabele stoppen. 
+
+```{admonition} Exercise
+:class: attention
+Write a code that gets the first &#39;component&#39; element, and then from this element create a for loop that loops through the dcx element. 
+Extract the title of the newspaper and the publication date. Store them in two seperate variables. 
+</pre></div>
+</div>
+<div class="admonition-solution admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ns_didl</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="s1">&#39;http://purl.org/dc/elements/1.1/&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;ns2&#39;</span><span class="p">:</span> <span class="s1">&#39;urn:mpeg:mpeg21:2002:02-DIDL-NS&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;ns4&#39;</span> <span class="p">:</span> <span class="s1">&#39;info:srw/schema/1/dc-v1.1&#39;</span> <span class="p">}</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">root_didl</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//ns2:Component&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;ns4:dcx&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//dc:title&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//dc:date&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> 
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+-- toon hier de uitkomst zonder input
+
+Now we can store the content of this newspaper page in a text file with as name the title of the newspaper, the publication date and the page number. 
+
+
+
+
+
+## Extracting seperate articles
+
+As you saw in the above sections, the Alto format has no clear seperation between the articles and is therefore  especially suitable when you 
+are interested in the complete newspaper page.
+
+However, there are a lot of cases in which you would be interested in the seperate articles en metadata about this articles (for example, the type of article) 
+
+As for the collection of the national library, you can use the Didle xml to extract these types of information and to gather the articles. 
+
+
+Question: how can we link the two files together?
+Answer: by the identifier
+
+### Extract the news article metadata per page (*advanced*)
+
+### Use the news article metadata to retreive the articles and extract the plain text (*advanced*)
+
+##Write a function to automatically extract the news paper metadata per page and download the articles (*expert*)
+
+
+
+
+-- extract information from the Didle
+We have now a more readable page and the corresponding page number. However, if we store this then later we will have
+no idea from which newspaper this page was. In lesson 3 we described how we could find the metadata for an Alto page. 
+
+
+Nu zijn er verschillende mogelijkheden om dit op te slaan. 
+Je kan het bijv in een dataframe zetten met alles op een rij. Dat lijkt voor nu niet effectief maar kan handig zijn als je meerdere paginas hebt. 
+
+--- sla op
+
+Ook kan je bijv het als tekstbestand opslaan, met in de titel de naam van de krant, jaar en paginanummer en in het bestgand zelf de tekst
+
+-- sla het op als txt bestand
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 
