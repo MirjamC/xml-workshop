@@ -356,7 +356,7 @@ Look at the Didle file and see if you can find in which element the title of the
 What parent of this element contains all information we need to extract the title and the publication date?
 ```
 
-````{admonition} Solution
+```{admonition} Solution
 The title is stored in the element 'title', and the publication date in the element 'date'. They can both be found in the element 
 'Resource'. 
 ```
