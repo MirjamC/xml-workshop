@@ -19,15 +19,16 @@ In this lesson ,we are going to work with the Alto and Didle format. As shown in
 The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4. 
 
 This lesson contains the following content
-- Load the files and examine the structure;
+- Load the Alto file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
 - Extract the complete content of a newspaper page from the Alto file <span style="color:#ef6079">(*basic*)</span>
+- Load the Didl file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
 - Extraxt newspaper metadata from the Didl file. <span style="color:#ef6079">(*basic*)</span>
 - Extract all seperate articles from the total newspaper from the Didl file <span style="color:#ef6079">(*moderate*)</span>
 - Extract all seperate articles from a specific newspaper from the Didl file <span style="color:#ef6079">(*advanced*)</span>
 
 Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. 
 
-## Import ElemenTree and import the Alto xml file
+## Load the Alto file and examine the structure
 
 ```{admonition} Exercise
 :class: attention
@@ -48,8 +49,6 @@ Import the package and load the xml file.
 We work with two xml file in this lesson. Therefore, we name the root of the xml file accordingly to the type of the xml.
 Thus 'root_alto' for the alto xml and 'root_didl' for the Didl xml. 
 ```
-
-## Examine the structure of the file
 
 Before you can extract content from a XML file, you have to see what is inside and how it is structured. 
 
@@ -109,7 +108,7 @@ There are a lot of nested element in this XML file. What are the parents, grandp
 ```
 Now we know some important information about this Alto file, so let's see if we can extract the content. 
 
-## Extract the plain text
+## Extract the complete content of a newspaper page from the Alto file
 
 We will start by extracting all the text, without worrying about the division between the articles. 
 
@@ -329,6 +328,8 @@ for book in root_alto.findall('.//ns0:Page', ns):
     print(pagenr)
 ```
 
+## Load the Didl file and examine the structure ;
+
 We have now a more readable page and the corresponding page number. However, if we store this then later we will have
 no idea from which newspaper this page was. In lesson 3 we described that we can find metadata corresponding to an alto file in an Didle file. 
 The alto and didle file have the same identifier, so you can match them.
@@ -359,6 +360,8 @@ What parent of this element contains all information we need to extract the titl
 The title is stored in the element 'title', and the publication date in the element 'date'. They can both be found in the element 
 'Resource'. 
 ```
+
+## Extraxt newspaper metadata from the Didl file.
 
 We see that the block resource containts all the information we want. If we look closely at the file, we see that there are multiple
 element with the name 'resource', but the one we want is the first. If you want all the information from all resource blocks, we use
@@ -417,7 +420,7 @@ answer.
 
 ```
 
-## Extracting seperate articles
+## Extract all seperate articles from the total newspaper from the Didl file
 
 As you saw in the above sections, the Alto format has no clear seperation between the articles and is therefore  especially suitable when you 
 are interested in the complete newspaper page.
@@ -459,31 +462,8 @@ and print them.
 Yes, they are stored in the 'resource' elements.  
 ```
 
+## Extract all seperate articles from a specific newspaper from the Didl file
 
-
-
-### Extract the news article metadata per page (*advanced*)
-
-### Use the news article metadata to retreive the articles and extract the plain text (*advanced*)
-
-##Write a function to automatically extract the news paper metadata per page and download the articles (*expert*)
-
-
-
-
--- extract information from the Didle
-We have now a more readable page and the corresponding page number. However, if we store this then later we will have
-no idea from which newspaper this page was. In lesson 3 we described how we could find the metadata for an Alto page. 
-
-
-Nu zijn er verschillende mogelijkheden om dit op te slaan. 
-Je kan het bijv in een dataframe zetten met alles op een rij. Dat lijkt voor nu niet effectief maar kan handig zijn als je meerdere paginas hebt. 
-
---- sla op
-
-Ook kan je bijv het als tekstbestand opslaan, met in de titel de naam van de krant, jaar en paginanummer en in het bestgand zelf de tekst
-
--- sla het op als txt bestand
 
 
 
