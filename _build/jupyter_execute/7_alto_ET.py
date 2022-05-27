@@ -349,7 +349,7 @@ for book in root_alto.findall('.//ns0:Page', ns):
 # What parent of this element contains all information we need to extract the title and the publication date?
 # ```
 # 
-# ````{admonition} Solution
+# ```{admonition} Solution
 # The title is stored in the element 'title', and the publication date in the element 'date'. They can both be found in the element 
 # 'Resource'. 
 # ```

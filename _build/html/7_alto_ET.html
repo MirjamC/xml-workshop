@@ -299,6 +299,11 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extraxt-newspaper-metadata-from-the-didl-file">
+   Extraxt newspaper metadata from the Didl file.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#extract-all-seperate-articles-from-the-total-newspaper-from-the-didl-file">
    Extract all seperate articles from the total newspaper from the Didl file
   </a>
@@ -353,6 +358,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#load-the-didl-file-and-examine-the-structure">
    Load the Didl file and examine the structure ;
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extraxt-newspaper-metadata-from-the-didl-file">
+   Extraxt newspaper metadata from the Didl file.
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -2840,9 +2850,7 @@ Van
 den
 goeden
 tijd
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>hoopt
+hoopt
 de
 heer
 Uhden.
@@ -2857,7 +2865,9 @@ jaren
 eene
 inrich
 ting
-van
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>van
 onderwijs,
 liet
 zoogenaamde
@@ -5200,9 +5210,7 @@ schroomvallige
 vinden.
 Er
 zullen
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>mannen
+mannen
 zijn,
 die
 gaarne
@@ -5418,7 +5426,9 @@ hoorde.
 Li
 het
 hartje
-van
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>van
 Parijs
 hangen
 nog
@@ -7539,9 +7549,7 @@ hij
 van
 gevoelen
 verschilt
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>met
+met
 den
 nu-
 De
@@ -7865,7 +7873,9 @@ met
 genoegen,
 dat
 de
-regeering
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>regeering
 alles
 gedaan
 heeft
@@ -8109,20 +8119,18 @@ What parent of this element contains all information we need to extract the titl
 <p class="admonition-title">Solution</p>
 <p>The title is stored in the element ‘title’, and the publication date in the element ‘date’. They can both be found in the element
 ‘Resource’.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-## Extraxt newspaper metadata from the Didl file.
-
-We see that the block resource containts all the information we want. If we look closely at the file, we see that there are multiple
-element with the name &#39;resource&#39;, but the one we want is the first. If you want all the information from all resource blocks, we use
+</div>
+</div>
+<div class="section" id="extraxt-newspaper-metadata-from-the-didl-file">
+<h2>Extraxt newspaper metadata from the Didl file.<a class="headerlink" href="#extraxt-newspaper-metadata-from-the-didl-file" title="Permalink to this headline">¶</a></h2>
+<p>We see that the block resource containts all the information we want. If we look closely at the file, we see that there are multiple
+element with the name ‘resource’, but the one we want is the first. If you want all the information from all resource blocks, we use
 the findall method as we did before. However, we now only want information from the first block. In that case, you can just simply use
-find(). This will returns the first element it occurs. The rest of the syntax stays the same. 
-
-
-```{admonition} Exercise
-:class: attention
-Write a code that gets the only the first &#39;component&#39; element, and then from this element create a for loop that loops through the dcx element. 
-Extract the title of the newspaper and the publication date. Store them in two seperate variables. 
-</pre></div>
+find(). This will returns the first element it occurs. The rest of the syntax stays the same.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Write a code that gets the only the first ‘component’ element, and then from this element create a for loop that loops through the dcx element.
+Extract the title of the newspaper and the publication date. Store them in two seperate variables.</p>
 </div>
 <div class="admonition-solution admonition">
 <p class="admonition-title">Solution</p>
@@ -8162,7 +8170,6 @@ page number.</p>
 <div class="admonition-solution admonition">
 <p class="admonition-title">Solution</p>
 <p>answer.</p>
-</div>
 </div>
 </div>
 </div>
