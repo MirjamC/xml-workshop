@@ -121,7 +121,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="5_example_BS.html">
-   5. Practical session: Working with Beautful Soup
+   5. Practical session: Working with Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
@@ -298,6 +298,31 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extracting-seperate-articles">
+   Extracting seperate articles
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extract-the-news-article-metadata-per-page-advanced">
+     Extract the news article metadata per page (
+     <em>
+      advanced
+     </em>
+     )
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-the-news-article-metadata-to-retreive-the-articles-and-extract-the-plain-text-advanced">
+     Use the news article metadata to retreive the articles and extract the plain text (
+     <em>
+      advanced
+     </em>
+     )
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
             </nav>
@@ -345,6 +370,31 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extracting-seperate-articles">
+   Extracting seperate articles
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extract-the-news-article-metadata-per-page-advanced">
+     Extract the news article metadata per page (
+     <em>
+      advanced
+     </em>
+     )
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#use-the-news-article-metadata-to-retreive-the-articles-and-extract-the-plain-text-advanced">
+     Use the news article metadata to retreive the articles and extract the plain text (
+     <em>
+      advanced
+     </em>
+     )
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
                         </nav>
@@ -360,16 +410,13 @@ const thebe_selector_output = ".output, .cell_output"
 The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4.</p>
 <p>This lesson contains the following content</p>
 <ul class="simple">
-<li><p>Import the package and the file</p></li>
-<li><p>Examine the structure of the file</p></li>
-<li><p>Extract the complete content of the newspaper page(<em>basic</em>)</p></li>
-<li><p>Extract the news article metadata from the complete page from the Didl (<em>advanced</em>)</p></li>
-<li><p>Extract the news article metadata per page (<em>advanced</em>)</p></li>
-<li><p>Use the news article metadata to retreive the articles and extract the plain text (<em>advanced</em>)</p></li>
-<li><p>Write a function to automatically extract the news paper metadata per page and download the articles (<em>expert</em>)</p></li>
+<li><p>Load the files and examine the structure;</p></li>
+<li><p>Extract the complete content of a newspaper page from the Alto file <span style="color:#ef6079">(<em>basic</em>)</span></p></li>
+<li><p>Extraxt newspaper metadata from the Didl file. <span style="color:#ef6079">(<em>basic</em>)</span></p></li>
+<li><p>Extract all seperate articles from the total newspaper from the Didl file <span style="color:#ef6079">(<em>moderate</em>)</span></p></li>
+<li><p>Extract all seperate articles from a specific newspaper from the Didl file <span style="color:#ef6079">(<em>advanced</em>)</span></p></li>
 </ul>
-<p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.
-(see explanation in <span class="xref std std-ref">ET:import</span>)</p>
+<p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.</p>
 <div class="section" id="import-elementree-and-import-the-alto-xml-file">
 <h2>Import ElemenTree and import the Alto xml file<a class="headerlink" href="#import-elementree-and-import-the-alto-xml-file" title="Permalink to this headline">¶</a></h2>
 <div class="attention admonition">
@@ -2208,9 +2255,7 @@ en
 men
 kan
 niet
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>zonder
+zonder
 diepe
 aandoening
 het
@@ -2956,7 +3001,9 @@ verneem
 op
 goeden
 grond,
-dat
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dat
 de
 rus
 sische
@@ -3828,9 +3875,7 @@ zijn
 geworden
 ziekenoppasaers,
 onderwijzers,
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>enz.,
+enz.,
 enz.,
 iv
 een
@@ -5438,7 +5483,9 @@ zal
 zün
 eenige
 staatkundige
-tegenstanders
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tegenstanders
 door
 ophanging
 onschadelijk
@@ -5562,9 +5609,7 @@ weet,
 en
 die
 overtollig
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>zijn
+zijn
 geworden,
 in
 het
@@ -7202,9 +7247,7 @@ tienden,
 departement
 van
 finantiën
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nieuwe
+nieuwe
 tienden
 creëert
 en
@@ -8082,23 +8125,26 @@ The alto and didle file have the same identifier, so you can match them.</p>
 	<span class="nb">print</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root_didl</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Look at the Didle file and see if you can find in which element the title of the newspaper is scored. Hint: the title is ‘Algemeen Handelsblad’.
-What are the parents of this element?</p>
+What parent of this element contains all information we need to extract the title and the publication date?</p>
 </div>
 <div class="admonition-solution admonition">
 <p class="admonition-title">Solution</p>
-<p>Element is title, parents are dcx, resource, component and item.</p>
+<p>The title is stored in the element ‘title’, and the publication date in the element ‘date’. They can both be found in the element
+‘Resource’.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-Component kan je gebruiken als degene waar alle informatie instaat. als je goed kijkt zie je dat dit ook het ereste component element is. Er zijn er 
-meerdere, maar die bevatten andere informatie. We willen dus alleen de eerste hebben. In dit geval gebruiken we geen &#39;find all&#39; (wat alle elementen teruggeeft),
-maar &#39;find&#39;), wat alleen het eerste element weggeeft. Hierna kunnen we met een for loop door het dcx element lopen en bijv de naam van de krant en 
-de publicatiedatum in een variabele stoppen. 
+We see that the block resource containts all the information we want. If we look closely at the file, we see that there are multiple
+element with the name &#39;resource&#39;, but the one we want is the first. If you want all the information from all resource blocks, we use
+the findall method as we did before. However, we now only want information from the first block. In that case, you can just simply use
+find(). This will returns the first element it occurs. The rest of the syntax stays the same. 
+
 
 ```{admonition} Exercise
 :class: attention
-Write a code that gets the first &#39;component&#39; element, and then from this element create a for loop that loops through the dcx element. 
+Write a code that gets the only the first &#39;component&#39; element, and then from this element create a for loop that loops through the dcx element. 
 Extract the title of the newspaper and the publication date. Store them in two seperate variables. 
 </pre></div>
 </div>
@@ -8108,61 +8154,91 @@ Extract the title of the newspaper and the publication date. Store them in two s
           <span class="s1">&#39;ns2&#39;</span><span class="p">:</span> <span class="s1">&#39;urn:mpeg:mpeg21:2002:02-DIDL-NS&#39;</span><span class="p">,</span> 
           <span class="s1">&#39;ns4&#39;</span> <span class="p">:</span> <span class="s1">&#39;info:srw/schema/1/dc-v1.1&#39;</span> <span class="p">}</span>
 
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">root_didl</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//ns2:Component&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">):</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">root_didl</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//ns2:Resource&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;ns4:dcx&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">):</span>
         <span class="n">title</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//dc:title&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//dc:date&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> 
+        <span class="n">date</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//dc:date&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>  
 </pre></div>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 -- toon hier de uitkomst zonder input
+```{code-cell}
+ns_didl = {&#39;dc&#39;: &#39;http://purl.org/dc/elements/1.1/&#39;,
+          &#39;ns2&#39;: &#39;urn:mpeg:mpeg21:2002:02-DIDL-NS&#39;, 
+          &#39;ns4&#39; : &#39;info:srw/schema/1/dc-v1.1&#39; }
 
-Now we can store the content of this newspaper page in a text file with as name the title of the newspaper, the publication date and the page number. 
-
-
-
-
-
-## Extracting seperate articles
-
-As you saw in the above sections, the Alto format has no clear seperation between the articles and is therefore  especially suitable when you 
-are interested in the complete newspaper page.
-
-However, there are a lot of cases in which you would be interested in the seperate articles en metadata about this articles (for example, the type of article) 
-
-As for the collection of the national library, you can use the Didle xml to extract these types of information and to gather the articles. 
-
-
-Question: how can we link the two files together?
-Answer: by the identifier
-
-### Extract the news article metadata per page (*advanced*)
-
-### Use the news article metadata to retreive the articles and extract the plain text (*advanced*)
-
-##Write a function to automatically extract the news paper metadata per page and download the articles (*expert*)
-
-
-
-
--- extract information from the Didle
-We have now a more readable page and the corresponding page number. However, if we store this then later we will have
-no idea from which newspaper this page was. In lesson 3 we described how we could find the metadata for an Alto page. 
-
-
-Nu zijn er verschillende mogelijkheden om dit op te slaan. 
-Je kan het bijv in een dataframe zetten met alles op een rij. Dat lijkt voor nu niet effectief maar kan handig zijn als je meerdere paginas hebt. 
-
---- sla op
-
-Ook kan je bijv het als tekstbestand opslaan, met in de titel de naam van de krant, jaar en paginanummer en in het bestgand zelf de tekst
-
--- sla het op als txt bestand
+for item in root_didl.find(&#39;.//ns2:Resource&#39;, ns_didl):
+    for info in item.findall(&#39;ns4:dcx&#39;, ns_didl):
+        title = info.find(&#39;.//dc:title&#39;, ns_didl).text
+        date = info.find(&#39;.//dc:date&#39;, ns_didl).text  
 </pre></div>
 </div>
+<p>Now we can store the content of this newspaper page in a text file with as name the title of the newspaper, the publication date and the
+page number.</p>
+<p>We can create the filename like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="n">f</span><span class="p">([</span><span class="n">titl</span>
+</pre></div>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Save the content in a file.</p>
+</div>
+<div class="admonition-solution admonition">
+<p class="admonition-title">Solution</p>
+<p>answer.</p>
 </div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="extracting-seperate-articles">
+<h2>Extracting seperate articles<a class="headerlink" href="#extracting-seperate-articles" title="Permalink to this headline">¶</a></h2>
+<p>As you saw in the above sections, the Alto format has no clear seperation between the articles and is therefore  especially suitable when you
+are interested in the complete newspaper page.</p>
+<p>However, there are a lot of cases in which you would be interested in the seperate articles en metadata about this articles (for example, the type of article)</p>
+<p>As for the collection of the national library, you can use the Didle xml to extract these types of information and to gather the articles.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Look at the Didl file, do you see information about the articles?</p>
+</div>
+<div class="admonition-solution admonition">
+<p class="admonition-title">Solution</p>
+<p>Yes, they are stored in the ‘resource’ elements.</p>
+</div>
+<p>As you can see, there are block with information about the articles. However, the articles self are not present in the Didl, but we can
+retreive them through there identifier. We therefore are going to perform to steps:</p>
+<ul class="simple">
+<li><p>Extract article information and identifier from the didle</p></li>
+<li><p>Download the articles and extract the plain text</p></li>
+</ul>
+<p>We start by extracting the subject, title and identifier from the resource element. However, there is also
+other information stored in the resource elements, such as the news paper title.</p>
+<p>You can distinguish the articles by the newspaper metadata based on the element ‘subject’.
+All articles have a subject (‘artikel’, ‘familiebericht’ etc) whilst the other metadata don’t.</p>
+<p>We can</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Write a for loop that extract the subject, title and identifier of each article
+and print them.</p>
+</div>
+<div class="admonition-solution admonition">
+<p class="admonition-title">Solution</p>
+<p>Yes, they are stored in the ‘resource’ elements.</p>
+</div>
+<div class="section" id="extract-the-news-article-metadata-per-page-advanced">
+<h3>Extract the news article metadata per page (<em>advanced</em>)<a class="headerlink" href="#extract-the-news-article-metadata-per-page-advanced" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="use-the-news-article-metadata-to-retreive-the-articles-and-extract-the-plain-text-advanced">
+<h3>Use the news article metadata to retreive the articles and extract the plain text (<em>advanced</em>)<a class="headerlink" href="#use-the-news-article-metadata-to-retreive-the-articles-and-extract-the-plain-text-advanced" title="Permalink to this headline">¶</a></h3>
+<p>##Write a function to automatically extract the news paper metadata per page and download the articles (<em>expert</em>)</p>
+<p>– extract information from the Didle
+We have now a more readable page and the corresponding page number. However, if we store this then later we will have
+no idea from which newspaper this page was. In lesson 3 we described how we could find the metadata for an Alto page.</p>
+<p>Nu zijn er verschillende mogelijkheden om dit op te slaan.
+Je kan het bijv in een dataframe zetten met alles op een rij. Dat lijkt voor nu niet effectief maar kan handig zijn als je meerdere paginas hebt.</p>
+<p>— sla op</p>
+<p>Ook kan je bijv het als tekstbestand opslaan, met in de titel de naam van de krant, jaar en paginanummer en in het bestgand zelf de tekst</p>
+<p>– sla het op als txt bestand</p>
 </div>
 </div>
 </div>

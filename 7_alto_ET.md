@@ -19,16 +19,13 @@ In this lesson ,we are going to work with the Alto and Didle format. As shown in
 The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4. 
 
 This lesson contains the following content
-- Import the package and the file
-- Examine the structure of the file
-- Extract the complete content of the newspaper page(*basic*)
-- Extract the news article metadata from the complete page from the Didl (*advanced*)
-- Extract the news article metadata per page (*advanced*)
-- Use the news article metadata to retreive the articles and extract the plain text (*advanced*)
-- Write a function to automatically extract the news paper metadata per page and download the articles (*expert*)
+- Load the files and examine the structure;
+- Extract the complete content of a newspaper page from the Alto file <span style="color:#ef6079">(*basic*)</span>
+- Extraxt newspaper metadata from the Didl file. <span style="color:#ef6079">(*basic*)</span>
+- Extract all seperate articles from the total newspaper from the Didl file <span style="color:#ef6079">(*moderate*)</span>
+- Extract all seperate articles from a specific newspaper from the Didl file <span style="color:#ef6079">(*advanced*)</span>
 
 Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. 
-(see explanation in {ref}`ET:import`)
 
 ## Import ElemenTree and import the Alto xml file
 
@@ -350,25 +347,28 @@ Load the corresponding Didl file in your notebook. Name the root 'root_didl'. Lo
 	root_didl = tree.getroot()
 	print(ET.tostring(root_didl, encoding='utf8').decode('utf8'))
 ```
+````
 
 ```{admonition} Exercise
 :class: attention
 Look at the Didle file and see if you can find in which element the title of the newspaper is scored. Hint: the title is 'Algemeen Handelsblad'. 
-What are the parents of this element?
+What parent of this element contains all information we need to extract the title and the publication date?
 ```
 
 ````{admonition} Solution
-Element is title, parents are dcx, resource, component and item. 
+The title is stored in the element 'title', and the publication date in the element 'date'. They can both be found in the element 
+'Resource'. 
 ```
 
-Component kan je gebruiken als degene waar alle informatie instaat. als je goed kijkt zie je dat dit ook het ereste component element is. Er zijn er 
-meerdere, maar die bevatten andere informatie. We willen dus alleen de eerste hebben. In dit geval gebruiken we geen 'find all' (wat alle elementen teruggeeft),
-maar 'find'), wat alleen het eerste element weggeeft. Hierna kunnen we met een for loop door het dcx element lopen en bijv de naam van de krant en 
-de publicatiedatum in een variabele stoppen. 
+We see that the block resource containts all the information we want. If we look closely at the file, we see that there are multiple
+element with the name 'resource', but the one we want is the first. If you want all the information from all resource blocks, we use
+the findall method as we did before. However, we now only want information from the first block. In that case, you can just simply use
+find(). This will returns the first element it occurs. The rest of the syntax stays the same. 
+
 
 ```{admonition} Exercise
 :class: attention
-Write a code that gets the first 'component' element, and then from this element create a for loop that loops through the dcx element. 
+Write a code that gets the only the first 'component' element, and then from this element create a for loop that loops through the dcx element. 
 Extract the title of the newspaper and the publication date. Store them in two seperate variables. 
 ```
 
@@ -378,20 +378,44 @@ ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
           'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
           'ns4' : 'info:srw/schema/1/dc-v1.1' }
 
-for item in root_didl.find('.//ns2:Component', ns_didl):
+for item in root_didl.find('.//ns2:Resource', ns_didl):
     for info in item.findall('ns4:dcx', ns_didl):
         title = info.find('.//dc:title', ns_didl).text
-        date = info.find('.//dc:date', ns_didl).text 
+        date = info.find('.//dc:date', ns_didl).text  
 ```
 ```
 
 -- toon hier de uitkomst zonder input
+```{code-cell}
+ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
+          'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
+          'ns4' : 'info:srw/schema/1/dc-v1.1' }
 
-Now we can store the content of this newspaper page in a text file with as name the title of the newspaper, the publication date and the page number. 
+for item in root_didl.find('.//ns2:Resource', ns_didl):
+    for info in item.findall('ns4:dcx', ns_didl):
+        title = info.find('.//dc:title', ns_didl).text
+        date = info.find('.//dc:date', ns_didl).text  
+```
 
+Now we can store the content of this newspaper page in a text file with as name the title of the newspaper, the publication date and the 
+page number. 
 
+We can create the filename like this:
 
+```
+filename = f([titl
+```
 
+```{admonition} Exercise
+:class: attention
+Save the content in a file.
+```
+
+```{admonition} Solution
+
+answer.  
+
+```
 
 ## Extracting seperate articles
 
@@ -402,9 +426,41 @@ However, there are a lot of cases in which you would be interested in the sepera
 
 As for the collection of the national library, you can use the Didle xml to extract these types of information and to gather the articles. 
 
+```{admonition} Exercise
+:class: attention
+Look at the Didl file, do you see information about the articles?
+```
 
-Question: how can we link the two files together?
-Answer: by the identifier
+```{admonition} Solution
+Yes, they are stored in the 'resource' elements.  
+```
+
+As you can see, there are block with information about the articles. However, the articles self are not present in the Didl, but we can 
+retreive them through there identifier. We therefore are going to perform to steps:
+
+- Extract article information and identifier from the didle
+- Download the articles and extract the plain text
+
+We start by extracting the subject, title and identifier from the resource element. However, there is also
+other information stored in the resource elements, such as the news paper title. 
+
+You can distinguish the articles by the newspaper metadata based on the element 'subject'.
+All articles have a subject ('artikel', 'familiebericht' etc) whilst the other metadata don't.
+
+We can 
+
+```{admonition} Exercise
+:class: attention
+Write a for loop that extract the subject, title and identifier of each article
+and print them. 
+```
+
+```{admonition} Solution
+Yes, they are stored in the 'resource' elements.  
+```
+
+
+
 
 ### Extract the news article metadata per page (*advanced*)
 
