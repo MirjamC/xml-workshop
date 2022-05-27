@@ -61,8 +61,6 @@ There are two ways to do this.
 
 ```{code-cell} ipython3
 :tags: [hide-output]
-
-# This cell should have its output hidden!
 print(ET.tostring(root, encoding='utf8').decode('utf8'))
 ```
 
@@ -86,7 +84,6 @@ First, type the following code in your Jupyter Notebook to get the title from ev
 ```{code-cell}
 :tags: [hide-output]
 
-# This cell should have its output hidden!
 for book in root.findall('book'):
     title = book.find('title').text
     print(title)
@@ -135,7 +132,6 @@ Combining the two codes above leads to the following code:
 ```{code-cell}
 :tags: [hide-output]
 
-# This cell should have its output hidden!
 for book in root.findall('book'):
 	title = book.find('title').text
 	description = book.find('description').text
@@ -182,7 +178,6 @@ we also need a second *for loop* that runs through the 'author' element of 'book
 ```{code-cell}
 :tags: [hide-output]
 
-# This cell should have its output hidden!
 for book in root.findall('book'):
     for author in book.findall('author'):
         name = author.find('name').text
@@ -196,6 +191,15 @@ The above code extracts only the name of an author. Alter the code, so that it e
 
 ```{admonition} Solution
 :class: tip, dropdown
+	for book in root.findall('book'):
+		for author in book.findall('author'):
+			name = author.find('name').text
+			surname = author.find('surname').text
+			print(name, surname) 
+```
+```{code-cell}
+:tags: [remove-output, hide-output]
+
 	for book in root.findall('book'):
 		for author in book.findall('author'):
 			name = author.find('name').text
@@ -253,7 +257,6 @@ We still use the *for loop* to iterate through all the books, but instead of the
 ```{code-cell}
 :tags: [hide-output]
 
-# This cell should have its output hidden!
 for book in root.findall('book'):
     identifier = book.get('id')
     print(identifier)
@@ -296,9 +299,8 @@ Create the code that extracts all information we have used so far, from every bo
 This leads to the following output:
 
 ```{code-cell}
-:tags: ["hide-input"]
+:tags: [remove-input]
 
-# This cell should have its input hidden!
 for book in root.findall('book'):
 	identifier = book.get('id')
 	title = book.find('title').text
@@ -323,7 +325,6 @@ So in our example, we could for example add the following:
 ```{code-cell}
 :tags: ["hide-output"]
 
-# This cell should have its input hidden!
 for book in root.findall('book'):
     identifier = book.get('id')
     title = book.find('title').text
@@ -341,7 +342,6 @@ leading to the following code:
 ```{code-cell}
 :tags: ["hide-output"]
 
-# This cell should have its input hidden!
 for book in root.findall('book'):
     identifier = book.get('id')
     title = book.find('title').text
@@ -350,7 +350,6 @@ for book in root.findall('book'):
         name = author.find('name').text
         surname = author.find('surname').text
     print(f"Identifier= {identifier }\n title= {title}\n description= {description} \n name= {name} {surname}\n")
-
 ```
 
 Well, that output looks way better, doesn't it?
@@ -374,7 +373,6 @@ We can use the following code:
 ```{code-cell}
 :tags: ["hide-output"]
 
-# This cell should have its input hidden!
 booklist = []
 
 for book in root.findall('book'):
@@ -410,9 +408,8 @@ books
 
 This results in the following output:
 ```{code-cell}
-:tags: ["hide-input"]
+:tags: [remove-input]
 
-# This cell should have its input hidden!
 import pandas as pd
 books = pd.DataFrame(booklist, columns={"identifier","title", "description", "name"})
 books
@@ -506,4 +503,11 @@ Print out the title of all books that have England in their description.
 			print(book.find('description').text)
 ```	
 
+```{code-cell}
+:tags: ["remove-input","hide-output"]
 
+for book in root.findall('book'):
+	description = book.find('description').text
+	if "England" in description:
+		print(description)
+```

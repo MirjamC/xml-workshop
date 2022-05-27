@@ -121,7 +121,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="5_example_BS.html">
-   5. Practical session: Working with Beautful Soup
+   5. Practical session: Working with Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
@@ -272,8 +272,18 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#voorbeeld-toevoegen">
+   voorbeeld toevoegen
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dividing-the-text-in-chapters">
    Dividing the text in chapters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saving-the-chapters-to-disk">
+   Saving the chapters to disk
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -302,8 +312,18 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#voorbeeld-toevoegen">
+   voorbeeld toevoegen
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#dividing-the-text-in-chapters">
    Dividing the text in chapters
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#saving-the-chapters-to-disk">
+   Saving the chapters to disk
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -324,13 +344,20 @@ const thebe_selector_output = ".output, .cell_output"
 <h1>10. Practical session: Tei and Beautiful Soup<a class="headerlink" href="#practical-session-tei-and-beautiful-soup" title="Permalink to this headline">¶</a></h1>
 <p>For this session we will extract data from TEI format. We will only extract information from TEI using Beautifull Soup as ElementTree does not handle spaces (&amp;nbsp) well.</p>
 <p>When working with TEI format it is very important to check the lay-out. This can vary a lot between files.</p>
+<p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. (see explanation in ET:import)</p>
+<div class="section" id="voorbeeld-toevoegen">
+<h2>voorbeeld toevoegen<a class="headerlink" href="#voorbeeld-toevoegen" title="Permalink to this headline">¶</a></h2>
 <p>Opletten: teis kunnen erg verschillen van opmaak
 ##(voorbeeld van een TEI waarin de text in een p staat of in een l).</p>
 <p>As you can see in the example, it is wise to <strong>always</strong> check which elements you need to ensure you extract the correct data.
-TEI files of the same kind, for example all about one poet, usually are similar. However, double-checking this can save a lot of work (and frustration) later on.</p>
+TEI files of the same kind, for example all about one poet, usually are similar. However, double-checking this can save a lot of work (and frustration) later on.
+Let’s start with importing Beautifull Soup and loading the XML file.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Import Beautifull Soup and load the XML file.</p>
+<p>Import Beautifull Soup and load the XML file into a variable.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>    
 
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;xml-workshop/data/tei.xml&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -338,26 +365,50 @@ TEI files of the same kind, for example all about one poet, usually are similar.
 </pre></div>
 </div>
 </div>
+<p>We are now all clear to start exploring the XLM file. As always we should first explore the structure.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Check the structure</p>
+<p>Check the structure of the data.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>We can check the structure of the loaded file by simply running the variable it is stored in.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span>
 </pre></div>
 </div>
 </div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">FileNotFoundError</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="nn">Input In [1],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>    
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;xml-workshop/data/tei.xml&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">root</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">root</span>
+
+<span class="ne">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;xml-workshop/data/tei.xml&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>This TEI file contains information of a book. It has multiple elements containing data about the book and the content of the book. We will need to read teh structure carefully to find the right elements where the content we want is stored.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>This TEI file contains information of a book. In which elements can you find the main content, the text, of this book?
+<p>In which elements can you find the main content, the text, of this book?
 Is the content present as a value or as an attribute?</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <p>The content is contained in the elements <em>title</em>, <em>head</em>, <em>l</em>, and <em>p</em>.</p>
 </div>
-<p>There are a lot of elements containing the data. One option is to print the whole XML.
-This can be done with:</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">text</span>
+<p>There are a lot of elements containing the data. One option is to print the whole XML. This way no content will be missed and all possible text is extracted. This can be done with:</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
+</div>
+</div>
 </div>
 <p>A downside of this option is that a lot of metadata is printed out as well. Usually you would not want to have the metadata within the content. Filtering this out afterwards is very work-intensive.</p>
 <div class="attention admonition">
@@ -368,34 +419,51 @@ This can be done with:</p>
 <p class="admonition-title">Solution</p>
 <p>One option would be to print it out per chapter.</p>
 </div>
+</div>
 <div class="section" id="dividing-the-text-in-chapters">
 <h2>Dividing the text in chapters<a class="headerlink" href="#dividing-the-text-in-chapters" title="Permalink to this headline">¶</a></h2>
-<p>It is possible to iterate through the root and collect all the <em>div</em> elements with as type <em>chapter</em>. Having collected these it is now possible to print all <em>.text</em> content contained in these <em>div</em>s.</p>
+<p>It is possible to iterate through the root and collect all the <em>div</em> elements with as type <em>chapter</em>. When all the chapters are collected it is then possible to print all <em>.text</em> content contained in these <em>div</em>s.
+Using a <em>for loop</em> is a good start. This will iterate through the divs one by one. Within the loop we can perform the different actions, like extraction and transformation.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Construct a <em>for looop</em> that goes through the divs and prints out all content of the divs with <em>type</em> ‘chapter’</p>
+<p>Construct a <em>for loop</em> that goes through the divs and prints out all content of the divs with <em>type</em> ‘chapter’</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <p>One option would be to print it out per chapter.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">## the for loop iterates through every div </span>
+<span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
+	<span class="c1">## all actions within the loop are performed div by div.</span>
+	<span class="c1">## here we select only divs with type chapter</span>
     <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;chapter&#39;</span><span class="p">:</span>
+		<span class="c1">## and we print the div</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+</div>
 <p>The code still prints out everything as a single piece of text without anything to distinguish the different chapters. Adding a chapter header is an easy way to be able to seperate the different chapters.
-This can be done by making a counter and printer the text’chapter [counter]’ before every chapter. After every <em>div</em> that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+This can be done by making a counter and printer the text ‘chapter [counter]’ before every chapter. After every <em>div</em> that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">## initialise the counter at 1</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;chapter&#39;</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;chapter &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">))</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+		<span class="c1">## add 1 to the counter every iteration of the loop</span>
         <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>Printing to the output is great for prototyping, but to make sure the extracted data can be used for further analysis and to keep the workspace a bit uncluttered it is best to ave the extracted content. This can be done chapter for chapter, by creating one larger file containting a chapter per row.</p>
+<p>Try the code above to see how the output now contains increasing chapter count</p>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+</div>
+<p>Great! we now have all the chapters in order, and numbered. However, this is not the most readable output.</p>
+</div>
+<div class="section" id="saving-the-chapters-to-disk">
+<h2>Saving the chapters to disk<a class="headerlink" href="#saving-the-chapters-to-disk" title="Permalink to this headline">¶</a></h2>
+<p>Printing to the output is great for prototyping, but to make sure the extracted data can be used for further analysis and to keep the workspace a bit uncluttered it is best to save the extracted content to file. This can be done chapter for chapter or by creating one larger file containting a chapter per row.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Expand the code so it saves the extracted chapters as seperate text files, using the chapter name and number as file name.
@@ -414,6 +482,8 @@ Hint: do you remember f strings?</p>
 </pre></div>
 </div>
 </div>
+<p>Now we have a lot of text files. Each one containing one chapter of the book . For some uses this may be preferable, but for other a single, ordered file may be preferred.
+In the next exercises we will write code that will store the chapters in an ordered format in a single file.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>If you recall, it is also possible to save the data as .csv.<br />
@@ -427,6 +497,7 @@ What are the easiest steps to do this?</p>
 <li><p>Save the DataFrame to .csv</p></li>
 </ol>
 </div>
+<p>Having refreshed our memory we will now put it into practice.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Change the code to store the chapter and content in a list. Note that this will create one long list with all the extracted content.</p>
@@ -445,6 +516,7 @@ What are the easiest steps to do this?</p>
 </pre></div>
 </div>
 </div>
+<p>With the first step done the list can now be transformed into a Dataframe. Don’t forget to think about the order of the list content and the Dataframe columns.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Transform the list into a Dataframe.</p>
@@ -456,13 +528,33 @@ What are the easiest steps to do this?</p>
 </pre></div>
 </div>
 </div>
-<p>It is good practice to check what you transformed.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">book</span>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>It is good practice to check what you transformed, so print out the dataframe.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>book
 </pre></div>
+</div>
+</div>
+<p>If the Dataframe is in order we can save the Datframe directly to file.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Save the Dataframe to csv.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">chapters</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;chapters.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Remember that this saves the csv in the root folder of your jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a /.</p>
 </div>
 </div>
 <div class="section" id="extracting-poems">
 <h2>Extracting Poems<a class="headerlink" href="#extracting-poems" title="Permalink to this headline">¶</a></h2>
+<p>For some uses only a specific pieces of an XML is needed. Extracting everything and then either removing or ignoring part of the extracted content is a lot of work that can be omitted by specifically extracting what is needed.
+The example TEI file contains a book that consists of both pieces of prose and poems. Both of these are specified somewhere in the XML. Over the coming exercises we will extract only the poems. To do this we need to know which elements indicate contain the poems.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Check the file to see which elements are needed to extract the poems from the file.</p>
@@ -471,20 +563,26 @@ What are the easiest steps to do this?</p>
 <p class="admonition-title">Solution</p>
 <p>To extract the poems the element <strong>lg</strong> with type <strong>poems</strong> is needed.</p>
 </div>
+<p>Having found the elements with the poems, we will now need to extract them from the XML.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Print out all the poems from the file.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-```{admonition} Solution
-:class: tip, dropdown
-```Python
-for div in root.find_all(&#39;lg&#39;):
-    if div.get(&#39;type&#39;) == &#39;poem&#39;:
-        print(div.text)
+<p>Write a piece of code that extracts and prints all the poems from the file. You can look at the previous exercises for hints.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;poem&#39;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">div</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>As before with the chapters, we will save the extracted poems as seperate, and numbered, files.</p>
+<p>As we did in the previous exercises where we extracted the whole chapters, we will save the extracted poems as seperate, and numbered, files.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Expand the code of the previous exercise to include a counter for numbering the poems, and saving the poems one by one. As with the previous exercises use ‘poem + counter’ or something similar as a filename.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
@@ -495,9 +593,11 @@ for div in root.find_all(&#39;lg&#39;):
             <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
+</div>
+<p>Again, we now have many seperate files. But we will also want to create a single file containing the poems in a structured manner.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Adapt the code above to save the extracted poems to csv. If you feel lost, just go back a few excercises and look at what we did there. Remember, first list, then dataframe.</p>
+<p>Adapt the code above to save the extracted poems to a single csv. If you feel lost, just go back a few exercises and look at what we did there. Remember, first list, then dataframe.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
@@ -518,7 +618,7 @@ for div in root.find_all(&#39;lg&#39;):
 </pre></div>
 </div>
 </div>
-<p>Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses.</p>
+<p>Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses. Remember that saving files without specifying a pathname saves them to the root folder of Jupyter. This folder might clutter up quickly and it is wise to clean it up regularly or keep it clean by specifying a pathname to a specific folder.</p>
 </div>
 </div>
 

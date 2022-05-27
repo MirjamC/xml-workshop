@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>5. Practical session: Working with Beautful Soup &#8212; Automatically extract XML content with Python</title>
+    <title>5. Practical session: Working with Beautiful Soup &#8212; Automatically extract XML content with Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -121,7 +121,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   5. Practical session: Working with Beautful Soup
+   5. Practical session: Working with Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
@@ -272,18 +272,23 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#install-beautful-soup">
-   Install Beautful Soup
+  <a class="reference internal nav-link" href="#install-beautiful-soup">
+   Install Beautiful Soup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-beautiful-soup-and-import-the-xml-file">
-   Import Beautiful Soup and import the xml file
+  <a class="reference internal nav-link" href="#import-beautiful-soup-and-load-the-xml-file">
+   Import Beautiful Soup and load the xml file
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#examine-the-structure-of-the-file">
    Examine the structure of the file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wat-vragen-over-de-structuur-bedenken">
+   Wat vragen over de structuur bedenken
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -338,7 +343,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>5. Practical session: Working with Beautful Soup</h1>
+                <h1>5. Practical session: Working with Beautiful Soup</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -349,18 +354,23 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#install-beautful-soup">
-   Install Beautful Soup
+  <a class="reference internal nav-link" href="#install-beautiful-soup">
+   Install Beautiful Soup
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-beautiful-soup-and-import-the-xml-file">
-   Import Beautiful Soup and import the xml file
+  <a class="reference internal nav-link" href="#import-beautiful-soup-and-load-the-xml-file">
+   Import Beautiful Soup and load the xml file
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#examine-the-structure-of-the-file">
    Examine the structure of the file
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#wat-vragen-over-de-structuur-bedenken">
+   Wat vragen over de structuur bedenken
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -414,9 +424,9 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-working-with-beautful-soup">
-<h1>5. Practical session: Working with Beautful Soup<a class="headerlink" href="#practical-session-working-with-beautful-soup" title="Permalink to this headline">¶</a></h1>
-<p>This lesson is divided into three sessions, where every session demonstrates one of the Python packages that was introduced in lesson <strong>?</strong>.
+  <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-working-with-beautiful-soup">
+<h1>5. Practical session: Working with Beautiful Soup<a class="headerlink" href="#practical-session-working-with-beautiful-soup" title="Permalink to this headline">¶</a></h1>
+<p>This lesson is divided into three sessions, where every session demonstrates one of the Python packages that was introduced in lesson <strong>3</strong>.
 With every package, we follow these steps:</p>
 <ul class="simple">
 <li><p>Load the XML file;</p></li>
@@ -428,10 +438,10 @@ With every package, we follow these steps:</p>
 <li><p>Extra: Filter information</p></li>
 </ul>
 <p>Open a new Jupyter Notebook and type all the code examples and code exercises in your Notebook.</p>
-<div class="section" id="install-beautful-soup">
-<h2>Install Beautful Soup<a class="headerlink" href="#install-beautful-soup" title="Permalink to this headline">¶</a></h2>
-<p>Beautifull Soup is not a standard Python package, so it needs to get installed first.
-This can be done by directly in the Jupyter Notebook with</p>
+<div class="section" id="install-beautiful-soup">
+<h2>Install Beautiful Soup<a class="headerlink" href="#install-beautiful-soup" title="Permalink to this headline">¶</a></h2>
+<p>Beautifull Soup is not a standard Python package, so it needs to be installed first.
+This can be done directly in the Jupyter Notebook using:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install beautifulsoup4
 </pre></div>
 </div>
@@ -440,9 +450,8 @@ This can be done by directly in the Jupyter Notebook with</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="import-beautiful-soup-and-import-the-xml-file">
-<h2>Import Beautiful Soup and import the xml file<a class="headerlink" href="#import-beautiful-soup-and-import-the-xml-file" title="Permalink to this headline">¶</a></h2>
-<p>ElemenTree is part of the standard Python library and therefore does not need to be installed.</p>
+<div class="section" id="import-beautiful-soup-and-load-the-xml-file">
+<h2>Import Beautiful Soup and load the xml file<a class="headerlink" href="#import-beautiful-soup-and-load-the-xml-file" title="Permalink to this headline">¶</a></h2>
 <p>Before we can use the package, we have to let Python know we want to use it. We do this by importing the package.
 Type the following in a code cell:</p>
 <div class="cell docutils container">
@@ -452,10 +461,11 @@ Type the following in a code cell:</p>
 </div>
 </div>
 </div>
+<p>Now we can use the package to extract data from the XML.</p>
 </div>
 <div class="section" id="examine-the-structure-of-the-file">
 <h2>Examine the structure of the file<a class="headerlink" href="#examine-the-structure-of-the-file" title="Permalink to this headline">¶</a></h2>
-<p>Now we want to open the XML file from which we want to extract information.
+<p>We will first need to load the XML file from which we want to extract information and pass it to BeautifulSoup.
 Add a new code cell and type:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -477,8 +487,7 @@ There are two ways to do this.</p>
 </ol>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its output hidden!</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -643,7 +652,9 @@ There are two ways to do this.</p>
 </div>
 </div>
 </div>
-<p>Wat vragen over de structuur bedenken</p>
+</div>
+<div class="section" id="wat-vragen-over-de-structuur-bedenken">
+<h2>Wat vragen over de structuur bedenken<a class="headerlink" href="#wat-vragen-over-de-structuur-bedenken" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="extract-the-book-titles-and-descriptions">
 <h2>Extract the book titles and descriptions<a class="headerlink" href="#extract-the-book-titles-and-descriptions" title="Permalink to this headline">¶</a></h2>
@@ -655,11 +666,11 @@ There are two ways to do this.</p>
 <p class="admonition-title">Solution</p>
 <p>We need the child element ‘book’, and its subchildren ‘title’ and ‘description’.</p>
 </div>
-<p>First, type the following code in your Jupyter Notebook to get the title from every book:</p>
+<p>Having explored the structure of the XML a bit, we can now get to work with extracting the data.
+First, type the following code in your Jupyter Notebook to get the <em>title</em> from every book:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its output hidden!</span>
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
 </pre></div>
@@ -701,20 +712,58 @@ This line displays the output. In this case, it shows the title of every book.</
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.find_all(&#39;book&#39;):
-	description = book.find(&#39;description&#39;).text
-	print(description)
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+	<span class="n">description</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+	<span class="nb">print</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>We can use one <em>for loop</em> to extract both the book title and description from the XML file.
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>An in-depth look at creating applications 
+      with XML.
+A former architect battles corporate zombies, 
+      an evil sorceress, and her own childhood to become queen 
+      of the world.
+After the collapse of a nanotechnology 
+      society in England, the young survivors lay the 
+      foundation for a new society.
+In post-apocalypse England, the mysterious 
+      agent known only as Oberon helps to create a new life 
+      for the inhabitants of London. Sequel to Maeve 
+      Ascendant.
+The two daughters of Maeve, half-sisters, 
+      battle one another for control of England. Sequel to 
+      Oberon&#39;s Legacy.
+When Carla meets Paul at an ornithology 
+      conference, tempers fly as feathers get ruffled.
+A deep sea diver finds true love twenty 
+      thousand leagues beneath the sea.
+An anthology of horror stories about roaches,
+      centipedes, scorpions  and other insects.
+After an inadvertant trip through a Heisenberg
+      Uncertainty Device, James Salway discovers the problems 
+      of being quantum.
+Microsoft&#39;s .NET initiative is explored in 
+      detail in this deep programmer&#39;s reference.
+The Microsoft MSXML3 parser is covered in 
+      detail, with attention to XML DOM interfaces, XSLT processing, 
+      SAX and more.
+Microsoft Visual Studio 7 is explored in depth,
+      looking at how Visual Basic, Visual C++, C#, and ASP+ are 
+      integrated into a comprehensive development 
+      environment.
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can use one <em>for loop</em> to extract both the book title <em>and</em> the description from the XML file.
 Combining multiple items is preferable because it saves unnecessary lines of codes and merges the part of the code which does the same thing.
-This makes the code more readable and maintainable.</p>
+This makes the code more readable and better maintainable.</p>
 <p>Combining the two codes above leads to the following code:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its output hidden!</span>
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
 	<span class="n">title</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
 	<span class="n">description</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
 	<span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">description</span><span class="p">)</span>
@@ -764,18 +813,18 @@ Visual Studio 7: A Comprehensive Guide Microsoft Visual Studio 7 is explored in 
 <h2>Extract name and surname of the author<a class="headerlink" href="#extract-name-and-surname-of-the-author" title="Permalink to this headline">¶</a></h2>
 <p>You can use the same method as described above to extract all the names and surnames from the authors from the example XML.
 However, if we look at the structure of the XML file, there is a difference between the placement of the elements ‘title’ and ‘description’, and the elements ‘name’ and ‘surname’ in the XML structure.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">catalog</span><span class="o">&gt;</span>
-	<span class="o">&lt;</span><span class="n">book</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;bk101&quot;</span><span class="o">&gt;</span>
-		<span class="o">&lt;</span><span class="n">author</span><span class="o">&gt;</span>
-			<span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">Matthew</span><span class="o">&lt;/</span><span class="n">name</span><span class="o">&gt;</span>
-			<span class="o">&lt;</span><span class="n">surname</span><span class="o">&gt;</span><span class="n">Gambardella</span><span class="o">&lt;/</span><span class="n">surname</span><span class="o">&gt;</span>
-		<span class="o">&lt;/</span><span class="n">author</span><span class="o">&gt;</span>
-		<span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="n">XML</span> <span class="n">Developer</span><span class="s1">&#39;s Guide&lt;/title&gt;</span>
-		<span class="o">&lt;</span><span class="n">genre</span><span class="o">&gt;</span><span class="n">Computer</span><span class="o">&lt;/</span><span class="n">genre</span><span class="o">&gt;</span>
-		<span class="o">&lt;</span><span class="n">price</span><span class="o">&gt;</span><span class="mf">44.95</span><span class="o">&lt;/</span><span class="n">price</span><span class="o">&gt;</span>
-		<span class="o">&lt;</span><span class="n">publish_date</span><span class="o">&gt;</span><span class="mi">2000</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">01</span><span class="o">&lt;/</span><span class="n">publish_date</span><span class="o">&gt;</span>
-		<span class="o">&lt;</span><span class="n">description</span><span class="o">&gt;</span><span class="n">An</span> <span class="ow">in</span><span class="o">-</span><span class="n">depth</span> <span class="n">look</span> <span class="n">at</span> <span class="n">creating</span> <span class="n">applications</span> <span class="k">with</span> <span class="n">XML</span><span class="o">.&lt;/</span><span class="n">description</span><span class="o">&gt;</span>
-   <span class="o">&lt;/</span><span class="n">book</span><span class="o">&gt;</span>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;catalog&gt;</span>
+	<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;author&gt;</span>
+			<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
+			<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+		<span class="nt">&lt;/author&gt;</span>
+		<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
+		<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
+		<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
+		<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
+		<span class="nt">&lt;description&gt;</span>An in-depth look at creating applications with XML.<span class="nt">&lt;/description&gt;</span>
+   <span class="nt">&lt;/book&gt;</span>
 </pre></div>
 </div>
 <div class="attention admonition">
@@ -791,8 +840,7 @@ The element ‘name’ however, is a child of the element ‘author’ and a <em
 we also need a second <em>for loop</em> that runs through the ‘author’ element of ‘book’. We can do this with the following code:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its output hidden!</span>
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">)</span> 
@@ -822,16 +870,34 @@ Mike
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.find_all(&#39;book&#39;):
-	for author in book.find_all(&#39;author&#39;):
-		name = author.find(&#39;name&#39;).text
-		surname = author.find(&#39;surname&#39;).text
-		print(name, surname) 
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">):</span>
+		<span class="n">name</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+		<span class="n">surname</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;surname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">surname</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matthew Gambardella
+Kim Ralls
+Eva Corets
+Eva Corets
+Eva Corets
+Cynthia Randall
+Paula Thurman
+Stefan Knorr
+Peter Kress
+Tim O&#39;Brien
+Tim O&#39;Brien
+Mike Galos
+</pre></div>
+</div>
+</div>
+</div>
 <p>Another option is to just look for the element ‘Author’ and then extract the content from the subelements ‘name’ and ‘surname’.
-This is usefull if you have an XML with a lot of children, and you want only specific content which you want to extract apart from their parents.
+This is useful if you have an XML with a lot of children where you want to extract only specific content.
 However, keep in mind that the connection between the book and the authors is lost with this code.
 The code looks like this:</p>
 <div class="cell tag_hide-output docutils container">
@@ -863,30 +929,30 @@ Mike Galos
 </div>
 <div class="section" id="extract-the-book-identifier">
 <h2>Extract the book identifier<a class="headerlink" href="#extract-the-book-identifier" title="Permalink to this headline">¶</a></h2>
-<p>As you can see in the XML, each book has its own <em><strong>identifier</strong></em>. As books can have the same name, and authors can have written multiple books, it
-is good practise to always use the identifier to point to a specific item.</p>
+<p>As you can see in the XML, each book has its own <em><strong>identifier</strong></em>. As books can have the same name, and authors can have written multiple books, it is good practise to always use the identifier to point to a specific item.</p>
 <p>In the previous exercises, we extracted the content that was presented between the tags of an element.
 For example:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="n">XML</span> <span class="n">Developers</span> <span class="n">Guide</span><span class="o">&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;title&gt;</span>XML Developers Guide<span class="nt">&lt;/title&gt;</span>
 </pre></div>
 </div>
-<p>In this example, you see that the title ‘XML Developer’s guide’ is stored between the tags <title> and </title>. We extracted this content by adding ‘.text’.</p>
+<p>In this example, you see that the title ‘XML Developer’s guide’ is stored between the tags <strong>title</strong> and <strong>/title</strong>. We extracted this content by adding ‘.text’.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Look at this example of the ‘book’ element with its identifier. What is the difference between the place of the content of the identifier and the
-place of the content of the title?
-<code class="docutils literal notranslate"> <span class="pre">		&lt;book</span> <span class="pre">id=&quot;bk101&quot;&gt;</span> <span class="pre">		&lt;/book&gt;</span>  </code></p>
+<p>Look at this example of the ‘book’ element with its identifier. Compare it to the title element above. What is the difference between the place of the content of the identifier and the place of the content of the title?</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>	<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;/book&gt;</span>
+</pre></div>
+</div>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <p>The content of the identifier is stored in an <em>attribute</em> of the ‘book’ element, with the name ‘id’.</p>
 </div>
-<p>To extract content from attributes, we need to use the ‘get’ method.
+<p>To extract content from attributes, we need to use the ‘.get’ method.
 We still use the <em>for loop</em> to iterate through all the books, but instead of the content of certain elements, we now extract the content of the attribute.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its output hidden!</span>
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
     <span class="n">identifier</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
 </pre></div>
@@ -930,22 +996,7 @@ To do this we can use the following scheme:</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.find_all(&#39;book&#39;):
-	identifier = book.get(&#39;id&#39;)
-	title = book.find(&#39;title&#39;).text
-	description = book.find(&#39;description&#39;).text
-	for author in book.find_all(&#39;author&#39;):
-		name = author.find(&#39;name&#39;).text
-		surname = author.find(&#39;surname&#39;).text
-	print(identifier, title, description, name, surname)
-</pre></div>
-</div>
-</div>
-<p>This leads to the following output:</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its input hidden!</span>
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
 	<span class="n">identifier</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
 	<span class="n">title</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
 	<span class="n">description</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
@@ -956,6 +1007,8 @@ To do this we can use the following scheme:</p>
 </pre></div>
 </div>
 </div>
+<p>This leads to the following output:</p>
+<div class="cell tag_remove-input tag_output_scroll docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bk101 XML Developer&#39;s Guide An in-depth look at creating applications 
       with XML. Matthew Gambardella
@@ -994,23 +1047,22 @@ bk112 Visual Studio 7: A Comprehensive Guide Microsoft Visual Studio 7 is explor
 </div>
 </div>
 </div>
-<p>As you can see, it displays all information we wanted, but the output is quite unreadable. For example, it is not clear which part of the content belongs
-to the title, and which to the description.</p>
+<p>As you can see, it displays all information we wanted, but the output is quite unreadable. For example, it is not clear which part of the content belongs to the title, and which to the description.</p>
 <p>To make the output more readable, we can put text before our output variables. In Python, this can be done like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;This is the string we type and </span><span class="si">{</span><span class="n">this_is_the_variable</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;This is the string we type and </span><span class="si">{</span><span class="n">this_is_the_variable</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>So in our example, we could for example add the following:</p>
+<p>So in our example, we could add the following:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its input hidden!</span>
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
     <span class="n">identifier</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
     <span class="n">description</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
     <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
         <span class="n">surname</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;surname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+	<span class="c1">## add text to identify the extracted parts</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Identifier= </span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2"> title= </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> description= </span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s2"> name= </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">surname</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1058,14 +1110,14 @@ To resolve this, we can add linebreaks between each variable and between the dif
 leading to the following code:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its input hidden!</span>
-<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
     <span class="n">identifier</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
     <span class="n">title</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
     <span class="n">description</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
     <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
         <span class="n">surname</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;surname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+	<span class="c1">## add linebreaks</span>
     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Identifier= </span><span class="si">{</span><span class="n">identifier</span> <span class="si">}</span><span class="se">\n</span><span class="s2"> title= </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="se">\n</span><span class="s2"> description= </span><span class="si">{</span><span class="n">description</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> name= </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">surname</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1155,7 +1207,7 @@ Identifier= bk112
 </div>
 </div>
 </div>
-<p>Well, that output looks way better, doesn’t it?</p>
+<p>Well, that output looks way better, does it not? Now having this information as printout on screen is useful, but preferably we should be able to use it in further analysis. This means that we need to be able to store it somewhere.</p>
 </div>
 <div class="section" id="store-the-information-in-a-csv-or-txt-file">
 <h2>Store the information in a .csv or .txt file.<a class="headerlink" href="#store-the-information-in-a-csv-or-txt-file" title="Permalink to this headline">¶</a></h2>
@@ -1166,8 +1218,8 @@ Identifier= bk112
 </ul>
 <div class="section" id="store-in-one-file">
 <h3>Store in one file<a class="headerlink" href="#store-in-one-file" title="Permalink to this headline">¶</a></h3>
-<p>The easiest way to store and save Python output in one file is through storing it in a dataframe from the Python package ‘Pandas’ and then saving this frame.
-You can add data directly from the <em>for loops</em> we created above in a pandas dataframe, but we prefer the method in which you first create a list and then transform this list in the output, as Pandas DataFrame execution can become fairly slow with large amounts of data.</p>
+<p>The easiest way to store and save Python output in one file is through storing it in a Dataframe from the Python package ‘Pandas’ and then saving this Dataframe.
+You can add data directly from the <em>for loops</em> we created above in a Pandas Dataframe, but we prefer the method in which you first create a list and then transform this list in the output, as Pandas Dataframe execution can become fairly slow with large amounts of data.</p>
 <p>To create a list, we first have to declare an empty list. This is done with the following syntax:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">booklist</span> <span class="o">=</span> <span class="p">[]</span>
 </pre></div>
@@ -1176,8 +1228,7 @@ You can add data directly from the <em>for loops</em> we created above in a pand
 We can use the following code:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its input hidden!</span>
-<span class="n">booklist</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">booklist</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
     <span class="n">identifier</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
@@ -1191,9 +1242,21 @@ We can use the following code:</p>
 </div>
 </div>
 </div>
-<p>This leads to a list, called ‘booklist’, in which for every book all information is stored.</p>
-<p>We can then easily transform this list to a pandas DataFrame.
-To do so, we need to import pandas first with the code</p>
+<p>This leads to a list, called ‘booklist’, in which for every book all extracted information is stored.</p>
+<p>We can check the content of the booklist by printing it with:</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">booklist</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;bk101&#39;, &quot;XML Developer&#39;s Guide&quot;, &#39;An in-depth look at creating applications \n      with XML.&#39;, &#39;Matthew Gambardella&#39;], [&#39;bk102&#39;, &#39;Midnight Rain&#39;, &#39;A former architect battles corporate zombies, \n      an evil sorceress, and her own childhood to become queen \n      of the world.&#39;, &#39;Kim Ralls&#39;], [&#39;bk103&#39;, &#39;Maeve Ascendant&#39;, &#39;After the collapse of a nanotechnology \n      society in England, the young survivors lay the \n      foundation for a new society.&#39;, &#39;Eva Corets&#39;], [&#39;bk104&#39;, &quot;Oberon&#39;s Legacy&quot;, &#39;In post-apocalypse England, the mysterious \n      agent known only as Oberon helps to create a new life \n      for the inhabitants of London. Sequel to Maeve \n      Ascendant.&#39;, &#39;Eva Corets&#39;], [&#39;bk105&#39;, &#39;The Sundered Grail&#39;, &quot;The two daughters of Maeve, half-sisters, \n      battle one another for control of England. Sequel to \n      Oberon&#39;s Legacy.&quot;, &#39;Eva Corets&#39;], [&#39;bk106&#39;, &#39;Lover Birds&#39;, &#39;When Carla meets Paul at an ornithology \n      conference, tempers fly as feathers get ruffled.&#39;, &#39;Cynthia Randall&#39;], [&#39;bk107&#39;, &#39;Splish Splash&#39;, &#39;A deep sea diver finds true love twenty \n      thousand leagues beneath the sea.&#39;, &#39;Paula Thurman&#39;], [&#39;bk108&#39;, &#39;Creepy Crawlies&#39;, &#39;An anthology of horror stories about roaches,\n      centipedes, scorpions  and other insects.&#39;, &#39;Stefan Knorr&#39;], [&#39;bk109&#39;, &#39;Paradox Lost&#39;, &#39;After an inadvertant trip through a Heisenberg\n      Uncertainty Device, James Salway discovers the problems \n      of being quantum.&#39;, &#39;Peter Kress&#39;], [&#39;bk110&#39;, &#39;Microsoft .NET: The Programming Bible&#39;, &quot;Microsoft&#39;s .NET initiative is explored in \n      detail in this deep programmer&#39;s reference.&quot;, &quot;Tim O&#39;Brien&quot;], [&#39;bk111&#39;, &#39;MSXML3: A Comprehensive Guide&#39;, &#39;The Microsoft MSXML3 parser is covered in \n      detail, with attention to XML DOM interfaces, XSLT processing, \n      SAX and more.&#39;, &quot;Tim O&#39;Brien&quot;], [&#39;bk112&#39;, &#39;Visual Studio 7: A Comprehensive Guide&#39;, &#39;Microsoft Visual Studio 7 is explored in depth,\n      looking at how Visual Basic, Visual C++, C#, and ASP+ are \n      integrated into a comprehensive development \n      environment.&#39;, &#39;Mike Galos&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Having verified the list contains what we wanted to extract, we can then easily transform this list to a Pandas Dataframe. To do so, we need to first import pandas using the code:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </pre></div>
 </div>
@@ -1201,23 +1264,13 @@ To do so, we need to import pandas first with the code</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">books</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">booklist</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;identifier&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>This code works as follows. You declare the variable ‘books’, which will be used to store all the information.
-Then you let Python know that you want to create a DataFrame. The content of this dataframe is the list ‘booklist’, which we just created.
-We then tell Python how we want to name the columns (this is in the same order as the order of the variables in the list).</p>
+<p>This code works as follows. You declare the variable ‘books’, which will be used to store all the information. Then you let Python know that you want to create a Dataframe. The content of this Dataframe is the list ‘booklist’, which we just created. We then tell Python how we want to name the columns (this should be in the same order as the order of the variables in the list).</p>
 <p>You can show the dataframe you just created by typing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">books</span>
 </pre></div>
 </div>
 <p>This results in the following output:</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This cell should have its input hidden!</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">books</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">booklist</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;identifier&quot;</span><span class="p">,</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">})</span>
-<span class="n">books</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html"><div>
 <style scoped>
@@ -1237,10 +1290,10 @@ We then tell Python how we want to name the columns (this is in the same order a
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>identifier</th>
       <th>title</th>
       <th>description</th>
       <th>name</th>
+      <th>identifier</th>
     </tr>
   </thead>
   <tbody>
@@ -1340,7 +1393,7 @@ We then tell Python how we want to name the columns (this is in the same order a
 <div class="section" id="create-a-textfile-per-book">
 <h3>Create a textfile per book<a class="headerlink" href="#create-a-textfile-per-book" title="Permalink to this headline">¶</a></h3>
 <p>If you want to create a textfile for every book, you can add the code directly in your <em>for loop</em>.</p>
-<p>First, you have to declare a textfile in Python and give it a name. Then, you open the file and write content to it. After this, you close the file.
+<p>First, you have to declare a textfile in Python and give it a name. Then, you open the file and write content to it. After this, you close the file. Closing the file is important, else the loop will keep adding data to the file.
 You can try this with the following code:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
 <span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;This is just a test file&#39;</span><span class="p">)</span>
@@ -1349,12 +1402,14 @@ You can try this with the following code:</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>By default, Python stores the text file in the same folder as where you run your Jupyter Notebook. You can alter this by adding a path to your textfile, for example:
-<code class="docutils literal notranslate"><span class="pre">myfile</span> <span class="pre">=</span> <span class="pre">open('C:/Users/Documents/test.txt',</span> <span class="pre">'w')</span></code>
-Please remember to use a backward slash (/) between the folders</p>
+<p>By default, Python stores the text file in the same folder as where you run your Jupyter Notebook. You can alter this by adding a path to your textfile, for example:</p>
+<div class="highlight-myfile notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>Please remember to use a backward slash (/) between the folders</p>
 </div>
 <p>With a few alterations, we can use this code to save our book information to a seperate file per book.
-First, we give the text file the name of the book identifier. we can do that by adding the variable into the name of the file like this:</p>
+First, we give the text file the name of the book identifier. We can do that by adding the variable into the name of the file like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">myfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">identifier</span> <span class="o">+</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1397,7 +1452,7 @@ The code looks like this:</p>
 </div>
 </div>
 </div>
-<p>You can also search the content from XML elements, searching the content for a match. For example, if we want to print all title that contain the word ‘XML’,
+<p>You can also search the content from XML elements, searching the content for a match. For example, if we want to print all titles that contain the word ‘XML’,
 we can use the following code:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1425,13 +1480,30 @@ MSXML3: A Comprehensive Guide
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.find_all(&#39;book&#39;):
-	description = book.find(&#39;description&#39;).text
-	if &quot;England&quot; in description:
-		print(book.find(&#39;description&#39;).text)
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+	<span class="n">description</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+	<span class="k">if</span> <span class="s2">&quot;England&quot;</span> <span class="ow">in</span> <span class="n">description</span><span class="p">:</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>After the collapse of a nanotechnology 
+      society in England, the young survivors lay the 
+      foundation for a new society.
+In post-apocalypse England, the mysterious 
+      agent known only as Oberon helps to create a new life 
+      for the inhabitants of London. Sequel to Maeve 
+      Ascendant.
+The two daughters of Maeve, half-sisters, 
+      battle one another for control of England. Sequel to 
+      Oberon&#39;s Legacy.
+</pre></div>
+</div>
+</div>
+</div>
+<p>We now have a good basis to try exploring some reallife examples of XML files used in Digital Humanities research. We will introduce some of these formats in the following section.</p>
 </div>
 </div>
 
