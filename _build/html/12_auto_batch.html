@@ -121,7 +121,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="5_example_BS.html">
-   5. Practical session: Working with Beautful Soup
+   5. Practical session: Working with Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
@@ -266,6 +266,29 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-complete-page-content-with-newspaper-metadata-from-various-alto-and-corresponding-didle-files">
+   Extract complete page content with newspaper metadata from various Alto and corresponding Didle files.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-poems-from-various-tei-files-and-store-them-in-seperate-csv-files-per-book">
+   Extract the poems from various Tei files and store them in seperate csv files per book.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-content-including-reading-order-from-various-page-files-and-store-the-content-in-csv-files">
+   Extract the content, including reading order, from various Page files and store the content in csv files
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -278,6 +301,29 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-complete-page-content-with-newspaper-metadata-from-various-alto-and-corresponding-didle-files">
+   Extract complete page content with newspaper metadata from various Alto and corresponding Didle files.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-poems-from-various-tei-files-and-store-them-in-seperate-csv-files-per-book">
+   Extract the poems from various Tei files and store them in seperate csv files per book.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extract-the-content-including-reading-order-from-various-page-files-and-store-the-content-in-csv-files">
+   Extract the content, including reading order, from various Page files and store the content in csv files
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -286,6 +332,373 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-automatically-extraxt-information-from-a-batch-of-files">
 <h1>12. Practical session: Automatically extraxt information from a batch of files<a class="headerlink" href="#practical-session-automatically-extraxt-information-from-a-batch-of-files" title="Permalink to this headline">¶</a></h1>
+<p>In the previous lessons, we have seen how we can extract information from the Alto, Didl, Tei and Page xml files.
+In this lesson, we will show you how you can use the codes from the previous lessons and, with a little bit of alteration,
+can use them to automatically extract content from batches of xml files and save them as either textfiles or csv files.</p>
+<p>We will provide the following examples:</p>
+<ul class="simple">
+<li><p>Extract complete page content with newspaper metadata from various Alto and corresponding Didle files <span style="color:#ef6079">(<em>basic</em>)</span>.</p></li>
+<li><p>Extract the poems from various Tei files and store them in seperate csv files per book <span style="color:#ef6079">(<em>moderate</em>)</span>.</p></li>
+<li><p>Extract the content, including reading order, from various Page files and store the content in csv files <span style="color:#ef6079">(<em>advanced</em>)</span>.</p></li>
+</ul>
+<div class="section" id="extract-complete-page-content-with-newspaper-metadata-from-various-alto-and-corresponding-didle-files">
+<h2>Extract complete page content with newspaper metadata from various Alto and corresponding Didle files.<a class="headerlink" href="#extract-complete-page-content-with-newspaper-metadata-from-various-alto-and-corresponding-didle-files" title="Permalink to this headline">¶</a></h2>
+<p>In lesson 7, we used the following code to extract the content and page number from a newspaper Alto xml and the title and publication year from the corresponding Didle file.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
+
+<span class="n">tree_alto</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;data/alto_id1.xml&#39;</span><span class="p">)</span>
+<span class="n">root_alto</span> <span class="o">=</span> <span class="n">tree_alto</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+
+<span class="n">tree_didl</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;data/didl_id1.xml&#39;</span><span class="p">)</span>
+<span class="n">root_didl</span> <span class="o">=</span> <span class="n">tree_didl</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+
+<span class="n">ns_alto</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ns0&#39;</span><span class="p">:</span> <span class="s1">&#39;http://schema.ccs-gmbh.com/ALTO&#39;</span><span class="p">}</span> 
+
+<span class="n">ns_didl</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="s1">&#39;http://purl.org/dc/elements/1.1/&#39;</span><span class="p">,</span>
+          <span class="s1">&#39;ns2&#39;</span><span class="p">:</span> <span class="s1">&#39;urn:mpeg:mpeg21:2002:02-DIDL-NS&#39;</span><span class="p">,</span> 
+          <span class="s1">&#39;ns4&#39;</span> <span class="p">:</span> <span class="s1">&#39;info:srw/schema/1/dc-v1.1&#39;</span> <span class="p">}</span>
+
+<span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextBlock&#39;</span><span class="p">,</span> <span class="n">ns_alto</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns_alto</span><span class="p">):</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+        <span class="n">article_content</span> <span class="o">=</span> <span class="n">article_content</span> <span class="o">+</span> <span class="n">content</span>
+    <span class="n">article_content</span> <span class="o">=</span> <span class="n">article_content</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    
+<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Page&#39;</span><span class="p">,</span> <span class="n">ns_alto</span><span class="p">):</span>
+    <span class="n">pagenr</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
+    
+<span class="n">item</span> <span class="o">=</span> <span class="n">root_didl</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//ns2:Resource&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span>
+    
+<span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns4:dcx&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">):</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//dc:title&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//dc:date&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+        
+<span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">pagenr</span><span class="si">}</span><span class="s1">.txt&#39;</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">article_content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With few little alterations, we can use this code to automatically work with a batch of file.</p>
+<ul class="simple">
+<li><p>We need a code that automatically search through folder in your computer;</p></li>
+<li><p>We need to add a piece of code that finds the corresponding Didle file for every alto file.</p></li>
+</ul>
+<p>For the following code, we assume you have a folder called ‘alto’, which contains the Alto xml files, and a folder
+‘didl’ that contains the Didl files (download here). Both alto and didle have a filename that starts with an identifier, followed by
+either _alto or _didl. Make sure that there are no other files in the folder.</p>
+<p>We start with a little loop that runs through your alto folder an returns all the file names</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="c1"># assign directory</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;data/alto/&#39;</span>
+ 
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ddd_010097934_alto.xml
+ddd_010097935_alto.xml
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now we need a code to strip the identifier from the alto file, and create the filename for the Didl file.
+This can be done with string alterations in Python, as we also did in lesson 7 and 8.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;ddd_010097934_alto.xml&#39;</span>
+<span class="n">filename_didl</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_alto&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">## Split the string by the underscore and only keep the first part</span>
+<span class="n">filename_didl</span> <span class="o">=</span> <span class="n">filename</span> <span class="o">+</span> <span class="s2">&quot;_didl.xml&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filename_didl</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ddd_010097934_alto.xml_didl.xml
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we have a way to retreive all alto files and corresponding Didle files, so the only thing left is to put it in one
+big loop.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">directory_alto</span> <span class="o">=</span> <span class="s1">&#39;data/alto/&#39;</span>
+<span class="n">directory_didl</span> <span class="o">=</span> <span class="s1">&#39;data/didl/&#39;</span>
+ 
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+
+    <span class="n">tree_alto</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">directory_alto</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="n">root_alto</span> <span class="o">=</span> <span class="n">tree_alto</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+    
+    <span class="n">filename_didl</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_alto&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">## Split the string by the underscore and only keep the first part</span>
+    <span class="n">filename_didl</span> <span class="o">=</span> <span class="n">filename_didl</span> <span class="o">+</span> <span class="s2">&quot;_didl.xml&quot;</span>
+
+    <span class="n">tree_didl</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">directory_didl</span> <span class="o">+</span> <span class="n">filename_didl</span><span class="p">)</span>
+    <span class="n">root_didl</span> <span class="o">=</span> <span class="n">tree_didl</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+
+    <span class="n">ns_alto</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ns0&#39;</span><span class="p">:</span> <span class="s1">&#39;http://schema.ccs-gmbh.com/ALTO&#39;</span><span class="p">}</span> 
+
+    <span class="n">ns_didl</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;dc&#39;</span><span class="p">:</span> <span class="s1">&#39;http://purl.org/dc/elements/1.1/&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;ns2&#39;</span><span class="p">:</span> <span class="s1">&#39;urn:mpeg:mpeg21:2002:02-DIDL-NS&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;ns4&#39;</span> <span class="p">:</span> <span class="s1">&#39;info:srw/schema/1/dc-v1.1&#39;</span> <span class="p">}</span>
+
+    <span class="n">article_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextBlock&#39;</span><span class="p">,</span> <span class="n">ns_alto</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns_alto</span><span class="p">):</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+            <span class="n">article_content</span> <span class="o">=</span> <span class="n">article_content</span> <span class="o">+</span> <span class="n">content</span>
+        <span class="n">article_content</span> <span class="o">=</span> <span class="n">article_content</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+
+    <span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Page&#39;</span><span class="p">,</span> <span class="n">ns_alto</span><span class="p">):</span>
+        <span class="n">pagenr</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
+
+    <span class="n">item</span> <span class="o">=</span> <span class="n">root_didl</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//ns2:Resource&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">article</span> <span class="ow">in</span> <span class="n">item</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns4:dcx&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">):</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//dc:title&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">article</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;.//dc:date&#39;</span><span class="p">,</span> <span class="n">ns_didl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">pagenr</span><span class="si">}</span><span class="s1">.txt&#39;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">article_content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="extract-the-poems-from-various-tei-files-and-store-them-in-seperate-csv-files-per-book">
+<h2>Extract the poems from various Tei files and store them in seperate csv files per book.<a class="headerlink" href="#extract-the-poems-from-various-tei-files-and-store-them-in-seperate-csv-files-per-book" title="Permalink to this headline">¶</a></h2>
+<p>In lesson ?, we extracted poems from a Tei file and stored them in a csv file. The code for this looked like this:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/tei.xml&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">)</span>
+
+<span class="n">poem_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;poem&#39;</span><span class="p">:</span>
+        <span class="n">poem</span> <span class="o">=</span> <span class="s2">&quot;poem_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">div</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">poem_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">poem</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        
+<span class="n">poems</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">poem_list</span> <span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;poem&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">]))</span>
+
+<span class="n">poems</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;poems.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Just as we did with the alto files in the previous section, we can do the same for the TEI files.</p>
+<p>For the following exercises, we assume you have a folder on your computer with the name ‘tei’, in which you stored the various tei files (download here).</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>what steps do we need to take to be able to create a batch output?</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<ul class="simple">
+<li><p>create a loop that runs through the tei folder</p></li>
+<li><p>create a file name for each file, based on the identifier</p></li>
+</ul>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Create a loop that runs through the files in your tei folder and print their names.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="c1"># assign directory</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;data/tei/&#39;</span>
+ 
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>create the variable ‘filename’ with the value ‘bild001dich01_01.xml’. Strip the filename from the suffix .xml
+and print the filename.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;bild001dich01_01.xml&#39;</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now we have all ingredients to automatically extracts the poems from the batch of tei files, and save them as csv
+with their identifier as name.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Write a code that loops through the tei files, extracts the poems and stores them as csv.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># assign directory</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;xml-workshop/data/tei/&#39;</span>
+ 
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">directory</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">)</span>
+
+    <span class="n">identifier</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="n">poem_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;poem&#39;</span><span class="p">:</span>
+            <span class="n">poem</span> <span class="o">=</span> <span class="s2">&quot;poem_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">div</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">poem_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">poem</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">poems</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">poem_list</span> <span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">([</span><span class="s1">&#39;poem&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">]))</span>
+
+    <span class="n">poems</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">identifier</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="extract-the-content-including-reading-order-from-various-page-files-and-store-the-content-in-csv-files">
+<h2>Extract the content, including reading order, from various Page files and store the content in csv files<a class="headerlink" href="#extract-the-content-including-reading-order-from-various-page-files-and-store-the-content-in-csv-files" title="Permalink to this headline">¶</a></h2>
+<p>And off course, we can do the same for the page xml. Lets start by repeating the code we made to extract the content,
+including the region information, into a csv file.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;data/page.xml&#39;</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+
+<span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ns0&#39;</span><span class="p">:</span> <span class="s1">&#39;http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19&#39;</span><span class="p">}</span>
+
+<span class="n">dict_order</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:ReadingOrder&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:OrderedGroup&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+        <span class="n">groupnr</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">suborder</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:RegionRefIndexed&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>  
+            <span class="n">region</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;regionRef&#39;</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+            <span class="n">dict_order</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">region</span><span class="p">,[])</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">groupnr</span><span class="p">,</span> <span class="n">index</span><span class="p">])</span>
+                
+<span class="n">content_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">dict_order</span><span class="p">:</span>
+        <span class="n">groupvalues</span> <span class="o">=</span> <span class="n">dict_order</span><span class="p">[</span><span class="n">region</span><span class="p">]</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Unicode&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">content_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">group</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
+
+<span class="n">newspaper_with_order</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">content_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Group&quot;</span><span class="p">,</span> <span class="s2">&quot;Index&quot;</span><span class="p">,</span> <span class="s2">&quot;Region&quot;</span><span class="p">,</span> <span class="s2">&quot;Content&quot;</span><span class="p">])</span> 
+<span class="n">newspaper_with_order</span> <span class="o">=</span> <span class="n">newspaper_with_order</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="s1">&#39;Index&#39;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+
+<span class="n">newspaper_with_order</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;newspaper_with_order.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the following exercises, we assume you have a folder on your computer with the name ‘page’, in which you stored the various page files (download here).</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Write a code that loops through the page files in your ‘page’ folder, extracts the content with region information, and
+store them in a .csv file with as name the identifier of the page file.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;xml-workshop/data/page/&#39;</span>
+ 
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">directory</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+    
+    <span class="n">identifier</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ns0&#39;</span><span class="p">:</span> <span class="s1">&#39;http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19&#39;</span><span class="p">}</span>
+
+    <span class="n">dict_order</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:ReadingOrder&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:OrderedGroup&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+            <span class="n">groupnr</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">suborder</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:RegionRefIndexed&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>  
+                <span class="n">region</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;regionRef&#39;</span><span class="p">)</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+                <span class="n">dict_order</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">region</span><span class="p">,[])</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">groupnr</span><span class="p">,</span> <span class="n">index</span><span class="p">])</span>
+                
+    <span class="n">content_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+        <span class="n">region</span> <span class="o">=</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">dict_order</span><span class="p">:</span>
+            <span class="n">groupvalues</span> <span class="o">=</span> <span class="n">dict_order</span><span class="p">[</span><span class="n">region</span><span class="p">]</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Unicode&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">content_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">group</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>
+
+    <span class="n">newspaper_with_order</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">content_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Group&quot;</span><span class="p">,</span> <span class="s2">&quot;Index&quot;</span><span class="p">,</span> <span class="s2">&quot;Region&quot;</span><span class="p">,</span> <span class="s2">&quot;Content&quot;</span><span class="p">])</span> 
+    <span class="n">newspaper_with_order</span> <span class="o">=</span> <span class="n">newspaper_with_order</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="s1">&#39;Index&#39;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+
+
+    <span class="n">newspaper_with_order</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">identifier</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>And that’s all!</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
