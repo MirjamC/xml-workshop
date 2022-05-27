@@ -19,16 +19,24 @@ For this session we will extract data from TEI format. We will only extract info
 
 When working with TEI format it is very important to check the lay-out. This can vary a lot between files.
 
+Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. (see explanation in ET:import)
+
+
+## voorbeeld toevoegen
 Opletten: teis kunnen erg verschillen van opmaak 
 ##(voorbeeld van een TEI waarin de text in een p staat of in een l). 
 
 As you can see in the example, it is wise to **always** check which elements you need to ensure you extract the correct data. 
 TEI files of the same kind, for example all about one poet, usually are similar. However, double-checking this can save a lot of work (and frustration) later on.
+Let's start with importing Beautifull Soup and loading the XML file.
 
-
-````{admonition} Exercise
+```{admonition} Exercise
 :class: attention
-Import Beautifull Soup and load the XML file.
+Import Beautifull Soup and load the XML file into a variable.
+```
+
+````{admonition} Solution
+:class: tip, dropdown
 ```Python
 from bs4 import BeautifulSoup    
 
@@ -37,37 +45,58 @@ with open("xml-workshop/data/tei.xml", encoding='utf8') as f:
 ```
 ````
 
-````{admonition} Exercise
+We are now all clear to start exploring the XLM file. As always we should first explore the structure.
+
+```{admonition} Exercise
 :class: attention
-Check the structure
+Check the structure of the data.
+```
+
+````{admonition} Solution
+:class: tip, dropdown
+We can check the structure of the loaded file by simply running the variable it is stored in.
 ```Python
 root
 ```
 ````
 
-````{admonition} Exercise
-:class: attention
-This TEI file contains information of a book. In which elements can you find the main content, the text, of this book?
-Is the content present as a value or as an attribute?
+```{code-cell}
+:tags: [remove-input, hide-output] 
+from bs4 import BeautifulSoup    
 
-````
+with open("xml-workshop/data/tei.xml", encoding='utf8') as f:
+    root = BeautifulSoup(f, 'xml')
+root
+```
+
+
+
+This TEI file contains information of a book. It has multiple elements containing data about the book and the content of the book. We will need to read teh structure carefully to find the right elements where the content we want is stored.
+
+```{admonition} Exercise
+:class: attention
+ In which elements can you find the main content, the text, of this book?
+Is the content present as a value or as an attribute?
+```
 
 ```{admonition} Solution
 :class: tip, dropdown
 The content is contained in the elements *title*, *head*, *l*, and *p*.
 ```
-There are a lot of elements containing the data. One option is to print the whole XML.
-This can be done with:
-```Python
+
+There are a lot of elements containing the data. One option is to print the whole XML. This way no content will be missed and all possible text is extracted. This can be done with:
+```{code-cell}
+:tags: [hide-output] 
 root.text
 ```
 
 A downside of this option is that a lot of metadata is printed out as well. Usually you would not want to have the metadata within the content. Filtering this out afterwards is very work-intensive.
 
-````{admonition} Exercise
+
+```{admonition} Exercise
 :class: attention
-Can you think of a way to structure the text in a more logical manner?
-````
+Can you think of a way to structure the text in a more logical manner? 
+```
 ```{admonition} Solution
 :class: tip, dropdown
 One option would be to print it out per chapter.
@@ -75,39 +104,76 @@ One option would be to print it out per chapter.
 
 ## Dividing the text in chapters
 
-It is possible to iterate through the root and collect all the *div* elements with as type *chapter*. Having collected these it is now possible to print all *.text* content contained in these *div*s. 
-
-
-
-````{admonition} Exercise
+It is possible to iterate through the root and collect all the *div* elements with as type *chapter*. When all the chapters are collected it is then possible to print all *.text* content contained in these *div*s. 
+Using a *for loop* is a good start. This will iterate through the divs one by one. Within the loop we can perform the different actions, like extraction and transformation. 
+ 
+```{admonition} Exercise
 :class: attention
-Construct a *for looop* that goes through the divs and prints out all content of the divs with *type* 'chapter' 
-````
+Construct a *for loop* that goes through the divs and prints out all content of the divs with *type* 'chapter' 
+```
 
 ````{admonition} Solution
 :class: tip, dropdown
 One option would be to print it out per chapter.
 ```Python
+## the for loop iterates through every div 
+for div in root.find_all('div'):
+	## all actions within the loop are performed div by div.
+	## here we select only divs with type chapter
+    if div.get('type') == 'chapter':
+		## and we print the div
+        print(div.text)
+```
+````
+```{code-cell}
+:tags: [remove-input, hide-output] 
 for div in root.find_all('div'):
     if div.get('type') == 'chapter':
         print(div.text)
 ```
-````
+
 
 The code still prints out everything as a single piece of text without anything to distinguish the different chapters. Adding a chapter header is an easy way to be able to seperate the different chapters. 
-This can be done by making a counter and printer the text'chapter [counter]' before every chapter. After every *div* that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.
+This can be done by making a counter and printer the text 'chapter [counter]' before every chapter. After every *div* that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.
 
 ```Python
+## initialise the counter at 1
 counter = 1
 
 for div in root.find_all('div'):
     if div.get('type') == 'chapter':
         print("chapter " + str(counter))
         print(div.text)
+		## add 1 to the counter every iteration of the loop
         counter += 1
 ```
 
-Printing to the output is great for prototyping, but to make sure the extracted data can be used for further analysis and to keep the workspace a bit uncluttered it is best to ave the extracted content. This can be done chapter for chapter, by creating one larger file containting a chapter per row.
+Try the code above to see how the output now contains increasing chapter count
+
+```{code-cell}
+:tags: [remove-input,hide-output]
+
+from bs4 import BeautifulSoup    
+
+with open("xml-workshop/data/tei.xml", encoding='utf8') as f:
+    root = BeautifulSoup(f, 'xml')
+
+counter = 1
+
+for div in root.find_all('div'):
+    if div.get('type') == 'chapter':
+        print("chapter " + str(counter))
+        print(div.text)
+		## add 1 to the counter every iteration of the loop
+        counter += 1
+```
+
+Great! we now have all the chapters in order, and numbered. However, this is not the most readable output.
+
+
+## Saving the chapters to disk
+
+Printing to the output is great for prototyping, but to make sure the extracted data can be used for further analysis and to keep the workspace a bit uncluttered it is best to save the extracted content to file. This can be done chapter for chapter or by creating one larger file containting a chapter per row.
 
 ```{admonition} Exercise
 :class: attention
@@ -129,6 +195,8 @@ for div in root.find_all('div'):
 ```
 ````
 
+Now we have a lot of text files. Each one containing one chapter of the book . For some uses this may be preferable, but for other a single, ordered file may be preferred. 
+In the next exercises we will write code that will store the chapters in an ordered format in a single file.
 
 ```{admonition} Exercise
 :class: attention
@@ -142,6 +210,8 @@ What are the easiest steps to do this?
 2. Transforming into a Pandas Dataframe
 3. Save the DataFrame to .csv
 ```
+
+Having refreshed our memory we will now put it into practice. 
 
 ```{admonition} Exercise
 :class: attention
@@ -163,6 +233,8 @@ for div in root.find_all('div'):
 ```
 ````
 
+With the first step done the list can now be transformed into a Dataframe. Don't forget to think about the order of the list content and the Dataframe columns.
+
 ```{admonition} Exercise
 :class: attention
 Transform the list into a Dataframe.
@@ -176,14 +248,36 @@ book = pd.DataFrame(chapter_list , columns = (['chapter', 'content']))
 ```
 ````
 
-It is good practice to check what you transformed.
+```{admonition} Exercise
+:class: attention
+It is good practice to check what you transformed, so print out the dataframe.
+```
 
+```{admonition} Solution
+:class: tip, dropdown
+	book
 ```
-book
+
+
+If the Dataframe is in order we can save the Datframe directly to file.
+ 
+```{admonition} Exercise
+:class: attention
+Save the Dataframe to csv.
 ```
+
+````{admonition} Solution
+:class: tip, dropdown
+```Python
+chapters.to_csv('chapters.csv')
+```
+Remember that this saves the csv in the root folder of your jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a /.
+````
 
 ## Extracting Poems
 
+For some uses only a specific pieces of an XML is needed. Extracting everything and then either removing or ignoring part of the extracted content is a lot of work that can be omitted by specifically extracting what is needed.
+The example TEI file contains a book that consists of both pieces of prose and poems. Both of these are specified somewhere in the XML. Over the coming exercises we will extract only the poems. To do this we need to know which elements indicate contain the poems.
 
 ```{admonition} Exercise
 :class: attention
@@ -195,12 +289,14 @@ Check the file to see which elements are needed to extract the poems from the fi
 To extract the poems the element **lg** with type **poems** is needed. 
 ```
 
-````{admonition} Exercise
+Having found the elements with the poems, we will now need to extract them from the XML.
+
+```{admonition} Exercise
 :class: attention
-Print out all the poems from the file.
+Write a piece of code that extracts and prints all the poems from the file. You can look at the previous exercises for hints.
 ```
 
-```{admonition} Solution
+````{admonition} Solution
 :class: tip, dropdown
 ```Python
 for div in root.find_all('lg'):
@@ -209,8 +305,16 @@ for div in root.find_all('lg'):
 ```
 ````
 
-As before with the chapters, we will save the extracted poems as seperate, and numbered, files. 
+As we did in the previous exercises where we extracted the whole chapters, we will save the extracted poems as seperate, and numbered, files. 
 
+
+```{admonition} Exercise
+:class: attention
+Expand the code of the previous exercise to include a counter for numbering the poems, and saving the poems one by one. As with the previous exercises use 'poem + counter' or something similar as a filename. 
+```
+
+````{admonition} Solution
+:class: tip, dropdown
 ```
 counter = 1
 
@@ -221,11 +325,14 @@ for div in root.find_all('lg'):
             text_file.write(div.text)
             counter += 1
 ```
+````
+
+Again, we now have many seperate files. But we will also want to create a single file containing the poems in a structured manner.
 
 
 ```{admonition} Exercise
 :class: attention
-Adapt the code above to save the extracted poems to csv. If you feel lost, just go back a few excercises and look at what we did there. Remember, first list, then dataframe.
+Adapt the code above to save the extracted poems to a single csv. If you feel lost, just go back a few exercises and look at what we did there. Remember, first list, then dataframe.
 ```
 
 ````{admonition} Solution
@@ -248,6 +355,6 @@ poems.to_csv('poems.csv')
 ```
 ````
 
-Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses. 
+Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses. Remember that saving files without specifying a pathname saves them to the root folder of Jupyter. This folder might clutter up quickly and it is wise to clean it up regularly or keep it clean by specifying a pathname to a specific folder.
 
 

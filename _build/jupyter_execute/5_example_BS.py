@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 5. Practical session: Working with Beautful Soup
+# # 5. Practical session: Working with Beautiful Soup
 # 
-# This lesson is divided into three sessions, where every session demonstrates one of the Python packages that was introduced in lesson **?**.
+# This lesson is divided into three sessions, where every session demonstrates one of the Python packages that was introduced in lesson **3**.
 # With every package, we follow these steps:
 # - Load the XML file;
 # - Examine the structure of the XML file;
@@ -15,10 +15,10 @@
 # 
 # Open a new Jupyter Notebook and type all the code examples and code exercises in your Notebook. 
 # 
-# ## Install Beautful Soup
+# ## Install Beautiful Soup
 # 
-# Beautifull Soup is not a standard Python package, so it needs to get installed first.
-# This can be done by directly in the Jupyter Notebook with 
+# Beautifull Soup is not a standard Python package, so it needs to be installed first.
+# This can be done directly in the Jupyter Notebook using:
 # 
 # ```
 # !pip install beautifulsoup4
@@ -30,9 +30,7 @@
 # pip install beautifulsoup4
 # ```
 # 
-# ## Import Beautiful Soup and import the xml file
-# 
-# ElemenTree is part of the standard Python library and therefore does not need to be installed.
+# ## Import Beautiful Soup and load the xml file
 # 
 # Before we can use the package, we have to let Python know we want to use it. We do this by importing the package.
 # Type the following in a code cell:
@@ -43,9 +41,12 @@
 from bs4 import BeautifulSoup  
 
 
+# Now we can use the package to extract data from the XML. 
+# 
 # ## Examine the structure of the file
 # 
-# Now we want to open the XML file from which we want to extract information. 
+# 
+# We will first need to load the XML file from which we want to extract information and pass it to BeautifulSoup.
 # Add a new code cell and type:
 
 # In[2]:
@@ -68,11 +69,10 @@ with open("data/example.xml") as f:
 # In[3]:
 
 
-# This cell should have its output hidden!
 print(root)
 
 
-# Wat vragen over de structuur bedenken
+# ## Wat vragen over de structuur bedenken
 # 
 # ## Extract the book titles and descriptions
 # 
@@ -87,18 +87,18 @@ print(root)
 # We need the child element 'book', and its subchildren 'title' and 'description'. 
 # ```
 # 
-# First, type the following code in your Jupyter Notebook to get the title from every book:
+# Having explored the structure of the XML a bit, we can now get to work with extracting the data.
+# First, type the following code in your Jupyter Notebook to get the *title* from every book:
 
 # In[4]:
 
 
-# This cell should have its output hidden!
 for book in root.find_all('book'):
     title = book.find('title').text
     print(title)
 
 
-# ```{note}
+# ````{note}
 # Explanation of the code.
 # The line:
 # 	```
@@ -114,7 +114,7 @@ for book in root.find_all('book'):
 # 	print(title)
 # 	```
 # This line displays the output. In this case, it shows the title of every book. 
-# ```
+# ````
 # 	
 # We can get the description of each book in the same way.
 # 
@@ -123,25 +123,32 @@ for book in root.find_all('book'):
 # Alter the code above to retreive all the *descriptions* and print out the descriptions. 
 # ```
 # 
-# ```{admonition} Solution
+# ````{admonition} Solution
 # :class: tip, dropdown
-# 	
-# 	for book in root.find_all('book'):
-# 		description = book.find('description').text
-# 		print(description)
-# 	
-# ```
-# 
-# We can use one *for loop* to extract both the book title and description from the XML file. 
-# Combining multiple items is preferable because it saves unnecessary lines of codes and merges the part of the code which does the same thing.
-# This makes the code more readable and maintainable. 
-# 
-# Combining the two codes above leads to the following code:
+# ```Python
+# for book in root.find_all('book'):
+# 	description = book.find('description').text
+# 	print(description)
+# ```	
+# ````
 
 # In[5]:
 
 
-# This cell should have its output hidden!
+for book in root.find_all('book'):
+	description = book.find('description').text
+	print(description)
+
+
+# We can use one *for loop* to extract both the book title *and* the description from the XML file. 
+# Combining multiple items is preferable because it saves unnecessary lines of codes and merges the part of the code which does the same thing.
+# This makes the code more readable and better maintainable. 
+# 
+# Combining the two codes above leads to the following code:
+
+# In[6]:
+
+
 for book in root.find_all('book'):
 	title = book.find('title').text
 	description = book.find('description').text
@@ -152,7 +159,7 @@ for book in root.find_all('book'):
 # You can use the same method as described above to extract all the names and surnames from the authors from the example XML. 
 # However, if we look at the structure of the XML file, there is a difference between the placement of the elements 'title' and 'description', and the elements 'name' and 'surname' in the XML structure. 
 # 
-# ```
+# ```XML
 # <catalog>
 # 	<book id="bk101">
 # 		<author>
@@ -184,10 +191,9 @@ for book in root.find_all('book'):
 # Because of the difference in the place between elements, we need to alter our code a bit. Instead of a single *for loop* that iterates through all the 'book' elements, 
 # we also need a second *for loop* that runs through the 'author' element of 'book'. We can do this with the following code:
 
-# In[6]:
+# In[7]:
 
 
-# This cell should have its output hidden!
 for book in root.find_all('book'):
     for author in book.find_all('author'):
         name = author.find('name').text
@@ -199,21 +205,33 @@ for book in root.find_all('book'):
 # The above code extracts only the name of an author. Alter the code, so that it extracts both the name and the surname. 
 # ```
 # 
-# ```{admonition} Solution
+# ````{admonition} Solution
 # :class: tip, dropdown
-# 	for book in root.find_all('book'):
-# 		for author in book.find_all('author'):
-# 			name = author.find('name').text
-# 			surname = author.find('surname').text
-# 			print(name, surname) 
+# ```Python
+# for book in root.find_all('book'):
+# 	for author in book.find_all('author'):
+# 		name = author.find('name').text
+# 		surname = author.find('surname').text
+# 		print(name, surname) 
 # ```
-# 
+# ````
+
+# In[8]:
+
+
+for book in root.find_all('book'):
+	for author in book.find_all('author'):
+		name = author.find('name').text
+		surname = author.find('surname').text
+		print(name, surname) 
+
+
 # Another option is to just look for the element 'Author' and then extract the content from the subelements 'name' and 'surname'. 
-# This is usefull if you have an XML with a lot of children, and you want only specific content which you want to extract apart from their parents. 
+# This is useful if you have an XML with a lot of children where you want to extract only specific content. 
 # However, keep in mind that the connection between the book and the authors is lost with this code. 
 # The code looks like this:
 
-# In[7]:
+# In[9]:
 
 
 for book in root.find_all('author'):
@@ -224,28 +242,27 @@ for book in root.find_all('author'):
 
 # ## Extract the book identifier
 # 
-# As you can see in the XML, each book has its own ***identifier***. As books can have the same name, and authors can have written multiple books, it 
-# is good practise to always use the identifier to point to a specific item. 
+# As you can see in the XML, each book has its own ***identifier***. As books can have the same name, and authors can have written multiple books, it is good practise to always use the identifier to point to a specific item. 
 # 
 # In the previous exercises, we extracted the content that was presented between the tags of an element.
 # For example:
 # 
 # 
-# ```
+# ```XML
 # <title>XML Developers Guide</title>
 # ```
 # 
-# In this example, you see that the title 'XML Developer's guide' is stored between the tags <title> and </title>. We extracted this content by adding '.text'. 
+# In this example, you see that the title 'XML Developer's guide' is stored between the tags **title** and **/title**. We extracted this content by adding '.text'. 
 # 
-# ```{admonition} Exercise
+# ````{admonition} Exercise
 # :class: attention
-# Look at this example of the 'book' element with its identifier. What is the difference between the place of the content of the identifier and the
-# place of the content of the title?
-# 	```
-# 		<book id="bk101">
-# 		</book>
-# 	```
+# Look at this example of the 'book' element with its identifier. Compare it to the title element above. What is the difference between the place of the content of the identifier and the place of the content of the title?
+# 
+# ```XML
+# 	<book id="bk101">
+# 	</book>
 # ```
+# ````
 # 
 # ```{admonition} Solution
 # :class: tip, dropdown
@@ -253,13 +270,12 @@ for book in root.find_all('author'):
 # 	
 # ```
 # 
-# To extract content from attributes, we need to use the 'get' method. 
+# To extract content from attributes, we need to use the '.get' method. 
 # We still use the *for loop* to iterate through all the books, but instead of the content of certain elements, we now extract the content of the attribute.
 
-# In[8]:
+# In[10]:
 
 
-# This cell should have its output hidden!
 for book in root.find_all('book'):
     identifier = book.get('id')
     print(identifier)
@@ -286,24 +302,25 @@ for book in root.find_all('book'):
 # Create the code that extracts all information we have used so far, from every book. And print this information (see scheme above). 
 # ```
 # 
-# ```{admonition} Solution
+# ````{admonition} Solution
 # :class: tip, dropdown
-# 	for book in root.find_all('book'):
-# 		identifier = book.get('id')
-# 		title = book.find('title').text
-# 		description = book.find('description').text
-# 		for author in book.find_all('author'):
-# 			name = author.find('name').text
-# 			surname = author.find('surname').text
-# 		print(identifier, title, description, name, surname)
-# ```	
+# ```Python
+# for book in root.find_all('book'):
+# 	identifier = book.get('id')
+# 	title = book.find('title').text
+# 	description = book.find('description').text
+# 	for author in book.find_all('author'):
+# 		name = author.find('name').text
+# 		surname = author.find('surname').text
+# 	print(identifier, title, description, name, surname)
+# ```
+# ````
 # 
 # This leads to the following output:
 
-# In[9]:
+# In[11]:
 
 
-# This cell should have its input hidden!
 for book in root.find_all('book'):
 	identifier = book.get('id')
 	title = book.find('title').text
@@ -314,20 +331,18 @@ for book in root.find_all('book'):
 	print(identifier, title, description, name, surname)
 
 
-# As you can see, it displays all information we wanted, but the output is quite unreadable. For example, it is not clear which part of the content belongs
-# to the title, and which to the description. 
+# As you can see, it displays all information we wanted, but the output is quite unreadable. For example, it is not clear which part of the content belongs to the title, and which to the description. 
 # 
 # To make the output more readable, we can put text before our output variables. In Python, this can be done like this:
-# ```
+# ```Python
 # print(f"This is the string we type and {this_is_the_variable}")
 # ```
 # 
-# So in our example, we could for example add the following:
+# So in our example, we could add the following:
 
-# In[10]:
+# In[12]:
 
 
-# This cell should have its input hidden!
 for book in root.find_all('book'):
     identifier = book.get('id')
     title = book.find('title').text
@@ -335,6 +350,7 @@ for book in root.find_all('book'):
     for author in book.find_all('author'):
         name = author.find('name').text
         surname = author.find('surname').text
+	## add text to identify the extracted parts
     print(f"Identifier= {identifier} title= {title} description= {description} name= {name} {surname}")
 
 
@@ -342,10 +358,9 @@ for book in root.find_all('book'):
 # To resolve this, we can add linebreaks between each variable and between the different books. We add a line break by adding '\n' after each variable, 
 # leading to the following code:
 
-# In[11]:
+# In[13]:
 
 
-# This cell should have its input hidden!
 for book in root.find_all('book'):
     identifier = book.get('id')
     title = book.find('title').text
@@ -353,19 +368,21 @@ for book in root.find_all('book'):
     for author in book.find_all('author'):
         name = author.find('name').text
         surname = author.find('surname').text
+	## add linebreaks
     print(f"Identifier= {identifier }\n title= {title}\n description= {description} \n name= {name} {surname}\n")
 
 
-# Well, that output looks way better, doesn't it?
+# Well, that output looks way better, does it not? Now having this information as printout on screen is useful, but preferably we should be able to use it in further analysis. This means that we need to be able to store it somewhere.
 # 
 # ## Store the information in a .csv or .txt file.
+# 
 # Here we show you how to store the output in two different ways:
 # - as one file with the information of all books in .csv format (which, for example, can be opened in Excel)
 # - as one textfile per book. 
 # 
 # ### Store in one file
-# The easiest way to store and save Python output in one file is through storing it in a dataframe from the Python package 'Pandas' and then saving this frame. 
-# You can add data directly from the *for loops* we created above in a pandas dataframe, but we prefer the method in which you first create a list and then transform this list in the output, as Pandas DataFrame execution can become fairly slow with large amounts of data. 
+# The easiest way to store and save Python output in one file is through storing it in a Dataframe from the Python package 'Pandas' and then saving this Dataframe. 
+# You can add data directly from the *for loops* we created above in a Pandas Dataframe, but we prefer the method in which you first create a list and then transform this list in the output, as Pandas Dataframe execution can become fairly slow with large amounts of data. 
 # 
 # To create a list, we first have to declare an empty list. This is done with the following syntax:
 # ```
@@ -375,10 +392,9 @@ for book in root.find_all('book'):
 # Now, we alter our *for loop* a bit. Instead of printing the output to the screen, as we did above, we store our output in a list. 
 # We can use the following code:
 
-# In[12]:
+# In[14]:
 
 
-# This cell should have its input hidden!
 booklist = []
 
 for book in root.find_all('book'):
@@ -391,10 +407,17 @@ for book in root.find_all('book'):
     booklist.append([identifier, title, description, name+" "+surname])
 
 
-# This leads to a list, called 'booklist', in which for every book all information is stored. 
+# This leads to a list, called 'booklist', in which for every book all extracted information is stored. 
 # 
-# We can then easily transform this list to a pandas DataFrame. 
-# To do so, we need to import pandas first with the code
+# We can check the content of the booklist by printing it with:
+
+# In[15]:
+
+
+print(booklist)
+
+
+# Having verified the list contains what we wanted to extract, we can then easily transform this list to a Pandas Dataframe. To do so, we need to first import pandas using the code:
 # ```
 # import pandas as pd
 # ```
@@ -404,9 +427,7 @@ for book in root.find_all('book'):
 # books = pd.DataFrame(booklist, columns=("identifier", "title", "description", "name")
 # ```
 # 
-# This code works as follows. You declare the variable 'books', which will be used to store all the information. 
-# Then you let Python know that you want to create a DataFrame. The content of this dataframe is the list 'booklist', which we just created. 
-# We then tell Python how we want to name the columns (this is in the same order as the order of the variables in the list). 
+# This code works as follows. You declare the variable 'books', which will be used to store all the information. Then you let Python know that you want to create a Dataframe. The content of this Dataframe is the list 'booklist', which we just created. We then tell Python how we want to name the columns (this should be in the same order as the order of the variables in the list). 
 # 
 # You can show the dataframe you just created by typing:
 # ``` 
@@ -415,7 +436,7 @@ for book in root.find_all('book'):
 # 
 # This results in the following output:
 
-# In[13]:
+# In[16]:
 
 
 # This cell should have its input hidden!
@@ -432,7 +453,7 @@ books
 # 
 # If you want to create a textfile for every book, you can add the code directly in your *for loop*. 
 # 
-# First, you have to declare a textfile in Python and give it a name. Then, you open the file and write content to it. After this, you close the file. 
+# First, you have to declare a textfile in Python and give it a name. Then, you open the file and write content to it. After this, you close the file. Closing the file is important, else the loop will keep adding data to the file.
 # You can try this with the following code:
 # 
 # ```
@@ -441,14 +462,15 @@ books
 # myfile.close()
 # ```
 # 
-# ```{note}
+# ````{note}
 # By default, Python stores the text file in the same folder as where you run your Jupyter Notebook. You can alter this by adding a path to your textfile, for example:
-# ``` myfile = open('C:/Users/Documents/test.txt', 'w') ```
-# Please remember to use a backward slash (/) between the folders
+# ``` myfile = open('C:/Users/Documents/test.txt', 'w') 
 # ```
+# Please remember to use a backward slash (/) between the folders
+# ````
 # 
 # With a few alterations, we can use this code to save our book information to a seperate file per book. 
-# First, we give the text file the name of the book identifier. we can do that by adding the variable into the name of the file like this:
+# First, we give the text file the name of the book identifier. We can do that by adding the variable into the name of the file like this:
 # ```
 #  myfile = open(identifier + '.txt', 'w')
 # ```
@@ -477,7 +499,7 @@ books
 # 
 # You can also search for specific elements in your XML. For example, just the title information from the book 'bk109'. To do so, you can start with the same *for loop* as we created in this lesson. However, before you print the output, you first check if you have the element you want (in this case: book 109). This can be done with an 'if' statement and it looks like this:
 
-# In[14]:
+# In[17]:
 
 
 for book in root.find_all('book'):
@@ -487,10 +509,10 @@ for book in root.find_all('book'):
         print(title)
 
 
-# You can also search the content from XML elements, searching the content for a match. For example, if we want to print all title that contain the word 'XML', 
+# You can also search the content from XML elements, searching the content for a match. For example, if we want to print all titles that contain the word 'XML', 
 # we can use the following code:
 
-# In[15]:
+# In[18]:
 
 
 for book in root.find_all('book'):
@@ -509,10 +531,24 @@ for book in root.find_all('book'):
 # Print out the title of all books that have England in their description. 
 # ```
 # 
-# ```{admonition} Solution
+# ````{admonition} Solution
 # :class: tip, dropdown
-# 	for book in root.find_all('book'):
-# 		description = book.find('description').text
-# 		if "England" in description:
-# 			print(book.find('description').text)
+# ```Python
+# for book in root.find_all('book'):
+# 	description = book.find('description').text
+# 	if "England" in description:
+# 		print(book.find('description').text)
 # ```
+# ````
+
+# In[19]:
+
+
+for book in root.find_all('book'):
+	description = book.find('description').text
+	if "England" in description:
+		print(book.find('description').text)
+
+
+# 		
+# We now have a good basis to try exploring some reallife examples of XML files used in Digital Humanities research. We will introduce some of these formats in the following section.

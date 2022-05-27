@@ -101,13 +101,13 @@
 # In[3]:
 
 
-#print("The solution to 35+12 is:"
+#print("The solution to 35+12 is:")
 #print(35+12)
 
 
 # ```{admonition} Solution
 # :class: tip, dropdown
-# The cell should not return any input as the code is commented out by the #.
+# The cell should not return any output as the code is commented out by the #.
 # ```
 # 
 # When the **#** is removed and the cell is run again, Python wil recognize the code and execute it.
@@ -121,7 +121,14 @@
 # :class: tip, dropdown
 # Removing the # from the code should enable Python to recognize the code return output when the cell is run
 # ```
-# 
+
+# In[4]:
+
+
+print("The solution to 35+12 is: ")
+print(35+12)
+
+
 # ## Python
 # 
 # Python was developed in 1991 by Guido van Rossum. The purpose of Python was to create a programming language that is both simple to understand and readable. Python works on different platforms such as Windowns, Mac, Linux, etc. It is a very popular programming language in data analysis and data science because of its versatality.
@@ -146,20 +153,20 @@
 # Type the code below in a cell in your Notebook and run the cell.
 # ```
 
-# In[4]:
+# In[5]:
 
 
 number = 9
 text = "this is a text"
 
 
-# In[5]:
+# In[6]:
 
 
 type(number)
 
 
-# In[6]:
+# In[7]:
 
 
 type(text)
@@ -174,7 +181,7 @@ type(text)
 # Type the code below in a cell in your Notebook and run the cell. What data type is the number?
 # ```
 
-# In[7]:
+# In[8]:
 
 
 number_but_wrong = "9"
@@ -194,7 +201,7 @@ type(number_but_wrong)
 #  Type the code below in a cell in your Notebook and run the cell.
 # ```
 
-# In[8]:
+# In[9]:
 
 
 number_1 = 3
@@ -210,7 +217,7 @@ number_1 + number_2
 # Using Python variables, calculate the sum of "35 + 69" in the cell below. Start with making two variables to assign the numbers *35* and *69* to. Calculate the sum using these variables.
 # ```
 
-# In[9]:
+# In[10]:
 
 
 # Make a variable for the number 35
@@ -228,7 +235,15 @@ number_1 + number_2
 # 	number_2 = 69
 # 	number_1 + number_2 
 # ```
-# 
+
+# In[11]:
+
+
+number_1 = 35
+number_2 = 69
+number_1 + number_2 
+
+
 # The plus sign can be used to calculate sums, as you did in the above exercise. However, the plus sign can also be used to stick different strings together. 
 # 
 # ```{admonition} Exercise
@@ -236,7 +251,7 @@ number_1 + number_2
 # Type the code below in a cell in your Notebook and run the cell.
 # ```
 
-# In[10]:
+# In[12]:
 
 
 line_1 = "This is a "
@@ -252,7 +267,7 @@ line_1 + line_2
 # Ensure that the four lines below are printed as one sentence in the output.
 # ```
 
-# In[11]:
+# In[13]:
 
 
 line_1 = "Because of this Notebook "
@@ -267,7 +282,13 @@ line_4 = "is very fun!"
 # 
 # 	line_1 + line_2 + line_3 + line_4
 # ```
-# 
+
+# In[14]:
+
+
+line_1 + line_2 + line_3 + line_4
+
+
 # Now, what about adding text and numbers from variables together?
 # 
 # ```{admonition} Exercise
@@ -275,7 +296,7 @@ line_4 = "is very fun!"
 # Type the code below in a cell in your Notebook and see what happens when you run the code.
 # ```
 
-# In[12]:
+# In[15]:
 
 
 line_1 = "The amount of abstracts for DHBenelux is: "
@@ -303,7 +324,7 @@ line_1 + amount_1
 # Type the code below in a cell in your Notebook and run the cell.
 # ```
 
-# In[13]:
+# In[16]:
 
 
 line_1 = "The amount of abstracts for DHBenelux is: "
@@ -318,7 +339,7 @@ line_1 + str(amount_1)
 # Type the code below in a cell in your Notebook and run the cell.
 # ```
 
-# In[14]:
+# In[17]:
 
 
 line_1 = "coffee breaks "
@@ -346,7 +367,7 @@ amount_1 = 2
 # Type the code below in a cell in your Notebook and run the cell.
 # ```
 
-# In[15]:
+# In[18]:
 
 
 line_1 = "coffee breaks "
@@ -355,6 +376,106 @@ amount_1 = 2
 f"The amount of {line_1} in this workshop is: {amount_1}"
 
 
+# ### Output
+# 
+# As you have already seen, executing code can produce output. In Jupyter Notebooks the output is presented within an output cell. Errors will be printed here too. 
+# Not all code will produce output, so don't be alarmed.
+# 
+# Output should generally be created by printing using:
+
+# In[19]:
+
+
+print("whatever you wish to print") 
+
+
+# Text must be put between quotes or Python will assume you are wishing to print variables.
+# 
+# Variables can be printed the same way as text, but must **not** have quotation marks.
+# 
+# ```{admonition} Exercise
+# :class: attention
+# In a new code cell, create the variable **print_me* and assign to it "I was printed with the print function"
+# Using the print function, print out the variable.
+# ```
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# 	print_me = "I was printed with the print function"
+# 	print(print_me)
+# ```
+
+# In[20]:
+
+
+print_me = "I was printed with the print function"
+print(print_me)
+
+
+# As you can see prints the contents of the variable to the output cell.
+# 
+# However, using Jupyter Notebooks there is also another way to create output. You have seen, and used, this before. The last line of a cell will always create output, if there is any output to create. 
+# 
+# To demonstrate this, let's reuse some of our variabeles.
+# 
+# ```{admonition} Exercise
+# :class: attention
+# In a new code cell, type out the variables *line_1*, *amount_1*, *print_me* below each other. Run the cell.
+# Which variable is printed to the output?
+# ```
+# 
+# ```{admonition} Solution
+# :class: tip, dropdown
+# Only the last variable *print_me* is printed.
+# Try changing the order and see if this behaviour is consistent.
+# ```
+
+# In[21]:
+
+
+line_1
+amount_1
+print_me
+
+
+# These two ways of printing output are not completely the same. Printing using the print() function removes some of the layout that Jupyter creates for you. This is very noticible when printing tables.
+# 
+# We have created a variable table for you that contains a table of numbers. Which we will use to demonstrate the difference in printing.
+# 
+# ```{admonition} Exercise
+# :class: attention
+# In a new code cell, print out the variable *table* using the print() function and by executing the variabel
+# Which variable is printed to the output?
+# ```
+# 
+# ````{admonition} Solution
+# :class: tip, dropdown
+# You will have used 
+# ```print(table)```
+# or 
+# ```table```
+# to print out the table. You can check below of the output matches yours.
+# ````
+
+# In[22]:
+
+
+import pandas as pd
+data = [32,6,7,5,34534,7], [123,543,3,7,8,43],[12,34,8,6,34,65],[12,32,56,873,56,3]
+table = pd.DataFrame(data, columns = ["I","am","a","table","of","numbers"])
+print("This was printed with the print() function.")
+print(table)
+
+
+# In[23]:
+
+
+print("This was printed by executing table")
+table
+
+
+# While this diffence is purely aesthetic, it is good to know, especially when working with table formatted data.
+#  
 # ### Functions
 # 
 # When you program in Python you will make use of functions. The *str()* code used in the previous exercise to make Python recognize numbers as text was an example of a function. Python contains a lot of built-in functions that are ready to use. Saving us a lot of manual coding!
@@ -368,7 +489,7 @@ f"The amount of {line_1} in this workshop is: {amount_1}"
 # Type the code below in a cell in your Notebook and run the cell
 # ```
 
-# In[16]:
+# In[24]:
 
 
 # Calculate the highest number using the max() function.
@@ -380,7 +501,7 @@ max(5, 8, 35, 4, 75, 2)
 # Round the number below using the round() function. The first parameter is the number to round. The second number is the required number of decimals. Type the code below in a cell in your Notebook and run the cell
 # ```
 
-# In[17]:
+# In[25]:
 
 
 round(36.53343, 2)
@@ -392,10 +513,14 @@ round(36.53343, 2)
 # Use the following numbers: 6, 24, 8, 2, 14. 
 # ```
 # 
-# ```{admonition} Solution
+# ````{admonition} Solution
 # :class: tip, dropdown
-# The min() function should return **2**
+# The code should look like this
 # ```
+# min(6, 24, 8, 2, 14)
+# ```
+# and the min() function should return **2**
+# ````
 # 
 # ### Packages
 # 
@@ -421,7 +546,7 @@ round(36.53343, 2)
 # Type the code below in a cell in your Notebook and run the cell
 # ```
 # 
-# ```python
+# ```
 # # Install the package
 # !pip install pandas
 # !pip install WordCloud
@@ -431,10 +556,10 @@ round(36.53343, 2)
 # The exclamation mark before *pip* is needed to activate *pip* within the Notebook enviroment. When installing from the command line this is not needed.
 # ```
 
-# In[18]:
+# In[26]:
 
 
-# Import the package
+# Import the packages
 import pandas
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
@@ -462,7 +587,7 @@ import matplotlib.pyplot as plt
 
 
 # Read the dataset into Python using pandas
-wordcloud = pandas.read_csv("C:/Users/broth/Documents/mwxw/testbook/data/wordcloud_dataset.csv", header=None, index_col=0, squeeze=True)
+wordcloud = pandas.read_csv("data/wordcloud_dataset.csv", header=None, index_col=0, squeeze=True)
 # Transform into dictionary for use in the WordCloud
 wordcloud_dict = wordcloud.to_dict()
 

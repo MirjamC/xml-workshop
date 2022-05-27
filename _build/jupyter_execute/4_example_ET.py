@@ -55,7 +55,6 @@ root = tree.getroot()
 # In[3]:
 
 
-# This cell should have its output hidden!
 print(ET.tostring(root, encoding='utf8').decode('utf8'))
 
 
@@ -79,7 +78,6 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # In[4]:
 
 
-# This cell should have its output hidden!
 for book in root.findall('book'):
     title = book.find('title').text
     print(title)
@@ -128,7 +126,6 @@ for book in root.findall('book'):
 # In[5]:
 
 
-# This cell should have its output hidden!
 for book in root.findall('book'):
 	title = book.find('title').text
 	description = book.find('description').text
@@ -174,7 +171,6 @@ for book in root.findall('book'):
 # In[6]:
 
 
-# This cell should have its output hidden!
 for book in root.findall('book'):
     for author in book.findall('author'):
         name = author.find('name').text
@@ -194,12 +190,22 @@ for book in root.findall('book'):
 # 			surname = author.find('surname').text
 # 			print(name, surname) 
 # ```
-# 
+
+# In[7]:
+
+
+for book in root.findall('book'):
+	for author in book.findall('author'):
+		name = author.find('name').text
+		surname = author.find('surname').text
+		print(name, surname) 
+
+
 # Another option is to 'escape' the element hiearchy and directly select all subelements, on all levels beneath the current element.
 # This is usefull if you have an XML with a lot of children, and you want only specific content which you want to extract apart from their parents. 
 # To escape  the hierarchy, you typ './/' before the name of the element you want to extract, as shown in the following code:
 
-# In[7]:
+# In[8]:
 
 
 for book in root.findall('.//author'):
@@ -242,10 +248,9 @@ for book in root.findall('.//author'):
 # To extract content from attributes, we need to use the 'get' method. 
 # We still use the *for loop* to iterate through all the books, but instead of the content of certain elements, we now extract the content of the attribute.
 
-# In[8]:
+# In[9]:
 
 
-# This cell should have its output hidden!
 for book in root.findall('book'):
     identifier = book.get('id')
     print(identifier)
@@ -286,10 +291,9 @@ for book in root.findall('book'):
 # 
 # This leads to the following output:
 
-# In[9]:
+# In[10]:
 
 
-# This cell should have its input hidden!
 for book in root.findall('book'):
 	identifier = book.get('id')
 	title = book.find('title').text
@@ -310,10 +314,9 @@ for book in root.findall('book'):
 # 
 # So in our example, we could for example add the following:
 
-# In[10]:
+# In[11]:
 
 
-# This cell should have its input hidden!
 for book in root.findall('book'):
     identifier = book.get('id')
     title = book.find('title').text
@@ -328,10 +331,9 @@ for book in root.findall('book'):
 # To resolve this, we can add linebreaks between each variable and between the different books. We add a line break by adding '\n' after each variable, 
 # leading to the following code:
 
-# In[11]:
+# In[12]:
 
 
-# This cell should have its input hidden!
 for book in root.findall('book'):
     identifier = book.get('id')
     title = book.find('title').text
@@ -361,10 +363,9 @@ for book in root.findall('book'):
 # Now, we alter our *for loop* a bit. Instead of printing the output to the screen, as we did above, we store our output in a list. 
 # We can use the following code:
 
-# In[12]:
+# In[13]:
 
 
-# This cell should have its input hidden!
 booklist = []
 
 for book in root.findall('book'):
@@ -401,10 +402,9 @@ for book in root.findall('book'):
 # 
 # This results in the following output:
 
-# In[13]:
+# In[14]:
 
 
-# This cell should have its input hidden!
 import pandas as pd
 books = pd.DataFrame(booklist, columns={"identifier","title", "description", "name"})
 books
@@ -463,7 +463,7 @@ books
 # 
 # You can also search for specific elements in your XML. For example, just the title information from the book 'bk109'. To do so, you can start with the same *for loop* as we created in this lesson. However, before you print the output, you first check if you have the element you want (in this case: book 109). This can be done with an 'if' statement and it looks like this:
 
-# In[14]:
+# In[15]:
 
 
 for book in root.findall('book'):
@@ -475,7 +475,7 @@ for book in root.findall('book'):
 # You can also search the content from XML elements, searching the content for a match. For example, if we want to print all title that contain the word 'XML', 
 # we can use the following code:
 
-# In[15]:
+# In[16]:
 
 
 for book in root.findall('book'):
@@ -501,3 +501,12 @@ for book in root.findall('book'):
 # 		if "England" in description:
 # 			print(book.find('description').text)
 # ```
+
+# In[17]:
+
+
+for book in root.findall('book'):
+	description = book.find('description').text
+	if "England" in description:
+		print(description)
+
