@@ -321,16 +321,21 @@ By using the XML file  and the information about the reading order in the csv fi
 However this is a lot of work and when there are multiple, or very large files, this is not the best use of our time. 
 Luckily Python offers us ways to automate this.
 
-Because the information about the reading order and indexes stored in a different location than the content itself we will go through three steps to get this done. 
+Because the information about the reading order and indexes are stored in a different location 
+than the content itself, we will go through three steps: 
 
-- From the XML we will take three attributes that determine te order. These will be stored into a Python dictionary [Python dictionaries]. These attributes are: *groupnr*, *regionRef*, and *index*
-- We retrieve the content and region information.
-- We connect the region information to the group and index. 
+- From the element 'ReadingOrder', we will extract the information about the OrdererGroup id, the regionRef and the index and store them in a Python dictionary;
+- We retreive the textregion and corresponding content (see the code above);
+- We will combina the textregion information with the regionRef from the dictionary to combine everything.
+- We store the information in a Dataframe and sort it based on the ReadingOrder. 
 
-This can than be stored in a dataframe and sorted. 
+As you can see, we are going to create a Python dictionary. Dictionaries are an easy way to store
+and query information. But more about dictionaries later, let's first see if we can retreive all desired values. 
 
 ```{admonition} Exercise
-Using Python, extract the attribuites we want from the XML.
+Write a code that prints out the id of every ordered group, with per id:
+- The corresponding RegionRefs;
+- The corresponding indexes;
 ```
 
 ````{admonition} Solution
@@ -346,13 +351,57 @@ for order in root.findall('.//ns0:ReadingOrder', ns):
 			print(region, index)
 ```	
 ````
+```{code-cell}
+:tags: [remove-input, hide-output]
+for order in root.findall('.//ns0:ReadingOrder', ns):
+	for group in root.findall('.//ns0:OrderedGroup', ns):
+		groupnr = group.get('id')
+		print(groupnr)
+		for suborder in group.findall('.//ns0:RegionRefIndexed', ns):  
+			region = suborder.get('regionRef')
+			index = suborder.get('index')
+			print(region, index)
+```
 
 Printing this information gives us a chance to check if our code is behaving the way we expect. 
 However, we wish to further automate the process and store it into a Python dictionary.
 
+A dictionary is structured as follows: key = value. 
+In our case, the 'key' is the regionref, and the values for every key are the ordered group id and the index.
 
-#### Example: how to save the above output to a Python dictionary:
+We shall demonstrate this by a small example of our XML file. 
 
+As example, look at this two small reading order example.
+```
+<ReadingOrder>
+	<OrderedGroup id="r38">
+		<RegionRefIndexed regionRef="r8" index="0"/>
+		<RegionRefIndexed regionRef="r12" index="1"/>
+	</OrderedGroup>
+</ReadingOrder>
+```
+
+This can be stored in a Python dictionary like this:
+```{code-cell}
+dict = {'r8': [['r38', '0']],
+		'r12': [['r38', '1']]}
+```
+
+With this dict, we can ask Python specific information about every textregion.
+For example: to which group does r8 belong?
+
+```{code-cell}
+group = dict['r8'][0][0] ## [0] for the first entry, [0] the first element
+print(group)
+```
+
+And what is the index of r12?
+```{code-cell}
+group = dict['r12'][0][0] ## [1] for the first entry, [0] the second element
+print(group)
+```
+
+The following codes gives an example of how you can store the required information into a dictionary.
 
 ```{code-cell}
 ## First initialize an empty dictionary
@@ -377,17 +426,22 @@ print(dict_order)
 ```
 
 We have previously made the code to obtain the content and the region from the XML file. Now we will combine this by comparing the values from the dictionary with the value of the TextRegion id.
-
+As not every content is in an ordered group, we also have to include an 'escape' mechanism. For now, we will store every content that does not belong in an OrderedGroup into group 0 with index 0. 
 
 ```{code-cell}
 for newspaper in root.findall('.//ns0:TextRegion', ns):
 	region = newspaper.get('id')
     
 	## here we extract from the dictionary the group and index value for the dictionary item that matches the region extracted with the orignal code.
-	groupvalues = dict_order[region]
-	group = groupvalues[0][0]
-	index = groupvalues[0][1]
-    
+	## if the content does not belong to an ordered group, we store them in group 0 with index 0
+	region = newspaper.get('id')
+        if region in dict_order:
+            groupvalues = dict_order[region]
+            group = groupvalues[0][0]
+            index = groupvalues[0][1]
+        else:
+            group = 0
+            index = 0
 	for content in newspaper.findall('.//ns0:Unicode', ns):
 		content = content.text
 	## then we can add them to the print statement
@@ -408,24 +462,25 @@ Don't forget to declare an empty list first.
 content_list = []
 
 for newspaper in root.findall('.//ns0:TextRegion', ns):
-    region = newspaper.get('id')
-    groupvalues = dict_order[region]
-    group = groupvalues[0][0]
-    index = groupvalues[0][1]
+    	region = newspaper.get('id')
+        if region in dict_order:
+            groupvalues = dict_order[region]
+            group = groupvalues[0][0]
+            index = groupvalues[0][1]
+        else:
+            group = 0
+            index = 0
     for content in newspaper.findall('.//ns0:Unicode', ns):
         content = content.text
     content_list.append([group, index, region, content])
 ```	
 ````
 
-Now we have stored the merged information into a list, we can transform the list into a Pandas Dataframe to make use of some of the usefull features of Dataframes.
+Now we have stored the merged information into a list, we can transform the list into a Pandas Dataframe. 
 
 
 ```{admonition} Exercise
 Transform the list into a Dataframe.
-```
-```{note}
-Pay attention to the order of the list items and the columns!
 ```
 
 ````{admonition} Solution
@@ -452,7 +507,7 @@ newspaper_with_order = pd.DataFrame(content_list, columns = ["Group", "Index", "
 newspaper_with_order
 ```
 
-Now we have our data in a Dataframe we have some easy options for manipulating the data. One of these is ordering, or sorting, the Dataframe. 
+Now that we have our data in a Dataframe, we have some easy options for manipulating the data. One of these is ordering, or sorting, the Dataframe. 
 A Dataframe can be sorted by any of its columns, or even multiple columns. The original shape and content is maintained, but the order of the rows is changed to whatever is specified.
 The syntax for sorting a Dateframe is:
 
@@ -460,7 +515,7 @@ The syntax for sorting a Dateframe is:
 Dataframe.sort_values([column(s) to sort by], [sorting order])
 ```
 In the code below the Dataframe we just made is sorted by 'Group' and 'Index' in ascending order for both. 
-Notice that the sorting columns are quoted. When adding more than one column a (comma seperated) list must be passed. The sorting order default is ascending, for descending ascending is set to False.
+Notice that the sorting columns are quoted. When adding more than one column a (comma seperated) list must be passed. The sorting order default is 'ascending', for 'descending', the ascending attirbute is set to False.
 
 ```{code-cell}
 newspaper_with_order = newspaper_with_order.sort_values(['Group', 'Index'], ascending = [True, True])
