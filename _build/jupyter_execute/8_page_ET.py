@@ -55,16 +55,18 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # The page XML contains a lot of information that is not part of the textual content of the newspaper. 
 # This information describes the layout of the page. It also contains elements in which the plain
 # text is stored. We start by searching for this element, and the check whether the content is
-# stored as value of tags or as values of an attribute.  
+# stored as the value of tags or as the value of an attribute.  
 # 
 # ```{admonition} Exercise
 # :class: attention
 # Look at the XML structure, in which element is the content stored?
 # Is it stored as value of the tags or as the value of an attribute?
+# Does it have any parents we have to consider while extracting the content?
 # ```
 # ```{admonition} Solution
 # :class: tip, dropdown
 # The content is stored in an element called 'Unicode', it is stored as a value of the tags.  
+# It has several parents, so we need to escape them with './/' or typ all the parent elements name. 
 # ```
 # 
 # All Page XML files from the KB contain a reading order. This reading order guides the user through the file and indicates what the right order of all text elements is. 
@@ -79,6 +81,7 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # - The id attribute of each TextRegion element
 # - The OrderedGroup id for each TextRegion element
 # - The index of each region
+# 
 # With this information, you can determine the correct reading order, which is declared in 
 # the ReadingOrder element, e.g.:
 #  ```
@@ -124,9 +127,8 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # <ns0:PcGts xmlns:ns0="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19 http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19/pagecontent.xsd" pcGtsId="pc-00530982">
 # ```
 # If you remember from section 7, there are two ways of using namespaces:
-# 	1. Type the namespace before the element name between curly brackets, e.g.: {http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19}
-# 	2. Declare the namespace in ElementTree. This provides Python with a dictionary of the used namespaces, which it can then use.
-# 	e.g.: ns = {'ns0': 'http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19'}
+# 1. Type the namespace before the element name between curly brackets, e.g.: {http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19}
+# 2. Declare the namespace in ElementTree. This provides Python with a dictionary of the used namespaces, which it can then use. e.g.: ns = {'ns0': 'http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19'}
 # ````
 # 
 # Now that we know how the file is structured, and where the content we need is stored, we can start extracting the output
@@ -169,7 +171,7 @@ for newspaper in root.findall('.//ns0:Unicode', ns):
 # 
 # ```{admonition} Exercise
 # What information do we need for every text content to determine the right reading order?
-# Is this information stored as value of tags or as a value of an attribute?
+# Is this information stored as value of the tags or as a value of an attribute?
 # ```
 # 
 # ```{admonition} Solution
@@ -235,10 +237,9 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 # 
 # 
 # Let us just peek at the list to see if everything went as expected.
-# `
-# ```{admonition} Exercise
+# ````{admonition} Exercise
 # Print out the list that was made in the previous exercise to see if it was created correctly.
-# ```
+# ````
 # 
 # ````{admonition} Solution
 # :class: tip, dropdown
@@ -259,8 +260,7 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 print(content_list)
 
 
-# Now that we have a list containing both the TextRegion id and the textual content, 
-# we can transform this into a Dataframe. 
+# Now that we have a list containing both the TextRegion id and the textual content, we can transform this into a Dataframe. 
 # 
 # ```{admonition} Exercise
 # Create dataframe with the columns 'Region' and 'Content' from the list we have just created.
@@ -281,14 +281,13 @@ print(content_list)
 # As before, check the result to make sure everything went as expected.
 # ```{admonition} Exercise
 # Check if the Dataframe is made correctly. 
-# Remember to not use the method(print), as without 'print' the
-# formatting will be more readable in case of Dataframes.
+# Remember to not use the print method, as without 'print' the formatting will be more readable for Dataframes.
 # ```
 # 
 # ````{admonition} Solution
 # :class: tip, dropdown
 # ```
-# content_table
+# newspaper
 # ``` 
 # ````
 
@@ -316,10 +315,10 @@ newspaper
 # Because the information about the reading order and indexes are stored in a different location 
 # than the content itself, we will go through three steps: 
 # 
-# - From the element 'ReadingOrder', we will extract the information about the OrdererGroup id, the regionRef and the index and store them in a Python dictionary;
-# - We retreive the textregion and corresponding content (see the code above);
-# - We will combina the textregion information with the regionRef from the dictionary to combine everything.
-# - We store the information in a Dataframe and sort it based on the ReadingOrder. 
+# * From the element 'ReadingOrder', we will extract the information about the OrdererGroup id, the regionRef and the index and store them in a Python dictionary;
+# * We retreive the textregion and corresponding content (see the code above);
+# * We combine the textregion information with the regionRef from the dictionary to combine everything.
+# * We store the information in a Dataframe and sort it based on the ReadingOrder. 
 # 
 # As you can see, we are going to create a Python dictionary. Dictionaries are an easy way to store
 # and query information. But more about dictionaries later, let's first see if we can retreive all desired values. 
@@ -333,11 +332,11 @@ newspaper
 # ````{admonition} Solution
 # :class: tip, dropdown
 # ```
-# for order in root.findall('.//ns0:ReadingOrder', ns):
-# 	for group in root.findall('.//ns0:OrderedGroup', ns):
+# for order in root.find_all('ReadingOrder'):
+# 	for group in root.find_all('OrderedGroup'):
 # 		groupnr = group.get('id')
 # 		print(groupnr)
-# 		for suborder in group.findall('.//ns0:RegionRefIndexed', ns):  
+# 		for suborder in group.find_all('RegionRefIndexed'):  
 # 			region = suborder.get('regionRef')
 # 			index = suborder.get('index')
 # 			print(region, index)
@@ -347,11 +346,11 @@ newspaper
 # In[6]:
 
 
-for order in root.findall('.//ns0:ReadingOrder', ns):
-	for group in root.findall('.//ns0:OrderedGroup', ns):
+for order in root.find_all('ReadingOrder'):
+	for group in root.find_all('OrderedGroup'):
 		groupnr = group.get('id')
 		print(groupnr)
-		for suborder in group.findall('.//ns0:RegionRefIndexed', ns):  
+		for suborder in group.find_all('RegionRefIndexed'):  
 			region = suborder.get('regionRef')
 			index = suborder.get('index')
 			print(region, index)
@@ -363,9 +362,8 @@ for order in root.findall('.//ns0:ReadingOrder', ns):
 # A dictionary is structured as follows: key = value. 
 # In our case, the 'key' is the regionref, and the values for every key are the ordered group id and the index.
 # 
-# We shall demonstrate this by a small example of our XML file. 
+# We shall demonstrate this using a small piece of our XML file:
 # 
-# As example, look at this two small reading order example.
 # ```
 # <ReadingOrder>
 # 	<OrderedGroup id="r38">
@@ -377,7 +375,7 @@ for order in root.findall('.//ns0:ReadingOrder', ns):
 # 
 # This can be stored in a Python dictionary like this:
 
-# In[7]:
+# In[ ]:
 
 
 dict = {'r8': [['r38', '0']],
@@ -387,25 +385,25 @@ dict = {'r8': [['r38', '0']],
 # With this dict, we can ask Python specific information about every textregion.
 # For example: to which group does r8 belong?
 
-# In[8]:
+# In[ ]:
 
 
-group = dict['r8'][0][0] ## [0] for the first entry, [0] the first element
+group = dict['r8'][0][0] ## [0] for the first entry, [0] for the first element
 print(group)
 
 
 # And what is the index of r12?
 
-# In[9]:
+# In[ ]:
 
 
-group = dict['r12'][0][1] ## [1] for the first entry, [0] the second element
+group = dict['r12'][0][1] ## [1] for the first entry, [0] for the second element
 print(group)
 
 
-# The following codes gives an example of how you can store the required information into a dictionary.
+# The following code gives an example of how you can store the required information in a dictionary.
 
-# In[10]:
+# In[ ]:
 
 
 ## First initialize an empty dictionary
@@ -418,22 +416,22 @@ for order in root.findall('.//ns0:ReadingOrder', ns):
 			region = suborder.get('regionRef')
 			index = suborder.get('index')
 			## the dictionary is filled with the three attributes
-			## it sets region as the key and the groupnr and index as a list as value
+			## it sets region as the key and as value the groupnr and index as a list 
 			dict_order.setdefault(region,[]).append([groupnr, index])
 
 
 # Let's print the dictionary to make certain it works.
 
-# In[11]:
+# In[ ]:
 
 
 print(dict_order)
 
 
 # We have previously made the code to obtain the content and the region from the XML file. Now we will combine this by comparing the values from the dictionary with the value of the TextRegion id.
-# As not every content is in an ordered group, we also have to include an 'escape' mechanism. For now, we will store every content that does not belong in an OrderedGroup into group 0 with index 0.
+# As not all content is in an ordered group, we also have to include an 'escape' mechanism. For now, we will store all content that does not belong in an OrderedGroup into group 0 with index 0.
 
-# In[12]:
+# In[ ]:
 
 
 for newspaper in root.findall('.//ns0:TextRegion', ns):
@@ -453,7 +451,7 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 	print(group, region, index, content)
 
 
-# With this code we merge the reading order values that we stored in the dictionary with the content that we extract with the origial code. However, we still print the code instead of storing it in something more useful.
+# With this code we merge the reading order values that we stored in the dictionary with the content that we extract with the origial code. However, we still print the result instead of storing it in something more useful.
 # 
 # ```{admonition} Exercise
 # Adapt the code above to store all relevant information in a list.
@@ -498,7 +496,7 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 # 
 # We then check the result again.
 
-# In[13]:
+# In[ ]:
 
 
 import pandas as pd
@@ -529,7 +527,7 @@ newspaper_with_order
 # In the code below the Dataframe we just made is sorted by 'Group' and 'Index' in ascending order for both. 
 # Notice that the sorting columns are quoted. When adding more than one column a (comma seperated) list must be passed. The sorting order default is 'ascending', for 'descending', the ascending attirbute is set to False.
 
-# In[14]:
+# In[ ]:
 
 
 newspaper_with_order = newspaper_with_order.sort_values(['Group', 'Index'], ascending = [True, True])
@@ -549,7 +547,7 @@ newspaper_with_order = newspaper_with_order.sort_values(['Group', 'Index'], asce
 # ```	
 # ````
 
-# In[15]:
+# In[ ]:
 
 
 newspaper_with_order

@@ -131,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Extract information from the Alto/Didle format with ElemenTree
+   7. Practical: Extract information from the Alto format with ElemenTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -156,7 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_auto_batch.html">
-   12. Practical session: Automatically extraxt information from a batch of files
+   12. Practical session: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -618,6 +618,44 @@ The example TEI file contains a book that consists of both pieces of prose and p
 </pre></div>
 </div>
 </div>
+<p>This should create a file in your Jupyter home folder containing all all the numbered poems.</p>
+<p>The next exercise is a bit more challenging.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Create a Dataframe containing all the (numbered) chapters and poems:</p>
+<ul class="simple">
+<li><p>The chapters must be numbered consecutively</p></li>
+<li><p>The poems must be numbered consecutively per chapter</p></li>
+</ul>
+<p>This means that you will need to extract chapter information from the XML, in addition to the poem information. Also, something to number the chapters is needed.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>You code should look similar to the code below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">chapter_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">c_counter</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">p_counter</span> <span class="o">=</span> <span class="mi">1</span> 
+	<span class="k">for</span> <span class="n">div</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">):</span>
+		<span class="k">if</span> <span class="n">div</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;chapter&#39;</span><span class="p">:</span>
+			<span class="n">chapter</span> <span class="o">=</span> <span class="s2">&quot;chapter_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">c_counter</span><span class="p">)</span>
+			<span class="n">content</span> <span class="o">=</span> <span class="n">div</span><span class="o">.</span><span class="n">text</span>
+			<span class="k">for</span> <span class="n">poems</span> <span class="ow">in</span> <span class="n">div</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;lg&#39;</span><span class="p">):</span>
+				<span class="k">if</span> <span class="n">poems</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;type&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;poem&#39;</span><span class="p">:</span>
+				<span class="n">poem</span> <span class="o">=</span> <span class="s2">&quot;poem_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">p_couter</span><span class="p">)</span>
+				<span class="n">p_content</span> <span class="o">=</span> <span class="n">poems</span><span class="o">.</span><span class="n">text</span>
+				<span class="n">chapter_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chapter</span><span class="p">,</span> <span class="n">poem</span><span class="p">,</span> <span class="n">p_content</span><span class="p">])</span>
+				<span class="n">p_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="n">c_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="n">p_counter</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">poems</span>  <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">chapter_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">{[</span><span class="s1">&#39;chapter&#39;</span><span class="p">,</span> <span class="s1">&#39;poem&#39;</span><span class="p">,</span> <span class="s1">&#39;content&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+</div>
+<p>As you can see we now have the poems numbered per chapter, and each chapters nicely numbered as well. This Datarfame will make a nice and ordered dataset for further analysis or presentation.</p>
 <p>Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses. Remember that saving files without specifying a pathname saves them to the root folder of Jupyter. This folder might clutter up quickly and it is wise to clean it up regularly or keep it clean by specifying a pathname to a specific folder.</p>
 </div>
 </div>

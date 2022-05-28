@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # 12. Practical session: Automatically extraxt information from a batch of files
+# # 12. Practical session: Automatically extract information from a batch of files
 # 
-# In the previous lessons, we have seen how we can extract information from the Alto, Didl, Tei and Page xml files. 
-# In this lesson, we will show you how you can use the codes from the previous lessons and, with a little bit of alteration,
-# can use them to automatically extract content from batches of xml files and save them as either textfiles or csv files. 
+# In the previous lessons, we have seen how we can extract information from the Alto, Didl, Tei and Page XML files. 
+# In this lesson, we will show you how you can use the codes from the previous lessons and, with a little bit of alteration, use them to automatically extract content from batches of XML files and save them as either textfiles or csv files. 
 # 
 # We will provide the following examples:
 # 
@@ -15,7 +14,7 @@
 # 
 # ##  Extract complete page content with newspaper metadata from various Alto and corresponding Didle files.
 # 
-# In lesson 7, we used the following code to extract the content and page number from a newspaper Alto xml and the title and publication year from the corresponding Didle file.
+# In lesson 7, we used the following code to extract the content and page number from a newspaper Alto XML and the title and publication year from the corresponding Didle file.
 
 # In[1]:
 
@@ -59,12 +58,12 @@ with open(filename, "w", encoding="utf-8") as f:
     f.write(article_content)
 
 
-# With few little alterations, we can use this code to automatically work with a batch of file. 
+# With few little alterations, we can use this code to automatically work with a batch of files. 
 # 
 # - We need a code that automatically search through folder in your computer;
 # - We need to add a piece of code that finds the corresponding Didle file for every alto file. 
 # 
-# For the following code, we assume you have a folder called 'alto', which contains the Alto xml files, and a folder
+# For the following code, we assume you have a folder called 'alto', which contains the Alto XML files, and a folder
 # 'didl' that contains the Didl files (download here). Both alto and didle have a filename that starts with an identifier, followed by 
 # either _alto or _didl. Make sure that there are no other files in the folder.
 # 
@@ -93,8 +92,7 @@ filename_didl = filename + "_didl.xml"
 print(filename_didl)
 
 
-# Now, we have a way to retreive all alto files and corresponding Didle files, so the only thing left is to put it in one 
-# big loop.
+# Now, we have a way to retreive all alto files and corresponding Didl files, so the only thing left is to put it in one big loop.
 
 # In[4]:
 
@@ -149,7 +147,7 @@ for filename in os.listdir(directory):
 
 # ## Extract the poems from various Tei files and store them in seperate csv files per book.
 # 
-# In lesson ?, we extracted poems from a Tei file and stored them in a csv file. The code for this looked like this:
+# In lesson 10, we extracted poems from a Tei file and stored them in a csv file. The code for this looked like this:
 
 # In[5]:
 
@@ -264,8 +262,7 @@ poems.to_csv('poems.csv')
 # 
 # ## Extract the content, including reading order, from various Page files and store the content in csv files
 # 
-# And off course, we can do the same for the page xml. Lets start by repeating the code we made to extract the content, 
-# including the region information, into a csv file.
+# And off course, we can do the same for the page XML. Lets start by repeating the code we made to extract the content, including the region information, and save it to a csv file.
 
 # In[6]:
 
@@ -370,4 +367,5 @@ newspaper_with_order.to_csv('newspaper_with_order.csv')
 # ```
 # ````
 # 
-# And that's all!
+# And that's all! 
+# You have now seen multiple ways of automatically extracting content from batches of files which can save a lot of time and errors.
