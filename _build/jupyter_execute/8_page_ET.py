@@ -11,7 +11,7 @@
 # 
 # - Load the Page file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
 # - Extract the complete content of a newspaper page from the Page file <span style="color:#ef6079">(*basic*)</span>;
-# - Extract the region references with the corresponding content <span style="color:#ef6079">(*moderate*)</span>;
+# - Extract the text region with the corresponding content <span style="color:#ef6079">(*moderate*)</span>;
 # - Extract the reading order and use this to automatically sort the page <span style="color:#ef6079">(*advanced*)</span>.
 # 
 # Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.
@@ -74,12 +74,39 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # :class: attention
 # Look carefully at the XML. What information do we need to correctly display the reading order?
 # ```
-# ```{admonition} Solution
+# ````{admonition} Solution
 # :class: tip, dropdown
 # - The id attribute of each TextRegion element
 # - The OrderedGroup id for each TextRegion element
 # - The index of each region
-# ```
+# With this information, you can determine the correct reading order, which is declared in 
+# the ReadingOrder element, e.g.:
+#  ```
+# <ReadingOrder>
+# 	<UnorderedGroup id="ro357564684568544579089">
+# 		<OrderedGroup id="r38">
+# 			<RegionRefIndexed regionRef="r8" index="0"/>
+# 			<RegionRefIndexed regionRef="r12" index="1"/>
+# 			<RegionRefIndexed regionRef="r16" index="2"/>
+# 			<RegionRefIndexed regionRef="r20" index="3"/>
+# 			<RegionRefIndexed regionRef="r24" index="4"/>
+# 			<RegionRefIndexed regionRef="r28" index="5"/>
+# 			<RegionRefIndexed regionRef="r32" index="6"/>
+# 			<RegionRefIndexed regionRef="r36" index="7"/>
+# 			<RegionRefIndexed regionRef="r40" index="8"/>
+# 			<RegionRefIndexed regionRef="r44" index="9"/>
+# 			<RegionRefIndexed regionRef="r46" index="10"/>
+# 			<RegionRefIndexed regionRef="r48" index="11"/>
+# 			<RegionRefIndexed regionRef="r52" index="12"/>
+# 			<RegionRefIndexed regionRef="r56" index="13"/>
+# 			<RegionRefIndexed regionRef="r60" index="14"/>
+# 			<RegionRefIndexed regionRef="r64" index="15"/>
+# 			<RegionRefIndexed regionRef="r68" index="16"/>
+# 			<RegionRefIndexed regionRef="r72" index="17"/>
+# 			<RegionRefIndexed regionRef="r74" index="18"/>
+# 		</OrderedGroup>
+#  ```
+# ````
 # 
 # Remember namespaces? Before we start to extract the data we are interested in we need to stop 
 # for a moment and examine the file to see if we need to take namespaces into account.
@@ -135,23 +162,28 @@ for newspaper in root.findall('.//ns0:Unicode', ns):
     print(newspaper.text)
 
 
-# ### Extract the region references with the corresponding content
+# ### Extract the text region with the corresponding content
 # 
-# Now we have all the text content, but it is not in the right order. We need to add the 'TextRegion id' to get the data to print out in the right order. 
+# Now we have all the text content, but it is not in the right order. We need some more
+# information for that. 
 # 
 # ```{admonition} Exercise
-# What should we pay attention to when adding the TextRegion id?
+# What information do we need for every text content to determine the right reading order?
+# Is this information stored as value of tags or as a value of an attribute?
 # ```
 # 
 # ```{admonition} Solution
 # :class: tip, dropdown
-# The content we are interested in is the value between the tags. However, the TextRegion id is an *attribute*.
+# We need the information stored in the id of TextRegion. 
+# The TextRegion id is an *attribute*.
 # ```
-# 
 # Knowing this we will need to use the .get() method to find the TextRegion ids. 
 # 
 # ```{admonition} Exercise
-# Expand the code to also extract the TextRegion id and print it out along with the content per newspaper. 
+# Alter the code to also extract the TextRegion id and print it out along with the content per newspaper. 
+# 
+# Hint: in the previous code we used the element 'Unicode' to extract the content. We must now
+# use an element that contains both the Unicode element and the TextRegion id. 
 # ```
 # 
 # ````{admonition} Solution
@@ -179,15 +211,15 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 
 # Now we have all the data with its corresponding TextRegion id, however it is not very readable. Also, getting the correct reading other from this printout is not the easiest task.
 # To make our life a bit easier we will put the data into a Pandas Dataframe. 
-# As seen before in section 4 we will first put the whole set into a list.
+# As seen before in lesson 4, we will first put the whole set into a list.
 # 
 # ```{admonition} Exercise
-# Instead of printing the TextRegion id and content, chagne the code to it into a list. 
+# Instead of printing the TextRegion id and content, change the code so that it puts this 
+# information into a list. 
 # ```
 # 
 # ````{admonition} Solution
 # :class: tip, dropdown
-# The code below should store the TextRegion id and content into a list.
 # ```
 # ## Create an empty list
 # content_list = []
@@ -227,27 +259,30 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 print(content_list)
 
 
-# Now we have a list containing the TextRegion id and the content we can transform this into a Dataframe. can easily make a dataframe using the list we have just created with as column 'region' and 'content'.
-# 
+# Now that we have a list containing both the TextRegion id and the textual content, 
+# we can transform this into a Dataframe. 
 # 
 # ```{admonition} Exercise
-# Make a dataframe from the list we have just created.
-# ```
-# ```{note}
-# Pay close attention to the order of the input list and column names! The first item added to the list should also have its name first in the columns parameter.
+# Create dataframe with the columns 'Region' and 'Content' from the list we have just created.
 # ```
 # 
 # ````{admonition} Solution
 # :class: tip, dropdown
 # ```
 # import pandas as pd
-# content_table = pd.DataFrame(content_list, columns = [Region", "Content"])
+# newspaper = pd.DataFrame(content_list, columns = [Region", "Content"])
 # ```	
 # ````
 # 
+# ```{note}
+# Pay close attention to the order of the input list and column names! The first item added to the list should also have its name first in the columns parameter.
+# ```
+# 
 # As before, check the result to make sure everything went as expected.
 # ```{admonition} Exercise
-# Check if the Dataframe is made correctly. Remember that running (and not printing) the variable it is stored in keeps the formatting more readable in case of Dataframes.
+# Check if the Dataframe is made correctly. 
+# Remember to not use the method(print), as without 'print' the
+# formatting will be more readable in case of Dataframes.
 # ```
 # 
 # ````{admonition} Solution
@@ -261,21 +296,21 @@ print(content_list)
 
 
 import pandas as pd
-content_table = pd.DataFrame(content_list, columns = ["Region", "Content"])
-content_table
+newspaper = pd.DataFrame(content_list, columns = ["Region", "Content"])
+newspaper
 
 
 # Finally we can now save the dataframe to csv, after which it can be used for further research or manipulation. 
 # 
 # ```
-# content_table.to_csv('page_content.csv')
+# newspaper.to_csv('newspaper_content.csv')
 # ```
 # 
 # 
-# ### Automatically order in the right way
+# ### Extract the reading order and use this to automatically sort the page
 # 
-# Using the XML file  and the information about the reading order in the csv file it is possible to order the file in the correct reading order manually. 
-# However this is a lot of work and when there are multiple, or very large files this is not the best use of our time. 
+# By using the XML file  and the information about the reading order in the csv file, it is possible to order the file in the correct reading order manually. 
+# However this is a lot of work and when there are multiple, or very large files, this is not the best use of our time. 
 # Luckily Python offers us ways to automate this.
 # 
 # Because the information about the reading order and indexes stored in a different location than the content itself we will go through three steps to get this done. 
