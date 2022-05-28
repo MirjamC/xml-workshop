@@ -15,25 +15,28 @@ kernelspec:
 
 # 8. Practical session: Page and Elementree
 
-In this section we will use ElemenTree to extract data from Page format XML files and print this with the reading order. As you should by now be a bit more familiar with Python and handling XML explanations will be a bit more brief. When needed, refer back to previous sections.
+In this section we will use ElemenTree to extract data from a newspaper in the Page xml format.
+As you should by now be a bit more familiar with Python and handling XML, explanations will be 
+a bit more brief. When needed, refer back to previous sections.
 
 We will follow these steps:
 
-- Import the package and the Page file;
-- Examine the structure;
-- Extract reading order;
-- Extract the plain text;
-- Print the content with reading order.
+- Load the Page file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
+- Extract the complete content of a newspaper page from the Page file <span style="color:#ef6079">(*basic*)</span>;
+- Extract the region references with the corresponding content <span style="color:#ef6079">(*moderate*)</span>;
+- Extract the reading order and use this to automatically sort the page <span style="color:#ef6079">(*advanced*)</span>.
 
-Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. (see explanation in ET:import)
+Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.
 
-### Import package and load the file
+### Load the Page file and examine the structure
 
-We first need to prepare the Notebook  by importing hte package we need and loading the XML file into the enviroment.
+We first need to prepare the Notebook  by importing the package we need and loading the XML file into the enviroment.
 
 ```{admonition} Exercise
 :class: attention
-Import the ElemenTree package and load the XML file into your Notebook.  You can look back to lesson 4 if you need a reminder on how to do this. The XML file is named 'page.xml' and is stored in the data folder of this workshop.
+Import the ElemenTree package and load the XML file into your Notebook.  
+You can look back to lesson 4 if you need a reminder on how to do this. 
+The XML file is named 'page.xml' and can be downloaded here: ***insert link***.
 ```
 
 ````{admonition} Solution
@@ -44,8 +47,6 @@ tree = ET.parse('data/page.xml')
 root = tree.getroot()
 ```
 ````
-
-### Examine the structure of the file
 
 In order to extract the required information from the file, we have to examine the structure.
 
@@ -62,19 +63,23 @@ root = tree.getroot()
 print(ET.tostring(root, encoding='utf8').decode('utf8'))
 ```
 
-The page XML contains a lot of information that is not the text. This information seems to describe something about the location of the text on the scan. While interesting, we want to be able to extract the ***text***. Therefore, we need to know in which element this content is stored, and whether this is stored as a value of the tags or as an attribute. 
+The page XML contains a lot of information that is not part of the textual content of the newspaper. 
+This information describes the layout of the page. It also contains elements in which the plain
+text is stored. We start by searching for this element, and the check whether the content is
+stored as value of tags or as values of an attribute.  
 
 ```{admonition} Exercise
 :class: attention
-Look at the XML structure, how is the content stored?
+Look at the XML structure, in which element is the content stored?
+Is it stored as value of the tags or as the value of an attribute?
 ```
 ```{admonition} Solution
 :class: tip, dropdown
-The content is stored in an element called 'Unicode'. 
+The content is stored in an element called 'Unicode', it is stored as a value of the tags.  
 ```
 
-Most page XML files contain a reading order. This reading order guides the user through the file and indicates what the right order of all text elements is. 
-To determine the correct reading order, we need three clues. 
+All Page XML files from the KB contain a reading order. This reading order guides the user through the file and indicates what the right order of all text elements is. 
+To determine the correct reading order, we need three types of information. 
 
 ```{admonition} Exercise
 :class: attention
@@ -83,14 +88,12 @@ Look carefully at the XML. What information do we need to correctly display the 
 ```{admonition} Solution
 :class: tip, dropdown
 - The id attribute of each TextRegion element
-- The OrderedGroup id for each TextRegion
+- The OrderedGroup id for each TextRegion element
 - The index of each region
 ```
-Now that we know how the file is structured, and where the content we need is stored, we can start extracting the output
 
-### Extracting the content and reading order
-
-Remember namespaces? Before we start to extract the data we are interested in we need to stop for a moment and re-examine the file to see if we need to take namespaces into account.
+Remember namespaces? Before we start to extract the data we are interested in we need to stop 
+for a moment and examine the file to see if we need to take namespaces into account.
 
 ```{admonition} Exercise
 :class: attention
@@ -100,27 +103,32 @@ If there are, how can we declare these?
 
 ````{admonition} Solution
 :class: tip, dropdown
-- Yes, there are multiple namespaces to take into account. These are declared in the root of the XML:
+Yes, there are multiple namespaces to take into account. These are declared in the root of the XML:
 ```
-1. ns0:PcGts xmlns:ns0="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19" 
-2. xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<ns0:PcGts xmlns:ns0="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19 http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19/pagecontent.xsd" pcGtsId="pc-00530982">
 ```
-- If you remember from section 7, there are two ways of using namespaces:
-	1. Type the namespace before the element name between curly brackets: {http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19}
+If you remember from section 7, there are two ways of using namespaces:
+	1. Type the namespace before the element name between curly brackets, e.g.: {http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19}
 	2. Declare the namespace in ElementTree. This provides Python with a dictionary of the used namespaces, which it can then use.
+	e.g.: ns = {'ns0': 'http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19'}
 ````
 
+Now that we know how the file is structured, and where the content we need is stored, we can start extracting the output
+
+### Extract the complete content of a newspaper page from the Page file
+
+Our first step is to just extract the complete content of the page, without worrying about the 
+reading order. 
 
 ```{admonition} Exercise
 The text content that we wish to extract is stored in the Unicode element. 
 Use Python and ElementTree to extract this content.
 
-	*Dont't forget about namespaces!! *
+*Dont't forget about namespaces!! *
 ```
 
 ````{admonition} Solution
 :class: tip, dropdown
-The following code should print out all the content.
 ```
 ## declare the namespace
 ns = {'ns0': 'http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19'}
@@ -136,6 +144,8 @@ ns = {'ns0': 'http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19'}
 for newspaper in root.findall('.//ns0:Unicode', ns):
     print(newspaper.text)
 ```
+
+### Extract the region references with the corresponding content
 
 Now we have all the text content, but it is not in the right order. We need to add the 'TextRegion id' to get the data to print out in the right order. 
 
