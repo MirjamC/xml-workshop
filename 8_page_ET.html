@@ -282,13 +282,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-the-region-references-with-the-corresponding-content">
-   Extract the region references with the corresponding content
+  <a class="reference internal nav-link" href="#extract-the-text-region-with-the-corresponding-content">
+   Extract the text region with the corresponding content
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#automatically-order-in-the-right-way">
-   Automatically order in the right way
+  <a class="reference internal nav-link" href="#extract-the-reading-order-and-use-this-to-automatically-sort-the-page">
+   Extract the reading order and use this to automatically sort the page
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -329,13 +329,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extract-the-region-references-with-the-corresponding-content">
-   Extract the region references with the corresponding content
+  <a class="reference internal nav-link" href="#extract-the-text-region-with-the-corresponding-content">
+   Extract the text region with the corresponding content
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#automatically-order-in-the-right-way">
-   Automatically order in the right way
+  <a class="reference internal nav-link" href="#extract-the-reading-order-and-use-this-to-automatically-sort-the-page">
+   Extract the reading order and use this to automatically sort the page
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -363,7 +363,7 @@ a bit more brief. When needed, refer back to previous sections.</p>
 <ul class="simple">
 <li><p>Load the Page file and examine the structure <span style="color:#ef6079">(<em>basic</em>)</span>;</p></li>
 <li><p>Extract the complete content of a newspaper page from the Page file <span style="color:#ef6079">(<em>basic</em>)</span>;</p></li>
-<li><p>Extract the region references with the corresponding content <span style="color:#ef6079">(<em>moderate</em>)</span>;</p></li>
+<li><p>Extract the text region with the corresponding content <span style="color:#ef6079">(<em>moderate</em>)</span>;</p></li>
 <li><p>Extract the reading order and use this to automatically sort the page <span style="color:#ef6079">(<em>advanced</em>)</span>.</p></li>
 </ul>
 <p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.</p>
@@ -10275,8 +10275,35 @@ To determine the correct reading order, we need three types of information.</p>
 <ul class="simple">
 <li><p>The id attribute of each TextRegion element</p></li>
 <li><p>The OrderedGroup id for each TextRegion element</p></li>
-<li><p>The index of each region</p></li>
+<li><p>The index of each region
+With this information, you can determine the correct reading order, which is declared in
+the ReadingOrder element, e.g.:</p></li>
 </ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ReadingOrder</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="n">UnorderedGroup</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;ro357564684568544579089&quot;</span><span class="o">&gt;</span>
+   	<span class="o">&lt;</span><span class="n">OrderedGroup</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;r38&quot;</span><span class="o">&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r8&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r12&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r16&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;2&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r20&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;3&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r24&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;4&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r28&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;5&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r32&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;6&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r36&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;7&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r40&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;8&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r44&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;9&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r46&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;10&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r48&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;11&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r52&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;12&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r56&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;13&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r60&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;14&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r64&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;15&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r68&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;16&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r72&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;17&quot;</span><span class="o">/&gt;</span>
+   		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r74&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;18&quot;</span><span class="o">/&gt;</span>
+   	<span class="o">&lt;/</span><span class="n">OrderedGroup</span><span class="o">&gt;</span>
+</pre></div>
+</div>
 </div>
 <p>Remember namespaces? Before we start to extract the data we are interested in we need to stop
 for a moment and examine the file to see if we need to take namespaces into account.</p>
@@ -10603,21 +10630,26 @@ prijzen. (19978)
 </div>
 </div>
 </div>
-<div class="section" id="extract-the-region-references-with-the-corresponding-content">
-<h2>Extract the region references with the corresponding content<a class="headerlink" href="#extract-the-region-references-with-the-corresponding-content" title="Permalink to this headline">¶</a></h2>
-<p>Now we have all the text content, but it is not in the right order. We need to add the ‘TextRegion id’ to get the data to print out in the right order.</p>
+<div class="section" id="extract-the-text-region-with-the-corresponding-content">
+<h2>Extract the text region with the corresponding content<a class="headerlink" href="#extract-the-text-region-with-the-corresponding-content" title="Permalink to this headline">¶</a></h2>
+<p>Now we have all the text content, but it is not in the right order. We need some more
+information for that.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
-<p>What should we pay attention to when adding the TextRegion id?</p>
+<p>What information do we need for every text content to determine the right reading order?
+Is this information stored as value of tags or as a value of an attribute?</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<p>The content we are interested in is the value between the tags. However, the TextRegion id is an <em>attribute</em>.</p>
+<p>We need the information stored in the id of TextRegion.
+The TextRegion id is an <em>attribute</em>.</p>
 </div>
 <p>Knowing this we will need to use the .get() method to find the TextRegion ids.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
-<p>Expand the code to also extract the TextRegion id and print it out along with the content per newspaper.</p>
+<p>Alter the code to also extract the TextRegion id and print it out along with the content per newspaper.</p>
+<p>Hint: in the previous code we used the element ‘Unicode’ to extract the content. We must now
+use an element that contains both the Unicode element and the TextRegion id.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
@@ -11034,14 +11066,14 @@ r45
 </div>
 <p>Now we have all the data with its corresponding TextRegion id, however it is not very readable. Also, getting the correct reading other from this printout is not the easiest task.
 To make our life a bit easier we will put the data into a Pandas Dataframe.
-As seen before in section 4 we will first put the whole set into a list.</p>
+As seen before in lesson 4, we will first put the whole set into a list.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
-<p>Instead of printing the TextRegion id and content, chagne the code to it into a list.</p>
+<p>Instead of printing the TextRegion id and content, change the code so that it puts this
+information into a list.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<p>The code below should store the TextRegion id and content into a list.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Create an empty list</span>
 <span class="n">content_list</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -11073,26 +11105,29 @@ As seen before in section 4 we will first put the whole set into a list.</p>
 </div>
 </div>
 </div>
-<p>Now we have a list containing the TextRegion id and the content we can transform this into a Dataframe. can easily make a dataframe using the list we have just created with as column ‘region’ and ‘content’.</p>
+<p>Now that we have a list containing both the TextRegion id and the textual content,
+we can transform this into a Dataframe.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
-<p>Make a dataframe from the list we have just created.</p>
+<p>Create dataframe with the columns ‘Region’ and ‘Content’ from the list we have just created.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">newspaper</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">content_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">Region</span><span class="s2">&quot;, &quot;</span><span class="n">Content</span><span class="s2">&quot;])</span>
+</pre></div>
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Pay close attention to the order of the input list and column names! The first item added to the list should also have its name first in the columns parameter.</p>
 </div>
-<div class="tip dropdown admonition">
-<p class="admonition-title">Solution</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">content_table</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">content_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">Region</span><span class="s2">&quot;, &quot;</span><span class="n">Content</span><span class="s2">&quot;])</span>
-</pre></div>
-</div>
-</div>
 <p>As before, check the result to make sure everything went as expected.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
-<p>Check if the Dataframe is made correctly. Remember that running (and not printing) the variable it is stored in keeps the formatting more readable in case of Dataframes.</p>
+<p>Check if the Dataframe is made correctly.
+Remember to not use the method(print), as without ‘print’ the
+formatting will be more readable in case of Dataframes.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
@@ -11186,14 +11221,14 @@ As seen before in section 4 we will first put the whole set into a list.</p>
 </div></div></div>
 </div>
 <p>Finally we can now save the dataframe to csv, after which it can be used for further research or manipulation.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">content_table</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;page_content.csv&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">newspaper</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;newspaper_content.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="automatically-order-in-the-right-way">
-<h2>Automatically order in the right way<a class="headerlink" href="#automatically-order-in-the-right-way" title="Permalink to this headline">¶</a></h2>
-<p>Using the XML file  and the information about the reading order in the csv file it is possible to order the file in the correct reading order manually.
-However this is a lot of work and when there are multiple, or very large files this is not the best use of our time.
+<div class="section" id="extract-the-reading-order-and-use-this-to-automatically-sort-the-page">
+<h2>Extract the reading order and use this to automatically sort the page<a class="headerlink" href="#extract-the-reading-order-and-use-this-to-automatically-sort-the-page" title="Permalink to this headline">¶</a></h2>
+<p>By using the XML file  and the information about the reading order in the csv file, it is possible to order the file in the correct reading order manually.
+However this is a lot of work and when there are multiple, or very large files, this is not the best use of our time.
 Luckily Python offers us ways to automate this.</p>
 <p>Because the information about the reading order and indexes stored in a different location than the content itself we will go through three steps to get this done.</p>
 <ul class="simple">
