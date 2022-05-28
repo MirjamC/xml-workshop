@@ -83,9 +83,9 @@ print(root)
 # ```
 # ````{admonition} Solution
 # :class: tip, dropdown
-# - The id attribute of each TextRegion element
-# - The OrderedGroup id for each TextRegion element
-# - The index of each region
+# * The id attribute of each TextRegion element
+# * The OrderedGroup id for each TextRegion element
+# * The index of each region
 # 
 # With this information, you can determine the correct reading order, which is declared in 
 # the ReadingOrder element, e.g.:
@@ -266,7 +266,7 @@ print(content_list)
 # :class: tip, dropdown
 # ```
 # import pandas as pd
-# newspaper = pd.DataFrame(content_list, columns = [Region", "Content"])
+# newspaper = pd.DataFrame(content_list, columns = ["Region", "Content"])
 # ```	
 # ````
 # 
@@ -312,7 +312,7 @@ newspaper
 # than the content itself, we will go through three steps: 
 # 
 # * From the element 'ReadingOrder', we will extract the information about the OrdererGroup id, the regionRef and the index and store them in a Python dictionary;
-# * We retreive the textregion and corresponding content (see the code above);
+# * We retrieve the textregion and corresponding content (see the code above);
 # * We combine the textregion information with the regionRef from the dictionary to combine everything.
 # * We store the information in a Dataframe and sort it based on the ReadingOrder. 
 # 
@@ -321,8 +321,8 @@ newspaper
 # 
 # ```{admonition} Exercise
 # Write a code that prints out the id of every ordered group, with per id:
-# - The corresponding RegionRefs;
-# - The corresponding indexes;
+# * The corresponding RegionRefs;
+# * The corresponding indexes;
 # ```
 # 
 # ````{admonition} Solution
@@ -522,7 +522,7 @@ newspaper_with_order
 # Dataframe.sort_values([column(s) to sort by], [sorting order])
 # ```
 # In the code below the Dataframe we just made is sorted by 'Group' and 'Index' in ascending order for both. 
-# Notice that the sorting columns are quoted. When adding more than one column a (comma seperated) list must be passed. The sorting order default is 'ascending', for 'descending', the ascending attirbute is set to False.
+# Notice that the sorting columns are quoted. When adding more than one column a (comma separated) list must be passed. The sorting order default is 'ascending', for 'descending', the ascending attirbute is set to False.
 
 # In[14]:
 

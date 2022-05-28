@@ -11094,7 +11094,7 @@ information into a list.</p>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="n">newspaper</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">content_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">Region</span><span class="s2">&quot;, &quot;</span><span class="n">Content</span><span class="s2">&quot;])</span>
+<span class="n">newspaper</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">content_list</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Region&quot;</span><span class="p">,</span> <span class="s2">&quot;Content&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -11213,7 +11213,7 @@ Luckily Python offers us ways to automate this.</p>
 than the content itself, we will go through three steps:</p>
 <ul class="simple">
 <li><p>From the element ‘ReadingOrder’, we will extract the information about the OrdererGroup id, the regionRef and the index and store them in a Python dictionary;</p></li>
-<li><p>We retreive the textregion and corresponding content (see the code above);</p></li>
+<li><p>We retrieve the textregion and corresponding content (see the code above);</p></li>
 <li><p>We combine the textregion information with the regionRef from the dictionary to combine everything.</p></li>
 <li><p>We store the information in a Dataframe and sort it based on the ReadingOrder.</p></li>
 </ul>
@@ -11940,7 +11940,7 @@ The syntax for sorting a Dateframe is:</p>
 </pre></div>
 </div>
 <p>In the code below the Dataframe we just made is sorted by ‘Group’ and ‘Index’ in ascending order for both.
-Notice that the sorting columns are quoted. When adding more than one column a (comma seperated) list must be passed. The sorting order default is ‘ascending’, for ‘descending’, the ascending attirbute is set to False.</p>
+Notice that the sorting columns are quoted. When adding more than one column a (comma separated) list must be passed. The sorting order default is ‘ascending’, for ‘descending’, the ascending attirbute is set to False.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newspaper_with_order</span> <span class="o">=</span> <span class="n">newspaper_with_order</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;Group&#39;</span><span class="p">,</span> <span class="s1">&#39;Index&#39;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
