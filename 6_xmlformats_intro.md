@@ -16,7 +16,7 @@ digitized in the Alto format, with a corresponding Didl xml file that containts 
 
 An illustration of a newspaper page and (snippits of) its corresponding Alto and Didle file. 
 
-![alto newspaper](images/alto_fig.jpg)
+![alto newspaper](images/alto_fig.png)
 
 ## TEI
 
@@ -33,6 +33,6 @@ Before extracting TEI files with automated scripts, it is always a good habit to
 
 An illustration of a book page and a snippit of its corresponding TEI file:
 
-![dbnl](images/dbnl_fig.jpg)
+![dbnl](images/dbnl_fig.png)
 
 ## Page
