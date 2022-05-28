@@ -511,3 +511,48 @@ for book in root.findall('book'):
 	if "England" in description:
 		print(description)
 ```
+
+
+### Namespaces  -- must be altered with other example
+
+So, what is going on? Why is not there any output?
+As described in lesson ***2***, some XML documents make use of *namespaces*. 
+If we look at the first line of the Alto file, we see:
+
+```XML
+<?xml version='1.0' encoding='utf8'?>
+<ns0:alto xmlns:ns0="http://schema.ccs-gmbh.com/ALTO">
+```
+
+The second line shows us that this XML make use of namespaces. 
+'ns0' is used as a shortcut for 'http://schema.ccs-gmbh.com/ALTO'. 
+
+We have now two options to handle the namespaces in ElemenTree:
+1. Type the namespace before the element name between curly brackets: {http://schema.ccs-gmbh.com/ALTO}
+
+```
+for book in root.findall('.//{http://schema.ccs-gmbh.com/ALTO}String'):
+    content = book.get('CONTENT')
+    print(content)
+```
+
+2. Declare the namespace in elemenTree. This provides Python with a dictionary of the used namespaces, which it can then use.
+
+```{code-cell}
+ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
+```
+
+Now you can use the abbreviation of the namespace in your code:
+``` 
+for page in root_alto.findall('.//ns0:String', ns):
+    content = page.get('CONTENT')
+    print(content)
+```
+
+```{note}
+If you declare the namespace in Python with a dictionary, do not forget to put ', ns' after your element name in the *.findall*. 
+Without this 'ns', Python does not recognize the namespace. 
+You only have to declare the namespaces once, Python will then recognize them in de rest of your Jupyter Notebook.
+```
+
+For the remainder of this lesson, we will use the second option. 

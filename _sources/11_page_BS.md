@@ -16,8 +16,7 @@ kernelspec:
 # 11. Practical session: Page and Beautiful Soup
 
 In this section we will use Beautiful Soup to extract data from a newspaper in the Page xml format.
-As you should by now be a bit more familiar with Python and handling XML, explanations will be 
-a bit more brief. When needed, refer back to previous sections.
+For this lesson, we assume that you have followed the practical lesson 5. When needed, refer back to previous lessons.
 
 We will follow these steps:
 
@@ -40,7 +39,7 @@ If you have not already installed Beautiful Soup, do this first with:
 ```{admonition} Exercise
 :class: attention
 Import the Beautiful Soup package and load the XML file into your Notebook.  
-You can look back to lesson 4 if you need a reminder on how to do this. 
+You can look back to lesson 5 if you need a reminder on how to do this. 
 The XML file is named 'page.xml' and can be [downloaded here](https://github.com/MirjamC/xml-workshop/tree/master/data).
 ```
 

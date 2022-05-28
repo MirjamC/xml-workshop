@@ -131,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Extract information from the Alto/Didle format with ElemenTree
+   7. Practical: Extract information from the Alto format with ElemenTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -156,7 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_auto_batch.html">
-   12. Practical session: Automatically extraxt information from a batch of files
+   12. Practical session: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -322,6 +322,13 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#extra-filter-information">
    Extra: Filter information
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#namespaces-must-be-altered-with-other-example">
+     Namespaces  – must be altered with other example
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -394,6 +401,13 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#extra-filter-information">
    Extra: Filter information
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#namespaces-must-be-altered-with-other-example">
+     Namespaces  – must be altered with other example
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -1406,6 +1420,50 @@ The two daughters of Maeve, half-sisters,
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="namespaces-must-be-altered-with-other-example">
+<h3>Namespaces  – must be altered with other example<a class="headerlink" href="#namespaces-must-be-altered-with-other-example" title="Permalink to this headline">¶</a></h3>
+<p>So, what is going on? Why is not there any output?
+As described in lesson <em><strong>2</strong></em>, some XML documents make use of <em>namespaces</em>.
+If we look at the first line of the Alto file, we see:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf8&#39;?&gt;</span>
+<span class="nt">&lt;ns0:alto</span> <span class="na">xmlns:ns0=</span><span class="s">&quot;http://schema.ccs-gmbh.com/ALTO&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+</div>
+<p>The second line shows us that this XML make use of namespaces.
+‘ns0’ is used as a shortcut for ‘<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>’.</p>
+<p>We have now two options to handle the namespaces in ElemenTree:</p>
+<ol class="simple">
+<li><p>Type the namespace before the element name between curly brackets: {<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>}</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//{http://schema.ccs-gmbh.com/ALTO}String&#39;</span><span class="p">):</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="simple">
+<li><p>Declare the namespace in elemenTree. This provides Python with a dictionary of the used namespaces, which it can then use.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ns0&#39;</span><span class="p">:</span> <span class="s1">&#39;http://schema.ccs-gmbh.com/ALTO&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now you can use the abbreviation of the namespace in your code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you declare the namespace in Python with a dictionary, do not forget to put ‘, ns’ after your element name in the <em>.findall</em>.
+Without this ‘ns’, Python does not recognize the namespace.
+You only have to declare the namespaces once, Python will then recognize them in de rest of your Jupyter Notebook.</p>
+</div>
+<p>For the remainder of this lesson, we will use the second option.</p>
 </div>
 </div>
 </div>
