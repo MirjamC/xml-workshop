@@ -18,28 +18,26 @@ Traceback (most recent call last):
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
 for newspaper in root.findall('.//ns0:TextRegion', ns):
-	region = newspaper.get('id')
-    
 	## here we extract from the dictionary the group and index value for the dictionary item that matches the region extracted with the orignal code.
 	## if the content does not belong to an ordered group, we store them in group 0 with index 0
 	region = newspaper.get('id')
-        if region in dict_order:
-            groupvalues = dict_order[region]
-            group = groupvalues[0][0]
-            index = groupvalues[0][1]
-        else:
-            group = 0
-            index = 0
+    if region in dict_order:
+        groupvalues = dict_order[region]
+        group = groupvalues[0][0]
+        index = groupvalues[0][1]
+    else:
+        group = 0
+        index = 0
 	for content in newspaper.findall('.//ns0:Unicode', ns):
 		content = content.text
 	## then we can add them to the print statement
 	print(group, region, index, content)
 ------------------
 
-[1;36m  Input [1;32mIn [12][1;36m[0m
+[1;36m  File [1;32m<tokenize>:5[1;36m[0m
 [1;33m    if region in dict_order:[0m
 [1;37m    ^[0m
-[1;31mTabError[0m[1;31m:[0m inconsistent use of tabs and spaces in indentation
+[1;31mIndentationError[0m[1;31m:[0m unindent does not match any outer indentation level
 
-TabError: inconsistent use of tabs and spaces in indentation (191754546.py, line 7)
+IndentationError: unindent does not match any outer indentation level (<tokenize>, line 5)
 
