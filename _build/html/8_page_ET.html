@@ -11446,13 +11446,13 @@ For example: to which group does r8 belong?</p>
 <p>And what is the index of r12?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;r12&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1">## [1] for the first entry, [0] the second element</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;r12&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="c1">## [1] for the first entry, [0] the second element</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r38
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
 </pre></div>
 </div>
 </div>
@@ -11494,18 +11494,16 @@ As not every content is in an ordered group, we also have to include an ‘escap
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
-	<span class="n">region</span> <span class="o">=</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
-    
 	<span class="c1">## here we extract from the dictionary the group and index value for the dictionary item that matches the region extracted with the orignal code.</span>
 	<span class="c1">## if the content does not belong to an ordered group, we store them in group 0 with index 0</span>
 	<span class="n">region</span> <span class="o">=</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">dict_order</span><span class="p">:</span>
-            <span class="n">groupvalues</span> <span class="o">=</span> <span class="n">dict_order</span><span class="p">[</span><span class="n">region</span><span class="p">]</span>
-            <span class="n">group</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">group</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">dict_order</span><span class="p">:</span>
+        <span class="n">groupvalues</span> <span class="o">=</span> <span class="n">dict_order</span><span class="p">[</span><span class="n">region</span><span class="p">]</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
 	<span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Unicode&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
 		<span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">text</span>
 	<span class="c1">## then we can add them to the print statement</span>
@@ -11514,10 +11512,10 @@ As not every content is in an ordered group, we also have to include an ‘escap
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">Input</span> <span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]</span>
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>  <span class="n">File</span> <span class="o">&lt;</span><span class="n">tokenize</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">5</span>
     <span class="k">if</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">dict_order</span><span class="p">:</span>
     <span class="o">^</span>
-<span class="ne">TabError</span>: inconsistent use of tabs and spaces in indentation
+<span class="ne">IndentationError</span>: unindent does not match any outer indentation level
 </pre></div>
 </div>
 </div>
@@ -11533,14 +11531,14 @@ As not every content is in an ordered group, we also have to include an ‘escap
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">content_list</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
-    	<span class="n">region</span> <span class="o">=</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">dict_order</span><span class="p">:</span>
-            <span class="n">groupvalues</span> <span class="o">=</span> <span class="n">dict_order</span><span class="p">[</span><span class="n">region</span><span class="p">]</span>
-            <span class="n">group</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">group</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="n">region</span> <span class="o">=</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">region</span> <span class="ow">in</span> <span class="n">dict_order</span><span class="p">:</span>
+        <span class="n">groupvalues</span> <span class="o">=</span> <span class="n">dict_order</span><span class="p">[</span><span class="n">region</span><span class="p">]</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">groupvalues</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">group</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">newspaper</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:Unicode&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
         <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">text</span>
     <span class="n">content_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">group</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">content</span><span class="p">])</span>

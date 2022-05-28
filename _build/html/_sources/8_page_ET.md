@@ -397,7 +397,7 @@ print(group)
 
 And what is the index of r12?
 ```{code-cell}
-group = dict['r12'][0][0] ## [1] for the first entry, [0] the second element
+group = dict['r12'][0][1] ## [1] for the first entry, [0] the second element
 print(group)
 ```
 
@@ -430,18 +430,16 @@ As not every content is in an ordered group, we also have to include an 'escape'
 
 ```{code-cell}
 for newspaper in root.findall('.//ns0:TextRegion', ns):
-	region = newspaper.get('id')
-    
 	## here we extract from the dictionary the group and index value for the dictionary item that matches the region extracted with the orignal code.
 	## if the content does not belong to an ordered group, we store them in group 0 with index 0
 	region = newspaper.get('id')
-        if region in dict_order:
-            groupvalues = dict_order[region]
-            group = groupvalues[0][0]
-            index = groupvalues[0][1]
-        else:
-            group = 0
-            index = 0
+    if region in dict_order:
+        groupvalues = dict_order[region]
+        group = groupvalues[0][0]
+        index = groupvalues[0][1]
+    else:
+        group = 0
+        index = 0
 	for content in newspaper.findall('.//ns0:Unicode', ns):
 		content = content.text
 	## then we can add them to the print statement
@@ -462,14 +460,14 @@ Don't forget to declare an empty list first.
 content_list = []
 
 for newspaper in root.findall('.//ns0:TextRegion', ns):
-    	region = newspaper.get('id')
-        if region in dict_order:
-            groupvalues = dict_order[region]
-            group = groupvalues[0][0]
-            index = groupvalues[0][1]
-        else:
-            group = 0
-            index = 0
+	region = newspaper.get('id')
+    if region in dict_order:
+        groupvalues = dict_order[region]
+        group = groupvalues[0][0]
+        index = groupvalues[0][1]
+    else:
+        group = 0
+        index = 0
     for content in newspaper.findall('.//ns0:Unicode', ns):
         content = content.text
     content_list.append([group, index, region, content])
