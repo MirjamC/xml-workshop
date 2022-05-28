@@ -4,8 +4,7 @@
 # # 8. Practical session: Page and Elementree
 # 
 # In this section we will use ElemenTree to extract data from a newspaper in the Page xml format.
-# As you should by now be a bit more familiar with Python and handling XML, explanations will be 
-# a bit more brief. When needed, refer back to previous sections.
+# For this lesson, we assume that you have followed the practical lesson 4. When needed, refer back to previous lessons.
 # 
 # We will follow these steps:
 # 
@@ -78,9 +77,9 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # ```
 # ````{admonition} Solution
 # :class: tip, dropdown
-# - The id attribute of each TextRegion element
-# - The OrderedGroup id for each TextRegion element
-# - The index of each region
+# * The id attribute of each TextRegion element
+# * The OrderedGroup id for each TextRegion element
+# * The index of each region
 # 
 # With this information, you can determine the correct reading order, which is declared in 
 # the ReadingOrder element, e.g.:
@@ -126,7 +125,7 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # ```
 # <ns0:PcGts xmlns:ns0="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19 http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19/pagecontent.xsd" pcGtsId="pc-00530982">
 # ```
-# If you remember from section 7, there are two ways of using namespaces:
+# If you remember from lesson 4, there are two ways of using namespaces:
 # 1. Type the namespace before the element name between curly brackets, e.g.: {http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19}
 # 2. Declare the namespace in ElementTree. This provides Python with a dictionary of the used namespaces, which it can then use. e.g.: ns = {'ns0': 'http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19'}
 # ````
@@ -155,6 +154,7 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 #     print(newspaper.text)
 # ```
 # ````
+# This leads to the following output:
 
 # In[2]:
 
@@ -270,7 +270,7 @@ print(content_list)
 # :class: tip, dropdown
 # ```
 # import pandas as pd
-# newspaper = pd.DataFrame(content_list, columns = [Region", "Content"])
+# newspaper = pd.DataFrame(content_list, columns = ["Region", "Content"])
 # ```	
 # ````
 # 
@@ -316,7 +316,7 @@ newspaper
 # than the content itself, we will go through three steps: 
 # 
 # * From the element 'ReadingOrder', we will extract the information about the OrdererGroup id, the regionRef and the index and store them in a Python dictionary;
-# * We retreive the textregion and corresponding content (see the code above);
+# * We retrieve the textregion and corresponding content (see the code above);
 # * We combine the textregion information with the regionRef from the dictionary to combine everything.
 # * We store the information in a Dataframe and sort it based on the ReadingOrder. 
 # 
@@ -325,18 +325,18 @@ newspaper
 # 
 # ```{admonition} Exercise
 # Write a code that prints out the id of every ordered group, with per id:
-# - The corresponding RegionRefs;
+# * The corresponding RegionRefs;
 # - The corresponding indexes;
 # ```
 # 
 # ````{admonition} Solution
 # :class: tip, dropdown
 # ```
-# for order in root.find_all('ReadingOrder'):
-# 	for group in root.find_all('OrderedGroup'):
+# for order in root.findall('.//ns0:ReadingOrder', ns):
+# 	for group in root.findall('.//ns0:OrderedGroup', ns):
 # 		groupnr = group.get('id')
 # 		print(groupnr)
-# 		for suborder in group.find_all('RegionRefIndexed'):  
+# 		for suborder in group.findall('.//ns0:RegionRefIndexed', ns):  
 # 			region = suborder.get('regionRef')
 # 			index = suborder.get('index')
 # 			print(region, index)
@@ -346,11 +346,11 @@ newspaper
 # In[6]:
 
 
-for order in root.find_all('ReadingOrder'):
-	for group in root.find_all('OrderedGroup'):
+for order in root.findall('.//ns0:ReadingOrder', ns):
+	for group in root.findall('.//ns0:OrderedGroup', ns):
 		groupnr = group.get('id')
 		print(groupnr)
-		for suborder in group.find_all('RegionRefIndexed'):  
+		for suborder in group.findall('.//ns0:RegionRefIndexed', ns):  
 			region = suborder.get('regionRef')
 			index = suborder.get('index')
 			print(region, index)
@@ -375,7 +375,7 @@ for order in root.find_all('ReadingOrder'):
 # 
 # This can be stored in a Python dictionary like this:
 
-# In[ ]:
+# In[7]:
 
 
 dict = {'r8': [['r38', '0']],
@@ -385,7 +385,7 @@ dict = {'r8': [['r38', '0']],
 # With this dict, we can ask Python specific information about every textregion.
 # For example: to which group does r8 belong?
 
-# In[ ]:
+# In[8]:
 
 
 group = dict['r8'][0][0] ## [0] for the first entry, [0] for the first element
@@ -394,7 +394,7 @@ print(group)
 
 # And what is the index of r12?
 
-# In[ ]:
+# In[9]:
 
 
 group = dict['r12'][0][1] ## [1] for the first entry, [0] for the second element
@@ -403,7 +403,7 @@ print(group)
 
 # The following code gives an example of how you can store the required information in a dictionary.
 
-# In[ ]:
+# In[10]:
 
 
 ## First initialize an empty dictionary
@@ -422,7 +422,7 @@ for order in root.findall('.//ns0:ReadingOrder', ns):
 
 # Let's print the dictionary to make certain it works.
 
-# In[ ]:
+# In[11]:
 
 
 print(dict_order)
@@ -431,7 +431,7 @@ print(dict_order)
 # We have previously made the code to obtain the content and the region from the XML file. Now we will combine this by comparing the values from the dictionary with the value of the TextRegion id.
 # As not all content is in an ordered group, we also have to include an 'escape' mechanism. For now, we will store all content that does not belong in an OrderedGroup into group 0 with index 0.
 
-# In[ ]:
+# In[12]:
 
 
 for newspaper in root.findall('.//ns0:TextRegion', ns):
@@ -496,7 +496,7 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 # 
 # We then check the result again.
 
-# In[ ]:
+# In[13]:
 
 
 import pandas as pd
@@ -525,9 +525,9 @@ newspaper_with_order
 # Dataframe.sort_values([column(s) to sort by], [sorting order])
 # ```
 # In the code below the Dataframe we just made is sorted by 'Group' and 'Index' in ascending order for both. 
-# Notice that the sorting columns are quoted. When adding more than one column a (comma seperated) list must be passed. The sorting order default is 'ascending', for 'descending', the ascending attirbute is set to False.
+# Notice that the sorting columns are quoted. When adding more than one column a (comma separated) list must be passed. The sorting order default is 'ascending', for 'descending', the ascending attirbute is set to False.
 
-# In[ ]:
+# In[14]:
 
 
 newspaper_with_order = newspaper_with_order.sort_values(['Group', 'Index'], ascending = [True, True])
@@ -547,7 +547,7 @@ newspaper_with_order = newspaper_with_order.sort_values(['Group', 'Index'], asce
 # ```	
 # ````
 
-# In[ ]:
+# In[15]:
 
 
 newspaper_with_order
