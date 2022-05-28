@@ -440,13 +440,13 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 	## here we extract from the dictionary the group and index value for the dictionary item that matches the region extracted with the orignal code.
 	## if the content does not belong to an ordered group, we store them in group 0 with index 0
 	region = newspaper.get('id')
-    if region in dict_order:
-        groupvalues = dict_order[region]
-        group = groupvalues[0][0]
-        index = groupvalues[0][1]
-    else:
-        group = 0
-        index = 0
+	if region in dict_order:
+		groupvalues = dict_order[region]
+		group = groupvalues[0][0]
+		index = groupvalues[0][1]
+	else:
+		group = 0
+		index = 0
 	for content in newspaper.findall('.//ns0:Unicode', ns):
 		content = content.text
 	## then we can add them to the print statement
@@ -468,16 +468,16 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 # 
 # for newspaper in root.findall('.//ns0:TextRegion', ns):
 # 	region = newspaper.get('id')
-#     if region in dict_order:
-#         groupvalues = dict_order[region]
-#         group = groupvalues[0][0]
-#         index = groupvalues[0][1]
-#     else:
-#         group = 0
-#         index = 0
-#     for content in newspaper.findall('.//ns0:Unicode', ns):
-#         content = content.text
-#     content_list.append([group, index, region, content])
+# 	if region in dict_order:
+# 		groupvalues = dict_order[region]
+# 		group = groupvalues[0][0]
+# 		index = groupvalues[0][1]
+# 	else:
+# 		group = 0
+# 		index = 0
+# 	for content in newspaper.findall('.//ns0:Unicode', ns):
+# 		content = content.text
+# 	content_list.append([group, index, region, content])
 # ```	
 # ````
 # 
@@ -498,16 +498,20 @@ for newspaper in root.findall('.//ns0:TextRegion', ns):
 # 
 # We then check the result again.
 
-# In[ ]:
+# In[13]:
 
 
 import pandas as pd
 content_list = []
 for newspaper in root.findall('.//ns0:TextRegion', ns):
 	region = newspaper.get('id')
-	groupvalues = dict_order[region]
-	group = groupvalues[0][0]
-	index = groupvalues[0][1]
+	if region in dict_order:
+		groupvalues = dict_order[region]
+		group = groupvalues[0][0]
+		index = groupvalues[0][1]
+	else:
+		group = 0
+		index = 0
 	for content in newspaper.findall('.//ns0:Unicode', ns):
 		content = content.text
 	content_list.append([group, index, region, content])
@@ -525,7 +529,7 @@ newspaper_with_order
 # In the code below the Dataframe we just made is sorted by 'Group' and 'Index' in ascending order for both. 
 # Notice that the sorting columns are quoted. When adding more than one column a (comma seperated) list must be passed. The sorting order default is 'ascending', for 'descending', the ascending attirbute is set to False.
 
-# In[ ]:
+# In[14]:
 
 
 newspaper_with_order = newspaper_with_order.sort_values(['Group', 'Index'], ascending = [True, True])
@@ -545,7 +549,7 @@ newspaper_with_order = newspaper_with_order.sort_values(['Group', 'Index'], asce
 # ```	
 # ````
 
-# In[ ]:
+# In[15]:
 
 
 newspaper_with_order
