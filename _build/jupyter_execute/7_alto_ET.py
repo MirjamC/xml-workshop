@@ -3,16 +3,16 @@
 
 # # 7. Practical: Extract information from the Alto format with ElemenTree
 # 
-# In this lesson ,we are going to work with the Alto and Didle format. As shown in lesson ***?***, the Alto and Didle are connected to each other. 
+# In this lesson ,we are going to work with the Alto and Didle format. As shown in lesson ***6***, the Alto and Didle are connected to each other. 
 # The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4. 
 # 
-# This lesson contains the following content
-# - Load the Alto file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
-# - Extract the complete content of a newspaper page from the Alto file <span style="color:#ef6079">(*basic*)</span>;
-# - Load the Didl file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
-# - Extract newspaper metadata from the Didl file. <span style="color:#ef6079">(*basic*)</span>;
-# - Extract all seperate articles from the total newspaper from the Didl file <span style="color:#ef6079">(*moderate*)</span>;
-# - Extract all seperate articles from a specific newspaper from the Didl file <span style="color:#ef6079">(*advanced*)</span>.
+# This lesson contains the following content:
+# * Load the Alto file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
+# * Extract the complete content of a newspaper page from the Alto file <span style="color:#ef6079">(*basic*)</span>;
+# * Load the Didl file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
+# * Extract newspaper metadata from the Didl file. <span style="color:#ef6079">(*basic*)</span>;
+# * Extract all separate articles from the total newspaper from the Didl file <span style="color:#ef6079">(*moderate*)</span>;
+# * Extract all separate articles from a specific newspaper from the Didl file <span style="color:#ef6079">(*advanced*)</span>.
 # 
 # Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. 
 # 
@@ -178,7 +178,7 @@ root_alto = tree.getroot()
 # The text content that we wish to extract is stored in the Unicode element. 
 # Use Python and ElementTree to extract this content.
 # 
-# *Dont’t forget about namespaces!! *
+# *Dont’t forget about namespaces!!*
 # ````
 # 
 # ````{admonition} Solution
@@ -209,7 +209,7 @@ for page in root_alto.findall('.//ns0:String', ns):
     print(content)
 
 
-# As you can see, the text is printed in seperate words, that all appear in one long list. 
+# As you can see, the text is printed in separate words, that all appear in one long list. 
 # So, this is quit unreadable. 
 # We can store the text in a *string* variable in which we concatenate all words.
 
@@ -232,7 +232,7 @@ print(all_content)
 # 
 # ```{admonition} Exercise
 # :class: attention
-# Look at the XML file. There are different elements that divide the text. Which element would likely be used to seperate articles from each other?
+# Look at the XML file. There are different elements that divide the text. Which element would likely be used to separate articles from each other?
 # ```
 # 
 # ```{admonition} Solution
@@ -256,7 +256,7 @@ for book in root_alto.findall('.//ns0:TextBlock', ns):
         content = article.get('CONTENT')
         article_content = article_content + " " + content
     print(article_content)
-    print("") ## add a linebreak between the seperate sessions
+    print("") ## add a linebreak between the separate sessions
     article_content = ""
 
 
@@ -297,9 +297,10 @@ for book in root_alto.findall('.//ns0:Page', ns):
     print(pagenr)
 
 
-# ## Load the Didl file and examine the structure ;
+# ## Load the Didl file and examine the structure 
 # 
-# We now have a more readable page with the corresponding page number. However, if we store this as is, we will have no idea from which newspaper this page was extracted. This makes it of limited reuseability. In lesson 3 we described that we can find metadata corresponding to an Alto file in a Didle file. 
+# We now have a more readable page with the corresponding page number. However, if we store this as is, we will have no idea from which newspaper this page was extracted. This makes it of limited reuseability. 
+# In lesson 6 we described that we can find metadata corresponding to an Alto file in a Didle file. 
 # The alto and didle file have the same identifier, so you can match them.
 # 
 # In our case, they both have the identifier 1. 
@@ -352,7 +353,7 @@ print(ET.tostring(root_didl, encoding='utf8').decode('utf8'))
 # before the element name. 
 # ```
 # 
-# ## Extract newspaper metadata from the Didl file.
+# ## Extract newspaper metadata from the Didl file
 # 
 # We have seen that the element 'resource' contains all the information we want. If we look closely at the file, 
 # we see that there are multiple elements with the name 'resource', but the one we want is the first. 
@@ -368,7 +369,7 @@ print(ET.tostring(root_didl, encoding='utf8').decode('utf8'))
 # ```{admonition} Exercise
 # :class: attention
 # Write a code that gets the only the first 'Resource' element, and then from this element create a for loop that loops through the dcx element. 
-# Extract the title of the newspaper and the publication date. Store them in two seperate variables. 
+# Extract the title of the newspaper and the publication date. Store them in two separate variables. 
 # 
 # * Don't forget the namespaces! *
 # ```
@@ -426,11 +427,11 @@ for article in item.findall('.//ns4:dcx', ns_didl):
 # ```
 # ````
 # 
-# ## Extract all seperate articles from the total newspaper from the Didl file 
+# ## Extract all separate articles from the total newspaper from the Didl file 
 # 
-# As you saw in the above sections, the Alto format has no clear seperation between the articles and is therefore especially suitable when you are interested in the complete newspaper page.
+# As you saw in the above sections, the Alto format has no clear separation between the articles and is therefore especially suitable when you are interested in the complete newspaper page.
 # 
-# However, there are a lot of cases in which you would be interested in the seperate articles en metadata about these articles (for example, the type of article).
+# However, there are a lot of cases in which you would be interested in the separate articles en metadata about these articles (for example, the type of article).
 # 
 # The collection of the KB makes use of Didl XML files to store additional information. You can use the Didle XML to extract this information and to gather the articles. 
 # 
@@ -531,7 +532,7 @@ for item in root_didl.findall('.//ns2:Resource', ns_didl):
 # 
 # ```{note}
 # We recommend to always save the identifier in the name of the file, in this case the ***a0001*** indicates the article number, so we will save the whole identifier. Because Windows does not allow ***:*** in filenames we  will change this to an underscore. 
-# Everything before ***urn**** will be removed from the identifier, as it has no distinguish features.
+# Everything before ***urn*** will be removed from the identifier, as it has no distinguish features.
 # We can perform these alteration through string manipulations in Python. 
 # ```
 
@@ -566,7 +567,7 @@ print(ET.tostring(root_article, encoding='utf8').decode('utf8'))
 
 # ```{admonition} Exercise
 # :class: attention
-# Extract the title and content from the article, and store these in seperate variables.
+# Extract the title and content from the article, and store these in separate variables.
 # ```
 # 
 # ````{admonition} Solution
@@ -595,7 +596,7 @@ print(ET.tostring(root_article, encoding='utf8').decode('utf8'))
 # - Saving the contents to file.
 # 
 # This can also be combined into one piece of code that handles all these steps. An adventage of this method is that 
-# there is no need to manually save and re-open every seperate article file. 
+# there is no need to manually save and re-open every separate article file. 
 # 
 # ```Python
 # from urllib.request import urlopen
@@ -658,7 +659,7 @@ print(ET.tostring(root_article, encoding='utf8').decode('utf8'))
 #  
 # ```
 # 
-# ## Extract all seperate articles from a specific page of the newspaper from the Didl file
+# ## Extract all separate articles from a specific page of the newspaper from the Didl file
 # 
 # In the above we treated two options:
 # * Extracting the whole content of a page and saving into one file;
@@ -672,7 +673,7 @@ print(ET.tostring(root_article, encoding='utf8').decode('utf8'))
 # ```
 # 
 # In this case the ***p001*** indicates that this concerns the first page. 
-# If the code to retrieve all the articels from a newspaper is adapted to loop via the element 'Component' instead of 
+# If the code to retrieve all the articles from a newspaper is adapted to loop via the element 'Component' instead of 
 # the element 'Resource , it becomes possible to filter out those elements whose attribute contains ***p001***. This can be done using: 
 # 
 # ```Python
