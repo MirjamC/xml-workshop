@@ -746,3 +746,5 @@ import pandas as pd
 articles = pd.DataFrame(article_list, columns = ['Page', 'Type', 'Title', 'Identifier'])
 articles
 
+
+# You have now a dataframe with metadata from all articles of one page. You can use the same steps as described above to download the content from this articles and store them in textfiles.
