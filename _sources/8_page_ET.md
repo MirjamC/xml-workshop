@@ -429,17 +429,18 @@ We have previously made the code to obtain the content and the region from the X
 As not every content is in an ordered group, we also have to include an 'escape' mechanism. For now, we will store every content that does not belong in an OrderedGroup into group 0 with index 0. 
 
 ```{code-cell}
+:tags: [hide-output]
 for newspaper in root.findall('.//ns0:TextRegion', ns):
 	## here we extract from the dictionary the group and index value for the dictionary item that matches the region extracted with the orignal code.
 	## if the content does not belong to an ordered group, we store them in group 0 with index 0
 	region = newspaper.get('id')
-    if region in dict_order:
-        groupvalues = dict_order[region]
-        group = groupvalues[0][0]
-        index = groupvalues[0][1]
-    else:
-        group = 0
-        index = 0
+	if region in dict_order:
+		groupvalues = dict_order[region]
+		group = groupvalues[0][0]
+		index = groupvalues[0][1]
+	else:
+		group = 0
+		index = 0
 	for content in newspaper.findall('.//ns0:Unicode', ns):
 		content = content.text
 	## then we can add them to the print statement
@@ -461,16 +462,16 @@ content_list = []
 
 for newspaper in root.findall('.//ns0:TextRegion', ns):
 	region = newspaper.get('id')
-    if region in dict_order:
-        groupvalues = dict_order[region]
-        group = groupvalues[0][0]
-        index = groupvalues[0][1]
-    else:
-        group = 0
-        index = 0
-    for content in newspaper.findall('.//ns0:Unicode', ns):
-        content = content.text
-    content_list.append([group, index, region, content])
+	if region in dict_order:
+		groupvalues = dict_order[region]
+		group = groupvalues[0][0]
+		index = groupvalues[0][1]
+	else:
+		group = 0
+		index = 0
+	for content in newspaper.findall('.//ns0:Unicode', ns):
+		content = content.text
+	content_list.append([group, index, region, content])
 ```	
 ````
 
@@ -491,13 +492,18 @@ newspaper_with_order = pd.DataFrame(content_list, columns = ["Group", "Index", "
 
 We then check the result again.
 ```{code-cell}
+:tags: [remove-input, hide-output]
 import pandas as pd
 content_list = []
 for newspaper in root.findall('.//ns0:TextRegion', ns):
 	region = newspaper.get('id')
-	groupvalues = dict_order[region]
-	group = groupvalues[0][0]
-	index = groupvalues[0][1]
+	if region in dict_order:
+		groupvalues = dict_order[region]
+		group = groupvalues[0][0]
+		index = groupvalues[0][1]
+	else:
+		group = 0
+		index = 0
 	for content in newspaper.findall('.//ns0:Unicode', ns):
 		content = content.text
 	content_list.append([group, index, region, content])
