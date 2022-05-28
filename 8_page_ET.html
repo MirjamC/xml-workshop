@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="9. Practical session: Alto and Beautiful Soup" href="9_alto_BS.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="7_alto_ET.html" />
+    <link rel="prev" title="7. Practical: Extract information from the Alto format with ElemenTree" href="7_alto_ET.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -129,6 +129,11 @@ const thebe_selector_output = ".output, .cell_output"
    6. Introduction to the Alto/Didle, TEI and Page format
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_alto_ET.html">
+   7. Practical: Extract information from the Alto format with ElemenTree
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    8. Practical session: Page and Elementree
@@ -151,7 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_auto_batch.html">
-   12. Practical session: Automatically extraxt information from a batch of files
+   12. Practical session: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -10235,15 +10240,17 @@ prijzen. (19978)&lt;/ns0:Unicode&gt;&lt;/ns0:TextEquiv&gt;&lt;/ns0:TextRegion&gt
 <p>The page XML contains a lot of information that is not part of the textual content of the newspaper.
 This information describes the layout of the page. It also contains elements in which the plain
 text is stored. We start by searching for this element, and the check whether the content is
-stored as value of tags or as values of an attribute.</p>
+stored as the value of tags or as the value of an attribute.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Look at the XML structure, in which element is the content stored?
-Is it stored as value of the tags or as the value of an attribute?</p>
+Is it stored as value of the tags or as the value of an attribute?
+Does it have any parents we have to consider while extracting the content?</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<p>The content is stored in an element called ‘Unicode’, it is stored as a value of the tags.</p>
+<p>The content is stored in an element called ‘Unicode’, it is stored as a value of the tags.<br />
+It has several parents, so we need to escape them with ‘.//’ or typ all the parent elements name.</p>
 </div>
 <p>All Page XML files from the KB contain a reading order. This reading order guides the user through the file and indicates what the right order of all text elements is.
 To determine the correct reading order, we need three types of information.</p>
@@ -10256,10 +10263,10 @@ To determine the correct reading order, we need three types of information.</p>
 <ul class="simple">
 <li><p>The id attribute of each TextRegion element</p></li>
 <li><p>The OrderedGroup id for each TextRegion element</p></li>
-<li><p>The index of each region
-With this information, you can determine the correct reading order, which is declared in
-the ReadingOrder element, e.g.:</p></li>
+<li><p>The index of each region</p></li>
 </ul>
+<p>With this information, you can determine the correct reading order, which is declared in
+the ReadingOrder element, e.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ReadingOrder</span><span class="o">&gt;</span>
    <span class="o">&lt;</span><span class="n">UnorderedGroup</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;ro357564684568544579089&quot;</span><span class="o">&gt;</span>
    	<span class="o">&lt;</span><span class="n">OrderedGroup</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;r38&quot;</span><span class="o">&gt;</span>
@@ -10299,10 +10306,11 @@ If there are, how can we declare these?</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ns0</span><span class="p">:</span><span class="n">PcGts</span> <span class="n">xmlns</span><span class="p">:</span><span class="n">ns0</span><span class="o">=</span><span class="s2">&quot;http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19&quot;</span> <span class="n">xmlns</span><span class="p">:</span><span class="n">xsi</span><span class="o">=</span><span class="s2">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span> <span class="n">xsi</span><span class="p">:</span><span class="n">schemaLocation</span><span class="o">=</span><span class="s2">&quot;http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19 http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19/pagecontent.xsd&quot;</span> <span class="n">pcGtsId</span><span class="o">=</span><span class="s2">&quot;pc-00530982&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p>If you remember from section 7, there are two ways of using namespaces:
-1. Type the namespace before the element name between curly brackets, e.g.: {<a class="reference external" href="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19">http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19</a>}
-2. Declare the namespace in ElementTree. This provides Python with a dictionary of the used namespaces, which it can then use.
-e.g.: ns = {‘ns0’: ‘<a class="reference external" href="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19">http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19</a>’}</p>
+<p>If you remember from section 7, there are two ways of using namespaces:</p>
+<ol class="simple">
+<li><p>Type the namespace before the element name between curly brackets, e.g.: {<a class="reference external" href="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19">http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19</a>}</p></li>
+<li><p>Declare the namespace in ElementTree. This provides Python with a dictionary of the used namespaces, which it can then use. e.g.: ns = {‘ns0’: ‘<a class="reference external" href="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19">http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19</a>’}</p></li>
+</ol>
 </div>
 <p>Now that we know how the file is structured, and where the content we need is stored, we can start extracting the output</p>
 </div>
@@ -10618,7 +10626,7 @@ information for that.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
 <p>What information do we need for every text content to determine the right reading order?
-Is this information stored as value of tags or as a value of an attribute?</p>
+Is this information stored as value of the tags or as a value of an attribute?</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
@@ -11067,8 +11075,7 @@ information into a list.</p>
 </pre></div>
 </div>
 </div>
-<p>Let us just peek at the list to see if everything went as expected.
-`</p>
+<p>Let us just peek at the list to see if everything went as expected.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
 <p>Print out the list that was made in the previous exercise to see if it was created correctly.</p>
@@ -11086,8 +11093,7 @@ information into a list.</p>
 </div>
 </div>
 </div>
-<p>Now that we have a list containing both the TextRegion id and the textual content,
-we can transform this into a Dataframe.</p>
+<p>Now that we have a list containing both the TextRegion id and the textual content, we can transform this into a Dataframe.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
 <p>Create dataframe with the columns ‘Region’ and ‘Content’ from the list we have just created.</p>
@@ -11107,12 +11113,11 @@ we can transform this into a Dataframe.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
 <p>Check if the Dataframe is made correctly.
-Remember to not use the method(print), as without ‘print’ the
-formatting will be more readable in case of Dataframes.</p>
+Remember to not use the print method, as without ‘print’ the formatting will be more readable for Dataframes.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">content_table</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">newspaper</span>
 </pre></div>
 </div>
 </div>
@@ -11216,7 +11221,7 @@ than the content itself, we will go through three steps:</p>
 <ul class="simple">
 <li><p>From the element ‘ReadingOrder’, we will extract the information about the OrdererGroup id, the regionRef and the index and store them in a Python dictionary;</p></li>
 <li><p>We retreive the textregion and corresponding content (see the code above);</p></li>
-<li><p>We will combina the textregion information with the regionRef from the dictionary to combine everything.</p></li>
+<li><p>We combine the textregion information with the regionRef from the dictionary to combine everything.</p></li>
 <li><p>We store the information in a Dataframe and sort it based on the ReadingOrder.</p></li>
 </ul>
 <p>As you can see, we are going to create a Python dictionary. Dictionaries are an easy way to store
@@ -11231,11 +11236,11 @@ and query information. But more about dictionaries later, let’s first see if w
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:ReadingOrder&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
-	<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:OrderedGroup&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ReadingOrder&#39;</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;OrderedGroup&#39;</span><span class="p">):</span>
 		<span class="n">groupnr</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
 		<span class="nb">print</span><span class="p">(</span><span class="n">groupnr</span><span class="p">)</span>
-		<span class="k">for</span> <span class="n">suborder</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:RegionRefIndexed&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>  
+		<span class="k">for</span> <span class="n">suborder</span> <span class="ow">in</span> <span class="n">group</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;RegionRefIndexed&#39;</span><span class="p">):</span>  
 			<span class="n">region</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;regionRef&#39;</span><span class="p">)</span>
 			<span class="n">index</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
 			<span class="nb">print</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
@@ -11244,158 +11249,14 @@ and query information. But more about dictionaries later, let’s first see if w
 </div>
 <div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r284
-r0 0
-r2 1
-r3 2
-r4 3
-r5 4
-r290
-r247 0
-r252 1
-r157 2
-r161 3
-r165 4
-r167 5
-r292
-r7 0
-r8 1
-r299
-r9 0
-r12 1
-r301
-r13 0
-r303
-r14 0
-r176 1
-r178 2
-r179 3
-r180 4
-r181 5
-r305
-r17 0
-r186 1
-r306
-r190 0
-r192 1
-r196 2
-r307
-r21 0
-r203 1
-r308
-r23 0
-r25 1
-r283 2
-r286 3
-r212 4
-r309
-r29 0
-r30 1
-r219 2
-r223 3
-r225 4
-r32 5
-r310
-r34 0
-r35 1
-r36 2
-r37 3
-r311
-r229 0
-r312
-r41 0
-r44 1
-r313
-r45 0
-r47 1
-r314
-r48 0
-r49 1
-r50 2
-r51 3
-r52 4
-r53 5
-r315
-r54 0
-r55 1
-r316
-r57 0
-r249 1
-r255 2
-r317
-r62 0
-r63 1
-r288 2
-r291 3
-r318
-r65 0
-r319
-r66 0
-r67 1
-r258 2
-r267 3
-r272 4
-r320
-r69 0
-r70 1
-r71 2
-r72 3
-r321
-r73 0
-r74 1
-r77 2
-r322
-r78 0
-r275 1
-r278 2
-r80 3
-r323
-r81 0
-r324
-r82 0
-r248 1
-r250 2
-r325
-r253 0
-r257 1
-r261 2
-r263 3
-r326
-r85 0
-r86 1
-r87 2
-r88 3
-r327
-r89 0
-r91 1
-r328
-r92 0
-r93 1
-r94 2
-r95 3
-r96 4
-r97 5
-r98 6
-r268 7
-r270 8
-r100 9
-r329
-r101 0
-r273 1
-r277 2
-r279 3
-r103 4
-r330
-r104 0
-r285 1
-r289 2
-r295 3
-r293 4
-r331
-r300 0
-r302 1
-r332
-r108 0
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
+<span class="nn">Input In [6],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">for</span> <span class="n">order</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ReadingOrder&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> 	<span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;OrderedGroup&#39;</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 		<span class="n">groupnr</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+
+<span class="ne">AttributeError</span>: &#39;xml.etree.ElementTree.Element&#39; object has no attribute &#39;find_all&#39;
 </pre></div>
 </div>
 </div>
@@ -11404,8 +11265,7 @@ r108 0
 However, we wish to further automate the process and store it into a Python dictionary.</p>
 <p>A dictionary is structured as follows: key = value.
 In our case, the ‘key’ is the regionref, and the values for every key are the ordered group id and the index.</p>
-<p>We shall demonstrate this by a small example of our XML file.</p>
-<p>As example, look at this two small reading order example.</p>
+<p>We shall demonstrate this using a small piece of our XML file:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">ReadingOrder</span><span class="o">&gt;</span>
 	<span class="o">&lt;</span><span class="n">OrderedGroup</span> <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;r38&quot;</span><span class="o">&gt;</span>
 		<span class="o">&lt;</span><span class="n">RegionRefIndexed</span> <span class="n">regionRef</span><span class="o">=</span><span class="s2">&quot;r8&quot;</span> <span class="n">index</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="o">/&gt;</span>
@@ -11427,13 +11287,8 @@ In our case, the ‘key’ is the regionref, and the values for every key are th
 For example: to which group does r8 belong?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;r8&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1">## [0] for the first entry, [0] the first element</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;r8&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1">## [0] for the first entry, [0] for the first element</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r38
 </pre></div>
 </div>
 </div>
@@ -11441,18 +11296,13 @@ For example: to which group does r8 belong?</p>
 <p>And what is the index of r12?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;r12&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="c1">## [1] for the first entry, [0] the second element</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">group</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">[</span><span class="s1">&#39;r12&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="c1">## [1] for the first entry, [0] for the second element</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
-</pre></div>
 </div>
-</div>
-</div>
-<p>The following codes gives an example of how you can store the required information into a dictionary.</p>
+<p>The following code gives an example of how you can store the required information in a dictionary.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## First initialize an empty dictionary</span>
@@ -11465,7 +11315,7 @@ For example: to which group does r8 belong?</p>
 			<span class="n">region</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;regionRef&#39;</span><span class="p">)</span>
 			<span class="n">index</span> <span class="o">=</span> <span class="n">suborder</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
 			<span class="c1">## the dictionary is filled with the three attributes</span>
-			<span class="c1">## it sets region as the key and the groupnr and index as a list as value</span>
+			<span class="c1">## it sets region as the key and as value the groupnr and index as a list </span>
 			<span class="n">dict_order</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">region</span><span class="p">,[])</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">groupnr</span><span class="p">,</span> <span class="n">index</span><span class="p">])</span>
 </pre></div>
 </div>
@@ -11478,14 +11328,9 @@ For example: to which group does r8 belong?</p>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;r0&#39;: [[&#39;r284&#39;, &#39;0&#39;]], &#39;r2&#39;: [[&#39;r284&#39;, &#39;1&#39;]], &#39;r3&#39;: [[&#39;r284&#39;, &#39;2&#39;]], &#39;r4&#39;: [[&#39;r284&#39;, &#39;3&#39;]], &#39;r5&#39;: [[&#39;r284&#39;, &#39;4&#39;]], &#39;r247&#39;: [[&#39;r290&#39;, &#39;0&#39;]], &#39;r252&#39;: [[&#39;r290&#39;, &#39;1&#39;]], &#39;r157&#39;: [[&#39;r290&#39;, &#39;2&#39;]], &#39;r161&#39;: [[&#39;r290&#39;, &#39;3&#39;]], &#39;r165&#39;: [[&#39;r290&#39;, &#39;4&#39;]], &#39;r167&#39;: [[&#39;r290&#39;, &#39;5&#39;]], &#39;r7&#39;: [[&#39;r292&#39;, &#39;0&#39;]], &#39;r8&#39;: [[&#39;r292&#39;, &#39;1&#39;]], &#39;r9&#39;: [[&#39;r299&#39;, &#39;0&#39;]], &#39;r12&#39;: [[&#39;r299&#39;, &#39;1&#39;]], &#39;r13&#39;: [[&#39;r301&#39;, &#39;0&#39;]], &#39;r14&#39;: [[&#39;r303&#39;, &#39;0&#39;]], &#39;r176&#39;: [[&#39;r303&#39;, &#39;1&#39;]], &#39;r178&#39;: [[&#39;r303&#39;, &#39;2&#39;]], &#39;r179&#39;: [[&#39;r303&#39;, &#39;3&#39;]], &#39;r180&#39;: [[&#39;r303&#39;, &#39;4&#39;]], &#39;r181&#39;: [[&#39;r303&#39;, &#39;5&#39;]], &#39;r17&#39;: [[&#39;r305&#39;, &#39;0&#39;]], &#39;r186&#39;: [[&#39;r305&#39;, &#39;1&#39;]], &#39;r190&#39;: [[&#39;r306&#39;, &#39;0&#39;]], &#39;r192&#39;: [[&#39;r306&#39;, &#39;1&#39;]], &#39;r196&#39;: [[&#39;r306&#39;, &#39;2&#39;]], &#39;r21&#39;: [[&#39;r307&#39;, &#39;0&#39;]], &#39;r203&#39;: [[&#39;r307&#39;, &#39;1&#39;]], &#39;r23&#39;: [[&#39;r308&#39;, &#39;0&#39;]], &#39;r25&#39;: [[&#39;r308&#39;, &#39;1&#39;]], &#39;r283&#39;: [[&#39;r308&#39;, &#39;2&#39;]], &#39;r286&#39;: [[&#39;r308&#39;, &#39;3&#39;]], &#39;r212&#39;: [[&#39;r308&#39;, &#39;4&#39;]], &#39;r29&#39;: [[&#39;r309&#39;, &#39;0&#39;]], &#39;r30&#39;: [[&#39;r309&#39;, &#39;1&#39;]], &#39;r219&#39;: [[&#39;r309&#39;, &#39;2&#39;]], &#39;r223&#39;: [[&#39;r309&#39;, &#39;3&#39;]], &#39;r225&#39;: [[&#39;r309&#39;, &#39;4&#39;]], &#39;r32&#39;: [[&#39;r309&#39;, &#39;5&#39;]], &#39;r34&#39;: [[&#39;r310&#39;, &#39;0&#39;]], &#39;r35&#39;: [[&#39;r310&#39;, &#39;1&#39;]], &#39;r36&#39;: [[&#39;r310&#39;, &#39;2&#39;]], &#39;r37&#39;: [[&#39;r310&#39;, &#39;3&#39;]], &#39;r229&#39;: [[&#39;r311&#39;, &#39;0&#39;]], &#39;r41&#39;: [[&#39;r312&#39;, &#39;0&#39;]], &#39;r44&#39;: [[&#39;r312&#39;, &#39;1&#39;]], &#39;r45&#39;: [[&#39;r313&#39;, &#39;0&#39;]], &#39;r47&#39;: [[&#39;r313&#39;, &#39;1&#39;]], &#39;r48&#39;: [[&#39;r314&#39;, &#39;0&#39;]], &#39;r49&#39;: [[&#39;r314&#39;, &#39;1&#39;]], &#39;r50&#39;: [[&#39;r314&#39;, &#39;2&#39;]], &#39;r51&#39;: [[&#39;r314&#39;, &#39;3&#39;]], &#39;r52&#39;: [[&#39;r314&#39;, &#39;4&#39;]], &#39;r53&#39;: [[&#39;r314&#39;, &#39;5&#39;]], &#39;r54&#39;: [[&#39;r315&#39;, &#39;0&#39;]], &#39;r55&#39;: [[&#39;r315&#39;, &#39;1&#39;]], &#39;r57&#39;: [[&#39;r316&#39;, &#39;0&#39;]], &#39;r249&#39;: [[&#39;r316&#39;, &#39;1&#39;]], &#39;r255&#39;: [[&#39;r316&#39;, &#39;2&#39;]], &#39;r62&#39;: [[&#39;r317&#39;, &#39;0&#39;]], &#39;r63&#39;: [[&#39;r317&#39;, &#39;1&#39;]], &#39;r288&#39;: [[&#39;r317&#39;, &#39;2&#39;]], &#39;r291&#39;: [[&#39;r317&#39;, &#39;3&#39;]], &#39;r65&#39;: [[&#39;r318&#39;, &#39;0&#39;]], &#39;r66&#39;: [[&#39;r319&#39;, &#39;0&#39;]], &#39;r67&#39;: [[&#39;r319&#39;, &#39;1&#39;]], &#39;r258&#39;: [[&#39;r319&#39;, &#39;2&#39;]], &#39;r267&#39;: [[&#39;r319&#39;, &#39;3&#39;]], &#39;r272&#39;: [[&#39;r319&#39;, &#39;4&#39;]], &#39;r69&#39;: [[&#39;r320&#39;, &#39;0&#39;]], &#39;r70&#39;: [[&#39;r320&#39;, &#39;1&#39;]], &#39;r71&#39;: [[&#39;r320&#39;, &#39;2&#39;]], &#39;r72&#39;: [[&#39;r320&#39;, &#39;3&#39;]], &#39;r73&#39;: [[&#39;r321&#39;, &#39;0&#39;]], &#39;r74&#39;: [[&#39;r321&#39;, &#39;1&#39;]], &#39;r77&#39;: [[&#39;r321&#39;, &#39;2&#39;]], &#39;r78&#39;: [[&#39;r322&#39;, &#39;0&#39;]], &#39;r275&#39;: [[&#39;r322&#39;, &#39;1&#39;]], &#39;r278&#39;: [[&#39;r322&#39;, &#39;2&#39;]], &#39;r80&#39;: [[&#39;r322&#39;, &#39;3&#39;]], &#39;r81&#39;: [[&#39;r323&#39;, &#39;0&#39;]], &#39;r82&#39;: [[&#39;r324&#39;, &#39;0&#39;]], &#39;r248&#39;: [[&#39;r324&#39;, &#39;1&#39;]], &#39;r250&#39;: [[&#39;r324&#39;, &#39;2&#39;]], &#39;r253&#39;: [[&#39;r325&#39;, &#39;0&#39;]], &#39;r257&#39;: [[&#39;r325&#39;, &#39;1&#39;]], &#39;r261&#39;: [[&#39;r325&#39;, &#39;2&#39;]], &#39;r263&#39;: [[&#39;r325&#39;, &#39;3&#39;]], &#39;r85&#39;: [[&#39;r326&#39;, &#39;0&#39;]], &#39;r86&#39;: [[&#39;r326&#39;, &#39;1&#39;]], &#39;r87&#39;: [[&#39;r326&#39;, &#39;2&#39;]], &#39;r88&#39;: [[&#39;r326&#39;, &#39;3&#39;]], &#39;r89&#39;: [[&#39;r327&#39;, &#39;0&#39;]], &#39;r91&#39;: [[&#39;r327&#39;, &#39;1&#39;]], &#39;r92&#39;: [[&#39;r328&#39;, &#39;0&#39;]], &#39;r93&#39;: [[&#39;r328&#39;, &#39;1&#39;]], &#39;r94&#39;: [[&#39;r328&#39;, &#39;2&#39;]], &#39;r95&#39;: [[&#39;r328&#39;, &#39;3&#39;]], &#39;r96&#39;: [[&#39;r328&#39;, &#39;4&#39;]], &#39;r97&#39;: [[&#39;r328&#39;, &#39;5&#39;]], &#39;r98&#39;: [[&#39;r328&#39;, &#39;6&#39;]], &#39;r268&#39;: [[&#39;r328&#39;, &#39;7&#39;]], &#39;r270&#39;: [[&#39;r328&#39;, &#39;8&#39;]], &#39;r100&#39;: [[&#39;r328&#39;, &#39;9&#39;]], &#39;r101&#39;: [[&#39;r329&#39;, &#39;0&#39;]], &#39;r273&#39;: [[&#39;r329&#39;, &#39;1&#39;]], &#39;r277&#39;: [[&#39;r329&#39;, &#39;2&#39;]], &#39;r279&#39;: [[&#39;r329&#39;, &#39;3&#39;]], &#39;r103&#39;: [[&#39;r329&#39;, &#39;4&#39;]], &#39;r104&#39;: [[&#39;r330&#39;, &#39;0&#39;]], &#39;r285&#39;: [[&#39;r330&#39;, &#39;1&#39;]], &#39;r289&#39;: [[&#39;r330&#39;, &#39;2&#39;]], &#39;r295&#39;: [[&#39;r330&#39;, &#39;3&#39;]], &#39;r293&#39;: [[&#39;r330&#39;, &#39;4&#39;]], &#39;r300&#39;: [[&#39;r331&#39;, &#39;0&#39;]], &#39;r302&#39;: [[&#39;r331&#39;, &#39;1&#39;]], &#39;r108&#39;: [[&#39;r332&#39;, &#39;0&#39;]]}
-</pre></div>
-</div>
-</div>
 </div>
 <p>We have previously made the code to obtain the content and the region from the XML file. Now we will combine this by comparing the values from the dictionary with the value of the TextRegion id.
-As not every content is in an ordered group, we also have to include an ‘escape’ mechanism. For now, we will store every content that does not belong in an OrderedGroup into group 0 with index 0.</p>
+As not all content is in an ordered group, we also have to include an ‘escape’ mechanism. For now, we will store all content that does not belong in an OrderedGroup into group 0 with index 0.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">newspaper</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:TextRegion&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
@@ -11506,290 +11351,8 @@ As not every content is in an ordered group, we also have to include an ‘escap
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r284 r2 1 Obl. Atl. Gr. W. Spw. 7 pCt. 52½, ⅞, ¾; Debentures Dito 8 pCt.
-59½, 60¾, 59½; Obl. St. Paul en Pacific Spw. 7 pCt. 56¼ Nieuwe
-Russen 1866 154¾, 155.
-r284 r3 2 Koers van het Geld: Beleening —, Prolong. 7½, 8 pCt.
-r284 r4 3 Aldus opgemaakt door het Bestuur der Effecten-Societeit,
-r284 r5 4 J. WR. AIKEMA. Pres.-Comm.
-r292 r7 0 Koers van het geld bij de Nederlandsche Bank (sedert 16 Aug.)
-r292 r8 1 Wissel-Disconto 6 pCt.; Promessen-Disconto 6½ pCt.; Beleening
-van Binnenl. Effecten 6 pCt.; Id. van Buitenl. Effecten 6½ pCt.; Id.
-van Goederen 6 pCt.
-r301 r13 0 NB. In de Advertentie wegens aanvraag om een BEDIENDE in
-eene APOTHEEK (zie Bijv. A. H. B. 27 Aug.) staat: BEDIENDE
-EXTERNE; lees INTERNE. Adres Lett. D. bij J. BREEMAN,
-Nieuwe Hoogstraat.
-r305 r17 0 Het ADMINISTRATIE-KANTOOR voor Nederland der
-K. K. PRIVILIGIRTE ALLGEMEINE OESTERREICHISCHE BO-
-DEN - CREDIT - ANSTALT berigt, dat in plaats van den Heer TH. MOLIÈRE, die om redenen van gezondheid zijn ontslag als
-Directeur der Administratie heeft ingediend, de Heer T. J. WES-
-TENDORP, voorloopig die betrekking zal waarnemen.
-r307 r21 0 De ondergeteekende heeft de eer aan zijne geëerde begunstigers
-te berigten, dat hij met den Heer M. OOSTMEIJER, lakenkooper
-alhier, eene overeenkomst heeft aangegaan, waardoor hij in staat
-gesteld is, ten allen tijde de nieuwste Fransche en Engel-
-schestoffen en alle verdere Artikelen, voor de Kleedermakers-
-Affaire benoodigd, te leveren, vertrouwende hierdoor te beter aan
-de bestellingen gevolg te kunnen geven, waarom hij de vrijheid
-neemt, zich bij vernieuwing bij zijne begunstigers aan te bevelen,
-zullende hij door eene prompte bediening en soliede bewerking zich
-het vertrouwen trachten waardig te maken.
-r308 r25 1 VEILING te AMSTERDAM, op Woensdag 12 Sep-
-tember 1866. van ongeveer:
-r309 r29 0 De INTENDANT in de 2de Militaire Afdeeling te Arnhem, zal
-op Vrijdag 7 September 1866, des middags ten 12 ure, ten zijnen
-bureele publiek HERBESTEDEN:
-r309 r30 1 6½ Last Oude Zeeuwsche Tarwe, wegende minstens
-74 pond per mud.
-r309 r32 5 De Intendant voornoemd,
-OTKEN.
-r310 r35 1 A la requête des heritiers de M. le Prince ALPHONSE DE CHI-
-MAY, les Notaires TOUSSAINT et VAN DEN EYNDE, résidant à
-Bruxelles, vendront le 31 Octobre à 2 heures au Café du Casino à
-Charleroi, le dit domaine, contenant 2500 hectares, savoir:
-r310 r37 3 Le sol de ce domaine, qui est en général de la meilleure qualité,
-augmentéra considérablement de valeur, par l&#39;établissement de plu-
-sieurs nouveaux chemins de fer, en voie d&#39;exécution, notamment
-celui de Chimay à Paris, par Laon et Soissons qui sera la grande
-voie de France vers l&#39;est de la Hollande, Hambourg, et l&#39;Allemagne
-septentrionale. Chimay sera alors à 4 heures de Paris. (19880)
-r312 r44 1 In bovengemelde Fabriek kunnen dadelijk geplaatst worden TWEE
-KNECHTS, het witwerken en ornamenteren geheel of gedeeltelijk
-verstaande, ongehuwd. Brieven franco. (19904)
-r313 r47 1 Een bekwaam MUZIEKMEESTER, de beste referentien bezittende,
-heeft des morgens nog eenige uren disponibel. Brieven franco on-
-der lett. B. C., bij de Boekhandelaren GEBRs. EBERT, Beurssteeg,
-E 184. (19972)
-r314 r49 1 zijn tegenwoordig gerigt op PRUISEN en zijn POLI-
-TIEK. Wie de kronkelpaden dier Politiek wil volgen en
-weten wat door haar verrigt werd bij het sluiten van
-r314 r51 3 dat zij thans te vuur en te zwaard weer heeft verbroken, mag
-niet verzuimen
-r314 r53 5 te lezen, dat alom verkrijgbaar is gesteld. (19875)
-r315 r55 1 Er wordt verlangd tegen primo November een bekwaam GRUT-
-TERSKNECHT. Men adressere zich met franco brieven onder
-lett. E. bij den Boekhandelaar G. VAN OVERBEEK, te Alphen
-aan den Rijn. (19931)
-r320 r72 3 Entrée 50 Cents. Aanvang 7½ Ure.
-Leden volgens Reglement. Coupon-Bewijzen geldig.
-r326 r85 0 SALON DES VARIETES, in de Amstelstraat. Woensdag 29 Aug. De Lotgevallen van een Jong Edelman, nieuw melodrama in 7 tafereelen,
-naar het Fransch van Octave Feuillet, waarin de Heer Pietersen
-met de rol van Maxime voor het eerst zal optreden.
-r326 r86 1 Entrée 75 Cts. in vertering. Aanv. 8 Ure.
-r326 r87 2 BOAS &amp; JUDELS.
-r326 r88 3 Plaatsen zijn aan het Bureau te bespreken.
-r327 r91 1 De Ondergeteekenden hebben de eer te berigten, dat de groote zaal
-van bovengenoemd Gebouw door hen allerfraaist tot SCHOUWBURG-
-ZAAL ingerigt zijnde. de OPENING VAN HET TOONEEL zal
-plaats hebben op ZATURDAG 1 SEPTEMBER 1866. Daar zij niets
-zullen verzuimen wat hunne geachte bezoekers tot genoegen kan strek-
-ken, bevelen zij hunnen Nieuwen Salon des Variétés nederig in de gunst
-van het publiek. LOUIS BOUWMEESTER &amp; COMP.
-r328 r100 9 J. EDUARD STUMPFF.
-r329 r103 4 WM. KOSTER, Directeur.
-r332 r108 0 GEDRUKT BIJ C. A. SPIN &amp; ZOON.
-r284 r0 0 Prijscourant der Effecten.
-r299 r9 0 Wisselkoersen.
-r299 r12 1 Disconto 6 pCt.
-r303 r14 0 ADVERTENTIEN.
-r310 r34 0 DOMAINE DE BEAUCHAMPS.
-r314 r48 0 ALLER OOGEN
-r314 r50 2 HET HEILIG VERBOND,
-r314 r52 4 HET ZWARTE BOEK VAN BERLIJN
-r315 r54 0 GRUTTERSKNECHT.
-r317 r62 0 SPECIALITEIT VAN VISITE-KAARTJES
-r317 r63 1 à f 1 DE 100 STUKS
-r318 r65 0 Paleis voor Volksvlijt.
-r319 r66 0 GEOPEND VAN 10—5 URE.
-r319 r67 1 ALGEMEENE TENTOONSTELLING
-VAN NEDERLANDSCHE NIJVERHEID EN KUNST.
-r320 r69 0 Paleis voor Volksvlijt.
-r320 r70 1 DONDERDAG 30 AUGUSTUS:
-r320 r71 2 AVOND-CONCERT.
-r321 r73 0 ZONDAG 2 SEPTEMBER.
-r322 r78 0 Grand Salon de Lyon.
-r323 r81 0 DOOR PLAATSGEBREK ZIJN WIJ GENOODZAAKT VELE ADVERTENTIEN
-TOT EEN VOLGEND NOMMER TE LATEN LIGGEN.
-r324 r82 0 SCHOUWBURGEN, CONCERTEN, ENZ.
-r328 r92 0 PARK.
-r328 r93 1 DONDERDAG 30 AUGUSTUS 1866.
-TOT SLUITING VAN HET SAIZOEN:
-r328 r94 2 BUITENGEWONE FEESTVIERING,
-r328 r95 3 GROOT HARMONIE CONCERT,
-r328 r96 4 Algemeene Gas-Illuminatie,
-r328 r97 5 BENEVENS
-r328 r98 6 SCHITTERENDE EGYPTISCHE VERLICHTING,
-r329 r101 0 Zomer-Theater TIVOLI.
-r330 r104 0 ZOMER-THÉATRE DES VARIÉTÉS,
-r310 r36 2 Beau chateau, style Tudor, situation pittoresque,
-pare, jardins et ferme.....................88 hect.
-Ferme Tournebride, terres et pres de-
-taches...................................62 &quot;
-Foret Bois Robert.................333 &quot;
-Ferme la Boulvie...................63 &quot;
-Terrain boise, limite de Seloignes.......226 &quot;
-Belle foret des hauts marais excelle-
-ment propre au defrichement, maison de fer-
-mier, moulin et pavillon de chasse.......1735 &quot;
-r321 r77 2 Entree 50 Cents. (20043) Aanvang 71/2 Ure.
-r322 r80 3 (19432) THEODORE DE LYON.
-r290 r157 2 Voorts waren Spaansche en Turken tot betere prijzen goed te plaat-
-sen; in de laatsten werd veel voor Engelsche rekening gekocht.
-r290 r161 3 Amerik. hebben hunne vooruitgaande beweging voortgezet, doch
-laatbeurs toonde de markt neiging tot reactie.
-r290 r165 4 In Debentures Ohio hadden aanzienlijke verkoopen voor winstrea-
-lisatie plaats, waardoor zij ruim 1 pCt. daalden. 7 pCt. Pacif. wa-
-ren weder zeer vast, met voortdurende vraag voor binnenlandsche
-rekening.
-r290 r167 5 Oostenr. Aand. 1858 f 113; Pacif. 2de Sectie 50; Onb. Debent. Ohio
-58¼, 59¾, 58¼; Bew. Mexic. f 5.
-r303 r176 1 Bij vonnis der Arrondissements-Regtbank te Winschoten, de dato
-24 Augustus jongstleden, is in staat van Faillissement verklaard
-PIETER CORNELIS VAN BAASBANK, Assuradeur, Commission-
-nair in Granen en Effecten binnenlandsch in het klein, wonende te
-Veendam.
-r303 r178 2 Houdende gemeld vonnis de bepaling dat het Faillissement is aan-
-gevangen op 24 Augustus jongstleden en de benoeming van den Edel-
-Achtbaren Heer Mr. ALEXANDEK EDUARD SANDBRINK, Lid
-van genoemde Regtbank tot Regter-Commissaris en van de Onder-
-geteekenden tst Curators.
-r303 r179 3 WINSCHOTEN en VEENDAM,
-29 Augustus 1866.
-r303 r180 4 Mr. H. A. ENGELKENS.
-Mr. M. VAN DER TUUK.
-r303 r181 5 (20019)
-r306 r190 0 Bij onderhandsche acte dd. zes Augustus 1800 zes-en-
-zestig is, tusschen JOHAN JACOB HOFFMANN, Mr. Kleedermaker
-en ANTOINE GLAZEWSKI, Coupeur, beide wonende te Utrecht,
-ontbonden de tusschen hen op twaalf Mei dezes jaars, bij acte
-verleden voor den Notaris W. PELLEKAAN, aangegane Vennoot-
-schap tot uitoefening der kleedermakers-affaire en al hetgeen daar-
-toe behoort, gedreven onder de firma J. HOFFMANN &amp; COMPAGNIE,
-en waarvan de eerst ondergeteekende de teekening had.
-r306 r192 1 De ontbinding gaat heden in, en wordt de eerst ondergeteekende
-belast met de liquidatie.
-r308 r212 4 AMSTERDAM, 28 Augustus 1866. (20012)
-r309 r219 2 6 Last Oude Rijn- of Roode Tarwe, wegende min-
-stens 77 pond per mud.
-r309 r223 3 De voorwaarden zullen dagelijks, van 9 tot 12 ure, op gemeld
-bureau ter lezing liggen.
-r309 r225 4 De gegadigden worden herinnerd, dat het merk op de aan te bie-
-den monsters voorkomende, ook op den omslag van het inschrij-
-vingsbiljet behoort te worden gesteld, en dat ieder monster min-
-stens ½ Ned. kop graan moet bevatten, zullende dezelve anders bui-
-ten aanmerking blijven. (19937)
-r311 r229 0 J. P. UDINK,
-HEEL- EN VERLOSKUNDIGE,
-is VERHUISD naar den O. Z. Achterburgwal tusschen de Korte
-Niezel en Oude Kennissteeg, K 443. (20020)
-r312 r41 0 SPIEGEL- EN LIJSTENMAKERIJ
-firma Jacs. Plet,
-TE LEEUWARDEN.
-r307 r203 1 Adres oude Gracht, (19935) Uw Dienstw. Dienaar,
-wijk D N. 56, Utrecht. A.GLAZEWSKI, mR.tAILER.
-r306 r196 2 UTERECHT, J.J.HOFFMANN.
-6 Augustus 1866. (1934) A.GLAZEWSKI.
-r324 r248 1 STADS SCHOUWBURG. Directie Roobol, Tjasink en Peters.
-Woensdag 29 Aug. (N°. 5 van het Abon.) Eene 3de voorstelling van: IJzervreter, drama in 5 bedrijven of 7 tafereelen, benevens een voor-
-spel in 1 tafer., vrij gevolgd naar het Fransch (Mangeur de Fer) van
-Edouard Plouvier, door C. J. Roobol. De pausering na het zesde
-tafereel. (7½ ure.)
-r324 r250 2 Verwacht op Zaturdag a. s.: De Nimfen en de Vlinder, ballet-diver-
-tissement in 1 bedrijf, door den balletmeester Ant. Voitus van Hamme,
-waarin het eerste debut van Mej. L. Billon, als eerste danseres en van
-den Heer Ant. Voitus v. Hamme, als eerste danser, zal plaats hebben.
-r325 r253 0 GRAND THEATRE, Amstelstraat. Directie A. VAN LIER.
-Opening van dezen Schouwburg, met het Hollandsche Tooneelgezel-
-schap van Rotterdam, onder Directie van den Heer J. ED. DE VRIES.
-Op Zaturdag 1 September 1866: Emma Berthold, Oorspronkelijk Too-
-neelspel in 5 bedrijven of 7 tafereelen door J. J. Cremer. Na hetzelve: De Vermomde Gelieven, Blijspel met zang in een bedrijf, op nieuw voor
-het Hollandsche tooneel bewerkt en met nieuwe Coupletten voorzien
-door W. N. Peypers. Aanvang 7½ ure.
-r325 r257 1 Prijzen der Plaatsen: ƒ 1.25. ƒ 1.— 75 ct. en 40 ct.
-r325 r261 2 Zondag 2 Sept. Als men een hond wil slaan..... en de Bemocial of
-eindelijk heeft hij het toch goed gemaakt.
-r325 r263 3 Maandag 3 Sept. De Huistiran en Dr. Peschke.
-r327 r89 0 SALON DES VARIÉTÉS DILIGENTIA,
-KALVERSTRAAT.
-r321 r74 1 ALGEMEENE VERLICHTING DER TEN-
-TOONSTELLINGSZALEN
-EN
-CONCERT-PROMENADE.
-r328 r268 7 vervaardigd door den Heer P. L. VAN DER BRUGH, Kunstvuur-
-werkmaker van Z. M. den Koning.
-r328 r270 8 Entrée voor het Publiek f 1.49 per Persoon. Aanvang 7½ Ure.
-r329 r273 1 Heden Woensdag 29 Aug. N°. 118 van het Abonn.: Buitengewone
-Voorstelling, met medewerking van het Acrobatisch Gymnastisch Ge-
-zelschap, onder directie van den Heer GALE, waarbij in het bijzonder
-uitmunten de twee komische Violisten of het non plus ultra in dit vak
-en den Jongen Heer PALE, bijgenaamd den Jongen Blondin, welke
-de eer had dezen bijnaam te verwerven in Amerika, aan het voornaam-
-ste tooneel in dit genre; benevens Scènes Comiques en Chansonnettes,
-etc. etc.
-r329 r277 2 Niettegenstaande de enorme kosten aan deze voorstelling verbon-
-den, blijft de Entrée als gewoonlijk 49 Cent voor het publiek en
-HH. Leden behouden het regt van Introductie.
-r329 r279 3 Vrijdag afscheidsvoorstelling tot sluiting van het Abonnement.
-r330 r285 1 Plantaadje achter Vliedzorg naast den Pelmolen. Woengsdag 29 Aug.
-Cérisette, vaudev. in 1 bedrijf. Op verzoek: De Moordenaar van Theo-
-door, blijspel in 3 bedrijven.
-r330 r289 2 Aanvang muziek 7 ure. Tooneelvoorstelling 8¼ ure.
-r330 r293 4 Morgen, Donderdag: Tot sluiting van het Zomer-Thezter laatste
-groote VOLKSTOONEEL VOORSTELLING. Entrée 25 Cts.
-r330 r295 3 Entrée 49 Cents.
-r331 r300 0 CIRCUS W. CARRÉ,
-r331 r302 1 WOENSDAG 29 AUGUSTUS: GROOTE VOORSTELLIN-
-GEN. Tot slot: De Hongaarsche Chikos, manoeuvre door 5 Dame€
-en 4 Heeren, gecommandeerd door Mw. Carré. Aanvang 8 ure.
-r316 r57 0 DILIGENCE DIENST
-AMSTERDAM—AMERSFOORT
-VICE VERSA.
-r308 r23 0 NEDERLANDSCHE
-HANDEL-MAATSCHAPPIJ.
-r305 r186 1 AMSTERDAM, 25 Augustus 1866. (20051)
-r290 r247 0 Binnenlandsche fondsen waren over het geheel beter gestemd.
-r290 r252 1 Van vreemde effecten was de omzet in Oostenrijksche buitengewoon
-levendig. Voortgezette kooporders voor binnenlandsche rekening brag-
-ten op nieuw eene rijzing te weeg, doch daar de aanvoer van het
-buitenland belangrijker was dan de laatste dagen, liep de markt
-laatbeurs, onder dien invloed terug en sluiten zij slechts weinig hoo-
-ger dan gisteren.
-r316 r249 1 De Ondergeteekende berigt mits deze, dat de EXTRA DIEN-
-STEN, des Zaturdags en Maandags middags ten 4 ure van
-AMSTERDAM naar BAARN, en des Zondags Avonds ten 7 ure en
-Maandags morgens 6 ure van BAARN naar AMSTERDAM, OP
-HEDEN ZIJN INGETROKKEN.
-r316 r255 2 (20013) J.FLOOR.
-r319 r258 2 Entree WOENSDAG en ZONDAG 25 Cts., de overige dagen 50 Cts.
-r319 r267 3 Leden volgens reglement. Coupon-bewijzen geldig. (20042)
-r319 r272 4 LOTEN voor de VERLOTING VAN VOORWERPEN op de
-Tentoonstelling aangekocht, zijn verkrijgbaar a ƒ 2 per Lot.
-r322 r275 1 Plantaadje Fransche Laan, V 88, tusschen het Park
-en Artis.
-r322 r278 2 BEIGNETS, WAFELEN en gewone POFFERTJES, met
-Rhum en Vanille; Biefstuk en Carbonade ten allen tijde, alle soorten
-van Ververschingen. Bestellingen worden dadelijk geëffectueerd.
-r308 r283 2 Onder deze hoeveelheden zijn begrepen 60,799 Balen, opgehouden
-in de Veilingen van 16 Mei en 13 Junij jl.
-r308 r286 3 De Monsters zijn te bezigtigen te Amsterdam en te Rotterdam
-30 en 31 Augustus, 1, 10, 11 en 12 September, en op dezelfde dagen
-te Middelburg, Dordrecht en Schiedam die van hetgeen aldaar ligt.
-Van eerstgemelden dag af zijn op elke der aanvoerplaatsen van de
-nog niet geveilde aldaar liggende Koffij van partijen boven de 200
-Balen Proefmonsters tot den prijs van 60 Cents per Half Ned. Pond
-verkrijgbaar.
-r317 r288 2 op best dubbel glacé Carton, ter Lithographie van J. SJOUERMAN,
-Achterburgwal hoek Bethanienstraat.
-r317 r291 3 NB. Verdere DRUKWERKEN tot de minst mogelijke lage
-prijzen. (19978)
-r313 r45 0 ☞ONDERWIJS IN PIANO.
-</pre></div>
 </div>
-</div>
-</div>
-<p>With this code we merge the reading order values that we stored in the dictionary with the content that we extract with the origial code. However, we still print the code instead of storing it in something more useful.</p>
+<p>With this code we merge the reading order values that we stored in the dictionary with the content that we extract with the origial code. However, we still print the result instead of storing it in something more useful.</p>
 <div class="admonition-exercise admonition">
 <p class="admonition-title">Exercise</p>
 <p>Adapt the code above to store all relevant information in a list.</p>
@@ -11828,113 +11391,6 @@ r313 r45 0 ☞ONDERWIJS IN PIANO.
 </div>
 <p>We then check the result again.</p>
 <div class="cell tag_remove-input tag_hide-output docutils container">
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Group</th>
-      <th>Index</th>
-      <th>Region</th>
-      <th>Content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>r284</td>
-      <td>1</td>
-      <td>r2</td>
-      <td>Obl. Atl. Gr. W. Spw. 7 pCt. 52½, ⅞, ¾; Debent...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>r284</td>
-      <td>2</td>
-      <td>r3</td>
-      <td>Koers van het Geld: Beleening —, Prolong. 7½, ...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>r284</td>
-      <td>3</td>
-      <td>r4</td>
-      <td>Aldus opgemaakt door het Bestuur der Effecten-...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>r284</td>
-      <td>4</td>
-      <td>r5</td>
-      <td>J. WR. AIKEMA. Pres.-Comm.</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>r292</td>
-      <td>0</td>
-      <td>r7</td>
-      <td>Koers van het geld bij de Nederlandsche Bank (...</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>113</th>
-      <td>r308</td>
-      <td>2</td>
-      <td>r283</td>
-      <td>Onder deze hoeveelheden zijn begrepen 60,799 B...</td>
-    </tr>
-    <tr>
-      <th>114</th>
-      <td>r308</td>
-      <td>3</td>
-      <td>r286</td>
-      <td>De Monsters zijn te bezigtigen te Amsterdam en...</td>
-    </tr>
-    <tr>
-      <th>115</th>
-      <td>r317</td>
-      <td>2</td>
-      <td>r288</td>
-      <td>op best dubbel glacé Carton, ter Lithographie ...</td>
-    </tr>
-    <tr>
-      <th>116</th>
-      <td>r317</td>
-      <td>3</td>
-      <td>r291</td>
-      <td>NB. Verdere DRUKWERKEN tot de minst mogelijke ...</td>
-    </tr>
-    <tr>
-      <th>117</th>
-      <td>r313</td>
-      <td>0</td>
-      <td>r45</td>
-      <td>☞ONDERWIJS IN PIANO.</td>
-    </tr>
-  </tbody>
-</table>
-<p>118 rows × 4 columns</p>
-</div></div></div>
 </div>
 <p>Now that we have our data in a Dataframe, we have some easy options for manipulating the data. One of these is ordering, or sorting, the Dataframe.
 A Dataframe can be sorted by any of its columns, or even multiple columns. The original shape and content is maintained, but the order of the rows is changed to whatever is specified.
@@ -11963,113 +11419,6 @@ Notice that the sorting columns are quoted. When adding more than one column a (
 </div>
 </div>
 <div class="cell tag_remove-input tag_hide-output docutils container">
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Group</th>
-      <th>Index</th>
-      <th>Region</th>
-      <th>Content</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>30</th>
-      <td>r284</td>
-      <td>0</td>
-      <td>r0</td>
-      <td>Prijscourant der Effecten.</td>
-    </tr>
-    <tr>
-      <th>0</th>
-      <td>r284</td>
-      <td>1</td>
-      <td>r2</td>
-      <td>Obl. Atl. Gr. W. Spw. 7 pCt. 52½, ⅞, ¾; Debent...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>r284</td>
-      <td>2</td>
-      <td>r3</td>
-      <td>Koers van het Geld: Beleening —, Prolong. 7½, ...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>r284</td>
-      <td>3</td>
-      <td>r4</td>
-      <td>Aldus opgemaakt door het Bestuur der Effecten-...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>r284</td>
-      <td>4</td>
-      <td>r5</td>
-      <td>J. WR. AIKEMA. Pres.-Comm.</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>98</th>
-      <td>r330</td>
-      <td>3</td>
-      <td>r295</td>
-      <td>Entrée 49 Cents.</td>
-    </tr>
-    <tr>
-      <th>97</th>
-      <td>r330</td>
-      <td>4</td>
-      <td>r293</td>
-      <td>Morgen, Donderdag: Tot sluiting van het Zomer-...</td>
-    </tr>
-    <tr>
-      <th>99</th>
-      <td>r331</td>
-      <td>0</td>
-      <td>r300</td>
-      <td>CIRCUS W. CARRÉ,</td>
-    </tr>
-    <tr>
-      <th>100</th>
-      <td>r331</td>
-      <td>1</td>
-      <td>r302</td>
-      <td>WOENSDAG 29 AUGUSTUS: GROOTE VOORSTELLIN-\nGEN...</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>r332</td>
-      <td>0</td>
-      <td>r108</td>
-      <td>GEDRUKT BIJ C. A. SPIN &amp; ZOON.</td>
-    </tr>
-  </tbody>
-</table>
-<p>118 rows × 4 columns</p>
-</div></div></div>
 </div>
 <p>If everything worked as it was supposed to, the new dataframe should now be ordered by the Group and Index columns. Much easier to read, and better structured. Well done!</p>
 <p>Of course, as before we could save this Dataframe to disk using .to_csv(), or pass it to other code for further analysis.</p>
@@ -12105,7 +11454,7 @@ Notice that the sorting columns are quoted. When adding more than one column a (
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">&lt;no title&gt;</p>
+            <p class="prev-next-title">7. Practical: Extract information from the Alto format with ElemenTree</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="9_alto_BS.html" title="next page">

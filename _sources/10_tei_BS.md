@@ -355,6 +355,72 @@ poems.to_csv('poems.csv')
 ```
 ````
 
+This should create a file in your Jupyter home folder containing all all the numbered poems.
+
+The next exercise is a bit more challenging. 
+
+```{admonition} Exercise
+:class: attention
+Create a Dataframe containing all the (numbered) chapters and poems:
+- The chapters must be numbered consecutively
+- The poems must be numbered consecutively per chapter
+
+This means that you will need to extract chapter information from the XML, in addition to the poem information. Also, something to number the chapters is needed.
+```
+
+````{admonition} Solution
+:class: tip, dropdown
+You code should look similar to the code below. 
+```
+import pandas as pd
+chapter_list = []
+c_counter = 1
+p_counter = 1 
+	for div in root.find_all('div'):
+		if div.get('type') == 'chapter':
+			chapter = "chapter_" + str(c_counter)
+			content = div.text
+			for poems in div.find_all('lg'):
+				if poems.get('type') == 'poem':
+				poem = "poem_" + str(p_couter)
+				p_content = poems.text
+				chapter_list.append(chapter, poem, p_content])
+				p_counter += 1
+		c_counter += 1
+		p_counter = 1
+
+poems  = pd.DataFrame(chapter_list, columns = {['chapter', 'poem', 'content'])
+```
+````
+```{code-cell}
+:tags: [remove-input, hide-output]
+import pandas as pd
+chapter_list = []
+c_counter = 1
+p_counter = 1 
+	for div in root.find_all('div'):
+		if div.get('type') == 'chapter':
+			chapter = "chapter_" + str(c_counter)
+			content = div.text
+			for poems in div.find_all('lg'):
+				if poems.get('type') == 'poem':
+				poem = "poem_" + str(p_couter)
+				p_content = poems.text
+				chapter_list.append(chapter, poem, p_content])
+				p_counter += 1
+		c_counter += 1
+		p_counter = 1
+
+poems  = pd.DataFrame(chapter_list, columns = {['chapter', 'poem', 'content'])
+poems
+```
+
+As you can see we now have the poems numbered per chapter, and each chapters nicely numbered as well. This Datarfame will make a nice and ordered dataset for further analysis or presentation.
+
 Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses. Remember that saving files without specifying a pathname saves them to the root folder of Jupyter. This folder might clutter up quickly and it is wise to clean it up regularly or keep it clean by specifying a pathname to a specific folder.
+
+
+
+
 
 

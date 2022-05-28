@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>12. Practical session: Automatically extraxt information from a batch of files &#8212; Automatically extract XML content with Python</title>
+    <title>12. Practical session: Automatically extract information from a batch of files &#8212; Automatically extract XML content with Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -131,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Extract information from the Alto/Didle format with ElemenTree
+   7. Practical: Extract information from the Alto format with ElemenTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -156,7 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   12. Practical session: Automatically extraxt information from a batch of files
+   12. Practical session: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -296,7 +296,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>12. Practical session: Automatically extraxt information from a batch of files</h1>
+                <h1>12. Practical session: Automatically extract information from a batch of files</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -330,11 +330,10 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-automatically-extraxt-information-from-a-batch-of-files">
-<h1>12. Practical session: Automatically extraxt information from a batch of files<a class="headerlink" href="#practical-session-automatically-extraxt-information-from-a-batch-of-files" title="Permalink to this headline">¶</a></h1>
-<p>In the previous lessons, we have seen how we can extract information from the Alto, Didl, Tei and Page xml files.
-In this lesson, we will show you how you can use the codes from the previous lessons and, with a little bit of alteration,
-can use them to automatically extract content from batches of xml files and save them as either textfiles or csv files.</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-automatically-extract-information-from-a-batch-of-files">
+<h1>12. Practical session: Automatically extract information from a batch of files<a class="headerlink" href="#practical-session-automatically-extract-information-from-a-batch-of-files" title="Permalink to this headline">¶</a></h1>
+<p>In the previous lessons, we have seen how we can extract information from the Alto, Didl, Tei and Page XML files.
+In this lesson, we will show you how you can use the codes from the previous lessons and, with a little bit of alteration, use them to automatically extract content from batches of XML files and save them as either textfiles or csv files.</p>
 <p>We will provide the following examples:</p>
 <ul class="simple">
 <li><p>Extract complete page content with newspaper metadata from various Alto and corresponding Didle files <span style="color:#ef6079">(<em>basic</em>)</span>.</p></li>
@@ -343,7 +342,7 @@ can use them to automatically extract content from batches of xml files and save
 </ul>
 <div class="section" id="extract-complete-page-content-with-newspaper-metadata-from-various-alto-and-corresponding-didle-files">
 <h2>Extract complete page content with newspaper metadata from various Alto and corresponding Didle files.<a class="headerlink" href="#extract-complete-page-content-with-newspaper-metadata-from-various-alto-and-corresponding-didle-files" title="Permalink to this headline">¶</a></h2>
-<p>In lesson 7, we used the following code to extract the content and page number from a newspaper Alto xml and the title and publication year from the corresponding Didle file.</p>
+<p>In lesson 7, we used the following code to extract the content and page number from a newspaper Alto XML and the title and publication year from the corresponding Didle file.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
@@ -387,12 +386,12 @@ can use them to automatically extract content from batches of xml files and save
 </div>
 </div>
 </div>
-<p>With few little alterations, we can use this code to automatically work with a batch of file.</p>
+<p>With few little alterations, we can use this code to automatically work with a batch of files.</p>
 <ul class="simple">
 <li><p>We need a code that automatically search through folder in your computer;</p></li>
 <li><p>We need to add a piece of code that finds the corresponding Didle file for every alto file.</p></li>
 </ul>
-<p>For the following code, we assume you have a folder called ‘alto’, which contains the Alto xml files, and a folder
+<p>For the following code, we assume you have a folder called ‘alto’, which contains the Alto XML files, and a folder
 ‘didl’ that contains the Didl files (download here). Both alto and didle have a filename that starts with an identifier, followed by
 either _alto or _didl. Make sure that there are no other files in the folder.</p>
 <p>We start with a little loop that runs through your alto folder an returns all the file names</p>
@@ -431,8 +430,7 @@ This can be done with string alterations in Python, as we also did in lesson 7 a
 </div>
 </div>
 </div>
-<p>Now, we have a way to retreive all alto files and corresponding Didle files, so the only thing left is to put it in one
-big loop.</p>
+<p>Now, we have a way to retreive all alto files and corresponding Didl files, so the only thing left is to put it in one big loop.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
@@ -488,7 +486,7 @@ big loop.</p>
 </div>
 <div class="section" id="extract-the-poems-from-various-tei-files-and-store-them-in-seperate-csv-files-per-book">
 <h2>Extract the poems from various Tei files and store them in seperate csv files per book.<a class="headerlink" href="#extract-the-poems-from-various-tei-files-and-store-them-in-seperate-csv-files-per-book" title="Permalink to this headline">¶</a></h2>
-<p>In lesson ?, we extracted poems from a Tei file and stored them in a csv file. The code for this looked like this:</p>
+<p>In lesson 10, we extracted poems from a Tei file and stored them in a csv file. The code for this looked like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
@@ -595,8 +593,7 @@ with their identifier as name.</p>
 </div>
 <div class="section" id="extract-the-content-including-reading-order-from-various-page-files-and-store-the-content-in-csv-files">
 <h2>Extract the content, including reading order, from various Page files and store the content in csv files<a class="headerlink" href="#extract-the-content-including-reading-order-from-various-page-files-and-store-the-content-in-csv-files" title="Permalink to this headline">¶</a></h2>
-<p>And off course, we can do the same for the page xml. Lets start by repeating the code we made to extract the content,
-including the region information, into a csv file.</p>
+<p>And off course, we can do the same for the page XML. Lets start by repeating the code we made to extract the content, including the region information, and save it to a csv file.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
@@ -697,7 +694,8 @@ store them in a .csv file with as name the identifier of the page file.</p>
 </pre></div>
 </div>
 </div>
-<p>And that’s all!</p>
+<p>And that’s all!
+You have now seen multiple ways of automatically extracting content from batches of files which can save a lot of time and errors.</p>
 </div>
 </div>
 
