@@ -621,11 +621,11 @@ print(ET.tostring(root_article, encoding='utf8').decode('utf8'))
 #  
 # ```
 # 
-# ## Extract all seperate articles from a specific newspaper from the Didl file
+# ## Extract all seperate articles from a specific page of the newspaper from the Didl file
 # 
 # In the above we treated two options:
-# - Extracting the whole content of a page and saving into one file
-# - Extracting all the articles of a newspaper and saving this to file per article.
+# * Extracting the whole content of a page and saving into one file
+# * Extracting all the articles of a newspaper and saving this to file per article.
 # 
 # It is also possible to download the articles per page.
 # If you look into the XML file you will see the element 'Component' with attribute dc:identifier.
