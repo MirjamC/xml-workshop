@@ -16,7 +16,7 @@
 # 
 # Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.
 # 
-# ### Load the Page file and examine the structure
+# ## Load the Page file and examine the structure
 # 
 # We first need to prepare the Notebook  by importing the package we need and loading the XML file into the enviroment.
 # 
@@ -131,7 +131,7 @@ print(ET.tostring(root, encoding='utf8').decode('utf8'))
 # 
 # Now that we know how the file is structured, and where the content we need is stored, we can start extracting the output
 # 
-# ### Extract the complete content of a newspaper page from the Page file
+# ## Extract the complete content of a newspaper page from the Page file
 # 
 # Our first step is to just extract the complete content of the page, without worrying about the 
 # reading order. 
@@ -162,7 +162,7 @@ for newspaper in root.findall('.//ns0:Unicode', ns):
     print(newspaper.text)
 
 
-# ### Extract the text region with the corresponding content
+# ## Extract the text region with the corresponding content
 # 
 # Now we have all the text content, but it is not in the right order. We need some more
 # information for that. 
@@ -307,7 +307,7 @@ newspaper
 # ```
 # 
 # 
-# ### Extract the reading order and use this to automatically sort the page
+# ## Extract the reading order and use this to automatically sort the page
 # 
 # By using the XML file  and the information about the reading order in the csv file, it is possible to order the file in the correct reading order manually. 
 # However this is a lot of work and when there are multiple, or very large files, this is not the best use of our time. 

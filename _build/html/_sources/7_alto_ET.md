@@ -13,16 +13,16 @@ kernelspec:
   name: python3
 ---
 
-# 7. Practical: Extract information from the Alto/Didle format with ElemenTree
+# 7. Practical: Extract information from the Alto format with ElemenTree
 
 In this lesson ,we are going to work with the Alto and Didle format. As shown in lesson ***?***, the Alto and Didle are connected to each other. 
 The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4. 
 
 This lesson contains the following content
-- Load the Alto file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
+- Load the Alto file and examine the structure <span style="color:#ef6079">(*basic*)</span>
 - Extract the complete content of a newspaper page from the Alto file <span style="color:#ef6079">(*basic*)</span>
-- Load the Didl file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
-- Extraxt newspaper metadata from the Didl file. <span style="color:#ef6079">(*basic*)</span>
+- Load the Didl file and examine the structure <span style="color:#ef6079">(*basic*)</span>
+- Extract newspaper metadata from the Didl file. <span style="color:#ef6079">(*basic*)</span>
 - Extract all seperate articles from the total newspaper from the Didl file <span style="color:#ef6079">(*moderate*)</span>
 - Extract all seperate articles from a specific newspaper from the Didl file <span style="color:#ef6079">(*advanced*)</span>
 
@@ -37,20 +37,25 @@ Import the package and load the xml file.
 
 ````{admonition} Solution
 :class: tip, dropdown
-```{code-cell}
-    import xml.etree.ElementTree as ET
-
-	tree = ET.parse('data/alto_id1.xml')
-	root_alto = tree.getroot()
+```Python
+import xml.etree.ElementTree as ET
+tree = ET.parse('/data/alto_id1.xml')
+root_alto = tree.getroot()
 ```
 ````
 
-```{note}
-We work with two xml file in this lesson. Therefore, we name the root of the xml file accordingly to the type of the xml.
-Thus 'root_alto' for the alto xml and 'root_didl' for the Didl xml. 
+```{code-cell}
+:tags: [hide-output]
+import xml.etree.ElementTree as ET
+tree = ET.parse("data/alto_id1.xml")
+root_alto = tree.getroot()
 ```
 
-Before you can extract content from a XML file, you have to see what is inside and how it is structured. 
+```{note}
+We will work with two XML files in this lesson. Therefore, we will name the root of the XML files according to the type of the XML: 'root_alto' for the alto XML and 'root_didl' for the Didl XML. 
+```
+
+Before you can extract content from an XML file, you have to see what is inside and how it is structured. 
 
 ```{admonition} Exercise
 :class: attention
@@ -60,15 +65,19 @@ Show the XML file in your Notebook
 ````{admonition} Solution
 :class: tip, dropdown
 ```Python
-print(ET.tostring(root_alto, encoding='utf8').decode('utf8'))
+	print(ET.tostring(root_alto, encoding='utf8').decode('utf8'))
 ```
 ````
-
+```{code-cell}
+:tags: [remove-input, hide-output]
+print(ET.tostring(root_alto, encoding='utf8').decode('utf8'))
+```
 *** print hier de output 
 
-Our goals is to extract the text of the news paper content from the XML file, and store this in a document with the pagenumber. 
+As you can see, this XML file has a lot more elements and attributes than our example file. 
+Our goal is to extract the text from the news paper, to seperate the text into articles, and to store them on our computer with the page number. 
 
-So, let's start to see if we can find where the textual content of the news paper is stored. 
+So first, let's see if we can find where the textual content of the news paper is stored. 
 
 ```{admonition} Exercise
 :class: attention
@@ -161,8 +170,8 @@ Complete the code and run it. What happens?
 ````{admonition} Solution
 :class: tip, dropdown
 ```Python
-	for page in root_alto.findall('ns0:String'):
-		print(page.get('CONTENT'))
+for page in root_alto.findall('ns0:String'):
+	print(page.get('CONTENT'))
 ```
 The code doesn't produce any output. 		
 ````
@@ -184,7 +193,7 @@ The second line shows us that this XML make use of namespaces.
 We have now two options to handle the namespaces in ElemenTree:
 1. Type the namespace before the element name between curly brackets: {http://schema.ccs-gmbh.com/ALTO}
 
-```Python
+```
 for book in root.findall('.//{http://schema.ccs-gmbh.com/ALTO}String'):
     content = book.get('CONTENT')
     print(content)
@@ -197,7 +206,7 @@ ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
 ```
 
 Now you can use the abbreviation of the namespace in your code:
-``` Python
+``` 
 for page in root_alto.findall('.//ns0:String', ns):
     content = page.get('CONTENT')
     print(content)
@@ -218,7 +227,7 @@ Choose one of the namespace options and run the code to extract all the text fro
 
 ````{admonition} Solution
 :class: tip, dropdown
-```
+```Python
 for page in root_alto.findall('.//ns0:String', ns):
     content = page.get('CONTENT')
     print(content)	
@@ -241,8 +250,7 @@ for page in root_alto.findall('.//ns0:String', ns):
 
 ### Make the output more readable
 
-As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit unreadable. We can store the text in a *string* 
-variable in which we concatenate all words. 
+As you can see, the text is printed in seperate words, that all appear in one long list. So, this is quit unreadable. We can store the text in a *string* variable in which we concatenate all words. 
 
 ```{code-cell} ipython3
 :tags: [hide-output]
@@ -258,12 +266,11 @@ print(all_content)
 ```
 
 The content is now more readable, however, it is still one long blob of the complete text of the newspaper.
-As you can see in the xml file, the content is divide into sections. 
+As you can see in the XML file, the content is divided into sections. 
 
 ```{admonition} Exercise
 :class: attention
-Look at the xml file. There are different elements that divide the text. Which element would likely be used to seperate articles from 
-each other?
+Look at the XML file. There are different elements that divide the text. Which element would likely be used to seperate articles from each other?
 ```
 
 ```{admonition} Solution
@@ -271,14 +278,13 @@ each other?
 The element 'TextBlock'
 ```
 
-Now that we know how we can divide the various session, let's put this in the code.
-Instead storing all the output into one variabele, we create a variable, store it with the information of one session.
-Then we print the variabele and empty it, so it is clean for a new session.
+Now that we know how we can divide the various session, let's put this into code.
+Instead of storing all the output into one variabele, we create a variable, and store within it the information of one session. Then we print the variabele and empty it, so it can be re-used for a new session.
 
 In code, this looks like this: 
 
 
-```{code-cell} ipython3
+```{code-cell} 
 :tags: [hide-output]
 article_content = ""
 
@@ -292,12 +298,11 @@ for book in root_alto.findall('.//ns0:TextBlock', ns):
 ```
 
 Now we have a page of plain text that is better structured. 
-The only thing left is to retreive the page number, and then we'll have all the information to store this data
-intro a textfile or a csv. 
+The only thing left is to retreive the page number, and then we'll have all the information to save this data to a textfile or csv. 
 
 ```{admonition} Exercise
 :class: attention
-Look at the xml file. Where can we find the page number?
+Look at the XML file. Where can we find the page number?
 ```
 
 ```{admonition} Solution
@@ -307,7 +312,7 @@ The page number is stored in the 'Page' element.
 
 ```{admonition} Exercise
 :class: attention
-Write the code to extract the page number from the xml. 
+Write the code to extract the page number from the XML. 
 ```
 
 ````{admonition} Solution
@@ -330,11 +335,10 @@ for book in root_alto.findall('.//ns0:Page', ns):
 
 ## Load the Didl file and examine the structure ;
 
-We have now a more readable page and the corresponding page number. However, if we store this then later we will have
-no idea from which newspaper this page was. In lesson 3 we described that we can find metadata corresponding to an alto file in an Didle file. 
+We now have a more readable page with the corresponding page number. However, if we store this as is, we will have no idea from which newspaper this page was extracted. This makes it of limited reuseability. In lesson 3 we described that we can find metadata corresponding to an Alto file in a Didle file. 
 The alto and didle file have the same identifier, so you can match them.
 
-In this case, the both have the identifier 1. 
+In our case, they both have the identifier 1. 
 
 ```{admonition} Exercise
 :class: attention
@@ -344,9 +348,9 @@ Load the corresponding Didl file in your notebook. Name the root 'root_didl'. Lo
 ````{admonition} Solution
 :class: tip, dropdown
 ```Python
-	tree = ET.parse('data/didl_id1.xml')
-	root_didl = tree.getroot()
-	print(ET.tostring(root_didl, encoding='utf8').decode('utf8'))
+tree = ET.parse('data/didl_id1.xml')
+root_didl = tree.getroot()
+print(ET.tostring(root_didl, encoding='utf8').decode('utf8'))
 ```
 ````
 
@@ -357,16 +361,14 @@ What parent of this element contains all information we need to extract the titl
 ```
 
 ```{admonition} Solution
-The title is stored in the element 'title', and the publication date in the element 'date'. They can both be found in the element 
-'Resource'. 
+:class: tip, dropdown
+The title is stored in the element 'title', and the publication date in the element 'date'. They can both be found in the element 'Resource'. 
 ```
 
-## Extraxt newspaper metadata from the Didl file.
 
-We see that the block resource containts all the information we want. If we look closely at the file, we see that there are multiple
-element with the name 'resource', but the one we want is the first. If you want all the information from all resource blocks, we use
-the findall method as we did before. However, we now only want information from the first block. In that case, you can just simply use
-find(). This will returns the first element it occurs. The rest of the syntax stays the same. 
+## Extract newspaper metadata from the Didl file.
+
+We have seen that the block resource contains all the information we want. If we look closely at the file, we see that there are multiple elements with the name 'resource', but the one we want is the first. If you want all the information from all resource blocks, we can use the findall method as we did before. However, we now only want information from the first block. In that case, you can just simply use find(). This will return the first element is finds. The rest of the syntax stays the same. 
 
 
 ```{admonition} Exercise
@@ -376,37 +378,26 @@ Extract the title of the newspaper and the publication date. Store them in two s
 ```
 
 ````{admonition} Solution
+:class: tip, dropdown
 ```
 ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
           'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
           'ns4' : 'info:srw/schema/1/dc-v1.1' }
 
-for item in root_didl.find('.//ns2:Resource', ns_didl):
-    for info in item.findall('ns4:dcx', ns_didl):
-        title = info.find('.//dc:title', ns_didl).text
-        date = info.find('.//dc:date', ns_didl).text  
+item = root_didl.find('.//ns2:Resource', ns_didl)
+
+for article in item.findall('.//ns4:dcx', ns_didl):
+    title = article.find('.//dc:title', ns_didl)
+    date = article.find('.//dc:date', ns_didl)
+    print(title.text, date.text) 
 ```
-```
+````
 
--- toon hier de uitkomst zonder input
-```{code-cell}
-ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
-          'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
-          'ns4' : 'info:srw/schema/1/dc-v1.1' }
-
-for item in root_didl.find('.//ns2:Resource', ns_didl):
-    for info in item.findall('ns4:dcx', ns_didl):
-        title = info.find('.//dc:title', ns_didl).text
-        date = info.find('.//dc:date', ns_didl).text  
-```
-
-Now we can store the content of this newspaper page in a text file with as name the title of the newspaper, the publication date and the 
-page number. 
-
+Now we can store the content of this newspaper page in a text file with as name the a combination of the title of the newspaper, the publication date, and the page number. 
 We can create the filename like this:
 
 ```
-filename = f([titl
+filename = f'{title}_{date}_{pagenr}.txt'
 ```
 
 ```{admonition} Exercise
@@ -415,19 +406,18 @@ Save the content in a file.
 ```
 
 ```{admonition} Solution
-
-answer.  
-
+:class: tip, dropdown
+with open(filename, "w", encoding="utf-8") as f:
+    f.write(article_content)
 ```
 
-## Extract all seperate articles from the total newspaper from the Didl file
+## Extract all seperate articles from a specific newspaper from the Didl file
 
-As you saw in the above sections, the Alto format has no clear seperation between the articles and is therefore  especially suitable when you 
-are interested in the complete newspaper page.
+As you saw in the above sections, the Alto format has no clear seperation between the articles and is therefore especially suitable when you are interested in the complete newspaper page.
 
-However, there are a lot of cases in which you would be interested in the seperate articles en metadata about this articles (for example, the type of article) 
+However, there are a lot of cases in which you would be interested in the seperate articles en metadata about these articles (for example, the type of article).
 
-As for the collection of the national library, you can use the Didle xml to extract these types of information and to gather the articles. 
+The collection of the national library makes use of Didl XML files to store additional information. You can use the Didle XML to extract this information and to gather the articles. 
 
 ```{admonition} Exercise
 :class: attention
@@ -435,36 +425,282 @@ Look at the Didl file, do you see information about the articles?
 ```
 
 ```{admonition} Solution
-Yes, they are stored in the 'resource' elements.  
+:class: tip, dropdown
+Yes, they are stored in the 'Resource' elements.  
 ```
 
-As you can see, there are block with information about the articles. However, the articles self are not present in the Didl, but we can 
-retreive them through there identifier. We therefore are going to perform to steps:
+As you can see, there are blocks with information about the articles. The articles themself are not present in the Didl, but we can retreive them through their identifier. To do this we will perform the following two steps:
 
-- Extract article information and identifier from the didle
+- Extract article information and identifier from the Diddl
 - Download the articles and extract the plain text
 
 We start by extracting the subject, title and identifier from the resource element. However, there is also
 other information stored in the resource elements, such as the news paper title. 
 
-You can distinguish the articles by the newspaper metadata based on the element 'subject'.
-All articles have a subject ('artikel', 'familiebericht' etc) whilst the other metadata don't.
+You can distinguish the articles using the newspaper metadata based on the element 'subject'.
+All articles have a subject ('artikel', 'familiebericht' etc) whilst the other metadata does not.
 
-We can 
+This distintion can be done with an 'if' statement, in which we check if there is a element with the name 'subject' present in the element block. 
+
+We will start with extracting the type of article, title, and identifier from the Didl XML. The identifier will later be used to download the articles.
+
+```{code-cell}
+:tags: [hide-output]
+ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
+			'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
+			'ns4' : 'info:srw/schema/1/dc-v1.1', 
+			'ns7' : 'http://www.kb.nl/namespaces/ddd' }
+
+for item in root_didl.findall('.//ns2:Resource', ns_didl):
+	for article in item.findall('.//ns4:dcx', ns_didl):
+		a_type = article.find('.//dc:subject', ns_didl)
+		## The first block will not have a subject as it contains newspaper metadata instead of article metadata.
+		## This can be filtered out using an 'if [subject] is None' control structure.
+		if a_type is not None:
+			title = article.find('.//dc:title', ns_didl)
+			identifier = article.find('.//dc:identifier', ns_didl)
+			print(a_type.text, title.text, identifier.text)
+```
 
 ```{admonition} Exercise
 :class: attention
-Write a for loop that extract the subject, title and identifier of each article
-and print them. 
+Adapt the code above to store the variables into a list of articles.
 ```
 
-```{admonition} Solution
-Yes, they are stored in the 'resource' elements.  
+````{admonition} Solution
+:class: tip, dropdown
+Your code should look like the code below:
+```
+ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
+          'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
+          'ns4' : 'info:srw/schema/1/dc-v1.1', 
+          'ns7' : 'http://www.kb.nl/namespaces/ddd' }
+
+article_list = []
+
+for item in root_didl.findall('.//ns2:Resource', ns_didl):
+	for article in item.findall('.//ns4:dcx', ns_didl):
+		a_type = article.find('.//dc:subject', ns_didl)
+		if a_type is not None:
+			title = article.find('.//dc:title', ns_didl)
+			identifier = article.find('.//dc:identifier', ns_didl)
+			article_list.append([a_type.text, title.text, identifier.text])
+```
+````
+
+Now we have the identifier for every article in the dataset. This identifier can be used to download the XML of its article and extract the text from it. We will do this with one article.
+
+As an example, we will use the identifier 'http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0001'. If we  click on this, we will be led to the image of the newspaper page. However, if we were to add ':ocr' to the identifier, we will be led to the XML containing the OCR of that newspaper page.
+
+'http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0001:ocr'
+
+This OCR can be saved to file, either manually or by using Python.
+
+To save the OCR using Python we will need the *urllib* package.
+
+```{note}
+We recommend to always save the identifier in the name of the file, in this case the ***a0001*** indicates the article number, so we will save the whole identifier. Because Windows does not allow ***:*** in filenames we  will change this to an underscore. 
+Everything before ***urn**** will be removed from the identifier.
+```
+
+```{code-cell}
+## import urllib
+from urllib.request import urlopen
+
+filename = 'http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0001:ocr'
+## Remove the first part from the filename, so you keep only ddd:010097934:mpeg21:a0001:ocr'
+filename = filename.split('=')[1]
+## Replace the : with _
+filename = filename.replace(':', '_')
+
+url = 'http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0001:ocr'
+
+## write XML to file, downloading happens in this step too.
+with open(filename + ".xml", "w", encoding="utf-8") as f:
+    f.write(urlopen(url).read().decode('utf-8'))
+```
+Now, we can open this xml file and look at the structure. 	
+
+```{code-cell}
+:tags: [hide-output]
+tree = ET.parse('ddd_010097934_mpeg21_a0001_ocr.xml')
+root_article = tree.getroot()
+print(ET.tostring(root_article, encoding='utf8').decode('utf8'))
+```
+
+```{admonition} Exercise
+:class: attention
+Extract the title and content, and store these in seperate variables.
+```
+
+````{admonition} Solution
+:class: tip, dropdown
+Your code should look like the code below
+```Python
+for titles in root_article.findall('.//title'):
+    title = titles.text 
+
+for contents in root_article.findall('.//p'):
+    content = contents.text + "\n"
+```
+````
+
+This can than be saved to a textfile
+
+```Python
+with open(filename + ".txt", "w", encoding="utf-8") as f:
+    f.write(title + "\n" + content)
+```
+
+The above workflow now consists of the folowing steps:
+- Downloading the file
+- Opening the file
+- Extracting the contents
+- Saving the contents to file
+
+This can also be combined into one piece of code that handles all these steps.
+
+```Python
+from urllib.request import urlopen
+
+identifier = 'http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0001:ocr'
+filename = identifier.split('=')[1]
+filename = filename.replace(':', '_')
+
+tree = ET.ElementTree(file=urlopen(identifier))
+
+root = tree.getroot()
+
+for titles in root.findall('.//title'):
+    title = titles.text + "\n"
+
+for contents in root.findall('.//p'):
+    content = contents.text + "\n"
+
+with open(filename + ".txt", "w", encoding="utf-8") as f:
+    f.write(title + "\n" + content)
+```
+
+Until now we have manually selected a single article from a page and saved this. Of course one article is generally not enough and manually changing the identifier for every file is a lot of work.
+Luckily, just as we have used a for loop to iterate through an XML file, we can use a for loop to iterate through a list of identifiers.
+
+The folowing code does just that. It iterates through **article_list** and grabs the identifier of an article. Then it adds *:ocr* behind the identifier, downloads the file, and extracts the text. Finally, it saves the result as a textfile.
+
+```Python
+from urllib.request import urlopen
+
+for article in article_list:
+    # We want the third object of the list, but Python counts from 0.    
+    identifier = article[2] + ":ocr"
+    # Prepare the filename
+    filename = identifier.split('=')[1]
+    filename = filename.replace(':', '_')
+    
+    # Download the xml and load into Python
+    tree = ET.ElementTree(file=urlopen(identifier))
+    root = tree.getroot()
+    
+    #Extract the content
+    for titles in root.findall('.//title'):
+        title = titles.text 
+
+    for contents in root.findall('.//p'):
+        content = contents.text + "\n"
+        
+    # Some content, like advertisements, have no titles. 
+    if title is None:
+        article = content
+    else:        
+        article = title + "\n" + content
+        
+    #Save the content in a file 
+    with open(filename + ".txt", "w", encoding="utf-8") as f:
+        f.write(article)
+ 
 ```
 
 ## Extract all seperate articles from a specific newspaper from the Didl file
 
+In the above we treated two options:
+- Extracting the whole content of a page and saving into one file
+- Extracting all the articles of a newspaper and saving this to file per article.
 
+It is also possible to download the articles per page.
+If you look into the XML file you will see the element 'Component' with attribute dc:identifier.
+For example:
+```XML
+<didl:Component dc:identifier="ddd:010097934:mpeg21:p001:a0003:zoning">
+```
 
+In this case the ***p001*** indicates that this concerns the first page. If the code above is adapted to loop via the element 'Component', it becomes possible to filter out those elements whose attribute contains ***p001***. This can be done using: 
+
+```Python
+if 'p001' in [variable]
+```
+
+Then the rest of the code can be made similarly to the code we used to extract all identifiers of all articles of the whole newspaper. 
+
+```{admonition} Exercise
+:class: attention
+Write code to collect the identifiers from page 1 and store them row by row in a Dataframe together with the pagenumber, type of text, and title. Then print this Dataframe.
+
+**!Pro-tip: The namespace declaration does not work for attributes!**
+```
+
+````{admonition} Solution
+:class: tip, dropdown
+Your code should look like the code below:
+```Python
+ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
+          'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
+          'ns4' : 'info:srw/schema/1/dc-v1.1', 
+          'ns7' : 'http://www.kb.nl/namespaces/ddd' }
+
+article_list = []
+
+# Declare the page variable here so it can easily be changed
+page = 'p001'
+
+for item in root_didl.findall('.//ns2:Component', ns_didl):
+    identifier_page = item.get('{http://purl.org/dc/elements/1.1/}identifier')
+    if page in identifier_page:
+        for article in item.findall('.//ns4:dcx', ns_didl):
+                a_type = article.find('.//dc:subject', ns_didl)
+                if a_type is not None:
+                    title = article.find('.//dc:title', ns_didl)
+                    identifier = article.find('.//dc:identifier', ns_didl)
+                    article_list.append([page, a_type.text, title.text, identifier.text])
+ 
+import pandas as pd
+articles = pd.DataFrame(article_list, columns = ['Page', 'Type', 'Title', 'Identifier'])
+
+articles
+```
+````
+```{code-cell}
+:tags: [remove-input, hide-output]
+ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
+			'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
+			'ns4' : 'info:srw/schema/1/dc-v1.1', 
+			'ns7' : 'http://www.kb.nl/namespaces/ddd' }
+
+article_list = []
+
+page = 'p001'
+
+for item in root_didl.findall('.//ns2:Component', ns_didl):
+	identifier_page = item.get('{http://purl.org/dc/elements/1.1/}identifier')
+	if page in identifier_page:
+		for article in item.findall('.//ns4:dcx', ns_didl):
+			a_type = article.find('.//dc:subject', ns_didl)
+			if a_type is not None:
+				title = article.find('.//dc:title', ns_didl)
+				identifier = article.find('.//dc:identifier', ns_didl)
+				article_list.append([page, a_type.text, title.text, identifier.text])
+ 
+import pandas as pd
+articles = pd.DataFrame(article_list, columns = ['Page', 'Type', 'Title', 'Identifier'])
+articles
+```
 
 

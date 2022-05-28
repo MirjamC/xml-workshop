@@ -17,42 +17,33 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import xml.etree.ElementTree as ET
+ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
+			'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
+			'ns4' : 'info:srw/schema/1/dc-v1.1', 
+			'ns7' : 'http://www.kb.nl/namespaces/ddd' }
 
-tree = ET.parse('data/alto.xml')
-root_alto = tree.getroot()
-
-for page in root_alto.findall('.//ns0:String', ns):
-    content = page.get('CONTENT')
-    print(content)
+for item in root_didl.findall('.//ns2:Resource', ns_didl):
+	for article in item.findall('.//ns4:dcx', ns_didl):
+		a_type = article.find('.//dc:subject', ns_didl)
+		## The first block will not have a subject as it contains newspaper metadata instead of article metadata.
+		## This can be filtered out using an 'if [subject] is None' control structure.
+		if a_type is not None:
+			title = article.find('.//dc:title', ns_didl)
+			identifier = article.find('.//dc:identifier', ns_didl)
+			print(a_type.text, title.text, identifier.text)
 ------------------
 
 [1;31m---------------------------------------------------------------------------[0m
-[1;31mFileNotFoundError[0m                         Traceback (most recent call last)
-Input [1;32mIn [2][0m, in [0;36m<cell line: 3>[1;34m()[0m
-[0;32m      1[0m [38;5;28;01mimport[39;00m [38;5;21;01mxml[39;00m[38;5;21;01m.[39;00m[38;5;21;01metree[39;00m[38;5;21;01m.[39;00m[38;5;21;01mElementTree[39;00m [38;5;28;01mas[39;00m [38;5;21;01mET[39;00m
-[1;32m----> 3[0m tree [38;5;241m=[39m [43mET[49m[38;5;241;43m.[39;49m[43mparse[49m[43m([49m[38;5;124;43m'[39;49m[38;5;124;43mdata/alto.xml[39;49m[38;5;124;43m'[39;49m[43m)[49m
-[0;32m      4[0m root_alto [38;5;241m=[39m tree[38;5;241m.[39mgetroot()
-[0;32m      6[0m [38;5;28;01mfor[39;00m page [38;5;129;01min[39;00m root_alto[38;5;241m.[39mfindall([38;5;124m'[39m[38;5;124m.//ns0:String[39m[38;5;124m'[39m, ns):
+[1;31mNameError[0m                                 Traceback (most recent call last)
+Input [1;32mIn [8][0m, in [0;36m<cell line: 6>[1;34m()[0m
+[0;32m      1[0m ns_didl [38;5;241m=[39m {[38;5;124m'[39m[38;5;124mdc[39m[38;5;124m'[39m: [38;5;124m'[39m[38;5;124mhttp://purl.org/dc/elements/1.1/[39m[38;5;124m'[39m,
+[0;32m      2[0m 			[38;5;124m'[39m[38;5;124mns2[39m[38;5;124m'[39m: [38;5;124m'[39m[38;5;124murn:mpeg:mpeg21:2002:02-DIDL-NS[39m[38;5;124m'[39m, 
+[0;32m      3[0m 			[38;5;124m'[39m[38;5;124mns4[39m[38;5;124m'[39m : [38;5;124m'[39m[38;5;124minfo:srw/schema/1/dc-v1.1[39m[38;5;124m'[39m, 
+[0;32m      4[0m 			[38;5;124m'[39m[38;5;124mns7[39m[38;5;124m'[39m : [38;5;124m'[39m[38;5;124mhttp://www.kb.nl/namespaces/ddd[39m[38;5;124m'[39m }
+[1;32m----> 6[0m [38;5;28;01mfor[39;00m item [38;5;129;01min[39;00m [43mroot_didl[49m[38;5;241m.[39mfindall([38;5;124m'[39m[38;5;124m.//ns2:Resource[39m[38;5;124m'[39m, ns_didl):
+[0;32m      7[0m 	[38;5;28;01mfor[39;00m article [38;5;129;01min[39;00m item[38;5;241m.[39mfindall([38;5;124m'[39m[38;5;124m.//ns4:dcx[39m[38;5;124m'[39m, ns_didl):
+[0;32m      8[0m 		a_type [38;5;241m=[39m article[38;5;241m.[39mfind([38;5;124m'[39m[38;5;124m.//dc:subject[39m[38;5;124m'[39m, ns_didl)
 
-File [1;32m~\anaconda3\lib\xml\etree\ElementTree.py:1229[0m, in [0;36mparse[1;34m(source, parser)[0m
-[0;32m   1220[0m [38;5;124;03m"""Parse XML document into element tree.[39;00m
-[0;32m   1221[0m 
-[0;32m   1222[0m [38;5;124;03m*source* is a filename or file object containing XML data,[39;00m
-[1;32m   (...)[0m
-[0;32m   1226[0m 
-[0;32m   1227[0m [38;5;124;03m"""[39;00m
-[0;32m   1228[0m tree [38;5;241m=[39m ElementTree()
-[1;32m-> 1229[0m [43mtree[49m[38;5;241;43m.[39;49m[43mparse[49m[43m([49m[43msource[49m[43m,[49m[43m [49m[43mparser[49m[43m)[49m
-[0;32m   1230[0m [38;5;28;01mreturn[39;00m tree
-
-File [1;32m~\anaconda3\lib\xml\etree\ElementTree.py:569[0m, in [0;36mElementTree.parse[1;34m(self, source, parser)[0m
-[0;32m    567[0m close_source [38;5;241m=[39m [38;5;28;01mFalse[39;00m
-[0;32m    568[0m [38;5;28;01mif[39;00m [38;5;129;01mnot[39;00m [38;5;28mhasattr[39m(source, [38;5;124m"[39m[38;5;124mread[39m[38;5;124m"[39m):
-[1;32m--> 569[0m     source [38;5;241m=[39m [38;5;28;43mopen[39;49m[43m([49m[43msource[49m[43m,[49m[43m [49m[38;5;124;43m"[39;49m[38;5;124;43mrb[39;49m[38;5;124;43m"[39;49m[43m)[49m
-[0;32m    570[0m     close_source [38;5;241m=[39m [38;5;28;01mTrue[39;00m
-[0;32m    571[0m [38;5;28;01mtry[39;00m:
-
-[1;31mFileNotFoundError[0m: [Errno 2] No such file or directory: 'data/alto.xml'
-FileNotFoundError: [Errno 2] No such file or directory: 'data/alto.xml'
+[1;31mNameError[0m: name 'root_didl' is not defined
+NameError: name 'root_didl' is not defined
 
