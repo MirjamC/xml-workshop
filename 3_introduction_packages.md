@@ -9,7 +9,7 @@ In this section we will introduce two packages that are commonly used when deali
 
 *ElementTree* is a built-in package of Python. The benefit of this is that it is already present in the base Python installation and therefore no extra packages need to be installed. 
 This means less complexity and dependencies, which can make it more reproducable and easier to maintain.
-When working with ElementTree, it is important to specify the hierarchy precisely for subelements, or it does not find them. Also, namespaces need to be declared for ElementTree to recognize them. 
+When working with ElementTree, it is important to specify the hierarchy precisely of to specificly 'escape' the hierarchy for subelements, or it does not find them. Also, namespaces need to be declared for ElementTree to recognize them. 
 *ElementTree* has specifically been designed to work with XML files. It features tools to navigate and manipulate XML files in multiple ways and is generally held to be intuitive.
 
 ## Beautiful Soup
