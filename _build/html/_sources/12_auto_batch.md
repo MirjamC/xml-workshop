@@ -75,7 +75,7 @@ With few little alterations, we can use this code to automatically work with a b
 - We need to add a piece of code that finds the corresponding Didle file for every alto file. 
 
 For the following code, we assume you have a folder called 'alto', which contains the Alto XML files, and a folder
-'didl' that contains the Didl files (download here). Both alto and didle have a filename that starts with an identifier, followed by 
+'didl' that contains the Didl files ([downloaded here](https://github.com/MirjamC/xml-workshop/tree/master/data)). Both alto and didle have a filename that starts with an identifier, followed by 
 either _alto or _didl. Make sure that there are no other files in the folder.
 
 We start with a little loop that runs through your alto folder an returns all the file names
@@ -178,7 +178,7 @@ poems.to_csv('poems.csv')
 
 Just as we did with the alto files in the previous section, we can do the same for the TEI files. 
 
-For the following exercises, we assume you have a folder on your computer with the name 'tei', in which you stored the various tei files (download here). 
+For the following exercises, we assume you have a folder on your computer with the name 'tei', in which you stored the various tei files ([downloaded here](https://github.com/MirjamC/xml-workshop/tree/master/data)). 
 
 ```{admonition} Exercise
 :class: attention
@@ -239,7 +239,7 @@ import pandas as pd
 import os
 
 # assign directory
-directory = 'xml-workshop/data/tei/'
+directory = 'data/tei/'
  
 for filename in os.listdir(directory):
     with open(directory + filename, encoding='utf8') as f:
@@ -307,7 +307,7 @@ newspaper_with_order = newspaper_with_order.sort_values(['Group', 'Index'], asce
 newspaper_with_order.to_csv('newspaper_with_order.csv')
 ```
 
-For the following exercises, we assume you have a folder on your computer with the name 'page', in which you stored the various page files (download here).
+For the following exercises, we assume you have a folder on your computer with the name 'page', in which you stored the various page files ([downloaded here](https://github.com/MirjamC/xml-workshop/tree/master/data)).
 
 ```{admonition} Exercise
 :class: attention
@@ -322,7 +322,7 @@ import xml.etree.ElementTree as ET
 import pandas as pd
 import os
 
-directory = 'xml-workshop/data/page/'
+directory = 'data/page/'
  
 for filename in os.listdir(directory):
 

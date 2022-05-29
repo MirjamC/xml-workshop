@@ -392,7 +392,7 @@ In this lesson, we will show you how you can use the codes from the previous les
 <li><p>We need to add a piece of code that finds the corresponding Didle file for every alto file.</p></li>
 </ul>
 <p>For the following code, we assume you have a folder called ‘alto’, which contains the Alto XML files, and a folder
-‘didl’ that contains the Didl files (download here). Both alto and didle have a filename that starts with an identifier, followed by
+‘didl’ that contains the Didl files (<a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">downloaded here</a>). Both alto and didle have a filename that starts with an identifier, followed by
 either _alto or _didl. Make sure that there are no other files in the folder.</p>
 <p>We start with a little loop that runs through your alto folder an returns all the file names</p>
 <div class="cell docutils container">
@@ -513,7 +513,7 @@ This can be done with string alterations in Python, as we also did in lesson 7 a
 </div>
 </div>
 <p>Just as we did with the alto files in the previous section, we can do the same for the TEI files.</p>
-<p>For the following exercises, we assume you have a folder on your computer with the name ‘tei’, in which you stored the various tei files (download here).</p>
+<p>For the following exercises, we assume you have a folder on your computer with the name ‘tei’, in which you stored the various tei files (<a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">downloaded here</a>).</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>what steps do we need to take to be able to create a batch output?</p>
@@ -566,7 +566,7 @@ with their identifier as name.</p>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="c1"># assign directory</span>
-<span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;xml-workshop/data/tei/&#39;</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;data/tei/&#39;</span>
  
 <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">directory</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -637,7 +637,7 @@ with their identifier as name.</p>
 </div>
 </div>
 </div>
-<p>For the following exercises, we assume you have a folder on your computer with the name ‘page’, in which you stored the various page files (download here).</p>
+<p>For the following exercises, we assume you have a folder on your computer with the name ‘page’, in which you stored the various page files (<a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">downloaded here</a>).</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Write a code that loops through the page files in your ‘page’ folder, extracts the content with region information, and
@@ -649,7 +649,7 @@ store them in a .csv file with as name the identifier of the page file.</p>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;xml-workshop/data/page/&#39;</span>
+<span class="n">directory</span> <span class="o">=</span> <span class="s1">&#39;data/page/&#39;</span>
  
 <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
 

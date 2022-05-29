@@ -426,7 +426,7 @@ import pandas as pd
 
 Then we type:
 ``` 
-books = pd.DataFrame(booklist, columns=("identifier", "title", "description", "name")
+books = pd.DataFrame(booklist, columns=["identifier", "title", "description", "name"])
 ```
 
 This code works as follows. You declare the variable 'books', which will be used to store all the information. Then you let Python know that you want to create a Dataframe. The content of this Dataframe is the list 'booklist', which we just created. We then tell Python how we want to name the columns (this should be in the same order as the order of the variables in the list). 
@@ -442,7 +442,7 @@ This results in the following output:
 
 # This cell should have its input hidden!
 import pandas as pd
-books = pd.DataFrame(booklist, columns={"identifier","title", "description", "name"})
+books = pd.DataFrame(booklist, columns=["identifier","title", "description", "name"])
 books
 ```
 
