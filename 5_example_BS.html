@@ -94,7 +94,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Welcome to this XML course
+   Welcome to this XML with Python course
   </a>
  </li>
 </ul>
@@ -131,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Extract information from the Alto/Didle format with ElemenTree
+   7. Practical: Extract information from the Alto format with ElemenTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -156,7 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_auto_batch.html">
-   12. Practical session: Automatically extraxt information from a batch of files
+   12. Practical session: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -1261,7 +1261,7 @@ We can use the following code:</p>
 </pre></div>
 </div>
 <p>Then we type:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">books</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">booklist</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;identifier&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">books</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">booklist</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;identifier&quot;</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 <p>This code works as follows. You declare the variable ‘books’, which will be used to store all the information. Then you let Python know that you want to create a Dataframe. The content of this Dataframe is the list ‘booklist’, which we just created. We then tell Python how we want to name the columns (this should be in the same order as the order of the variables in the list).</p>
@@ -1290,10 +1290,10 @@ We can use the following code:</p>
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>identifier</th>
       <th>title</th>
       <th>description</th>
       <th>name</th>
-      <th>identifier</th>
     </tr>
   </thead>
   <tbody>
