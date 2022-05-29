@@ -659,4 +659,7 @@ after your element name in the *.findall* or other functions where you need a na
 Without this, Python does not recognize the namespace as such. 
 ```
 
+```{important}
+When there are *attributes* with a namespace, you can only use the first option as the namespace declaration does not work with attributes!
+```
 --- eind zinnetje --- 

@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="5. Practical session: Working with Beautiful Soup" href="5_example_BS.html" />
-    <link rel="prev" title="3. Introduction to the packages ElemenTree and Beautiful Soup" href="3_introduction_packages.html" />
+    <link rel="prev" title="3. Introduction to the packages ElementTree and Beautiful Soup" href="3_introduction_packages.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -111,7 +111,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="3_introduction_packages.html">
-   3. Introduction to the packages ElemenTree and Beautiful Soup
+   3. Introduction to the packages ElementTree and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1 current active">
@@ -146,7 +146,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="10_tei_BS.html">
-   10. Practical session: Tei and Beautiful Soup
+   10. Practical session: TEI and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
@@ -1664,6 +1664,10 @@ However, if we look in or Python file, we see that the prefix of the namespace i
 after your element name in the <em>.findall</em> or other functions where you need a namespace.
 Without this, Python does not recognize the namespace as such.</p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When there are <em>attributes</em> with a namespace, you can only use the first option as the namespace declaration does not work with attributes!</p>
+</div>
 <p>— eind zinnetje —</p>
 </div>
 </div>
@@ -1698,7 +1702,7 @@ Without this, Python does not recognize the namespace as such.</p>
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">3. Introduction to the packages ElemenTree and Beautiful Soup</p>
+            <p class="prev-next-title">3. Introduction to the packages ElementTree and Beautiful Soup</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="5_example_BS.html" title="next page">
