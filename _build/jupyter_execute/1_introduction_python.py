@@ -8,16 +8,50 @@
 # ## Notebooks
 # First, lets start up Jupyter and open a Notebook.
 # In the taskbar searchbox, type 'jupyter' and open *jupyter notebook*.
+# 
+# ```{figure} images/openJupyter.png
+# ---
+# height: 200px
+# name: openJupyter
+# ---
+# Open Jupyter Notebook.
+# ```
+# 
 # This should open a tab in your browser with the jupyter hub in the installation folder. 
 # This folder will act as your home folder for jupyter.
 # All Notebooks you make will be stored here unless explicitely saved elsewhere or moved.
 # 
+# ```{figure} /images/JupyterHub.png
+# ---
+# height: 200px
+# name: JupyterHub
+# ---
+# The Jupyter home or hub where all Notebooks reside.
+# ```
 # To open a new Python Jupyter Notebook click the **new** button in the topright corner and select **python3** from the dropdown list.
+# 
+# ```{figure} /images/OpenNotebookOptions.png
+# ---
+# height: 200px
+# name: OpenNotebookOptions
+# ---
+# Click new and python3 to open a new Notebook.
+# ```
+# 
 # A new tab should open dispaying your new Notebook, usually called *Untitled*
+# 
+# ```{figure} /images/Notebook.png
+# ---
+# height: 200px
+# name: Notebook
+# ---
+# Your freshly started Notebook with inspiring name.
+# ```
 # 
 # Notebooks can be renamed by clicking on the name and typing a different name. It is best to make these names descriptive so they are still recognizable after a while. 
 # 
-# **To add:** screenshots 
+# 
+# 
 # 
 # ## How does a Notebook work?
 # 
@@ -30,20 +64,38 @@
 # 
 # Text cells are generally used for descriptions and explanations. These cells are inactive and code written in these cells cannot be executed.
 # 
-# **To add:** screenshot text cell
+# ```{figure} /images/textcell.png
+# ---
+# height: 200px
+# name: textcell
+# ---
+# This is a text cell.
+# ```
 # 
 # The layout is managed through *markdown* (see [markdown syntax](https://www.markdownguide.org/basic-syntax/) for more information).
 # 
 # The second main type of cell is the code cell. 
 # Code cells are used to write and execute code. In our case Python. When a code cell is run, Python will execute the code in the cell. More information about Python will follow in the next section.
 # 
-# **To add:** screenshot code  cell
+# ```{figure} /images/codecell.png
+# ---
+# height: 200px
+# name: codecell
+# ---
+# This is a code cell.
+# ```
 # 
 # Code cells are easily recognized by the 'In [ ]:' to the left of the cell.
 # 
 # The type of a cell can be changed by selecting a cell and either going through the menu (Cell/Cell Type/<option>) or by selecting a cell and pressing either **Y** for a code cell or **M** for a text cell.
 # 
-# **To add:** printscreen menu celltype
+# ```{figure} /images/celltypeOptions.png
+# ---
+# height: 200px
+# name: celltypeOptions
+# ---
+# Via this menu you can select the cell tyope.
+# ```
 # 
 # ```{admonition} Exercise
 # :class: attention
@@ -73,13 +125,25 @@
 # 
 # One cell is rarely enough to make a clearly structured Notebook. Adding more cells can be done by pressing the '+' button in the taskbar. 
 # 
-# **To add** printsscreen +
+# ```{figure} /images/newcell.png
+# ---
+# height: 200px
+# name: newcell
+# ---
+# Click the + to add a new cell directly below the selected one
+# ```
 # 
 # This will add a new cell directly below the currently active cell.
 # 
 # Another way is to use the menu 'Insert', where the choice is given between adding a cell above or below the current active cell.
 # 
-# **To add** printscreen menu
+# ```{figure} /images/newcellmenu.png
+# ---
+# height: 200px
+# name: newcellmenu
+# ---
+# In this menu you can add a new cell above or below.
+# ```
 # 
 # ### Comments
 # 
@@ -568,9 +632,7 @@ round(36.53343, 2)
 # 
 # To demonstrate this we will install, import and use a package to display some information about the contents of DHBenelux 2022. 
 # 
-# First you will need to download the dataset.
-# 
-# **To Add** download link and dataset
+# First you will need to download the dataset. The dataset can be [downloaded here](https://github.com/MirjamC/xml-workshop/blob/master/data/wordcloud_dataset.csv).
 # 
 # Now lets install and import the packages we need.
 # We will need three packages:
@@ -589,6 +651,7 @@ round(36.53343, 2)
 # !pip install WordCloud
 # !pip install matplotlib
 # ```
+# 
 # ```{note}
 # The exclamation mark before *pip* is needed to activate *pip* within the Notebook enviroment. When installing from the command line this is not needed.
 # ```

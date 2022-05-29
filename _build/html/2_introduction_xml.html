@@ -94,7 +94,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Welcome to this XML course
+   Welcome to this XML with Python course
   </a>
  </li>
 </ul>
@@ -116,7 +116,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="4_example_ET.html">
-   4. Practical session: Working with ElemenTree
+   4. Practical session: Working with ElementTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -447,19 +447,19 @@ Like family trees, parents are on the top level, children below parents and sibl
 <li><p>What are the siblings of <em>author</em>?</p></li>
 </ol>
 <div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
-	<span class="nt">&lt;catalog&gt;</span>
-		<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
-			<span class="nt">&lt;author&gt;</span>
-				<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
-				<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
-			<span class="nt">&lt;/author&gt;</span>
-			<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
-			<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
-			<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
-			<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
-			<span class="nt">&lt;description&gt;</span>An in-depth look at creating applicationswith XML.<span class="nt">&lt;/description&gt;</span>
-		<span class="nt">&lt;/book&gt;</span>
-	<span class="nt">&lt;/catalog&gt;</span>
+<span class="nt">&lt;catalog&gt;</span>
+	<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;author&gt;</span>
+			<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
+			<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+		<span class="nt">&lt;/author&gt;</span>
+		<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
+		<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
+		<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
+		<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
+		<span class="nt">&lt;description&gt;</span>An in-depth look at creating applicationswith XML.<span class="nt">&lt;/description&gt;</span>
+	<span class="nt">&lt;/book&gt;</span>
+<span class="nt">&lt;/catalog&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -483,47 +483,60 @@ Like family trees, parents are on the top level, children below parents and sibl
 <div class="section" id="elements">
 <h2>Elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h2>
 <p>All elements follow the same basic structure:</p>
-<p><Opening tag> + content + &lt;/closing tag&gt; = element</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Opening</span> <span class="n">tag</span><span class="o">&gt;</span> <span class="o">+</span> <span class="n">content</span> <span class="o">+</span> <span class="o">&lt;/</span><span class="n">closing</span> <span class="n">tag</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">element</span>
+</pre></div>
+</div>
 <p>Elements consist of tags that describe the element, and content.
 Most of the time, tags come in pairs: an opening tag and a closing tag. These are enclosed in <strong>&lt;&gt;</strong>.
 Tags of an element must always be identical to each other, except that the closing tag includes a <strong>/</strong> before the tagname.
-When an element is empty, a selfclosing tag can be used, which is an opening and closing tag in one. This looks like <tagname /></p>
+When an element is empty, a selfclosing tag can be used, which is an opening and closing tag in one. This looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">tagname</span> <span class="o">/&gt;</span> 
+</pre></div>
+</div>
 <p>Because of this structured build elements are self-describing.
 One element in the example XML above is the title:</p>
 <div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
 </pre></div>
 </div>
-<p>In the above example, <title> is the opening tag, ‘XML Developer’s Guide’ is the content and </title> is the closing tag.</p>
+<p>In the above example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>is the opening tag, ‘XML Developer’s Guide’ is the content and</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>is the closing tag.</p>
 <p>An element can contain other elements, such as in our first example.
 The element <em>book</em> contains the elements <em>author</em>, <em>title</em>, <em>genre</em>, <em>price</em>, <em>publish_date</em>, and <em>description</em></p>
 <p>As mentioned before, elements can also be empty, having tags but no content.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Looking at the example XML, what elements does the element <em>author</em> contain?</p>
-<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>	<span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
-	<span class="nt">&lt;catalog&gt;</span>
-		<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
-			<span class="nt">&lt;author&gt;</span>
-				<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
-				<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
-			<span class="nt">&lt;/author&gt;</span>
-			<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
-			<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
-			<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
-			<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
-			<span class="nt">&lt;description&gt;</span>An in-depth look at creating applicationswith XML.<span class="nt">&lt;/description&gt;</span>
-		<span class="nt">&lt;/book&gt;</span>
-	<span class="nt">&lt;/catalog&gt;</span>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;catalog&gt;</span>
+	<span class="nt">&lt;book</span> <span class="na">id=</span><span class="s">&quot;bk101&quot;</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;author&gt;</span>
+			<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span>
+			<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+		<span class="nt">&lt;/author&gt;</span>
+		<span class="nt">&lt;title&gt;</span>XML Developer&#39;s Guide<span class="nt">&lt;/title&gt;</span>
+		<span class="nt">&lt;genre&gt;</span>Computer<span class="nt">&lt;/genre&gt;</span>
+		<span class="nt">&lt;price&gt;</span>44.95<span class="nt">&lt;/price&gt;</span>
+		<span class="nt">&lt;publish_date&gt;</span>2000-10-01<span class="nt">&lt;/publish_date&gt;</span>
+		<span class="nt">&lt;description&gt;</span>An in-depth look at creating applicationswith XML.<span class="nt">&lt;/description&gt;</span>
+	<span class="nt">&lt;/book&gt;</span>
+<span class="nt">&lt;/catalog&gt;</span>
 </pre></div>
 </div>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <p>The element <em>author</em> contains the elements <em>name</em> and <em>surname</em>.</p>
-<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>	<span class="nt">&lt;author&gt;</span>
-		<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span> 
-		<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
-	<span class="nt">&lt;/author&gt;</span>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;author&gt;</span>
+	<span class="nt">&lt;name&gt;</span>Matthew<span class="nt">&lt;/name&gt;</span> 
+	<span class="nt">&lt;surname&gt;</span>Gambardella<span class="nt">&lt;/surname&gt;</span>
+<span class="nt">&lt;/author&gt;</span>
 </pre></div>
 </div>
 </div>
@@ -540,7 +553,8 @@ The element <em>book</em> contains the elements <em>author</em>, <em>title</em>,
 <div class="section" id="namespaces">
 <h2>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline">¶</a></h2>
 <p>Tag names are defined by the person or application building the XML. Therefore, it is possible that different software use the same tag names for some or even all their elements. This can lead to problems when mixing XML from different applications.</p>
-<p>For example, below are two pieces of XML. Both contain elements provide information about a student.</p>
+<p>For example, below are two pieces of XML (Example XML re-used from <a class="reference external" href="https://docs.microsoft.com/en-us/archive/msdn-magazine/2001/july/the-xml-files-understanding-xml-namespaces">msdn-magazine</a>).
+Both contain elements provide information about a student.</p>
 <div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;student&gt;</span>
   <span class="nt">&lt;id&gt;</span>3235329<span class="nt">&lt;/id&gt;</span>
   <span class="nt">&lt;name&gt;</span>Jeff Smith<span class="nt">&lt;/name&gt;</span>
@@ -558,7 +572,7 @@ The element <em>book</em> contains the elements <em>author</em>, <em>title</em>,
 </div>
 <p>The first contains information about a student following a Python course: their student number, name, the language studied in the course, and how they rated the course on a ten-point scale.</p>
 <p>The second contains information about an elementary school student: their social security number, name, native language and average rating on a five-point scale.</p>
-<p>Although the tage names are identical in both versions, they have very different meanings and are quite unmixable.
+<p>Although the tag names are identical in both versions, they have very different meanings and are quite unmixable.
 But when querying the XML a machine will not know that difference and simply lump them together.</p>
 <p>These naming conflicts can be resolved by using prefixes. This prefixes essentially work as an identifier for a specific XML structure.</p>
 <p>The following example shows the XML with prefixes.</p>
@@ -583,12 +597,12 @@ tag names.</p>
 <p>The prefix is not the only addition to the code. This is because when using prefixes, they must be assigned to a <em><strong>namespace</strong></em>.
 A namespace must be declared within the XML structure, be it the root or the element it applies to.
 A namespace helps the machine to interpret the prefixes. Multiple namespaces can be used in an XML file.</p>
-<p>In the example of the Pyton student, the namespace is:</p>
+<p>In the example of the Python student, the namespace is:</p>
 <div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>xmlns:p=&quot;http//www.imaginarypythoncourses.com/student&quot;&#39;
 </pre></div>
 </div>
-<p>The gerenal namespace syntax is:</p>
-<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>xmlns:&lt;prefix&gt;=&#39;&lt;namespace identifier&gt;&#39;
+<p>The general namespace syntax is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xmlns</span><span class="p">:</span><span class="o">&lt;</span><span class="n">prefix</span><span class="o">&gt;=</span><span class="s1">&#39;&lt;namespace identifier&gt;&#39;</span>
 </pre></div>
 </div>
 <p>Most OCR software use namespaces. If you are not familiar whith them, they can cause some unexpected behavior while parsing XML files with Python.
@@ -646,8 +660,8 @@ Comments are written as:</p>
 <li><p>There is no root present;</p></li>
 <li><p>The first author tags are not the same, as the second one has a capital ‘A’. Therefore, XML sees them as two different tags.</p></li>
 <li><p>The first title missed an closing tag;</p></li>
-<li><p>The first description closing tags misses and ‘&lt;’;</p></li>
-<li><p>The second surname misses and ‘/’ in the closing tag;</p></li>
+<li><p>The first description closing tags misses an ‘&lt;’;</p></li>
+<li><p>The second surname misses an ‘/’ in the closing tag;</p></li>
 <li><p>The second title is missing the tagname ‘title’ in the closing tag;</p></li>
 <li><p>The second price opening tag is a selfclosing tag, the ‘/’ needs to be removed;</p></li>
 <li><p>The second publishing date tags are not the same, as one has an underscore.</p></li>
@@ -677,12 +691,12 @@ As a final excercise you will construct your own piece of XML using the data bel
 <div class="highlight-XML notranslate"><div class="highlight"><pre><span></span>&lt;catalog&gt;
 	&lt;newspaper&gt;
 		&lt;title&gt;Algemeen handelsblad&lt;?/title&gt;
-		&lt;publication_date&gt;01-01-1870&lt;/publicatin_date&gt;
+		&lt;publication_date&gt;01-01-1870&lt;/publication_date&gt;
 		&lt;pages&gt;4&lt;/pages&gt;
 	&lt;/newspaper&gt;
 	&lt;newspaper&gt;
 		&lt;title&gt;Trouw&lt;/title&gt;
-		&lt;publication_date&gt;04-07-1970&lt;/publicatin_date&gt;
+		&lt;publication_date&gt;04-07-1970&lt;/publication_date&gt;
 		&lt;pages&gt;24&lt;/pages&gt;
 	&lt;/newspaper&gt;
 &lt;/catalog&gt;
