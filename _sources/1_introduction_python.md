@@ -106,7 +106,7 @@ The type of a cell can be changed by selecting a cell and either going through t
 height: 200px
 name: celltypeOptions
 ---
-Via this menu you can select the cell tyope.
+Via this menu you can select the cell type.
 ```
 
 ```{admonition} Exercise
@@ -117,14 +117,14 @@ Select a cell in the Notebook and change the type by using the hotkeys or the me
 ### Running cells
 There are multiple ways to run a cell:
 * By clicking the 'Run' button in the taskbar;
-* By pressing 'shift + enter when the cell is selected (green frame)'
-	*Note that this will add move the selection box down one cell. When the end of the cells is reached this will add new empty cells to the Notebook.*
+* By pressing 'shift + enter' when the cell is selected (green frame)
+	*Note that this will move the selection box down one cell. When the end of the cells is reached this will add new empty cells to the Notebook.*
 
 The moment a cell generates *output* the output is displayed beneath the cell, keeping code and output together.
 
 ```{admonition} Exercise 
 :class: attention
-Type the code below in a cell in your Notebook and run the cell.
+Type the code below in a code cell in your Notebook and run the cell.
 ```
 
 ```{code-cell} 
@@ -201,20 +201,19 @@ print(35+12)
 
 ## Python
 
-Python was developed in 1991 by Guido van Rossum. The purpose of Python was to create a programming language that is both simple to understand and readable. Python works on different platforms such as Windowns, Mac, Linux, etc. It is a very popular programming language in data analysis and data science because of its versatality.
-Python is open source, and can be used for free.
+Python was developed in 1991 by Guido van Rossum. The purpose of Python was to create a programming language that is both simple to understand and readable. 
+Python works on different platforms such as Windows, Mac, Linux, etc. It is a very popular programming language in data analysis and data science because of its versatality.
+Python is open source, and can therefore be used for free.
 
 ### Input and variables
 
 When using Python there are multiple types of input data, such as lists, numbers, text, and even whole tables.
-We put this input into *variables*. Essentially a container for the data. The name of a variable is up to your own discretion, although there are some [rules and guidlines](https://www.w3schools.com/python/gloss_python_variable_names.asp). 
-
+We put these input into *variables*. A variable is essentially a container for the data. The name of a variable is up to your own discretion, although there are some [rules and guidlines](https://www.w3schools.com/python/gloss_python_variable_names.asp). 
 Python remembers which input was loaded into which variable. This means that the variables can be used in the code instead of the data itself.
 
-It is important to input data correctly, for numbers *no* quotation marks are used, for text quotation marks *must be* used!
+When creating a variable, it is important to input data correctly: for numbers *no* quotation marks are used, for text quotation marks *must be* used!
 
-The command *type()* can be used to determine what type of input a variable contains. 
-
+The command *type()* can be used to determine what type of input a variable contains. For example:
 *int* indicates a variable contains an integer, or whole number.
 *str* indicates a variable contains a string, a piece of text. 
 
@@ -246,20 +245,22 @@ type(text)
 **Important!** If you input a number *with* quotation marks Python will see it as text!
 ```
 
-```{admonition} Exercise 
+````{admonition} Exercise 
 :class: attention
-Type the code below in a cell in your Notebook and run the cell. What data type is the number?
+Type the following code in a cell in your Notebook and run the cell. What data type is the number?
 ```
-
-```{code-cell}
-:tags: [hide-output]
 number_but_wrong = "9"
 type(number_but_wrong)
 ```
+````
 
 ```{admonition} Solution
 :class: tip, dropdown
-The cell should return 'str'. The number is seen as a string because of the quotation marks. Sometimes an error in the code is due to the wrong data type, checking data type is always a good start when error checking.
+The cell should return 'str'. The number is seen as a string because of the quotation marks. 
+```
+
+```{note}
+Sometimes an error in the code is due to the wrong data type. Checking data type is always a good start when error checking.
 ```
 
 As mentioned above it is possible to use previously assigned variables in your code. 
@@ -347,7 +348,7 @@ line_4 = "is very fun!"
 
 ```{admonition} Solution
 :class: tip, dropdown
-Your code should look a bit like this:
+Your code should look like this:
 
 	line_1 + line_2 + line_3 + line_4
 ```
@@ -458,7 +459,7 @@ Variables can be printed the same way as text, but must **not** have quotation m
 
 ```{admonition} Exercise
 :class: attention
-In a new code cell, create the variable **print_me* and assign to it "I was printed with the print function"
+In a new code cell, create the variable 'print_me' and assign to it "I was printed with the print function"
 Using the print function, print out the variable.
 ```
 
@@ -472,7 +473,7 @@ Using the print function, print out the variable.
 print_me = "I was printed with the print function"
 print(print_me)
 ```
-As you can see prints the contents of the variable to the output cell.
+As you can see, this prints the contents of the variable to the output cell.
 
 However, using Jupyter Notebooks there is also another way to create output. You have seen, and used, this before. The last line of a cell will always create output, if there is any output to create. 
 
@@ -496,7 +497,8 @@ amount_1
 print_me
 ```
 
-These two ways of printing output are not completely the same. Printing using the print() function removes some of the layout that Jupyter creates for you. This is very noticible when printing tables.
+These two ways of printing output are not completely the same. Printing using the print() function removes some of the layout that Jupyter creates for you. 
+This is very noticible when printing tables (which we call 'dataframes').
 
 We have created a variable table for you that contains a table of numbers. Which we will use to demonstrate the difference in printing.
 
@@ -515,6 +517,7 @@ or
 to print out the table. You can check below of the output matches yours.
 ````
 
+The output of ```print(table)```
 ```{code-cell}
 :tags: [remove-input, hide-output]
 import pandas as pd
@@ -523,6 +526,8 @@ table = pd.DataFrame(data, columns = ["I","am","a","table","of","numbers"])
 print("This was printed with the print() function.")
 print(table)
 ```
+
+The output of ```table```
 ```{code-cell}
 :tags: [remove-input, hide-output]
 print("This was printed by executing table")
@@ -581,66 +586,71 @@ Python is able to use conditional statements. These are control structures that 
 
 For example:
 ```
-	if "hungry":
-		to_do = "Lunch!"
-	else:
-		to_do = "Work!"
+if "hungry":
+	to_do = "Lunch!"
+else:
+	to_do = "Work!"
 ```
 These can also be extended using multiple choices:
 ```
-	if "hungry":
-		to_do = "Lunch!"
-	elif "tired": 
-		to_do = "Coffee!" 
-	else:
-		to_do = "Work!"
+if "hungry":
+	to_do = "Lunch!"
+elif "tired": 
+	to_do = "Coffee!" 
+else:
+	to_do = "Work!"
 ```
 Instead of coding out conditions directly into the *if else*, it is also possible to evaluate the contents of a variable. This enables us to reuse an *if else* block multiple times. 
-```
+```{code-cell} Python
 ## First we put the condition into a variable 
-	current_state == "hungry"
+current_state = "hungry"
 ## then we evaluate the variable
-	IF current_state == "hungry":
-		to_do = "Lunch!"
-	ELIF current_state == "tired": 
-		to_do = "Coffee!" 
-	ELSE:
-		to_do = "Work!"
+if current_state == "hungry":
+	to_do = "Lunch!"
+elif current_state == "tired": 
+	to_do = "Coffee!" 
+else:
+	to_do = "Work!"
+	
 ```
 It we would now print the contents of the variable *to_do* we would get:
+```{code-cell} Python
+print(to_do)
 ```
-Output:
-"Lunch!"
-```
+
+
+
 
 ### Packages
 
 The last important thing to know is that Python works with packages. A package is a collection of modules with predefined functions. These functions can than be used in your own code. Using packages can save a lot of programming work and enhances the functionality of base Python. Most Python programmers regularly use packages.
 
-Before using a Python package it needs to be *installed*. This preferably done using the command line but can also be done within your Jupyter Notebook.
+Before using a Python package it needs to be *installed*. This is preferably done using the command line but can also be done within your Jupyter Notebook.
 Afterwards the package needs to be *imported* into the Notebook. After importing the package is ready for use.
 
-To demonstrate this we will install, import and use a package to display some information about the contents of DHBenelux 2022. 
+To demonstrate this we will install, import and use a package to display some information about the contents of the presentations during DHBenelux 2022. 
 
 First you will need to download the dataset. The dataset can be [downloaded here](https://github.com/MirjamC/xml-workshop/blob/master/data/wordcloud_dataset.csv).
+To be able to install wordcloud correctly, you preferably have Anaconda installed, as installing can be difficult otherwise. 
 
 Now lets install and import the packages we need.
 We will need three packages:
-- Pandas, for easy data manipulation 
-- matplotlib, for plotting in Python
-- WordCloud, for generating a wordcloud 
+- Pandas, for easy data manipulation; 
+- matplotlib, for plotting in Python;
+- WordCloud, for generating a wordcloud. 
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-Type the code below in a cell in your Notebook and run the cell
+Open "Anaconda promp" through the start menu and install the packages with the following code. Install them sequently and wait untill a pacakge is installed
+before installing the next one. 
 ```
+pip install pandas as pd
+conda install -c conda-forge wordcloud 
+pip install matplotlib
+````
 
-```
-# Install the package
-!pip install pandas
-!pip install WordCloud
-!pip install matplotlib
-```
+---- voorbeeld plaatje toevoegen. 
+
 
 ```{note}
 The exclamation mark before *pip* is needed to activate *pip* within the Notebook enviroment. When installing from the command line this is not needed.
@@ -676,12 +686,12 @@ Type the code below in a cell in your Notebook and run the cell
 ```{code-cell} 
 :tags: ["hide-output"]
 # Read the dataset into Python using pandas
-wordcloud = pandas.read_csv("data/wordcloud_dataset.csv", header=None, index_col=0, squeeze=True)
+wordcloud = pd.read_csv("data/wordcloud_dataset.csv", header=None, index_col=0, squeeze=True)
 # Transform into dictionary for use in the WordCloud
 wordcloud_dict = wordcloud.to_dict()
 ```
 ```{note}
-As you can see, the *pandas* name precedes the option *read_csv*. 
+As you can see, the *pandas* name 'pd' precedes the option *read_csv*. 
 ```
 
 Now we have data it is good practice to have a quick look at it to ensure the data is loaded correctly.
@@ -702,7 +712,7 @@ When the data is correctly loaded we can use the *WordCloud* and *matplotlib* pa
 
 ```{admonition} Exercise
 :class: attention
-Type the code below in a cell in your Notebook and run the cell
+Copy the code below in a cell in your Notebook and run the cell
 ```
 
 ```{code-cell} 
