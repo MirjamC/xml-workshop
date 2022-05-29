@@ -394,7 +394,7 @@ import pandas as pd
 
 Then we type:
 ``` 
-books = pd.DataFrame(booklist, columns=("identifier", "title", "description", "name")
+books = pd.DataFrame(booklist, columns=["identifier", "title", "description", "name"])
 ```
 
 This code works as follows. You declare the variable 'books', which will be used to store all the information. 
@@ -411,7 +411,7 @@ This results in the following output:
 :tags: [remove-input]
 
 import pandas as pd
-books = pd.DataFrame(booklist, columns={"identifier","title", "description", "name"})
+books = pd.DataFrame(booklist, columns=["identifier","title", "description", "name"])
 books
 ```
 

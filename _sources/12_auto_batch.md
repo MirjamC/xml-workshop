@@ -257,7 +257,7 @@ for filename in os.listdir(directory):
             poem_list.append([poem, content])
             counter += 1
 
-    poems = pd.DataFrame(poem_list , columns = (['poem', 'content']))
+    poems = pd.DataFrame(poem_list , columns = ['poem', 'content'])
 
     poems.to_csv(identifier + '.csv')
 ```

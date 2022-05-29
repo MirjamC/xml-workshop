@@ -244,7 +244,7 @@ Transform the list into a Dataframe.
 :class: tip, dropdown
 ```Python
 import pandas as pd
-book = pd.DataFrame(chapter_list , columns = (['chapter', 'content']))
+book = pd.DataFrame(chapter_list , columns = ['chapter', 'content'])
 ```
 ````
 
@@ -349,7 +349,7 @@ for div in root.find_all('lg'):
         counter += 1
 
 import pandas as pd
-poems = pd.DataFrame(poem_list , columns = (['poem', 'content']))
+poems = pd.DataFrame(poem_list , columns = ['poem', 'content'])
 
 poems.to_csv('poems.csv')
 ```
@@ -389,7 +389,7 @@ p_counter = 1
 		c_counter += 1
 		p_counter = 1
 
-poems  = pd.DataFrame(chapter_list, columns = {['chapter', 'poem', 'content'])
+poems  = pd.DataFrame(chapter_list, columns = ['chapter', 'poem', 'content'])
 ```
 ````
 ```{code-cell}
@@ -411,7 +411,7 @@ p_counter = 1
 		c_counter += 1
 		p_counter = 1
 
-poems  = pd.DataFrame(chapter_list, columns = {['chapter', 'poem', 'content'])
+poems  = pd.DataFrame(chapter_list, columns = ['chapter', 'poem', 'content'])
 poems
 ```
 
