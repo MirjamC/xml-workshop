@@ -4,7 +4,7 @@
 # # 4. Practical session: Working with ElementTree
 # 
 # In this lesson, we are going to explore how we can use the package ElementTree to extract content from XML files. 
-# We use the same example file that was used in lesson **2** ([downloaded here](https://github.com/MirjamC/xml-workshop/tree/master/data).
+# We use the same example file that was used in lesson **2** ([download here](https://github.com/MirjamC/xml-workshop/tree/master/data).
 # 
 # This lesson is divided into the following steps:
 # - Load the XML file;
@@ -47,7 +47,7 @@ root = tree.getroot()
 # In the code above, alter the 'data/example' with the path to the folder and the filename of where you stored the file. 
 # ```
 # 
-# When you want to extract information from an XML file, it is important that you are familair with the structure of the file. 
+# When you want to extract information from an XML file, it is important that you are familiar with the structure of the file. 
 # There are two ways to do this. 
 # 
 # 1. You can open the file in a program like Notepad++ or open it in your browser
@@ -90,7 +90,7 @@ for book in root.findall('book'):
 # for book in root.findall('book'):
 # ```
 # 
-# Then, for every book element that exsist, we create a temporarly new variable with the name 'title'. 
+# Then, for every book element that exist, we create a temporarly new variable with the name 'title'. 
 # As value for this variable, we use the content of the tag 'title' (which is a direct child of the element 'book'). 
 # we add '.text'. to let Python know that we are interested in the value between the tags. 
 # Without the '.text' addition, Python would simply present us the tag in its location, like '<Element 'title' at 0x000001995B4718B0>'
@@ -183,7 +183,7 @@ for book in root.findall('book'):
 # Because of the difference in the place between elements, we need to alter our code a bit. 
 # We can use two approaches:
 # * Add another *for loop* inside or first loop;
-# * 'escapte' the element hierarchie. 
+# * 'escape' the element hierarchie. 
 # 
 # For the first approach, instead of a single *for loop* that iterates through all the 'book' elements, 
 # we also need a second *for loop* that runs through the 'author' element of 'book'. We can do this with the following code:
@@ -225,7 +225,7 @@ for book in root.findall('book'):
 
 # The second approach is to 'escape' the element hiearchy and directly select all subelements, on all levels beneath the current element.
 # This is usefull if you have an XML with a lot of children, and you want only specific content which you want to extract apart from their parents. 
-# To escape  the hierarchy, you typ './/' before the name of the element you want to extract, as shown in the following code:
+# To escape  the hierarchy, you type './/' before the name of the element you want to extract, as shown in the following code:
 
 # In[9]:
 
@@ -599,8 +599,8 @@ for student in root_ns.findall('name'):
 
 # Although we know there is a student with the name 'Jeff Smith', Python returns nothing. 
 # 
-# So, what is going on? Why is not there any output? 
-# This is, because there are namespaces defined in the XML file. 
+# So, what is going on? Why is there not any output? 
+# This is because there are namespaces defined in the XML file. 
 # 
 # ```{admonition} Exercise
 # :class: attention
@@ -636,7 +636,7 @@ for student in root_ns.findall('{http//www.imaginarypythoncourses.com/student}na
     print(student.text)
 
 
-# 2. Declare the namespace in elemenTree. You therefore create a Python dictionary with the namespace abbreviation and the uri *without* the curly brackets. 
+# 2. Declare the namespace in elementTree. You therefore create a Python dictionary with the namespace abbreviation and the uri *without* the curly brackets. 
 # 
 # ```{important}
 # When you want to declare namespaces in Python, you can not blindly use the namespaces as you see them in your XML file when
@@ -673,4 +673,7 @@ for student in root_ns.findall('ns0:name', ns):
 # ```{important}
 # When there are *attributes* with a namespace, you can only use the first option as the namespace declaration does not work with attributes!
 # ```
-# --- eind zinnetje ---
+# 
+# We now have a good basis of ElementTree, but we wish to show you another package, Beautiful Soup,
+# before moving on to introducing real-life examples of XML files used in Digital Humanities research.
+# The introduction to working with Beautiful Soup can be found in the following lesson.

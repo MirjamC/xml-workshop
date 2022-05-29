@@ -421,7 +421,7 @@ const thebe_selector_output = ".output, .cell_output"
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-working-with-elementtree">
 <h1>4. Practical session: Working with ElementTree<a class="headerlink" href="#practical-session-working-with-elementtree" title="Permalink to this headline">¶</a></h1>
 <p>In this lesson, we are going to explore how we can use the package ElementTree to extract content from XML files.
-We use the same example file that was used in lesson <strong>2</strong> (<a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">downloaded here</a>.</p>
+We use the same example file that was used in lesson <strong>2</strong> (<a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">download here</a>.</p>
 <p>This lesson is divided into the following steps:</p>
 <ul class="simple">
 <li><p>Load the XML file;</p></li>
@@ -463,7 +463,7 @@ Add a new code cell and type:</p>
 <p class="admonition-title">Note</p>
 <p>In the code above, alter the ‘data/example’ with the path to the folder and the filename of where you stored the file.</p>
 </div>
-<p>When you want to extract information from an XML file, it is important that you are familair with the structure of the file.
+<p>When you want to extract information from an XML file, it is important that you are familiar with the structure of the file.
 There are two ways to do this.</p>
 <ol class="simple">
 <li><p>You can open the file in a program like Notepad++ or open it in your browser</p></li>
@@ -678,7 +678,7 @@ Visual Studio 7: A Comprehensive Guide
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
 </pre></div>
 </div>
-<p>Then, for every book element that exsist, we create a temporarly new variable with the name ‘title’.
+<p>Then, for every book element that exist, we create a temporarly new variable with the name ‘title’.
 As value for this variable, we use the content of the tag ‘title’ (which is a direct child of the element ‘book’).
 we add ‘.text’. to let Python know that we are interested in the value between the tags.
 Without the ‘.text’ addition, Python would simply present us the tag in its location, like ‘&lt;Element ‘title’ at 0x000001995B4718B0&gt;’</p>
@@ -833,7 +833,7 @@ The element ‘name’ however, is a child of the element ‘author’ and a <em
 We can use two approaches:</p>
 <ul class="simple">
 <li><p>Add another <em>for loop</em> inside or first loop;</p></li>
-<li><p>‘escapte’ the element hierarchie.</p></li>
+<li><p>‘escape’ the element hierarchie.</p></li>
 </ul>
 <p>For the first approach, instead of a single <em>for loop</em> that iterates through all the ‘book’ elements,
 we also need a second <em>for loop</em> that runs through the ‘author’ element of ‘book’. We can do this with the following code:</p>
@@ -897,7 +897,7 @@ Mike Galos
 </div>
 <p>The second approach is to ‘escape’ the element hiearchy and directly select all subelements, on all levels beneath the current element.
 This is usefull if you have an XML with a lot of children, and you want only specific content which you want to extract apart from their parents.
-To escape  the hierarchy, you typ ‘.//’ before the name of the element you want to extract, as shown in the following code:</p>
+To escape  the hierarchy, you type ‘.//’ before the name of the element you want to extract, as shown in the following code:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//author&#39;</span><span class="p">):</span>
@@ -1012,7 +1012,10 @@ To do this we can use the following scheme:</p>
 bk102 Midnight Rain A former architect battles corporate zombies, 
       an evil sorceress, and her own childhood to become queen 
       of the world. Kim Ralls
-bk103 Maeve Ascendant After the collapse of a nanotechnology 
+bk103 
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Maeve Ascendant After the collapse of a nanotechnology 
       society in England, the young survivors lay the 
       foundation for a new society. Eva Corets
 bk104 Oberon&#39;s Legacy In post-apocalypse England, the mysterious 
@@ -1581,8 +1584,8 @@ malfunctioning of your code if they are not properly declared.</p>
 </div>
 </div>
 <p>Although we know there is a student with the name ‘Jeff Smith’, Python returns nothing.</p>
-<p>So, what is going on? Why is not there any output?
-This is, because there are namespaces defined in the XML file.</p>
+<p>So, what is going on? Why is there not any output?
+This is because there are namespaces defined in the XML file.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Open the XML file in your Notebook and look at the namespace declaration.</p>
@@ -1625,7 +1628,7 @@ This is, because there are namespaces defined in the XML file.</p>
 </div>
 </div>
 <ol class="simple">
-<li><p>Declare the namespace in elemenTree. You therefore create a Python dictionary with the namespace abbreviation and the uri <em>without</em> the curly brackets.</p></li>
+<li><p>Declare the namespace in elementTree. You therefore create a Python dictionary with the namespace abbreviation and the uri <em>without</em> the curly brackets.</p></li>
 </ol>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1668,7 +1671,9 @@ Without this, Python does not recognize the namespace as such.</p>
 <p class="admonition-title">Important</p>
 <p>When there are <em>attributes</em> with a namespace, you can only use the first option as the namespace declaration does not work with attributes!</p>
 </div>
-<p>— eind zinnetje —</p>
+<p>We now have a good basis of ElementTree, but we wish to show you another package, Beautiful Soup,
+before moving on to introducing real-life examples of XML files used in Digital Humanities research.
+The introduction to working with Beautiful Soup can be found in the following lesson.</p>
 </div>
 </div>
 </div>
