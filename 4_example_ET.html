@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. Practical session: Working with ElemenTree &#8212; Automatically extract XML content with Python</title>
+    <title>4. Practical session: Working with ElementTree &#8212; Automatically extract XML content with Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -116,7 +116,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   4. Practical session: Working with ElemenTree
+   4. Practical session: Working with ElementTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -272,8 +272,8 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-elementree-and-import-the-xml-file">
-   Import ElemenTree and import the xml file
+  <a class="reference internal nav-link" href="#import-elementtree-and-import-the-xml-file">
+   Import ElementTree and import the xml file
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -319,13 +319,13 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extra-filter-information">
-   Extra: Filter information
+  <a class="reference internal nav-link" href="#filter-information">
+   Filter information
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#namespaces-must-be-altered-with-other-example">
-     Namespaces  – must be altered with other example
+    <a class="reference internal nav-link" href="#namespaces">
+     Namespaces
     </a>
    </li>
   </ul>
@@ -340,7 +340,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>4. Practical session: Working with ElemenTree</h1>
+                <h1>4. Practical session: Working with ElementTree</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -351,8 +351,8 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#import-elementree-and-import-the-xml-file">
-   Import ElemenTree and import the xml file
+  <a class="reference internal nav-link" href="#import-elementtree-and-import-the-xml-file">
+   Import ElementTree and import the xml file
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -398,13 +398,13 @@ const thebe_selector_output = ".output, .cell_output"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#extra-filter-information">
-   Extra: Filter information
+  <a class="reference internal nav-link" href="#filter-information">
+   Filter information
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#namespaces-must-be-altered-with-other-example">
-     Namespaces  – must be altered with other example
+    <a class="reference internal nav-link" href="#namespaces">
+     Namespaces
     </a>
    </li>
   </ul>
@@ -418,11 +418,11 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-working-with-elementree">
-<h1>4. Practical session: Working with ElemenTree<a class="headerlink" href="#practical-session-working-with-elementree" title="Permalink to this headline">¶</a></h1>
-<p>In this lesson, we are going to explore how the different packages work. We use the same example file that was used in lesson <strong>2</strong> (click here to download the file).</p>
-<p>This lesson is divided into three sessions, where every session demonstrates one of the Python packages that was introduced in lesson <strong>?</strong>.
-With every package, we follow these steps:</p>
+  <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-working-with-elementtree">
+<h1>4. Practical session: Working with ElementTree<a class="headerlink" href="#practical-session-working-with-elementtree" title="Permalink to this headline">¶</a></h1>
+<p>In this lesson, we are going to explore how we can use the package ElementTree to extract content from XML files.
+We use the same example file that was used in lesson <strong>2</strong> (<a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">downloaded here</a>.</p>
+<p>This lesson is divided into the following steps:</p>
 <ul class="simple">
 <li><p>Load the XML file;</p></li>
 <li><p>Examine the structure of the XML file;</p></li>
@@ -430,12 +430,13 @@ With every package, we follow these steps:</p>
 <li><p>Extract name and surname of the author;</p></li>
 <li><p>Extract the book identifier;</p></li>
 <li><p>Structure all information;</p></li>
+<li><p>Explore namespaces;</p></li>
 <li><p>Extra: Filter information</p></li>
 </ul>
 <p>Open a new Jupyter Notebook and type all the code examples and code exercises in your Notebook.</p>
-<div class="section" id="import-elementree-and-import-the-xml-file">
-<h2>Import ElemenTree and import the xml file<a class="headerlink" href="#import-elementree-and-import-the-xml-file" title="Permalink to this headline">¶</a></h2>
-<p>ElemenTree is part of the standard Python library and therefore does not need to be installed.</p>
+<div class="section" id="import-elementtree-and-import-the-xml-file">
+<h2>Import ElementTree and import the xml file<a class="headerlink" href="#import-elementtree-and-import-the-xml-file" title="Permalink to this headline">¶</a></h2>
+<p>ElementTree is part of the standard Python library and therefore does not need to be installed.</p>
 <p>Before we can use the package, we have to let Python know we want to use it. We do this by importing the package.
 Type the following in a code cell:</p>
 <div class="cell docutils container">
@@ -635,7 +636,6 @@ There are two ways to do this.</p>
 </div>
 </div>
 </div>
-<p>Wat vragen over de structuur bedenken</p>
 </div>
 <div class="section" id="extract-the-book-titles-and-descriptions">
 <h2>Extract the book titles and descriptions<a class="headerlink" href="#extract-the-book-titles-and-descriptions" title="Permalink to this headline">¶</a></h2>
@@ -645,7 +645,7 @@ There are two ways to do this.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<p>We need the child element ‘book’, and its subchildren ‘title’ and ‘description’.</p>
+<p>We need the element ‘book’, and its children ‘title’ and ‘description’.</p>
 </div>
 <p>First, type the following code in your Jupyter Notebook to get the title from every book:</p>
 <div class="cell tag_hide-output docutils container">
@@ -673,18 +673,23 @@ Visual Studio 7: A Comprehensive Guide
 </div>
 </div>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Explanation of the code.
-The line:
-<code class="docutils literal notranslate"> <span class="pre">	for</span> <span class="pre">book</span> <span class="pre">in</span> <span class="pre">root.findall('book'):</span>  </code>
-starts a loop that iterates through all ‘book’ elements in the XML. For each elements, it executes the rest of the code.
-<code class="docutils literal notranslate">  <span class="pre">	title</span> <span class="pre">=</span> <span class="pre">book.find('title').text</span>  </code>
-This line creates a new variabele called ‘title’. The content of the variable is content from the XML. For every ‘book’ element, it searches for
-a child element with the name ‘title’. Then, it extracts the content from the ‘title’ element. To extract content from elements, we use .text.
-<code class="docutils literal notranslate"> <span class="pre">	print(title)</span>  </code>
-This line displays the output. In this case, it shows the title of every book.</p>
+<p>We shall explain what every line of the code does.</p>
+<p>First, we iterate through the complete XML file and search for every element with the tag name ‘book’.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+</pre></div>
 </div>
+<p>Then, for every book element that exsist, we create a temporarly new variable with the name ‘title’.
+As value for this variable, we use the content of the tag ‘title’ (which is a direct child of the element ‘book’).
+we add ‘.text’. to let Python know that we are interested in the value between the tags.
+Without the ‘.text’ addition, Python would simply present us the tag in its location, like ‘&lt;Element ‘title’ at 0x000001995B4718B0&gt;’</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Then, we print the output of the title</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After this, the loop proceeds to the following book elements, extraxts the title and print the title etc.</p>
 <p>We can get the description of each book in the same way.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
@@ -696,6 +701,53 @@ This line displays the output. In this case, it shows the title of every book.</
 	description = book.find(&#39;description&#39;).text
 	print(description)
 </pre></div>
+</div>
+</div>
+<p>This leads to the following output:</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">description</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>An in-depth look at creating applications 
+      with XML.
+A former architect battles corporate zombies, 
+      an evil sorceress, and her own childhood to become queen 
+      of the world.
+After the collapse of a nanotechnology 
+      society in England, the young survivors lay the 
+      foundation for a new society.
+In post-apocalypse England, the mysterious 
+      agent known only as Oberon helps to create a new life 
+      for the inhabitants of London. Sequel to Maeve 
+      Ascendant.
+The two daughters of Maeve, half-sisters, 
+      battle one another for control of England. Sequel to 
+      Oberon&#39;s Legacy.
+When Carla meets Paul at an ornithology 
+      conference, tempers fly as feathers get ruffled.
+A deep sea diver finds true love twenty 
+      thousand leagues beneath the sea.
+An anthology of horror stories about roaches,
+      centipedes, scorpions  and other insects.
+After an inadvertant trip through a Heisenberg
+      Uncertainty Device, James Salway discovers the problems 
+      of being quantum.
+Microsoft&#39;s .NET initiative is explored in 
+      detail in this deep programmer&#39;s reference.
+The Microsoft MSXML3 parser is covered in 
+      detail, with attention to XML DOM interfaces, XSLT processing, 
+      SAX and more.
+Microsoft Visual Studio 7 is explored in depth,
+      looking at how Visual Basic, Visual C++, C#, and ASP+ are 
+      integrated into a comprehensive development 
+      environment.
+</pre></div>
+</div>
 </div>
 </div>
 <p>We can use one <em>for loop</em> to extract both the book title and description from the XML file.
@@ -777,7 +829,13 @@ However, if we look at the structure of the XML file, there is a difference betw
 <p>The element ‘title’ is a child of the element ‘book’.
 The element ‘name’ however, is a child of the element ‘author’ and a <em>sub</em>child of the element ‘book’.</p>
 </div>
-<p>Because of the difference in the place between elements, we need to alter our code a bit. Instead of a single <em>for loop</em> that iterates through all the ‘book’ elements,
+<p>Because of the difference in the place between elements, we need to alter our code a bit.
+We can use two approaches:</p>
+<ul class="simple">
+<li><p>Add another <em>for loop</em> inside or first loop;</p></li>
+<li><p>‘escapte’ the element hierarchie.</p></li>
+</ul>
+<p>For the first approach, instead of a single <em>for loop</em> that iterates through all the ‘book’ elements,
 we also need a second <em>for loop</em> that runs through the ‘author’ element of ‘book’. We can do this with the following code:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
@@ -811,26 +869,33 @@ Mike
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.findall(&#39;book&#39;):
-	for author in book.findall(&#39;author&#39;):
-		name = author.find(&#39;name&#39;).text
-		surname = author.find(&#39;surname&#39;).text
-		print(name, surname) 
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">):</span>
+		<span class="n">name</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+		<span class="n">surname</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;surname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">surname</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
-<div class="cell tag_remove-output tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>	<span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
-		<span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">):</span>
-			<span class="n">name</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
-			<span class="n">surname</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;surname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
-			<span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">surname</span><span class="p">)</span> 
+<div class="cell tag_remove-input tag_hide-output docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Matthew Gambardella
+Kim Ralls
+Eva Corets
+Eva Corets
+Eva Corets
+Cynthia Randall
+Paula Thurman
+Stefan Knorr
+Peter Kress
+Tim O&#39;Brien
+Tim O&#39;Brien
+Mike Galos
 </pre></div>
 </div>
 </div>
 </div>
-<p>Another option is to ‘escape’ the element hiearchy and directly select all subelements, on all levels beneath the current element.
+<p>The second approach is to ‘escape’ the element hiearchy and directly select all subelements, on all levels beneath the current element.
 This is usefull if you have an XML with a lot of children, and you want only specific content which you want to extract apart from their parents.
 To escape  the hierarchy, you typ ‘.//’ before the name of the element you want to extract, as shown in the following code:</p>
 <div class="cell tag_hide-output docutils container">
@@ -881,7 +946,7 @@ place of the content of the title?
 <p>The content of the identifier is stored in an <em>attribute</em> of the ‘book’ element, with the name ‘id’.</p>
 </div>
 <p>To extract content from attributes, we need to use the ‘get’ method.
-We still use the <em>for loop</em> to iterate through all the books, but instead of the content of certain elements, we now extract the content of the attribute.</p>
+We still use the <em>for loop</em> to iterate through all the books, but instead of extracting the content of certain elements, we now extract the content of the attribute.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
@@ -928,7 +993,7 @@ To do this we can use the following scheme:</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for book in root.findall(&#39;book&#39;):
+<div class="highlight-Pyhton notranslate"><div class="highlight"><pre><span></span>for book in root.findall(&#39;book&#39;):
 	identifier = book.get(&#39;id&#39;)
 	title = book.find(&#39;title&#39;).text
 	description = book.find(&#39;description&#39;).text
@@ -940,7 +1005,7 @@ To do this we can use the following scheme:</p>
 </div>
 </div>
 <p>This leads to the following output:</p>
-<div class="cell tag_remove-input docutils container">
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bk101 XML Developer&#39;s Guide An in-depth look at creating applications 
       with XML. Matthew Gambardella
@@ -1142,7 +1207,9 @@ Identifier= bk112
 </div>
 <div class="section" id="store-the-information-in-a-csv-or-txt-file">
 <h2>Store the information in a .csv or .txt file.<a class="headerlink" href="#store-the-information-in-a-csv-or-txt-file" title="Permalink to this headline">¶</a></h2>
-<p>Here we show you how to store the output in two different ways:</p>
+<p>In a lot of cases, you not only want the extracted content in your Jupyter Notebook, but you also want to store them
+for future use.
+We will show you how to store the output in two different ways:</p>
 <ul class="simple">
 <li><p>as one file with the information of all books in .csv format (which, for example, can be opened in Excel)</p></li>
 <li><p>as one textfile per book.</p></li>
@@ -1173,6 +1240,60 @@ We can use the following code:</p>
 </div>
 </div>
 </div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[&#39;bk101&#39;,
+  &quot;XML Developer&#39;s Guide&quot;,
+  &#39;An in-depth look at creating applications \n      with XML.&#39;,
+  &#39;Matthew Gambardella&#39;],
+ [&#39;bk102&#39;,
+  &#39;Midnight Rain&#39;,
+  &#39;A former architect battles corporate zombies, \n      an evil sorceress, and her own childhood to become queen \n      of the world.&#39;,
+  &#39;Kim Ralls&#39;],
+ [&#39;bk103&#39;,
+  &#39;Maeve Ascendant&#39;,
+  &#39;After the collapse of a nanotechnology \n      society in England, the young survivors lay the \n      foundation for a new society.&#39;,
+  &#39;Eva Corets&#39;],
+ [&#39;bk104&#39;,
+  &quot;Oberon&#39;s Legacy&quot;,
+  &#39;In post-apocalypse England, the mysterious \n      agent known only as Oberon helps to create a new life \n      for the inhabitants of London. Sequel to Maeve \n      Ascendant.&#39;,
+  &#39;Eva Corets&#39;],
+ [&#39;bk105&#39;,
+  &#39;The Sundered Grail&#39;,
+  &quot;The two daughters of Maeve, half-sisters, \n      battle one another for control of England. Sequel to \n      Oberon&#39;s Legacy.&quot;,
+  &#39;Eva Corets&#39;],
+ [&#39;bk106&#39;,
+  &#39;Lover Birds&#39;,
+  &#39;When Carla meets Paul at an ornithology \n      conference, tempers fly as feathers get ruffled.&#39;,
+  &#39;Cynthia Randall&#39;],
+ [&#39;bk107&#39;,
+  &#39;Splish Splash&#39;,
+  &#39;A deep sea diver finds true love twenty \n      thousand leagues beneath the sea.&#39;,
+  &#39;Paula Thurman&#39;],
+ [&#39;bk108&#39;,
+  &#39;Creepy Crawlies&#39;,
+  &#39;An anthology of horror stories about roaches,\n      centipedes, scorpions  and other insects.&#39;,
+  &#39;Stefan Knorr&#39;],
+ [&#39;bk109&#39;,
+  &#39;Paradox Lost&#39;,
+  &#39;After an inadvertant trip through a Heisenberg\n      Uncertainty Device, James Salway discovers the problems \n      of being quantum.&#39;,
+  &#39;Peter Kress&#39;],
+ [&#39;bk110&#39;,
+  &#39;Microsoft .NET: The Programming Bible&#39;,
+  &quot;Microsoft&#39;s .NET initiative is explored in \n      detail in this deep programmer&#39;s reference.&quot;,
+  &quot;Tim O&#39;Brien&quot;],
+ [&#39;bk111&#39;,
+  &#39;MSXML3: A Comprehensive Guide&#39;,
+  &#39;The Microsoft MSXML3 parser is covered in \n      detail, with attention to XML DOM interfaces, XSLT processing, \n      SAX and more.&#39;,
+  &quot;Tim O&#39;Brien&quot;],
+ [&#39;bk112&#39;,
+  &#39;Visual Studio 7: A Comprehensive Guide&#39;,
+  &#39;Microsoft Visual Studio 7 is explored in depth,\n      looking at how Visual Basic, Visual C++, C#, and ASP+ are \n      integrated into a comprehensive development \n      environment.&#39;,
+  &#39;Mike Galos&#39;]]
+</pre></div>
+</div>
+</div>
+</div>
 <p>This leads to a list, called ‘booklist’, in which for every book all information is stored.</p>
 <p>We can then easily transform this list to a pandas DataFrame.
 To do so, we need to import pandas first with the code</p>
@@ -1185,13 +1306,13 @@ To do so, we need to import pandas first with the code</p>
 </div>
 <p>This code works as follows. You declare the variable ‘books’, which will be used to store all the information.
 Then you let Python know that you want to create a DataFrame. The content of this dataframe is the list ‘booklist’, which we just created.
-We then tell Python how we want to name the columns (this is in the same order as the order of the variables in the list).</p>
+We then tell Python how we want to name the columns (they should be in the same order as the order of the variables in the list).</p>
 <p>You can show the dataframe you just created by typing:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">books</span>
 </pre></div>
 </div>
 <p>This results in the following output:</p>
-<div class="cell tag_remove-input docutils container">
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html"><div>
 <style scoped>
@@ -1310,30 +1431,36 @@ We then tell Python how we want to name the columns (this is in the same order a
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">books</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;book.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This saves the csv in the root folder of your jupyter installation.
+If you want it saved in a specific location you need to specify the path before the filename followed by a ‘/,
+for example <code class="docutils literal notranslate"><span class="pre">books.to_csv('C:/Users/Documents/book.csv')</span></code>
+Please remember to use a backward slash (‘/’) between the folders</p>
+</div>
 </div>
 <div class="section" id="create-a-textfile-per-book">
 <h3>Create a textfile per book<a class="headerlink" href="#create-a-textfile-per-book" title="Permalink to this headline">¶</a></h3>
 <p>If you want to create a textfile for every book, you can add the code directly in your <em>for loop</em>.</p>
 <p>First, you have to declare a textfile in Python and give it a name. Then, you open the file and write content to it. After this, you close the file.
 You can try this with the following code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-<span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;This is just a test file&#39;</span><span class="p">)</span>
-<span class="n">myfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;test.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;This is just a test file&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>By default, Python stores the text file in the same folder as where you run your Jupyter Notebook. You can alter this by adding a path to your textfile, for example:
-<code class="docutils literal notranslate"><span class="pre">myfile</span> <span class="pre">=</span> <span class="pre">open('C:/Users/Documents/test.txt',</span> <span class="pre">'w')</span></code>
-Please remember to use a backward slash (/) between the folders</p>
+<code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">open('C:/Users/Documents/test.txt',</span> <span class="pre">'w')</span> <span class="pre">as</span> <span class="pre">f</span></code>
+Please remember to use a backward slash (‘/’) between the folders</p>
 </div>
 <p>With a few alterations, we can use this code to save our book information to a seperate file per book.
 First, we give the text file the name of the book identifier. we can do that by adding the variable into the name of the file like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span> <span class="n">myfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">identifier</span> <span class="o">+</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">identfier</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
 </pre></div>
 </div>
 <p>Then, we create the content of the file based on the content we extracted from the book.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">surname</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">description</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">surname</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">description</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>If we put these lines into our <em>for loop</em>, Python will save every book with its own name and information.
@@ -1345,15 +1472,14 @@ The code looks like this:</p>
     <span class="k">for</span> <span class="n">author</span> <span class="ow">in</span> <span class="n">book</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">):</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
         <span class="n">surname</span> <span class="o">=</span> <span class="n">author</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;surname&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
-    <span class="n">myfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">identifier</span> <span class="o">+</span> <span class="s1">&#39;.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-    <span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">surname</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">description</span><span class="p">)</span>
-    <span class="n">myfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">identfier</span><span class="si">}</span><span class="s2">.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+		<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="n">surname</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">description</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="extra-filter-information">
-<h2>Extra: Filter information<a class="headerlink" href="#extra-filter-information" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="filter-information">
+<h2>Filter information<a class="headerlink" href="#filter-information" title="Permalink to this headline">¶</a></h2>
 <p>You can also search for specific elements in your XML. For example, just the title information from the book ‘bk109’. To do so, you can start with the same <em>for loop</em> as we created in this lesson. However, before you print the output, you first check if you have the element you want (in this case: book 109). This can be done with an ‘if’ statement and it looks like this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1370,7 +1496,7 @@ The code looks like this:</p>
 </div>
 </div>
 </div>
-<p>You can also search the content from XML elements, searching the content for a match. For example, if we want to print all title that contain the word ‘XML’,
+<p>You can also search the content from XML elements, searching the content for a match. For example, if we want to print all titles that contain the word ‘XML’,
 we can use the following code:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1421,49 +1547,124 @@ The two daughters of Maeve, half-sisters,
 </div>
 </div>
 </div>
-<div class="section" id="namespaces-must-be-altered-with-other-example">
-<h3>Namespaces  – must be altered with other example<a class="headerlink" href="#namespaces-must-be-altered-with-other-example" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="namespaces">
+<h3>Namespaces<a class="headerlink" href="#namespaces" title="Permalink to this headline">¶</a></h3>
+<p>As we mentioned in lesson <em>2</em> during our introduction to XML, some XML files contain namespaces.</p>
+<p>When working with ElementTree, it is important to know if an XML file has namespaces, as it can cause
+malfunctioning of your code if they are not properly declared.</p>
+<p>Let’s look at the example with namespaces from lesson 2:</p>
+<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;p:student</span> <span class="na">xmlns:p=</span><span class="s">&quot;http//www.imaginarypythoncourses.com/student&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;p:id&gt;</span>3235329<span class="nt">&lt;/p:id&gt;</span>
+  <span class="nt">&lt;p:name&gt;</span>Jeff Smith<span class="nt">&lt;/p:name&gt;</span>
+  <span class="nt">&lt;p:language&gt;</span>Python<span class="nt">&lt;/p:language&gt;</span>
+  <span class="nt">&lt;p:rating&gt;</span>9.5<span class="nt">&lt;/p:rating&gt;</span>
+<span class="nt">&lt;/p:student&gt;</span>
+</pre></div>
+</div>
+<p>Imagine, we want to extract the name of the student from this XML file.</p>
+<p>First, we load the file into our Notebook (the file is called ‘namespaces.xml’ and can be <a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">downloaded here</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;data/namespaces.xml&#39;</span><span class="p">)</span>
+<span class="n">root_ns</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, we create a <em>for loop</em> that iterates through the file and returns the values of all ‘name’ elements.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">root_ns</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Although we know there is a student with the name ‘Jeff Smith’, Python returns nothing.</p>
 <p>So, what is going on? Why is not there any output?
-As described in lesson <em><strong>2</strong></em>, some XML documents make use of <em>namespaces</em>.
-If we look at the first line of the Alto file, we see:</p>
-<div class="highlight-XML notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf8&#39;?&gt;</span>
-<span class="nt">&lt;ns0:alto</span> <span class="na">xmlns:ns0=</span><span class="s">&quot;http://schema.ccs-gmbh.com/ALTO&quot;</span><span class="nt">&gt;</span>
+This is, because there are namespaces defined in the XML file.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Open the XML file in your Notebook and look at the namespace declaration.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">root_ns</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>The second line shows us that this XML make use of namespaces.
-‘ns0’ is used as a shortcut for ‘<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>’.</p>
-<p>We have now two options to handle the namespaces in ElemenTree:</p>
-<ol class="simple">
-<li><p>Type the namespace before the element name between curly brackets: {<a class="reference external" href="http://schema.ccs-gmbh.com/ALTO">http://schema.ccs-gmbh.com/ALTO</a>}</p></li>
-</ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//{http://schema.ccs-gmbh.com/ALTO}String&#39;</span><span class="p">):</span>
-    <span class="n">content</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&#39;1.0&#39; encoding=&#39;utf8&#39;?&gt;
+&lt;ns0:student xmlns:ns0=&quot;http//www.imaginarypythoncourses.com/student&quot;&gt;
+  &lt;ns0:id&gt;3235329&lt;/ns0:id&gt;
+  &lt;ns0:name&gt;Jeff Smith&lt;/ns0:name&gt;
+  &lt;ns0:language&gt;Python&lt;/ns0:language&gt;
+  &lt;ns0:rating&gt;9.5&lt;/ns0:rating&gt;
+&lt;/ns0:student&gt;
 </pre></div>
 </div>
+</div>
+</div>
+<p>The package elementTree needs namespace declaration to handle namespaces correctly.</p>
+<p>This can be done in two ways:</p>
 <ol class="simple">
-<li><p>Declare the namespace in elemenTree. This provides Python with a dictionary of the used namespaces, which it can then use.</p></li>
+<li><p>Type the namespace before the element name between curly brackets: {http//www.imaginarypythoncourses.com/student}name</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ns0&#39;</span><span class="p">:</span> <span class="s1">&#39;http://schema.ccs-gmbh.com/ALTO&#39;</span><span class="p">}</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">root_ns</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;{http//www.imaginarypythoncourses.com/student}name&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jeff Smith
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="simple">
+<li><p>Declare the namespace in elemenTree. You therefore create a Python dictionary with the namespace abbreviation and the uri <em>without</em> the curly brackets.</p></li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When you want to declare namespaces in Python, you can not blindly use the namespaces as you see them in your XML file when
+it is opened in another programma.</p>
+<p>For example, when we open our file in the browser, we see the namespace ‘&lt;p:student xmlns:p=”http//www.imaginarypythoncourses.com/student”&gt;’.
+However, if we look in or Python file, we see that the prefix of the namespace is changed, and the namespace is now
+‘&lt;ns0:student xmlns:ns0=”http//www.imaginarypythoncourses.com/student”&gt;’.</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ns0&quot;</span><span class="p">:</span> <span class="s2">&quot;http//www.imaginarypythoncourses.com/student&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
 <p>Now you can use the abbreviation of the namespace in your code:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">root_alto</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;.//ns0:String&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
-    <span class="n">content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;ns0&quot;</span><span class="p">:</span> <span class="s2">&quot;http//www.imaginarypythoncourses.com/student&quot;</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">student</span> <span class="ow">in</span> <span class="n">root_ns</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;ns0:name&#39;</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">student</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jeff Smith
+</pre></div>
+</div>
+</div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you declare the namespace in Python with a dictionary, do not forget to put ‘, ns’ after your element name in the <em>.findall</em>.
-Without this ‘ns’, Python does not recognize the namespace.
-You only have to declare the namespaces once, Python will then recognize them in de rest of your Jupyter Notebook.</p>
+<p>If you declare the namespace in Python with a dictionary, do not forget to put the dictionary name
+after your element name in the <em>.findall</em> or other functions where you need a namespace.
+Without this, Python does not recognize the namespace as such.</p>
 </div>
-<p>For the remainder of this lesson, we will use the second option.</p>
+<p>— eind zinnetje —</p>
 </div>
 </div>
 </div>

@@ -13,25 +13,25 @@ kernelspec:
   name: python3
 ---
 
-# 10. Practical session: Tei and Beautiful Soup
+# 10. Practical session: TEI and Beautiful Soup
 
 In this section we will use Beautiful Soup to extract data from a book in the TEI format.
 For this lesson, we assume that you have followed the practical lesson 5. When needed, refer back to previous lessons.
 As you may have noticed, there is no lesson for extracting information from the TEI format using ElementTree. 
 ElementTree has sometimes trouble parsing files (in this case due to '&nbsp' in the content). This can be fixed with a work around, however this work around need
-to be adjusted when there is a new version of ELementTree. We therefor choose to only use Beautiful Soup, as this works without problems. 
+to be adjusted when there is a new version of ElementTree. We therefore chose to only use Beautiful Soup, as this works without problems. 
 
 We will follow these steps:
 
-- Load the Tei file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
-- Extract the complete content of the book from the tei file <span style="color:#ef6079">(*basic*)</span>;
+- Load the TEI file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
+- Extract the complete content of the book from the TEI file <span style="color:#ef6079">(*basic*)</span>;
 - Extract the content divided into chapters <span style="color:#ef6079">(*basic*)</span>;
 - Extract the separate poems <span style="color:#ef6079">(*moderate*)</span>.
-- Extract the poems per chapter <span style="color:#ef6079">(*moderate*)</span>.
+- Extract the poems per chapter <span sftyle="color:#ef6079">(*moderate*)</span>.
 
 Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.
 
-## Load the Tei file and examine the structure
+## Load the TEI file and examine the structure
 
 We first need to prepare the Notebook by importing the package we need and loading the XML file into the enviroment. 
 If you have not already installed Beautiful Soup, do this first with:
@@ -44,7 +44,7 @@ If you have not already installed Beautiful Soup, do this first with:
 :class: attention
 Import the Beautiful Soup package and load the XML file into your Notebook.
 You can look back to lesson 5 if you need a reminder on how to do this. 
-The XML file is named ‘tei.xml’ and can be [downloaded here](https://github.com/MirjamC/xml-workshop/tree/master/data).
+The XML file is named ‘TEI.xml’ and can be [downloaded here](https://github.com/MirjamC/xml-workshop/tree/master/data).
 ```
 
 ````{admonition} Solution
@@ -52,7 +52,7 @@ The XML file is named ‘tei.xml’ and can be [downloaded here](https://github.
 ```Python
 from bs4 import BeautifulSoup    
 
-with open("data/tei.xml", encoding='utf8') as f:
+with open("data/TEI.xml", encoding='utf8') as f:
     root = BeautifulSoup(f, 'xml')
 ```
 ````
@@ -67,12 +67,12 @@ Print the file in your Notebook or look at the file in your browser, either way 
 ```{code-cell}
 :tags: [remove-input, hide-output]
 from bs4 import BeautifulSoup    
-with open("data/tei.xml", encoding='utf8') as f:
+with open("data/TEI.xml", encoding='utf8') as f:
     root = BeautifulSoup(f, 'xml')
 print(root)
 ```
 
-The tei XML contains a lot of information that is not part of the textual content of the book.
+The TEI XML contains a lot of information that is not part of the textual content of the book.
 This information describes for example the layout and the type of the text.
 It also contains elements in which the plain text is stored. 
 We start by searching for this element, and the check whether the content is stored as the value of tags or as the value 
@@ -112,7 +112,7 @@ If there are, how can we declare these?
 The XML file does not contain any namespaces. 
 ````
 
-## Extract the complete content of the book from the tei file
+## Extract the complete content of the book from the TEI file
 
 There are a lot of elements containing the data. 
 One option is to print the whole XML. This way no content will be missed and all possible text is extracted. 
@@ -168,7 +168,7 @@ The type of the div is stored in the attribute 'type'.
 ```
 
 We can iterate through all divs and only proceed with the divs that have 'chapter' as type.
-This can be done with an 'If' statement. 
+This can be done with an *if* statement. 
 
 This leads to the following code:
 
@@ -185,7 +185,7 @@ for div in root.find_all('div'):
 
 The code still prints out everything as a single piece of text without anything to distinguish the different chapters. 
 Adding a chapter header is an easy way to be able to seperate the different chapters. 
-This can be done by making a counter and printer the text 'chapter [counter]' before every chapter. After every *div* that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.
+This can be done by making a counter and print the text 'chapter [counter]' before every chapter. After every *div* that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.
 
 This can be achieved with the following code:
 
@@ -208,7 +208,7 @@ Try the code above to see how the output now contains increasing chapter count
 
 from bs4 import BeautifulSoup    
 
-with open("data/tei.xml", encoding='utf8') as f:
+with open("data/TEI.xml", encoding='utf8') as f:
     root = BeautifulSoup(f, 'xml')
 
 counter = 1
@@ -244,7 +244,7 @@ for div in root.find_all('div'):
             text_file.write(div.text)
             counter += 1
 ```
-Remember that this saves the files in the root folder of your jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a '/; .
+Remember that this saves the files in the root folder of your Jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a '/; .
 ````
 
 Now we have a lot of text files. Each one containing one chapter of the book . For some uses this may be preferable, but for other a single, ordered file may be preferred. 
@@ -320,15 +320,15 @@ Save the Dataframe to csv.
 ````{admonition} Solution
 :class: tip, dropdown
 ```Python
-chapters.to_csv('chapters.csv')
+book.to_csv('book_with_chapters.csv')
 ```
-Remember that this saves the csv in the root folder of your jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a '/; .
+Remember that this saves the csv in the root folder of your Jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a '/; .
 ````
 
 ## Extract the separate poems
 
 For some uses only a specific piece of an XML is needed. Extracting everything and then either removing or ignoring part of the extracted content is a lot of work that can be omitted by specifically extracting what is needed.
-The example TEI file contains a book that consists of both pieces of prose and poems. Both of these are specified somewhere in the XML. 
+The example TEI file contains a book that consists of both poems and pieces of prose. Both of these are specified somewhere in the XML. 
 Over the coming exercises we will extract only the poems. To do this we need to know which elements contain the poems.
 
 ```{admonition} Exercise
@@ -415,7 +415,7 @@ poems.to_csv('poems.csv')
 
 ## Extract the poems per chapter
 
-We now have extracted the separate chapters, or the separate poems. It can also be interesting to extraxt the separate chapters with their corresponding poems. 
+We now have extracted the separate chapters, or the separate poems. It can also be interesting to extract the separate chapters with their corresponding poems. 
 
 ```{admonition} Exercise
 :class: attention
@@ -476,7 +476,7 @@ poems  = pd.DataFrame(chapter_list, columns = ['chapter', 'poem', 'content'])
 poems
 ```
 
-As you can see we now have the poems numbered per chapter, and each chapters nicely numbered as well. This Datarfame will make a nice and ordered dataset for further analysis or presentation.
+As you can see we now have the poems numbered per chapter, and each chapters nicely numbered as well. This datafame will make a nice and ordered dataset for further analysis or presentation.
 
 Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses. Remember that saving files without specifying a pathname saves them to the root folder of Jupyter. This folder might clutter up quickly and it is wise to clean it up regularly or keep it clean by specifying a pathname to a specific folder.
 

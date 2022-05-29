@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>10. Practical session: Tei and Beautiful Soup &#8212; Automatically extract XML content with Python</title>
+    <title>10. Practical session: TEI and Beautiful Soup &#8212; Automatically extract XML content with Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -116,7 +116,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="4_example_ET.html">
-   4. Practical session: Working with ElemenTree
+   4. Practical session: Working with ElementTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -146,7 +146,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   10. Practical session: Tei and Beautiful Soup
+   10. Practical session: TEI and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
@@ -273,12 +273,12 @@ const thebe_selector_output = ".output, .cell_output"
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#load-the-tei-file-and-examine-the-structure">
-   Load the Tei file and examine the structure
+   Load the TEI file and examine the structure
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#extract-the-complete-content-of-the-book-from-the-tei-file">
-   Extract the complete content of the book from the tei file
+   Extract the complete content of the book from the TEI file
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -306,7 +306,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>10. Practical session: Tei and Beautiful Soup</h1>
+                <h1>10. Practical session: TEI and Beautiful Soup</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -318,12 +318,12 @@ const thebe_selector_output = ".output, .cell_output"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#load-the-tei-file-and-examine-the-structure">
-   Load the Tei file and examine the structure
+   Load the TEI file and examine the structure
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#extract-the-complete-content-of-the-book-from-the-tei-file">
-   Extract the complete content of the book from the tei file
+   Extract the complete content of the book from the TEI file
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -351,23 +351,23 @@ const thebe_selector_output = ".output, .cell_output"
               <div>
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-tei-and-beautiful-soup">
-<h1>10. Practical session: Tei and Beautiful Soup<a class="headerlink" href="#practical-session-tei-and-beautiful-soup" title="Permalink to this headline">¶</a></h1>
+<h1>10. Practical session: TEI and Beautiful Soup<a class="headerlink" href="#practical-session-tei-and-beautiful-soup" title="Permalink to this headline">¶</a></h1>
 <p>In this section we will use Beautiful Soup to extract data from a book in the TEI format.
 For this lesson, we assume that you have followed the practical lesson 5. When needed, refer back to previous lessons.
 As you may have noticed, there is no lesson for extracting information from the TEI format using ElementTree.
 ElementTree has sometimes trouble parsing files (in this case due to ‘&amp;nbsp’ in the content). This can be fixed with a work around, however this work around need
-to be adjusted when there is a new version of ELementTree. We therefor choose to only use Beautiful Soup, as this works without problems.</p>
+to be adjusted when there is a new version of ElementTree. We therefore chose to only use Beautiful Soup, as this works without problems.</p>
 <p>We will follow these steps:</p>
 <ul class="simple">
-<li><p>Load the Tei file and examine the structure <span style="color:#ef6079">(<em>basic</em>)</span>;</p></li>
-<li><p>Extract the complete content of the book from the tei file <span style="color:#ef6079">(<em>basic</em>)</span>;</p></li>
+<li><p>Load the TEI file and examine the structure <span style="color:#ef6079">(<em>basic</em>)</span>;</p></li>
+<li><p>Extract the complete content of the book from the TEI file <span style="color:#ef6079">(<em>basic</em>)</span>;</p></li>
 <li><p>Extract the content divided into chapters <span style="color:#ef6079">(<em>basic</em>)</span>;</p></li>
 <li><p>Extract the separate poems <span style="color:#ef6079">(<em>moderate</em>)</span>.</p></li>
-<li><p>Extract the poems per chapter <span style="color:#ef6079">(<em>moderate</em>)</span>.</p></li>
+<li><p>Extract the poems per chapter <span sftyle="color:#ef6079">(<em>moderate</em>)</span>.</p></li>
 </ul>
 <p>Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.</p>
 <div class="section" id="load-the-tei-file-and-examine-the-structure">
-<h2>Load the Tei file and examine the structure<a class="headerlink" href="#load-the-tei-file-and-examine-the-structure" title="Permalink to this headline">¶</a></h2>
+<h2>Load the TEI file and examine the structure<a class="headerlink" href="#load-the-tei-file-and-examine-the-structure" title="Permalink to this headline">¶</a></h2>
 <p>We first need to prepare the Notebook by importing the package we need and loading the XML file into the enviroment.
 If you have not already installed Beautiful Soup, do this first with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install beautifulsoup4
@@ -377,13 +377,13 @@ If you have not already installed Beautiful Soup, do this first with:</p>
 <p class="admonition-title">Exercise</p>
 <p>Import the Beautiful Soup package and load the XML file into your Notebook.
 You can look back to lesson 5 if you need a reminder on how to do this.
-The XML file is named ‘tei.xml’ and can be <a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">downloaded here</a>.</p>
+The XML file is named ‘TEI.xml’ and can be <a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">downloaded here</a>.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>    
 
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/tei.xml&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;data/TEI.xml&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">root</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s1">&#39;xml&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -17063,7 +17063,7 @@ tusschensoorten hare schoonheden. - Maar die mijnen raad hooren wil, leze de Ass
 </div>
 </div>
 </div>
-<p>The tei XML contains a lot of information that is not part of the textual content of the book.
+<p>The TEI XML contains a lot of information that is not part of the textual content of the book.
 This information describes for example the layout and the type of the text.
 It also contains elements in which the plain text is stored.
 We start by searching for this element, and the check whether the content is stored as the value of tags or as the value
@@ -17098,7 +17098,7 @@ If there are, how can we declare these?</p>
 </div>
 </div>
 <div class="section" id="extract-the-complete-content-of-the-book-from-the-tei-file">
-<h2>Extract the complete content of the book from the tei file<a class="headerlink" href="#extract-the-complete-content-of-the-book-from-the-tei-file" title="Permalink to this headline">¶</a></h2>
+<h2>Extract the complete content of the book from the TEI file<a class="headerlink" href="#extract-the-complete-content-of-the-book-from-the-tei-file" title="Permalink to this headline">¶</a></h2>
 <p>There are a lot of elements containing the data.
 One option is to print the whole XML. This way no content will be missed and all possible text is extracted.</p>
 <div class="admonition-exercise admonition">
@@ -17148,7 +17148,7 @@ Usually you would not want to have the metadata within the content. Filtering th
 <p>The type of the div is stored in the attribute ‘type’.</p>
 </div>
 <p>We can iterate through all divs and only proceed with the divs that have ‘chapter’ as type.
-This can be done with an ‘If’ statement.</p>
+This can be done with an <em>if</em> statement.</p>
 <p>This leads to the following code:</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
@@ -33710,7 +33710,7 @@ Naar de ware geschiedenis, te vinden by st. foix, in zijne Essais Historiques su
 </div>
 <p>The code still prints out everything as a single piece of text without anything to distinguish the different chapters.
 Adding a chapter header is an easy way to be able to seperate the different chapters.
-This can be done by making a counter and printer the text ‘chapter [counter]’ before every chapter. After every <em>div</em> that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.</p>
+This can be done by making a counter and print the text ‘chapter [counter]’ before every chapter. After every <em>div</em> that the code iterates through the counter is raised by one, so every chapter gets a distinguishing number.</p>
 <p>This can be achieved with the following code:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">## initialise the counter at 1</span>
 <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
@@ -50371,7 +50371,7 @@ Hint: do you remember f strings?</p>
             <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 </pre></div>
 </div>
-<p>Remember that this saves the files in the root folder of your jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a ‘/; .</p>
+<p>Remember that this saves the files in the root folder of your Jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a ‘/; .</p>
 </div>
 <p>Now we have a lot of text files. Each one containing one chapter of the book . For some uses this may be preferable, but for other a single, ordered file may be preferred.
 In the next exercises we will write code that will store the chapters in an ordered format in a single file.</p>
@@ -50436,16 +50436,16 @@ What are the easiest steps to do this?</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">chapters</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;chapters.csv&#39;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">book</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;book_with_chapters.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Remember that this saves the csv in the root folder of your jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a ‘/; .</p>
+<p>Remember that this saves the csv in the root folder of your Jupyter installation. If you want it saved in a specific location you need to specify the path before the filename followed by a ‘/; .</p>
 </div>
 </div>
 <div class="section" id="extract-the-separate-poems">
 <h2>Extract the separate poems<a class="headerlink" href="#extract-the-separate-poems" title="Permalink to this headline">¶</a></h2>
 <p>For some uses only a specific piece of an XML is needed. Extracting everything and then either removing or ignoring part of the extracted content is a lot of work that can be omitted by specifically extracting what is needed.
-The example TEI file contains a book that consists of both pieces of prose and poems. Both of these are specified somewhere in the XML.
+The example TEI file contains a book that consists of both poems and pieces of prose. Both of these are specified somewhere in the XML.
 Over the coming exercises we will extract only the poems. To do this we need to know which elements contain the poems.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
@@ -66332,7 +66332,7 @@ Het is geen ongelijk, &#39;t is recht dat u geschiedt.
 </div>
 <div class="section" id="extract-the-poems-per-chapter">
 <h2>Extract the poems per chapter<a class="headerlink" href="#extract-the-poems-per-chapter" title="Permalink to this headline">¶</a></h2>
-<p>We now have extracted the separate chapters, or the separate poems. It can also be interesting to extraxt the separate chapters with their corresponding poems.</p>
+<p>We now have extracted the separate chapters, or the separate poems. It can also be interesting to extract the separate chapters with their corresponding poems.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Create a Dataframe containing all the (numbered) chapters and poems:</p>
@@ -66464,7 +66464,7 @@ Het is geen ongelijk, &#39;t is recht dat u geschiedt.
 <p>97 rows × 3 columns</p>
 </div></div></div>
 </div>
-<p>As you can see we now have the poems numbered per chapter, and each chapters nicely numbered as well. This Datarfame will make a nice and ordered dataset for further analysis or presentation.</p>
+<p>As you can see we now have the poems numbered per chapter, and each chapters nicely numbered as well. This datafame will make a nice and ordered dataset for further analysis or presentation.</p>
 <p>Having extracted different types of content and saving them to text and csv, we could, for example, use these for further analyses. Remember that saving files without specifying a pathname saves them to the root folder of Jupyter. This folder might clutter up quickly and it is wise to clean it up regularly or keep it clean by specifying a pathname to a specific folder.</p>
 </div>
 </div>

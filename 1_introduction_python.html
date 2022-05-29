@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="2. Introduction to XML" href="2_introduction_xml.html" />
-    <link rel="prev" title="Welcome to this XML course" href="intro.html" />
+    <link rel="prev" title="Welcome to this XML with Python course" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -94,7 +94,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Welcome to this XML course
+   Welcome to this XML with Python course
   </a>
  </li>
 </ul>
@@ -116,7 +116,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="4_example_ET.html">
-   4. Practical session: Working with ElemenTree
+   4. Practical session: Working with ElementTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -441,14 +441,29 @@ It consists of explanation followed by pratical exercises. To get the most out o
 <div class="section" id="notebooks">
 <h2>Notebooks<a class="headerlink" href="#notebooks" title="Permalink to this headline">¶</a></h2>
 <p>First, lets start up Jupyter and open a Notebook.
-In the taskbar searchbox, type ‘jupyter’ and open <em>jupyter notebook</em>.
-This should open a tab in your browser with the jupyter hub in the installation folder.
+In the taskbar searchbox, type ‘jupyter’ and open <em>jupyter notebook</em>.</p>
+<div class="figure align-default" id="openjupyter">
+<a class="reference internal image-reference" href="_images/openJupyter.png"><img alt="_images/openJupyter.png" src="_images/openJupyter.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">Open Jupyter Notebook.</span><a class="headerlink" href="#openjupyter" title="Permalink to this image">¶</a></p>
+</div>
+<p>This should open a tab in your browser with the jupyter hub in the installation folder.
 This folder will act as your home folder for jupyter.
 All Notebooks you make will be stored here unless explicitely saved elsewhere or moved.</p>
-<p>To open a new Python Jupyter Notebook click the <strong>new</strong> button in the topright corner and select <strong>python3</strong> from the dropdown list.
-A new tab should open dispaying your new Notebook, usually called <em>Untitled</em></p>
+<div class="figure align-default" id="jupyterhub">
+<a class="reference internal image-reference" href="_images/JupyterHub.png"><img alt="_images/JupyterHub.png" src="_images/JupyterHub.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 2 </span><span class="caption-text">The Jupyter home or hub where all Notebooks reside.</span><a class="headerlink" href="#jupyterhub" title="Permalink to this image">¶</a></p>
+</div>
+<p>To open a new Python Jupyter Notebook click the <strong>new</strong> button in the topright corner and select <strong>python3</strong> from the dropdown list.</p>
+<div class="figure align-default" id="opennotebookoptions">
+<a class="reference internal image-reference" href="_images/OpenNotebookOptions.png"><img alt="_images/OpenNotebookOptions.png" src="_images/OpenNotebookOptions.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 3 </span><span class="caption-text">Click new and python3 to open a new Notebook.</span><a class="headerlink" href="#opennotebookoptions" title="Permalink to this image">¶</a></p>
+</div>
+<p>A new tab should open dispaying your new Notebook, usually called <em>Untitled</em></p>
+<div class="figure align-default" id="notebook">
+<a class="reference internal image-reference" href="_images/Notebook.png"><img alt="_images/Notebook.png" src="_images/Notebook.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 4 </span><span class="caption-text">Your freshly started Notebook with inspiring name.</span><a class="headerlink" href="#notebook" title="Permalink to this image">¶</a></p>
+</div>
 <p>Notebooks can be renamed by clicking on the name and typing a different name. It is best to make these names descriptive so they are still recognizable after a while.</p>
-<p><strong>To add:</strong> screenshots</p>
 </div>
 <div class="section" id="how-does-a-notebook-work">
 <h2>How does a Notebook work?<a class="headerlink" href="#how-does-a-notebook-work" title="Permalink to this headline">¶</a></h2>
@@ -458,14 +473,23 @@ A new tab should open dispaying your new Notebook, usually called <em>Untitled</
 <p>Notebooks are compromised of different types of cells.
 The main cell types are <em>text cells</em> and <em>code cells</em>.</p>
 <p>Text cells are generally used for descriptions and explanations. These cells are inactive and code written in these cells cannot be executed.</p>
-<p><strong>To add:</strong> screenshot text cell</p>
+<div class="figure align-default" id="textcell">
+<a class="reference internal image-reference" href="_images/textcell.png"><img alt="_images/textcell.png" src="_images/textcell.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 5 </span><span class="caption-text">This is a text cell.</span><a class="headerlink" href="#textcell" title="Permalink to this image">¶</a></p>
+</div>
 <p>The layout is managed through <em>markdown</em> (see <a class="reference external" href="https://www.markdownguide.org/basic-syntax/">markdown syntax</a> for more information).</p>
 <p>The second main type of cell is the code cell.
 Code cells are used to write and execute code. In our case Python. When a code cell is run, Python will execute the code in the cell. More information about Python will follow in the next section.</p>
-<p><strong>To add:</strong> screenshot code  cell</p>
+<div class="figure align-default" id="codecell">
+<a class="reference internal image-reference" href="_images/codecell.png"><img alt="_images/codecell.png" src="_images/codecell.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 6 </span><span class="caption-text">This is a code cell.</span><a class="headerlink" href="#codecell" title="Permalink to this image">¶</a></p>
+</div>
 <p>Code cells are easily recognized by the ‘In [ ]:’ to the left of the cell.</p>
 <p>The type of a cell can be changed by selecting a cell and either going through the menu (Cell/Cell Type/<option>) or by selecting a cell and pressing either <strong>Y</strong> for a code cell or <strong>M</strong> for a text cell.</p>
-<p><strong>To add:</strong> printscreen menu celltype</p>
+<div class="figure align-default" id="celltypeoptions">
+<a class="reference internal image-reference" href="_images/celltypeOptions.png"><img alt="_images/celltypeOptions.png" src="_images/celltypeOptions.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 7 </span><span class="caption-text">Via this menu you can select the cell tyope.</span><a class="headerlink" href="#celltypeoptions" title="Permalink to this image">¶</a></p>
+</div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Select a cell in the Notebook and change the type by using the hotkeys or the menu.</p>
@@ -500,10 +524,16 @@ Code cells are used to write and execute code. In our case Python. When a code c
 <div class="section" id="adding-new-cells">
 <h3>Adding new cells<a class="headerlink" href="#adding-new-cells" title="Permalink to this headline">¶</a></h3>
 <p>One cell is rarely enough to make a clearly structured Notebook. Adding more cells can be done by pressing the ‘+’ button in the taskbar.</p>
-<p><strong>To add</strong> printsscreen +</p>
+<div class="figure align-default" id="newcell">
+<a class="reference internal image-reference" href="_images/newcell.png"><img alt="_images/newcell.png" src="_images/newcell.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 8 </span><span class="caption-text">Click the + to add a new cell directly below the selected one</span><a class="headerlink" href="#newcell" title="Permalink to this image">¶</a></p>
+</div>
 <p>This will add a new cell directly below the currently active cell.</p>
 <p>Another way is to use the menu ‘Insert’, where the choice is given between adding a cell above or below the current active cell.</p>
-<p><strong>To add</strong> printscreen menu</p>
+<div class="figure align-default" id="newcellmenu">
+<a class="reference internal image-reference" href="_images/newcellmenu.png"><img alt="_images/newcellmenu.png" src="_images/newcellmenu.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 9 </span><span class="caption-text">In this menu you can add a new cell above or below.</span><a class="headerlink" href="#newcellmenu" title="Permalink to this image">¶</a></p>
+</div>
 </div>
 <div class="section" id="comments">
 <h3>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
@@ -1089,8 +1119,7 @@ Use the following numbers: 6, 24, 8, 2, 14.</p>
 <p>Before using a Python package it needs to be <em>installed</em>. This preferably done using the command line but can also be done within your Jupyter Notebook.
 Afterwards the package needs to be <em>imported</em> into the Notebook. After importing the package is ready for use.</p>
 <p>To demonstrate this we will install, import and use a package to display some information about the contents of DHBenelux 2022.</p>
-<p>First you will need to download the dataset.</p>
-<p><strong>To Add</strong> download link and dataset</p>
+<p>First you will need to download the dataset. The dataset can be <a class="reference external" href="https://github.com/MirjamC/xml-workshop/blob/master/data/wordcloud_dataset.csv">downloaded here</a>.</p>
 <p>Now lets install and import the packages we need.
 We will need three packages:</p>
 <ul class="simple">
@@ -1227,7 +1256,7 @@ This visualiation can give quick insight to which items are popular at the momen
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Welcome to this XML course</p>
+            <p class="prev-next-title">Welcome to this XML with Python course</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="2_introduction_xml.html" title="next page">
