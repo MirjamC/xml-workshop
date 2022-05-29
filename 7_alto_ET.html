@@ -362,7 +362,7 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-extract-information-from-the-alto-format-with-elementree">
 <h1>7. Practical: Extract information from the Alto format with ElemenTree<a class="headerlink" href="#practical-extract-information-from-the-alto-format-with-elementree" title="Permalink to this headline">¶</a></h1>
-<p>In this lesson ,we are going to work with the Alto and Didle format. As shown in lesson <em><strong>6</strong></em>, the Alto and Didle are connected to each other.
+<p>In this lesson we are going to work with the Alto and Didle format. As shown in lesson <em><strong>6</strong></em>, the Alto and Didle are connected to each other.
 The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4.</p>
 <p>This lesson contains the following content:</p>
 <ul class="simple">
@@ -482,7 +482,7 @@ How can you extract the values from attributes?</p>
 <p class="admonition-title">Solution</p>
 <p>This can be done with the .get method, for example: book.get(‘id’).</p>
 </div>
-<p>In lesson 4 we learned that is is possible to acces the elements with a for loop, like</p>
+<p>In lesson 4 we learned that is is possible to acces the elements with a for loop, like:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
 </pre></div>
 </div>
@@ -506,13 +506,9 @@ One way to access the String element is by typing all ancestors, leading to a co
 <p>So, we can easily loop through all String elements by using the .// escape, and we can extract the content from the CONTENT attribute with the .get method.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>The text content that we wish to extract is stored in the Unicode element. 
-Use Python and ElementTree to extract this content.
-
-*Dont’t forget about namespaces!!*
-</pre></div>
-</div>
-</div>
+<p>The text content that we wish to extract is stored in the Unicode element.
+Use Python and ElementTree to extract this content.</p>
+<p><em>Dont’t forget about namespaces!!</em></p>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ns0&#39;</span><span class="p">:</span> <span class="s1">&#39;http://schema.ccs-gmbh.com/ALTO&#39;</span><span class="p">}</span>
@@ -521,6 +517,7 @@ Use Python and ElementTree to extract this content.
     <span class="n">content</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CONTENT&#39;</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>	
 </pre></div>
+</div>
 </div>
 </div>
 <p>This leads to the following output:</p>
@@ -2948,9 +2945,7 @@ m
 een
 onderhoud
 met
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>den
+den
 tra
 nscheh
 ambassadeuren
@@ -2964,7 +2959,9 @@ te
 kennen
 gegeven
 over
-de
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>de
 wijze,
 waarop
 door
@@ -5203,9 +5200,7 @@ zegd
 worden,
 vrij
 algemeen
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>is
+is
 —
 dat
 men
@@ -5417,7 +5412,9 @@ in
 staat,
 zal
 zün
-eenige
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>eenige
 staatkundige
 tegenstanders
 door
@@ -7569,9 +7566,7 @@ der
 grondbelasting
 verbetering
 zal
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>kunnen
+kunnen
 brengen
 in
 de
@@ -7846,7 +7841,9 @@ tijdig
 te
 doen
 behandflen.
-Hij
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hij
 heeft
 ook
 met
@@ -12604,7 +12601,7 @@ However, as we saw before, there is also other information stored in the resourc
 and publication date.</p>
 <p>You can distinguish the articles using the newspaper metadata based on the element ‘subject’.
 All articles have a subject (‘artikel’, ‘familiebericht’ etc) whilst the other metadata does not.</p>
-<p>This distintion can be done with an ‘if’ statement, in which we check if there is a element with the name ‘subject’ present in the element block.</p>
+<p>This distinction can be done with an ‘if’ statement, in which we check if there is a element with the name ‘subject’ present in the element block.</p>
 <p>We will start with extracting the type of article, title, and identifier from the Didl XML. The identifier will later be used to download the articles.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
@@ -12698,9 +12695,7 @@ artikel BINNENGEKOMEN. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0
 artikel UITGEZEILD. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0015
 artikel IN LADING. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0016
 artikel ZEILKLAAR. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0017
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>artikel Rivierberigten. IN LADING LIGGENDE SCHEPEN. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0018
+artikel Rivierberigten. IN LADING LIGGENDE SCHEPEN. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0018
 artikel Karga-Lijsten. AMSTERDAM. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0019
 artikel Prijscourant der Effecten. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0020
 artikel Wisselkoersen. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0021
@@ -12727,7 +12722,9 @@ advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0042
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0043
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0044
-advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0045
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0045
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0046
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0047
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0048
@@ -12849,7 +12846,7 @@ We can perform these alteration through string manipulations in Python.</p>
 <li><p>Extracting the contents;</p></li>
 <li><p>Saving the contents to file.</p></li>
 </ul>
-<p>This can also be combined into one piece of code that handles all these steps. An adventage of this method is that
+<p>This can also be combined into one piece of code that handles all these steps. An advantage of this method is that
 there is no need to manually save and re-open every separate article file.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
 
@@ -13044,7 +13041,7 @@ the element ‘Resource , it becomes possible to filter out those elements whose
 </table>
 </div></div></div>
 </div>
-<p>You have now a dataframe with metadata from all articles of one page. You can use the same steps as described above to download the content from this articles and store them in textfiles.</p>
+<p>You now have a dataframe with metadata from all articles of one page. You can use the same steps as described above to download the content from this articles and store them in textfiles.</p>
 </div>
 </div>
 

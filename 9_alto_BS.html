@@ -362,7 +362,7 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-alto-and-beautiful-soup">
 <h1>9. Practical session: Alto and Beautiful Soup<a class="headerlink" href="#practical-session-alto-and-beautiful-soup" title="Permalink to this headline">¶</a></h1>
-<p>In this lesson ,we are going to work with the Alto and Didle format. As shown in lesson <em><strong>6</strong></em>, the Alto and Didle are connected to each other.
+<p>In this lesson we are going to work with the Alto and Didle format. As shown in lesson <em><strong>6</strong></em>, the Alto and Didle are connected to each other.
 The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 5.</p>
 <p>This lesson contains the following content:</p>
 <ul class="simple">
@@ -16165,16 +16165,14 @@ How can you extract the values from attributes?</p>
 <p class="admonition-title">Solution</p>
 <p>This can be done with the .get method, for example: book.get(‘id’).</p>
 </div>
-<p>In lesson 5 we learned that is is possible to acces the elements with a for loop, like</p>
+<p>In lesson 5 we learned that is is possible to acces the elements with a for loop, like:</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
 </pre></div>
 </div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">The</span> <span class="n">text</span> <span class="n">content</span> <span class="n">that</span> <span class="n">we</span> <span class="n">wish</span> <span class="n">to</span> <span class="n">extract</span> <span class="ow">is</span> <span class="n">stored</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">Unicode</span> <span class="n">element</span><span class="o">.</span> 
-<span class="n">Use</span> <span class="n">Python</span> <span class="ow">and</span> <span class="n">ElementTree</span> <span class="n">to</span> <span class="n">extract</span> <span class="n">this</span> <span class="n">content</span><span class="o">.</span>
-</pre></div>
-</div>
+<p>The text content that we wish to extract is stored in the Unicode element.
+Use Python and ElementTree to extract this content.</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
@@ -18406,7 +18404,9 @@ behouds.
 In
 de
 beneden
-regioenen
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>regioenen
 kan
 bet
 insgelijks
@@ -18767,9 +18767,7 @@ onverschillig
 eene
 krant
 aan
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>te
+te
 scnaflen.
 \\
 at
@@ -20760,7 +20758,9 @@ andere
 moeielijkheden
 te
 kampen
-hebben.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>hebben.
 Door
 zijn
 groot
@@ -21374,9 +21374,7 @@ aannemen,
 zou
 het
 blad
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>niet
+niet
 ongeneigd
 zijn
 hem
@@ -23144,7 +23142,9 @@ van
 kadaster
 der
 gebouwde
-eigendomiiien
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>eigendomiiien
 die
 hij
 ook
@@ -28253,7 +28253,7 @@ However, as we saw before, there is also other information stored in the resourc
 and publication date.</p>
 <p>You can distinguish the articles using the newspaper metadata based on the element ‘subject’.
 All articles have a subject (‘artikel’, ‘familiebericht’ etc) whilst the other metadata does not.</p>
-<p>This distintion can be done with an ‘if’ statement, in which we check if there is a element with the name ‘subject’ present in the element block.</p>
+<p>This distinction can be done with an ‘if’ statement, in which we check if there is a element with the name ‘subject’ present in the element block.</p>
 <p>We will start with extracting the type of article, title, and identifier from the Didl XML. The identifier will later be used to download the articles.</p>
 <div class="cell tag_hide-output docutils container">
 <div class="cell_input docutils container">
@@ -28300,7 +28300,9 @@ artikel TELEGRAMMEN. (REUTERS OFFICE.) http://resolver.kb.nl/resolve?urn=ddd:010
 artikel Scheepstijdingen. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0026
 artikel Scheepstijdingen. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0027
 artikel LAATSTE POST. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0028
-artikel HANDELSBERIGTEN. AMSTERDAM, Vrijdag 31 December. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0029
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>artikel HANDELSBERIGTEN. AMSTERDAM, Vrijdag 31 December. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0029
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0030
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0031
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0032
@@ -28355,9 +28357,7 @@ artikel Scheepstijdingen. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21
 artikel LAATSTE POST. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0028
 artikel HANDELSBERIGTEN. AMSTERDAM, Vrijdag 31 December. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0029
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0030
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0031
+advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0031
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0032
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0033
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0034
@@ -28486,7 +28486,7 @@ We can perform these alteration through string manipulations in Python.</p>
 <li><p>Extracting the contents;</p></li>
 <li><p>Saving the contents to file.</p></li>
 </ul>
-<p>This can also be combined into one piece of code that handles all these steps. An adventage of this method is that
+<p>This can also be combined into one piece of code that handles all these steps. An advantage of this method is that
 there is no need to manually save and re-open every separate article file.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlopen</span>
 
@@ -28568,7 +28568,8 @@ the element ‘Resource , it becomes possible to filter out those elements whose
 <p>Then the rest of the code can be made similarly to the code we used to extract all identifiers of all articles of the whole newspaper.</p>
 <div class="admonition-note admonition">
 <p class="admonition-title">Note</p>
-<p>If an <em><strong>attribute</strong></em> has a namespace, you HAVE to add the namespaces prefix before the attribute name in Beautiful Soup for it to regonice it.</p>
+<p>If an <em><strong>attribute</strong></em> has a namespace, you HAVE to add the namespaces prefix before the attribute name in Beautiful Soup
+for it to recognize it.</p>
 </div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
@@ -28680,7 +28681,7 @@ the element ‘Resource , it becomes possible to filter out those elements whose
 </table>
 </div></div></div>
 </div>
-<p>You have now a dataframe with metadata from all articles of one page. You can use the same steps as described above to download the content from this articles and store them in textfiles.</p>
+<p>You now have a dataframe with metadata from all articles of one page. You can use the same steps as described above to download the content from this articles and store them in textfiles.</p>
 </div>
 </div>
 

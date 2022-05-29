@@ -131,7 +131,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Extract information from the Alto/Didle format with ElemenTree
+   7. Practical: Extract information from the Alto format with ElemenTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -156,7 +156,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_auto_batch.html">
-   12. Practical session: Automatically extraxt information from a batch of files
+   12. Practical session: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -324,6 +324,14 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-statements-if-else">
+     Conditional statements,
+     <em>
+      if else
+     </em>
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#packages">
      Packages
     </a>
@@ -400,6 +408,14 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#functions">
      Functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#conditional-statements-if-else">
+     Conditional statements,
+     <em>
+      if else
+     </em>
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -1028,6 +1044,43 @@ Use the following numbers: 6, 24, 8, 2, 14.</p>
 </pre></div>
 </div>
 <p>and the min() function should return <strong>2</strong></p>
+</div>
+</div>
+<div class="section" id="conditional-statements-if-else">
+<h3>Conditional statements, <em>if else</em><a class="headerlink" href="#conditional-statements-if-else" title="Permalink to this headline">¶</a></h3>
+<p>Python is able to use conditional statements. These are control structures that enable us to decide what to do based on what happens in our code and input. It requires that that one or more conditions are specified to be evaluated or tested by the program, along with something that the code must do if the condition is determined to be true, and optionally, something else if the condition is determined to be false.</p>
+<p>For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>	<span class="k">if</span> <span class="s2">&quot;hungry&quot;</span><span class="p">:</span>
+		<span class="n">to_do</span> <span class="o">=</span> <span class="s2">&quot;Lunch!&quot;</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">to_do</span> <span class="o">=</span> <span class="s2">&quot;Work!&quot;</span>
+</pre></div>
+</div>
+<p>These can also be extended using multiple choices:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>	<span class="k">if</span> <span class="s2">&quot;hungry&quot;</span><span class="p">:</span>
+		<span class="n">to_do</span> <span class="o">=</span> <span class="s2">&quot;Lunch!&quot;</span>
+	<span class="k">elif</span> <span class="s2">&quot;tired&quot;</span><span class="p">:</span> 
+		<span class="n">to_do</span> <span class="o">=</span> <span class="s2">&quot;Coffee!&quot;</span> 
+	<span class="k">else</span><span class="p">:</span>
+		<span class="n">to_do</span> <span class="o">=</span> <span class="s2">&quot;Work!&quot;</span>
+</pre></div>
+</div>
+<p>Instead of coding out conditions directly into the <em>if else</em>, it is also possible to evaluate the contents of a variable. This enables us to reuse an <em>if else</em> block multiple times.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## First we put the condition into a variable </span>
+	<span class="n">current_state</span> <span class="o">==</span> <span class="s2">&quot;hungry&quot;</span>
+<span class="c1">## then we evaluate the variable</span>
+	<span class="n">IF</span> <span class="n">current_state</span> <span class="o">==</span> <span class="s2">&quot;hungry&quot;</span><span class="p">:</span>
+		<span class="n">to_do</span> <span class="o">=</span> <span class="s2">&quot;Lunch!&quot;</span>
+	<span class="n">ELIF</span> <span class="n">current_state</span> <span class="o">==</span> <span class="s2">&quot;tired&quot;</span><span class="p">:</span> 
+		<span class="n">to_do</span> <span class="o">=</span> <span class="s2">&quot;Coffee!&quot;</span> 
+	<span class="n">ELSE</span><span class="p">:</span>
+		<span class="n">to_do</span> <span class="o">=</span> <span class="s2">&quot;Work!&quot;</span>
+</pre></div>
+</div>
+<p>It we would now print the contents of the variable <em>to_do</em> we would get:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Output</span><span class="p">:</span>
+<span class="s2">&quot;Lunch!&quot;</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="packages">
