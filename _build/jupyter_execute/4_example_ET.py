@@ -388,7 +388,7 @@ for book in root.findall('book'):
 # 
 # Then we type:
 # ``` 
-# books = pd.DataFrame(booklist, columns=("identifier", "title", "description", "name")
+# books = pd.DataFrame(booklist, columns=["identifier", "title", "description", "name"])
 # ```
 # 
 # This code works as follows. You declare the variable 'books', which will be used to store all the information. 
@@ -406,7 +406,7 @@ for book in root.findall('book'):
 
 
 import pandas as pd
-books = pd.DataFrame(booklist, columns={"identifier","title", "description", "name"})
+books = pd.DataFrame(booklist, columns=["identifier","title", "description", "name"])
 books
 
 
