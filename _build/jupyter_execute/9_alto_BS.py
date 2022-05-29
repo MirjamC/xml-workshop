@@ -3,7 +3,7 @@
 
 # # 9. Practical session: Alto and Beautiful Soup
 # 
-# In this lesson ,we are going to work with the Alto and Didle format. As shown in lesson ***6***, the Alto and Didle are connected to each other. 
+# In this lesson we are going to work with the Alto and Didle format. As shown in lesson ***6***, the Alto and Didle are connected to each other. 
 # The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 5. 
 # 
 # This lesson contains the following content:
@@ -139,17 +139,15 @@ print(root_alto)
 # This can be done with the .get method, for example: book.get('id'). 
 # ```
 # 
-# In lesson 5 we learned that is is possible to acces the elements with a for loop, like
+# In lesson 5 we learned that is is possible to acces the elements with a for loop, like:
 # ```Python
 # for book in root.find_all('book'):
 # ```
 # 
 # ````{admonition} Exercise
 # :class: attention
-# ```Python
 # The text content that we wish to extract is stored in the Unicode element. 
 # Use Python and ElementTree to extract this content.
-# 
 # ````
 # 
 # ````{admonition} Solution
@@ -423,7 +421,7 @@ for article in item.find_all('dcx'):
 # You can distinguish the articles using the newspaper metadata based on the element 'subject'.
 # All articles have a subject ('artikel', 'familiebericht' etc) whilst the other metadata does not.
 # 
-# This distintion can be done with an 'if' statement, in which we check if there is a element with the name 'subject' present in the element block. 
+# This distinction can be done with an 'if' statement, in which we check if there is a element with the name 'subject' present in the element block. 
 # 
 # We will start with extracting the type of article, title, and identifier from the Didl XML. The identifier will later be used to download the articles.
 
@@ -541,7 +539,7 @@ print(root_article)
 # - Extracting the contents;
 # - Saving the contents to file.
 # 
-# This can also be combined into one piece of code that handles all these steps. An adventage of this method is that 
+# This can also be combined into one piece of code that handles all these steps. An advantage of this method is that 
 # there is no need to manually save and re-open every separate article file. 
 # 
 # ```Python
@@ -629,7 +627,8 @@ print(root_article)
 # Then the rest of the code can be made similarly to the code we used to extract all identifiers of all articles of the whole newspaper. 
 # 
 # ```{admonition} Note
-# If an ***attribute*** has a namespace, you HAVE to add the namespaces prefix before the attribute name in Beautiful Soup for it to regonice it. 
+# If an ***attribute*** has a namespace, you HAVE to add the namespaces prefix before the attribute name in Beautiful Soup 
+# for it to recognize it. 
 # ```
 # 
 # ```{admonition} Exercise
@@ -687,4 +686,4 @@ articles = pd.DataFrame(article_list, columns = ['Page', 'Type', 'Title', 'Ident
 articles
 
 
-# You have now a dataframe with metadata from all articles of one page. You can use the same steps as described above to download the content from this articles and store them in textfiles.
+# You now have a dataframe with metadata from all articles of one page. You can use the same steps as described above to download the content from this articles and store them in textfiles.

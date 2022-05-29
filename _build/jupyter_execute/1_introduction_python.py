@@ -521,6 +521,43 @@ round(36.53343, 2)
 # ```
 # and the min() function should return **2**
 # ````
+# ### Conditional statements, *if else*
+# 
+# Python is able to use conditional statements. These are control structures that enable us to decide what to do based on what happens in our code and input. It requires that that one or more conditions are specified to be evaluated or tested by the program, along with something that the code must do if the condition is determined to be true, and optionally, something else if the condition is determined to be false. 
+# 
+# For example:
+# ```
+# 	if "hungry":
+# 		to_do = "Lunch!"
+# 	else:
+# 		to_do = "Work!"
+# ```
+# These can also be extended using multiple choices:
+# ```
+# 	if "hungry":
+# 		to_do = "Lunch!"
+# 	elif "tired": 
+# 		to_do = "Coffee!" 
+# 	else:
+# 		to_do = "Work!"
+# ```
+# Instead of coding out conditions directly into the *if else*, it is also possible to evaluate the contents of a variable. This enables us to reuse an *if else* block multiple times. 
+# ```
+# ## First we put the condition into a variable 
+# 	current_state == "hungry"
+# ## then we evaluate the variable
+# 	IF current_state == "hungry":
+# 		to_do = "Lunch!"
+# 	ELIF current_state == "tired": 
+# 		to_do = "Coffee!" 
+# 	ELSE:
+# 		to_do = "Work!"
+# ```
+# It we would now print the contents of the variable *to_do* we would get:
+# ```
+# Output:
+# "Lunch!"
+# ```
 # 
 # ### Packages
 # 
