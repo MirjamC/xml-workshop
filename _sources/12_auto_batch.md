@@ -13,7 +13,7 @@ kernelspec:
   name: python3
 ---
 
-# 12. Practical session: Automatically extract information from a batch of files
+# 12. Practical lesson: Automatically extract information from a batch of files
 
 In the previous lessons, we have seen how we can extract information from the Alto, Didl, Tei and Page XML files. 
 In this lesson, we will show you how you can use the codes from the previous lessons and, with a little bit of alteration, use them to automatically extract content from batches of XML files and save them as either textfiles or csv files. 

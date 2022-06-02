@@ -21,7 +21,7 @@ It consists of explanation followed by pratical exercises. To get the most out o
 First, lets start up Jupyter and open a Notebook.
 In the taskbar searchbox, type 'jupyter' and open *jupyter notebook*.
 
-```{figure} images/openJupyter.png
+```{figure} /images/openJupyter.png
 ---
 height: 200px
 name: openJupyter
@@ -122,12 +122,20 @@ There are multiple ways to run a cell:
 
 The moment a cell generates *output* the output is displayed beneath the cell, keeping code and output together.
 
-```{admonition} Exercise 
+````{admonition} Exercise 
 :class: attention
-Type the code below in a code cell in your Notebook and run the cell.
+Type the code below in a new code cell in your Notebook and run the cell.
 ```
+2*8
+```
+````
 
-```{code-cell} 
+```{admonition} Solution
+:class: tip, dropdown
+Python will simply multiply the numbers and display the answer below the code cell.
+```
+```{code-cell}
+:tags: [remove-input, hide-output]
 2*8
 ```
 
@@ -165,17 +173,14 @@ Comments can be added to a code cell. Comments can be used to describe what a pi
 
 The moment a # is typed in a code cell, everything after it *on the same line* will be regarded as a comment. Lines that have been marked as a comment will **not** be executed by Python when the cell is run.
 
-```{admonition} Exercise 
+````{admonition} Exercise 
 :class: attention
-Type the code below in a cell in your Notebook and run the cell. Does Python return output?
-```
-
-```{code-cell}
-:tags: [hide-output]
-
+Type the code below in a new cell in your Notebook and run the cell. Does Python return output?
+```Python
 #print("The solution to 35+12 is:")
 #print(35+12)
 ```
+````
 
 ```{admonition} Solution
 :class: tip, dropdown
@@ -189,10 +194,16 @@ When the **#** is removed and the cell is run again, Python wil recognize the co
 Alter the cell so the code is no longer seen as a comment.
 ```
 
-```{admonition} Solution
+````{admonition} Solution
 :class: tip, dropdown
-Removing the # from the code should enable Python to recognize the code return output when the cell is run
+Removing the # from the code should enable Python to recognize the code and return output when the cell is run.
+```Python
+print("The solution to 35+12 is:")
+print(35+12)
 ```
+````
+
+This should then print:
 ```{code-cell}
 :tags: [remove-input, hide-output]
 print("The solution to 35+12 is: ")
@@ -217,38 +228,53 @@ The command *type()* can be used to determine what type of input a variable cont
 *int* indicates a variable contains an integer, or whole number.
 *str* indicates a variable contains a string, a piece of text. 
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-Type the code below in a cell in your Notebook and run the cell.
-```
-
-```{code-cell} 
-:tags: [hide-output]
-
+Type the code below in a newcell in your Notebook and run the cell. 
+```Python
+# This stores the data in the variable
 number = 9
-text = "this is a text"
-```
-
-```{code-cell} 
-:tags: [hide-output]
-
+# This determines its type
 type(number)
 ```
-
-```{code-cell} 
-:tags: [hide-output]
-
+````
+```{admonition} Solution
+:class: tip, dropdown
+Python will return the type of the variable.
+```
+```{code-cell}
+:tags: [remove-input, hide-output]
+number = 9
+type(number)
+```
+Now let's repeat that for another data type.
+````{admonition} Exercise
+:class: attention
+Type the code below in a new cell in your Notebook and run the cell. 
+```Python
+# This stores the data in the variable
+text = "this is a text"
+# This determines its type
 type(text)
 ```
-
+````
+```{admonition} Solution
+:class: tip, dropdown
+Python will return the type of the variable.
+```
+```{code-cell}
+:tags: [remove-input, hide-output]
+text = "this is a text"
+type(text)
+```
 ```{admonition} Note
 **Important!** If you input a number *with* quotation marks Python will see it as text!
 ```
 
 ````{admonition} Exercise 
 :class: attention
-Type the following code in a cell in your Notebook and run the cell. What data type is the number?
-```
+Type the following code in a new cell in your Notebook and run the cell. What data type is the number?
+```Python
 number_but_wrong = "9"
 type(number_but_wrong)
 ```
@@ -266,46 +292,48 @@ Sometimes an error in the code is due to the wrong data type. Checking data type
 As mentioned above it is possible to use previously assigned variables in your code. 
 This makes it possible to input a value just one time when it is needed more than once in the code.
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
- Type the code below in a cell in your Notebook and run the cell.
+ Type the code below in a new cell in your Notebook and run the cell.
 ```
-
-```{code-cell} 
-:tags: [hide-output]
-
 number_1 = 3
 number_2 = 6
 
 number_1 + number_2 
 ```
-
+````
+```{admonition} Solution
+:class: tip, dropdown
 Python simply adds the original numbers as it remembers which input belongs to which variable.
+```
+```{code-cell}
+:tags: [remove-input, hide-output]
+number_1 = 3
+number_2 = 6
+number_1 + number_2 
+```
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
 Using Python variables, calculate the sum of "35 + 69" in the cell below. Start with making two variables to assign the numbers *35* and *69* to. Calculate the sum using these variables.
 ```
-
-```{code-cell} 
-:tags: [hide-output]
-
 # Make a variable for the number 35
 
 # Make a variable for the number 69
 
 # Calculate the sum using the variables
 ```
+````
 
-```{admonition} Solution
+````{admonition} Solution
 :class: tip, dropdown
 Your code should look a bit like this:
-	
-	number_1 = 35
-	number_2 = 69
-	number_1 + number_2 
+```Python	
+number_1 = 35
+number_2 = 69
+number_1 + number_2 
 ```
-
+````
 ```{code-cell} 
 :tags: [remove-input,hide-output]
 number_1 = 35
@@ -316,13 +344,21 @@ number_1 + number_2
 
 The plus sign can be used to calculate sums, as you did in the above exercise. However, the plus sign can also be used to stick different strings together. 
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-Type the code below in a cell in your Notebook and run the cell.
+Type the code below in a new cell in your Notebook and run the cell.
+```Python
+line_1 = "This is a "
+line_2 = "stuck together text"
+line_1 + line_2
 ```
-
+````
+```{admonition} Solution
+:class: tip, dropdown
+As you can see Python adds the text elements together to form a longer sentence. This also works with multiple variables.
+```
 ```{code-cell} 
-:tags: [hide-output]
+:tags: [remove-input,hide-output]
 
 line_1 = "This is a "
 line_2 = "stuck together text"
@@ -330,56 +366,60 @@ line_2 = "stuck together text"
 line_1 + line_2
 ```
 
-As you can see Python adds the text elements together to form a longer sentence. This also works with multiple variables.
-
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
 Ensure that the four lines below are printed as one sentence in the output.
-```
-
-```{code-cell} 
-:tags: [hide-output]
-
+```Python
 line_1 = "Because of this Notebook "
 line_2 = "I now know "
 line_3 = "that programming with Python "
 line_4 = "is very fun!"
 ```
+````
 
-```{admonition} Solution
+````{admonition} Solution
 :class: tip, dropdown
 Your code should look like this:
-
-	line_1 + line_2 + line_3 + line_4
+```Python
+line_1 + line_2 + line_3 + line_4
 ```
+````
 ```{code-cell} 
-:tags: [remove-input, hide-output]
+:tags: [remove-input,hide-output]
+line_1 = "Because of this Notebook "
+line_2 = "I now know "
+line_3 = "that programming with Python "
+line_4 = "is very fun!"
 line_1 + line_2 + line_3 + line_4
 ```
 
-
 Now, what about adding text and numbers from variables together?
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
 Type the code below in a cell in your Notebook and see what happens when you run the code.
+```Python
+line_1 = "The amount of abstracts for DHBenelux is: "
+amount_1 = 43
+line_1 + amount_1
 ```
+````
 
+````{admonition} Solution
+:class: tip, dropdown
+This gives an error:
+```Python
+TypeError: can only concatenate str (not "int") to str
+```
+Just adding numbers and text does not work. Some extra work needs to be done in order for Python to correctly return output without errors
+````
 ```{code-cell} 
-:tags: [hide-output,raises-exception]
+:tags: [remove-input,hide-output,raises-exception]
 line_1 = "The amount of abstracts for DHBenelux is: "
 amount_1 = 43
 line_1 + amount_1
 ```
 
-```{admonition} Solution
-:class: tip, dropdown
-This gives an error:
-	
-	TypeError: unsupported operand type(s) for +: 'int' and 'str'
-
-Just adding numbers and text does not work. Some extra work needs to be done in order for Python to correctly return output without errors
-```
 
 There are multiple options to convince Python to return combinations of numbers and  text:
 - force numbers to text with *str()*
@@ -387,31 +427,46 @@ There are multiple options to convince Python to return combinations of numbers 
 
 To force Python to interpret a number as text its type can be changed with str(number).
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-Type the code below in a cell in your Notebook and run the cell.
-```
-
-```{code-cell} 
-:tags: [hide-output]
+Type the code below in a new cell in your Notebook and run the cell.
+```Python
 line_1 = "The amount of abstracts for DHBenelux is: "
 amount_1 = 43
 line_1 + str(amount_1)
 ```
+````
+````{admonition} Solution
+:class: tip, dropdown
+Now the text and number are succesfully stuck together.
+```
+```{code-cell} 
+:tags: [remove-output,hide-output]
+line_1 = "The amount of abstracts for DHBenelux is: "
+amount_1 = 43
+line_1 + str(amount_1)
+````
 
 This also works with multiple variabeles and pieces of text outside of variables.
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-Type the code below in a cell in your Notebook and run the cell.
-```
-
-```{code-cell} 
-:tags: [hide-output]
-
+Type the code below in a new cell in your Notebook and run the cell.
+```Python
 line_1 = "coffee breaks "
 amount_1 = 2
  
+"The amount of " + line_1 + "in this workshop is: " + str(amount_1)
+```
+````
+```{admonition} Solution
+:class: tip, dropdown
+Python will stick anything together, as long as it is of type text.  
+```
+```{code-cell}
+:tags: [remove-input, hide-output]
+line_1 = "coffee breaks "
+amount_1 = 2
 "The amount of " + line_1 + "in this workshop is: " + str(amount_1)
 ```
 
@@ -428,20 +483,28 @@ The syntax for *f strings* is:
 f"This is the string we type and {this_is_the_variable}"
 ```
 
-
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-Type the code below in a cell in your Notebook and run the cell.
-```
-
-```{code-cell} 
-:tags: [hide-output]
-
+Type the code below in a new cell in your Notebook and run the cell.
+```Python
 line_1 = "coffee breaks "
 amount_1 = 2
  
 f"The amount of {line_1} in this workshop is: {amount_1}"
 ```
+````
+```{admonition} Solution
+:class: tip, dropdown
+This gives the same output as simply sticking strings together with the + sign.
+```
+```{code-cell}
+:tags: [remove-input,hide-output]
+line_1 = "coffee breaks "
+amount_1 = 2
+f"The amount of {line_1} in this workshop is: {amount_1}"
+```
+
+*f strings* can be very powerful for making dynamic strings, such as automatically numbered filenames.
 
 ### Output
 
@@ -453,7 +516,7 @@ Output should generally be created by printing using:
 print("whatever you wish to print") 
 ```
 
-Text must be put between quotes or Python will assume you are wishing to print variables.
+Text must be put between quotes or Python will assume you wish to print variables.
 
 Variables can be printed the same way as text, but must **not** have quotation marks.
 
@@ -479,11 +542,16 @@ However, using Jupyter Notebooks there is also another way to create output. You
 
 To demonstrate this, let's reuse some of our variabeles.
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-In a new code cell, type out the variables *line_1*, *amount_1*, *print_me* below each other. Run the cell.
-Which variable is printed to the output?
+In a new code cell, type out the following code and run the cell.
+```Python
+line_1
+amount_1
+print_me
 ```
+Which variable is printed to the output?
+````
 
 ```{admonition} Solution
 :class: tip, dropdown
@@ -498,9 +566,9 @@ print_me
 ```
 
 These two ways of printing output are not completely the same. Printing using the print() function removes some of the layout that Jupyter creates for you. 
-This is very noticible when printing tables (which we call 'dataframes').
+This is very noticable when printing tables (which we call 'Dataframes').
 
-We have created a variable table for you that contains a table of numbers. Which we will use to demonstrate the difference in printing.
+We have created a variable *table_1* for you that contains a table of numbers. Which we will use to demonstrate the difference in printing.
 
 ```{admonition} Exercise
 :class: attention
@@ -511,29 +579,29 @@ Which variable is printed to the output?
 ````{admonition} Solution
 :class: tip, dropdown
 You will have used 
-```print(table)```
+```print(table_1)```
 or 
-```table```
+```table_1```
 to print out the table. You can check below of the output matches yours.
 ````
 
-The output of ```print(table)```
+The output of ```print(table_1)```
 ```{code-cell}
 :tags: [remove-input, hide-output]
 import pandas as pd
 data = [32,6,7,5,34534,7], [123,543,3,7,8,43],[12,34,8,6,34,65],[12,32,56,873,56,3]
-table = pd.DataFrame(data, columns = ["I","am","a","table","of","numbers"])
+table_1 = pd.DataFrame(data, columns = ["I","am","a","table","of","numbers"])
 print("This was printed with the print() function.")
-print(table)
+print(table_1)
 ```
 
-The output of ```table```
+The output of ```table_1```
 ```{code-cell}
 :tags: [remove-input, hide-output]
-print("This was printed by executing table")
-table
+print("This was printed by executing table_1")
+table_1
 ```
-While this diffence is purely aesthetic, it is good to know, especially when working with table formatted data.
+While this difference is purely aesthetic, it is good to know, especially when working with table formatted data.
  
 ### Functions
 
@@ -543,26 +611,37 @@ Functions need to be passed one or more parameters as input. The syntax of a fun
 
 You can find some examples below.
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-Type the code below in a cell in your Notebook and run the cell
+Type the code below in a new cell in your Notebook and run the cell.
+```Python
+# Calculate the highest number using the max() function.
+max(5, 8, 35, 4, 75, 2)
 ```
-
+````
+```{admonition} Solution
+:class: tip, dropdown
+See how this function finds the highest number for you? 
+```
 ```{code-cell} 
-:tags: [hide-output]
-
+:tags: [remove-input,hide-output]
 # Calculate the highest number using the max() function.
 max(5, 8, 35, 4, 75, 2)
 ```
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-Round the number below using the round() function. The first parameter is the number to round. The second number is the required number of decimals. Type the code below in a cell in your Notebook and run the cell
+Round the number below using the round() function. The first parameter is the number to round. The second number is the required number of decimals. Type the code below in a new cell in your Notebook and run the cell
+```Python
+round(36.53343, 2)
 ```
-
+````
+```{admonition} Solution
+:class: tip, dropdown
+This function neatly rounds the number to the amount of digits you specified. You can try inputting a different amount of digits. 
+```
 ```{code-cell} 
-:tags: [hide-output]
-
+:tags: [remove-input,hide-output]
 round(36.53343, 2)
 ```
 
@@ -578,8 +657,11 @@ The code should look like this
 ```
 min(6, 24, 8, 2, 14)
 ```
-and the min() function should return **2**
 ````
+```{code-cell} 
+:tags: [remove-input,hide-output]
+min(6, 24, 8, 2, 14)
+```
 ### Conditional statements, *if else*
 
 Python is able to use conditional statements. These are control structures that enable us to decide what to do based on what happens in our code and input. It requires that that one or more conditions are specified to be evaluated or tested by the program, along with something that the code must do if the condition is determined to be true, and optionally, something else if the condition is determined to be false. 
@@ -613,13 +695,10 @@ else:
 	to_do = "Work!"
 	
 ```
-It we would now print the contents of the variable *to_do* we would get:
+If we would now print the contents of the variable *to_do* we would get:
 ```{code-cell} Python
 print(to_do)
 ```
-
-
-
 
 ### Packages
 
@@ -631,9 +710,9 @@ Afterwards the package needs to be *imported* into the Notebook. After importing
 To demonstrate this we will install, import and use a package to display some information about the contents of the presentations during DHBenelux 2022. 
 
 First you will need to download the dataset. The dataset can be [downloaded here](https://github.com/MirjamC/xml-workshop/blob/master/data/wordcloud_dataset.csv).
-To be able to install wordcloud correctly, you preferably have Anaconda installed, as installing can be difficult otherwise. 
+To be able to install wordcloud correctly, you preferably have Anaconda installed, as installing it can be difficult otherwise. 
 
-Now lets install and import the packages we need.
+Now let's install and import the packages we need.
 We will need three packages:
 - Pandas, for easy data manipulation; 
 - matplotlib, for plotting in Python;
@@ -641,82 +720,102 @@ We will need three packages:
 
 ````{admonition} Exercise
 :class: attention
-Open "Anaconda promp" through the start menu and install the packages with the following code. Install them sequently and wait untill a pacakge is installed
+Open "Anaconda prompt" through the start menu and install the packages with the following code. Install them sequentially and wait until a package is installed
 before installing the next one. 
 ```
-pip install pandas as pd
+pip install pandas
 conda install -c conda-forge wordcloud 
 pip install matplotlib
+```
 ````
 
----- voorbeeld plaatje toevoegen. 
-
-
-```{note}
-The exclamation mark before *pip* is needed to activate *pip* within the Notebook enviroment. When installing from the command line this is not needed.
+```{figure} /images/anacondaprompt.png
+---
+height: 200px
+name: Open Anaconda Prompt
+---
+Open Anaconda prompt.
 ```
 
-```{code-cell} 
-:tags: ["hide-output"]
+```{figure} /images/anacondaprompt3.png
+---
+height: 200px
+name: The Anaconda commandline
+---
+Type out the install code.
+```
 
+````{note}
+When installing packages within a Jupyter Notebook, an exlamation mark is needed to activate *pip* within the Notebook enviroment. When installing from the command line this is not needed.
+For example:
+```Python
+!pip install pandas
+```
+````
+
+````{admonition} Exercise
+:class: attention
+Now let's import the packages. Type the code below in a new cell in your Notebook and run the cell.
+```Python
 # Import the packages
-import pandas
+import pandas as pd
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+```
+````
+```{code-cell}
+:tags: [remove-cell]
+import pandas as pd
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 ```
 ```{note}
 There is a difference between the import statements of the three packages. In the case of *pandas* and *wordcloud* we import the whole package. 
-For *matplotlib* we only want the *pyplot* module, so we added this explicitly after the package name. This ensures that ony that module is imported. The *as plt* statement renames package to a shorter and easier typable code. You will see this used below.
+For *matplotlib* we only want the *pyplot* module, so we added this explicitly after the package name. This ensures that ony that module is imported. The *as plt* and *as pd* statement renames package to a shorter and easier typable code. You will see this used below.
 ```
 
 A package can be used in the same way as a function. 
 We will use the *pandas* package to load data into the Notebook in a way that is digestable for the creation of a wordcloud.
-Many packages feature multiple functions for data manipulation, calculation or visualisation. The function you wish to use is added after the package name.
+Many packages feature multiple functions for data manipulation, calculation or visualisation. The function you wish to use is added after the package name. The package name points Python to the location of the function. 
 
-Syntax: *packagename.function(parameters)*
-
-The package name points Python to the location of the function. 
-
-```{admonition} Exercise
-:class: attention
-Type the code below in a cell in your Notebook and run the cell
+Syntax: 
+```Python 
+packagename.function(parameters)
 ```
 
-
-```{code-cell} 
-:tags: ["hide-output"]
+````{admonition} Exercise
+:class: attention
+Type the code below in a new cell in your Notebook and run the cell.
+```Python
 # Read the dataset into Python using pandas
 wordcloud = pd.read_csv("data/wordcloud_dataset.csv", header=None, index_col=0, squeeze=True)
 # Transform into dictionary for use in the WordCloud
 wordcloud_dict = wordcloud.to_dict()
+# It is good practice to check if the data is loaded correctly
+wordcloud_dict
 ```
+````
 ```{note}
 As you can see, the *pandas* name 'pd' precedes the option *read_csv*. 
 ```
-
-Now we have data it is good practice to have a quick look at it to ensure the data is loaded correctly.
-
-```{admonition} Exercise
-:class: attention
-Type the name of the dataset in a cell and run the cell
+```{admonition} Solution
+:class: tip, dropdown
+This should have loaded the data into your Notebook. As stated in the comment it is good practice to check what you have loaded. See if the output matches that below.
 ```
 
-The data should look like the example below.
-
 ```{code-cell} 
-:tags: [remove-input,output_scroll]
+:tags: [remove-input, hide-output,output_scroll]
+wordcloud = pd.read_csv("data/wordcloud_dataset.csv", header=None, index_col=0, squeeze=True)
+wordcloud_dict = wordcloud.to_dict()
 wordcloud_dict
 ```
 
-When the data is correctly loaded we can use the *WordCloud* and *matplotlib* packages to create a wordcloud from the data.
+When the data is loaded correctly we can use the *WordCloud* and *matplotlib* packages to create a wordcloud from the data.
 
-```{admonition} Exercise
+````{admonition} Exercise
 :class: attention
-Copy the code below in a cell in your Notebook and run the cell
-```
-
-```{code-cell} 
-:tags: ["hide-output"]
+Copy the code below in a new cell in your Notebook and run the cell.
+```Python
 # initialise the wordcloud
 wc = WordCloud(background_color="white", max_words=20)
 # generate the wordcloud 
@@ -727,8 +826,20 @@ plt.imshow(wc,interpolation="bilinear")
 plt.axis("off")
 plt.show()
 ```
-
-This should plot a wordcloud showing maximally 20 word in different sizes. Each word is sized by the amount of times it occurs in the titles of the DHBenelux 2022 abstract. Common words have already been removed.
+````
+```{admonition} Solution
+:class: tip, dropdown
+This should plot a wordcloud showing maximally 20 word in different sizes. Each word is sized by the amount of times it occurs in the titles of the DHBenelux 2022 abstract. Common words like 'the' and 'of' have already been removed.
 This visualiation can give quick insight to which items are popular at the moment. 
+```
+```{code-cell}
+:tags: [remove-input, hide-output]
+wc = WordCloud(background_color="white", max_words=20)
+wc.generate_from_frequencies(wordcloud_dict)
+plt.figure()
+plt.imshow(wc,interpolation="bilinear")
+plt.axis("off")
+plt.show()
+```
 
 Well done! Now you know the basics of working with Jupyter Notebooks and Python. We will use this in the coming chapters. 

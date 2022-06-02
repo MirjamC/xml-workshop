@@ -131,32 +131,32 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Extract information from the Alto format with ElemenTree
+   7. Practical lesson: Alto/Didle and ElementTree
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="8_page_ET.html">
-   8. Practical session: Page and Elementree
+  <a class="reference internal" href="8_alto_BS.html">
+   9. Practical lesson: Alto/Didle and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="9_alto_BS.html">
-   9. Practical session: Alto and Beautiful Soup
+  <a class="reference internal" href="9_page_ET.html">
+   8. Practical lesson: Page and Elementree
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="10_tei_BS.html">
-   10. Practical session: TEI and Beautiful Soup
+  <a class="reference internal" href="10_page_BS.html">
+   11. Practical lesson: Page and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_page_BS.html">
-   11. Practical session: Page and Beautiful Soup
+  <a class="reference internal" href="11_tei_BS.html">
+   10. Practical lesson: TEI and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_auto_batch.html">
-   12. Practical session: Automatically extract information from a batch of files
+   12. Practical lesson: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -446,6 +446,7 @@ Type the following in a code cell:</p>
 </div>
 </div>
 </div>
+<p>Now we can use the package to extract data from the XML.</p>
 </div>
 <div class="section" id="examine-the-structure-of-the-file">
 <h2>Examine the structure of the file<a class="headerlink" href="#examine-the-structure-of-the-file" title="Permalink to this headline">¶</a></h2>
@@ -682,7 +683,7 @@ Visual Studio 7: A Comprehensive Guide
 As value for this variable, we use the content of the tag ‘title’ (which is a direct child of the element ‘book’).
 we add ‘.text’. to let Python know that we are interested in the value between the tags.
 Without the ‘.text’ addition, Python would simply present us the tag in its location, like ‘&lt;Element ‘title’ at 0x000001995B4718B0&gt;’</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;book&#39;</span><span class="p">):</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">title</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
 </pre></div>
 </div>
 <p>Then, we print the output of the title</p>
@@ -750,7 +751,7 @@ Microsoft Visual Studio 7 is explored in depth,
 </div>
 </div>
 </div>
-<p>We can use one <em>for loop</em> to extract both the book title and description from the XML file.
+<p>We can use one <em>for loop</em> to extract both the book title <em>and</em> description from the XML file.
 Combining multiple items is preferable because it saves unnecessary lines of codes and merges the part of the code which does the same thing.
 This makes the code more readable and maintainable.</p>
 <p>Combining the two codes above leads to the following code:</p>
@@ -1012,10 +1013,7 @@ To do this we can use the following scheme:</p>
 bk102 Midnight Rain A former architect battles corporate zombies, 
       an evil sorceress, and her own childhood to become queen 
       of the world. Kim Ralls
-bk103 
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Maeve Ascendant After the collapse of a nanotechnology 
+bk103 Maeve Ascendant After the collapse of a nanotechnology 
       society in England, the young survivors lay the 
       foundation for a new society. Eva Corets
 bk104 Oberon&#39;s Legacy In post-apocalypse England, the mysterious 
@@ -1628,7 +1626,7 @@ This is because there are namespaces defined in the XML file.</p>
 </div>
 </div>
 <ol class="simple">
-<li><p>Declare the namespace in elementTree. You therefore create a Python dictionary with the namespace abbreviation and the uri <em>without</em> the curly brackets.</p></li>
+<li><p>Declare the namespace in elementTree. You therefore create a Python dictionary with the namespace abbreviation and the identifier <em>without</em> the curly brackets.</p></li>
 </ol>
 <div class="admonition important">
 <p class="admonition-title">Important</p>

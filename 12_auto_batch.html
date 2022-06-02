@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>12. Practical session: Automatically extract information from a batch of files &#8212; Automatically extract XML content with Python</title>
+    <title>12. Practical lesson: Automatically extract information from a batch of files &#8212; Automatically extract XML content with Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="End of course" href="end.html" />
-    <link rel="prev" title="11. Practical session: Page and Beautiful Soup" href="11_page_BS.html" />
+    <link rel="prev" title="10. Practical lesson: TEI and Beautiful Soup" href="11_tei_BS.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -111,12 +111,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="3_introduction_packages.html">
-   3. Introduction to the packages ElemenTree and Beautiful Soup
+   3. Introduction to the packages ElementTree and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="4_example_ET.html">
-   4. Practical session: Working with ElemenTree
+   4. Practical session: Working with ElementTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -131,32 +131,32 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Extract information from the Alto format with ElemenTree
+   7. Practical lesson: Alto/Didle and ElementTree
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="8_page_ET.html">
-   8. Practical session: Page and Elementree
+  <a class="reference internal" href="8_alto_BS.html">
+   9. Practical lesson: Alto/Didle and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="9_alto_BS.html">
-   9. Practical session: Alto and Beautiful Soup
+  <a class="reference internal" href="9_page_ET.html">
+   8. Practical lesson: Page and Elementree
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="10_tei_BS.html">
-   10. Practical session: Tei and Beautiful Soup
+  <a class="reference internal" href="10_page_BS.html">
+   11. Practical lesson: Page and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_page_BS.html">
-   11. Practical session: Page and Beautiful Soup
+  <a class="reference internal" href="11_tei_BS.html">
+   10. Practical lesson: TEI and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   12. Practical session: Automatically extract information from a batch of files
+   12. Practical lesson: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -296,7 +296,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>12. Practical session: Automatically extract information from a batch of files</h1>
+                <h1>12. Practical lesson: Automatically extract information from a batch of files</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -330,8 +330,8 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="practical-session-automatically-extract-information-from-a-batch-of-files">
-<h1>12. Practical session: Automatically extract information from a batch of files<a class="headerlink" href="#practical-session-automatically-extract-information-from-a-batch-of-files" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="practical-lesson-automatically-extract-information-from-a-batch-of-files">
+<h1>12. Practical lesson: Automatically extract information from a batch of files<a class="headerlink" href="#practical-lesson-automatically-extract-information-from-a-batch-of-files" title="Permalink to this headline">¶</a></h1>
 <p>In the previous lessons, we have seen how we can extract information from the Alto, Didl, Tei and Page XML files.
 In this lesson, we will show you how you can use the codes from the previous lessons and, with a little bit of alteration, use them to automatically extract content from batches of XML files and save them as either textfiles or csv files.</p>
 <p>We will provide the following examples:</p>
@@ -409,6 +409,9 @@ either _alto or _didl. Make sure that there are no other files in the folder.</p
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ddd_010097934_alto.xml
 ddd_010097935_alto.xml
+ddd_010097936_alto.xml
+ddd_010097937_alto.xml
+ddd_010097938_alto.xml
 </pre></div>
 </div>
 </div>
@@ -724,11 +727,11 @@ You have now seen multiple ways of automatically extracting content from batches
             
                 <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="11_page_BS.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="11_tei_BS.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">11. Practical session: Page and Beautiful Soup</p>
+            <p class="prev-next-title">10. Practical lesson: TEI and Beautiful Soup</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="end.html" title="next page">

@@ -35,4 +35,6 @@ An illustration of a book page and a snippit of its corresponding TEI file:
 
 ![dbnl](images/dbnl_fig.png)
 
-## Page
+## PAGE
+PAGE has been designed to support the individual stages of the workflow of document image analysis methods (from document image enhancement to layout analysis to OCR) and their evaluation. PAGE is an image representation framework that not only records layout structure and page content, but information on image characteristics such as image borders, distortions and corresponding corrections, etc. 
+It is used extensively in public contemporary and historical ground-truthed datasets and in the ICDAR Page Segmentation competition series.

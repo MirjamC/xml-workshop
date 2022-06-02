@@ -13,10 +13,10 @@ kernelspec:
   name: python3
 ---
 
-# 7. Practical lesson: Alto/Didle and ElementTree
+# 9. Practical lesson: Alto/Didle and Beautiful Soup
 
 In this lesson we are going to work with the Alto and Didle format. As shown in lesson ***6***, the Alto and Didle are connected to each other. 
-The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4. 
+The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 5. 
 
 This lesson contains the following content:
 * Load the Alto file and examine the structure <span style="color:#ef6079">(*basic*)</span>;
@@ -26,7 +26,7 @@ This lesson contains the following content:
 * Extract all separate articles from the total newspaper from the Didl file <span style="color:#ef6079">(*moderate*)</span>;
 * Extract all separate articles from a specific newspaper from the Didl file <span style="color:#ef6079">(*advanced*)</span>.
 
-Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook. 
+Open a new Jupyter Notebook and type all code examples and code exercises in your Notebook.
 
 ## Load the Alto file and examine the structure
 
@@ -34,7 +34,7 @@ We first need to prepare the Notebook by importing the package we need and loadi
 
 ```{admonition} Exercise
 :class: attention
-Import the ElementTree package and load the XML file into your Notebook.
+Import the ElemenTree package and load the XML file into your Notebook.
 You can look back to lesson 4 if you need a reminder on how to do this. 
 The XML file is named ‘alto.xml’ and can be [downloaded here](https://github.com/MirjamC/xml-workshop/tree/master/data).
 ```
@@ -42,9 +42,10 @@ The XML file is named ‘alto.xml’ and can be [downloaded here](https://github
 ````{admonition} Solution
 :class: tip, dropdown
 ```Python
-import xml.etree.ElementTree as ET
-tree = ET.parse('data/alto_id1.xml')
-root_alto = tree.getroot()
+from bs4 import BeautifulSoup    
+
+with open("data/alto_id1.xml", encoding='utf8') as f:
+    root_alto = BeautifulSoup(f, 'xml')
 ```
 ````
 
@@ -57,15 +58,17 @@ Print the file in your Notebook or look at the file in your browser, either way 
 ````{admonition} Solution
 :class: tip, dropdown
 ```Python
-	print(ET.tostring(root_alto, encoding='utf8').decode('utf8'))
+print(root_alto)
 ```
 ````
 
 ```{code-cell}
 :tags: [remove-input, hide-output]
-import xml.etree.ElementTree as ET
-tree = ET.parse("data/alto_id1.xml")
-root_alto = tree.getroot()
+from bs4 import BeautifulSoup    
+
+with open("data/alto_id1.xml", encoding='utf8') as f:
+    root_alto = BeautifulSoup(f, 'xml')
+print(root_alto)
 ```
 
 ```{note}
@@ -108,15 +111,13 @@ The content of the String element is stored in an attribute called 'CONTENT'.
 
 ```{admonition} Exercise
 :class: attention
-There are a lot of nested element in this XML file. What are the parents, grandparents and grandgrandparents of the 'String' element? Are there even more parents?
+There are a lot of nested element in this XML file.
+Do we have to bother about these parents while extracting content from the file?
 ```
 
 ```{admonition} Solution
 :class: tip, dropdown
-- The parent of the 'String' element is 'Textline'
-- The grandparent is 'TextBlock'
-- The grandgrandparent is 'Page'.
-- The complete line is alto/Layout/Page/TextBlock/Textline/String
+With Beautiful Soup you can call any item directly without worrying about their parents. 
 ```
 
 Remember namespaces? Before we start to extract the data we are interested in we need to stop for a moment and examine the file to 
@@ -129,16 +130,8 @@ Are there any namespaces in the file that we have to take into account? If there
 
 ````{admonition} Solution
 :class: tip, dropdown
-Yes, there are namespaces to take into account. These are declared in the root of the XML:
-```
-<ns0:alto xmlns:ns0="http://schema.ccs-gmbh.com/ALTO">
-```
-If you remember from lesson 4, there are two ways of using namespaces:
-
-    1. Type the namespace before the element name between curly brackets, e.g.: {http://schema.ccs-gmbh.com/ALTO}
-    2. Declare the namespace in ElementTree. This provides Python with a dictionary of the used namespaces, which it can then use. e.g.: ns = {‘ns0’: ‘http://schema.ccs-gmbh.com/ALTO’}
+The XML file does contain namespace, however, since we are working with BeautifulSoup we don’t have to do antyhing special to deal with them.
 ````
-
 
 Now we know some important information about this Alto file, so let's see if we can extract the content. 
 
@@ -157,45 +150,21 @@ How can you extract the values from attributes?
 This can be done with the .get method, for example: book.get('id'). 
 ```
 
-In lesson 4 we learned that is is possible to acces the elements with a for loop, like:
+In lesson 5 we learned that is is possible to acces the elements with a for loop, like:
 ```Python
-for book in root.findall('book'):
+for book in root.find_all('book'):
 ```
-However, as you have seen above, the element 'String' is a grandgrandgrandgrandchild from the start element 'alto'.
-One way to access the String element is by typing all ancestors, leading to a code like:
-```Python
-for page in root_alto.findall('alto/Layout/Page/TextBlock/Textline/String'):
-```
-
-However, we preferably avoid that, since it takes a lot of time and can easily lead to mistakes. 
-```{admonition} Exercise
-:class: attention
-In lesson 4, we learned a way to escape all the ancestors, how did we do this?
-```
-
-````{admonition} Solution
-:class: tip, dropdown
-By adding './/', for example 
-```Python
-for book in root.findall(''.//author'):
-```
-````
-
-So, we can easily loop through all String elements by using the .// escape, and we can extract the content from the CONTENT attribute with the .get method. 
 
 ````{admonition} Exercise
 :class: attention
 The text content that we wish to extract is stored in the Unicode element. 
 Use Python and ElementTree to extract this content.
-
-*Dont’t forget about namespaces!!*
+````
 
 ````{admonition} Solution
 :class: tip, dropdown
 ```Python
-ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
-
-for page in root_alto.findall('.//ns0:String', ns):
+for page in root_alto.find_all('String'):
     content = page.get('CONTENT')
     print(content)	
 ```
@@ -205,16 +174,14 @@ This leads to the following output:
 
 ```{code-cell}
 :tags: [remove-input, hide-output]
-import xml.etree.ElementTree as ET
+from bs4 import BeautifulSoup    
 
-tree = ET.parse('data/alto_id1.xml')
-root_alto = tree.getroot()
+with open("data/alto_id1.xml", encoding='utf8') as f:
+    root_alto = BeautifulSoup(f, 'xml')
 
-ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
-
-for page in root_alto.findall('.//ns0:String', ns):
+for page in root_alto.find_all('String'):
     content = page.get('CONTENT')
-    print(content)
+    print(content)	
 ```
 
 As you can see, the text is printed in separate words, that all appear in one long list. 
@@ -223,11 +190,10 @@ We can store the text in a *string* variable in which we concatenate all words.
 
 ```{code-cell} ipython3
 :tags: [hide-output]
-ns = {'ns0': 'http://schema.ccs-gmbh.com/ALTO'}
 
 all_content = ""
 
-for page in root_alto.findall('.//ns0:String', ns):
+for page in root_alto.find_all('String'):
 	content = page.get('CONTENT')
 	all_content = all_content + " " + content
 	
@@ -257,8 +223,8 @@ In code, this looks like this:
 :tags: [hide-output]
 article_content = ""
 
-for book in root_alto.findall('.//ns0:TextBlock', ns):
-    for article in book.findall('.//ns0:String', ns):
+for book in root_alto.find_all('TextBlock'):
+    for article in book.find_all('String'):
         content = article.get('CONTENT')
         article_content = article_content + " " + content
     print(article_content)
@@ -287,7 +253,7 @@ Write the code to extract the page number from the XML.
 ````{admonition} Solution
 :class: tip, dropdown
 ```Python
-for book in root_alto.findall('.//ns0:Page', ns):
+for book in root_alto.find_all('Page'):
     pagenr = book.get('ID')
     print(pagenr)
 ```
@@ -297,7 +263,7 @@ The page number is:
 
 ```{code-cell}
 :tags: [remove-input, hide-output]
-for book in root_alto.findall('.//ns0:Page', ns):
+for book in root_alto.find_all('Page'):
     pagenr = book.get('ID')
     print(pagenr)
 ```
@@ -318,18 +284,18 @@ Load the corresponding Didl file in your notebook. Name the root 'root_didl'. Lo
 ````{admonition} Solution
 :class: tip, dropdown
 ```Python
-tree = ET.parse('data/didl_id1.xml')
-root_didl = tree.getroot()
-print(ET.tostring(root_didl, encoding='utf8').decode('utf8'))
+with open("data/didl_id1.xml", encoding='utf8') as f:
+    root_didl = BeautifulSoup(f, 'xml')
+print(root_didl)
 ```
 ````
 
 This leads to the following output:
 ```{code-cell}Python
 :tags: [remove-input, hide-output]
-tree = ET.parse('data/didl_id1.xml')
-root_didl = tree.getroot()
-print(ET.tostring(root_didl, encoding='utf8').decode('utf8'))
+with open("data/didl_id1.xml", encoding='utf8') as f:
+    root_didl = BeautifulSoup(f, 'xml')
+print(root_didl)
 ```
 
 ```{admonition} Exercise
@@ -352,8 +318,7 @@ Are there any namespaces in the file that we have to take into account?
 ```{admonition} Solution
 :class: tip, dropdown
 Yes, there are multiple namespaces in the Didle file, both with in element tags and in element attributes.
-Remember: for attributes, you can't use the declaration of a namespace, in such cases you must always use {namespace uri}
-before the element name. 
+However, since we work with Beautiful Soup, we don't have to bother about them. 
 ```
 
 ## Extract newspaper metadata from the Didl file
@@ -364,7 +329,7 @@ If you want all the information from all resource blocks, we can use the findall
 However, we now only want information from the first block. In that case, you can just simply use find() as follows:
 
 ```
-item = root_didl.find('.//ns2:Resource', ns_didl)
+item = root_didl.find('Resource')
 ```
 This will return the first element it finds. 
 
@@ -373,22 +338,16 @@ This will return the first element it finds.
 :class: attention
 Write a code that gets the only the first 'Resource' element, and then from this element create a for loop that loops through the dcx element. 
 Extract the title of the newspaper and the publication date. Store them in two separate variables. 
-
-* Don't forget the namespaces! *
 ```
 
 ````{admonition} Solution
 :class: tip, dropdown
 ```
-ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
-          'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
-          'ns4' : 'info:srw/schema/1/dc-v1.1' }
+item = root_didl.find('Resource')
 
-item = root_didl.find('.//ns2:Resource', ns_didl)
-
-for article in item.findall('.//ns4:dcx', ns_didl):
-    title = article.find('.//dc:title', ns_didl)
-    date = article.find('.//dc:date', ns_didl)
+for article in item.find_all('dcx'):
+    title = article.find('dc:title')
+    date = article.find('dc:date')
     print(title.text, date.text) 
 ```
 ````
@@ -396,15 +355,11 @@ for article in item.findall('.//ns4:dcx', ns_didl):
 This leads to the following output:
 ```{code-cell}
 :tags: [remove-input, hide-output]
-ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
-          'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
-          'ns4' : 'info:srw/schema/1/dc-v1.1' }
+item = root_didl.find('Resource')
 
-item = root_didl.find('.//ns2:Resource', ns_didl)
-
-for article in item.findall('.//ns4:dcx', ns_didl):
-    title = article.find('.//dc:title', ns_didl)
-    date = article.find('.//dc:date', ns_didl)
+for article in item.find_all('dcx'):
+    title = article.find('dc:title')
+    date = article.find('dc:date')
     print(title.text, date.text) 
 ```
 
@@ -476,19 +431,14 @@ We will start with extracting the type of article, title, and identifier from th
 
 ```{code-cell}
 :tags: [hide-output]
-ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
-			'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
-			'ns4' : 'info:srw/schema/1/dc-v1.1', 
-			'ns7' : 'http://www.kb.nl/namespaces/ddd' }
-
-for item in root_didl.findall('.//ns2:Resource', ns_didl):
-	for article in item.findall('.//ns4:dcx', ns_didl):
-		a_type = article.find('.//dc:subject', ns_didl)
+for item in root_didl.find_all('Resource'):
+	for article in item.find_all('dcx'):
+		a_type = article.find('subject')
 		## The first block will not have a subject as it contains newspaper metadata instead of article metadata.
 		## This can be filtered out using an 'if [subject] is None' control structure.
 		if a_type is not None:
-			title = article.find('.//dc:title', ns_didl)
-			identifier = article.find('.//dc:identifier', ns_didl)
+			title = article.find('title')
+			identifier = article.find('identifier')
 			print(a_type.text, title.text, identifier.text)
 ```
 
@@ -501,19 +451,16 @@ Adapt the code above to store the variables into a list of articles.
 :class: tip, dropdown
 Your code should look like the code below:
 ```
-ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
-          'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
-          'ns4' : 'info:srw/schema/1/dc-v1.1', 
-          'ns7' : 'http://www.kb.nl/namespaces/ddd' }
-
 article_list = []
 
-for item in root_didl.findall('.//ns2:Resource', ns_didl):
-	for article in item.findall('.//ns4:dcx', ns_didl):
-		a_type = article.find('.//dc:subject', ns_didl)
+for item in root_didl.find_all('Resource'):
+	for article in item.find_all('dcx'):
+		a_type = article.find('subject')
+		## The first block will not have a subject as it contains newspaper metadata instead of article metadata.
+		## This can be filtered out using an 'if [subject] is None' control structure.
 		if a_type is not None:
-			title = article.find('.//dc:title', ns_didl)
-			identifier = article.find('.//dc:identifier', ns_didl)
+			title = article.find('title')
+			identifier = article.find('identifier')
 			article_list.append([a_type.text, title.text, identifier.text])
 ```
 ````
@@ -556,9 +503,9 @@ Now, we can open this xml file and look at the structure.
 
 ```{code-cell}
 :tags: [hide-output]
-tree = ET.parse('ddd_010097934_mpeg21_a0001_ocr.xml')
-root_article = tree.getroot()
-print(ET.tostring(root_article, encoding='utf8').decode('utf8'))
+with open("ddd_010097934_mpeg21_a0001_ocr.xml", encoding='utf8') as f:
+    root_article = BeautifulSoup(f, 'xml')
+print(root_article)
 ```
 
 ```{admonition} Exercise
@@ -570,10 +517,10 @@ Extract the title and content from the article, and store these in separate vari
 :class: tip, dropdown
 Your code should look like the code below
 ```Python
-for titles in root_article.findall('.//title'):
+for titles in root_article.find_all('title'):
     title = titles.text 
 
-for contents in root_article.findall('.//p'):
+for contents in root_article.find_all('p'):
     content = contents.text + "\n"
 ```
 ````
@@ -601,14 +548,13 @@ identifier = 'http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0001:ocr'
 filename = identifier.split('=')[1]
 filename = filename.replace(':', '_')
 
-tree = ET.ElementTree(file=urlopen(identifier))
+file=urlopen(identifier)
+root = BeautifulSoup(file, 'xml')
 
-root = tree.getroot()
-
-for titles in root.findall('.//title'):
+for titles in root.find_all('title'):
     title = titles.text + "\n"
 
-for contents in root.findall('.//p'):
+for contents in root.find_all('p'):
     content = contents.text + "\n"
 
 with open(filename + ".txt", "w", encoding="utf-8") as f:
@@ -633,18 +579,19 @@ for article in article_list:
     filename = filename.replace(':', '_')
     
     # Download the xml and load into Python
-    tree = ET.ElementTree(file=urlopen(identifier))
-    root = tree.getroot()
+    file=urlopen(identifier)
+	root = BeautifulSoup(file, 'xml')
+
     
     #Extract the content
-    for titles in root.findall('.//title'):
-        title = titles.text 
+	for titles in root.find_all('title'):
+		title = titles.text + "\n"
 
-    for contents in root.findall('.//p'):
-        content = contents.text + "\n"
+	for contents in root.find_all('p'):
+		content = contents.text + "\n"
         
     # Some content, like advertisements, have no titles. 
-    if title is None:
+	if title is None:
         article = content
     else:        
         article = title + "\n" + content
@@ -678,35 +625,35 @@ if 'p001' in [variable in which the content of dc:identifier is stored]
 
 Then the rest of the code can be made similarly to the code we used to extract all identifiers of all articles of the whole newspaper. 
 
+```{admonition} Note
+If an ***attribute*** has a namespace, you HAVE to add the namespaces prefix before the attribute name in Beautiful Soup 
+for it to recognize it. 
+```
+
 ```{admonition} Exercise
 :class: attention
 Write code to collect the identifiers from page 1 and store them row by row in a Dataframe together with the pagenumber, type of text, and title. Then print this Dataframe.
 
-**Hint! As shown in lesson 4, the namespace declaration does not work for attributes!**
 ```
 
 ````{admonition} Solution
 :class: tip, dropdown
 Your code should look like the code below:
 ```Python
-ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
-          'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
-          'ns4' : 'info:srw/schema/1/dc-v1.1', 
-          'ns7' : 'http://www.kb.nl/namespaces/ddd' }
-
 article_list = []
 
 # Declare the page variable here so it can easily be changed
+article_list = []
 page = 'p001'
 
-for item in root_didl.findall('.//ns2:Component', ns_didl):
-    identifier_page = item.get('{http://purl.org/dc/elements/1.1/}identifier')
+for item in root_didl.find_all('Component'):
+    identifier_page = item.get('dc:identifier')
     if page in identifier_page:
-        for article in item.findall('.//ns4:dcx', ns_didl):
-                a_type = article.find('.//dc:subject', ns_didl)
+        for article in item.find_all('dcx'):
+                a_type = article.find('subject')
                 if a_type is not None:
-                    title = article.find('.//dc:title', ns_didl)
-                    identifier = article.find('.//dc:identifier', ns_didl)
+                    title = article.find('title')
+                    identifier = article.find('identifier')
                     article_list.append([page, a_type.text, title.text, identifier.text])
  
 import pandas as pd
@@ -717,29 +664,23 @@ articles
 ````
 ```{code-cell}
 :tags: [remove-input, hide-output]
-ns_didl = {'dc': 'http://purl.org/dc/elements/1.1/',
-			'ns2': 'urn:mpeg:mpeg21:2002:02-DIDL-NS', 
-			'ns4' : 'info:srw/schema/1/dc-v1.1', 
-			'ns7' : 'http://www.kb.nl/namespaces/ddd' }
-
 article_list = []
-
 page = 'p001'
 
-for item in root_didl.findall('.//ns2:Component', ns_didl):
-	identifier_page = item.get('{http://purl.org/dc/elements/1.1/}identifier')
-	if page in identifier_page:
-		for article in item.findall('.//ns4:dcx', ns_didl):
-			a_type = article.find('.//dc:subject', ns_didl)
-			if a_type is not None:
-				title = article.find('.//dc:title', ns_didl)
-				identifier = article.find('.//dc:identifier', ns_didl)
-				article_list.append([page, a_type.text, title.text, identifier.text])
+for item in root_didl.find_all('Component'):
+    identifier_page = item.get('dc:identifier')
+    if page in identifier_page:
+        for article in item.find_all('dcx'):
+                a_type = article.find('subject')
+                if a_type is not None:
+                    title = article.find('title')
+                    identifier = article.find('identifier')
+                    article_list.append([page, a_type.text, title.text, identifier.text])
  
 import pandas as pd
 articles = pd.DataFrame(article_list, columns = ['Page', 'Type', 'Title', 'Identifier'])
+
 articles
 ```
 
 You now have a dataframe with metadata from all articles of one page. You can use the same steps as described above to download the content from this articles and store them in textfiles. 
-

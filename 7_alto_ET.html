@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>7. Practical: Extract information from the Alto format with ElemenTree &#8212; Automatically extract XML content with Python</title>
+    <title>7. Practical lesson: Alto/Didle and ElementTree &#8212; Automatically extract XML content with Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="8. Practical session: Page and Elementree" href="8_page_ET.html" />
+    <link rel="next" title="9. Practical lesson: Alto/Didle and Beautiful Soup" href="8_alto_BS.html" />
     <link rel="prev" title="6. Introduction to the Alto/Didle, TEI and Page format" href="6_xmlformats_intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -94,7 +94,7 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="intro.html">
-   Welcome to this XML course
+   Welcome to this XML with Python course
   </a>
  </li>
 </ul>
@@ -111,12 +111,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="3_introduction_packages.html">
-   3. Introduction to the packages ElemenTree and Beautiful Soup
+   3. Introduction to the packages ElementTree and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="4_example_ET.html">
-   4. Practical session: Working with ElemenTree
+   4. Practical session: Working with ElementTree
   </a>
  </li>
  <li class="toctree-l1">
@@ -131,32 +131,32 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   7. Practical: Extract information from the Alto format with ElemenTree
+   7. Practical lesson: Alto/Didle and ElementTree
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="8_page_ET.html">
-   8. Practical session: Page and Elementree
+  <a class="reference internal" href="8_alto_BS.html">
+   9. Practical lesson: Alto/Didle and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="9_alto_BS.html">
-   9. Practical session: Alto and Beautiful Soup
+  <a class="reference internal" href="9_page_ET.html">
+   8. Practical lesson: Page and Elementree
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="10_tei_BS.html">
-   10. Practical session: Tei and Beautiful Soup
+  <a class="reference internal" href="10_page_BS.html">
+   11. Practical lesson: Page and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_page_BS.html">
-   11. Practical session: Page and Beautiful Soup
+  <a class="reference internal" href="11_tei_BS.html">
+   10. Practical lesson: TEI and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_auto_batch.html">
-   12. Practical session: Automatically extract information from a batch of files
+   12. Practical lesson: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -311,7 +311,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>7. Practical: Extract information from the Alto format with ElemenTree</h1>
+                <h1>7. Practical lesson: Alto/Didle and ElementTree</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -360,8 +360,8 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="practical-extract-information-from-the-alto-format-with-elementree">
-<h1>7. Practical: Extract information from the Alto format with ElemenTree<a class="headerlink" href="#practical-extract-information-from-the-alto-format-with-elementree" title="Permalink to this headline">¶</a></h1>
+  <div class="tex2jax_ignore mathjax_ignore section" id="practical-lesson-alto-didle-and-elementtree">
+<h1>7. Practical lesson: Alto/Didle and ElementTree<a class="headerlink" href="#practical-lesson-alto-didle-and-elementtree" title="Permalink to this headline">¶</a></h1>
 <p>In this lesson we are going to work with the Alto and Didle format. As shown in lesson <em><strong>6</strong></em>, the Alto and Didle are connected to each other.
 The Alto stores the plain text and the Didl the metadata of the newspaper. For this lesson, we assume that you have followed the practical lesson 4.</p>
 <p>This lesson contains the following content:</p>
@@ -379,7 +379,7 @@ The Alto stores the plain text and the Didl the metadata of the newspaper. For t
 <p>We first need to prepare the Notebook by importing the package we need and loading the XML file into the enviroment.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Import the ElemenTree package and load the XML file into your Notebook.
+<p>Import the ElementTree package and load the XML file into your Notebook.
 You can look back to lesson 4 if you need a reminder on how to do this.
 The XML file is named ‘alto.xml’ and can be <a class="reference external" href="https://github.com/MirjamC/xml-workshop/tree/master/data">downloaded here</a>.</p>
 </div>
@@ -2959,9 +2959,7 @@ te
 kennen
 gegeven
 over
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>de
+de
 wijze,
 waarop
 door
@@ -3092,7 +3090,9 @@ Rusland,
 te
 Petersburg
 of
-te
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>te
 Moscon
 —
 de
@@ -5375,7 +5375,9 @@ die
 men
 te
 vaak
-hoorde.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>hoorde.
 Li
 het
 hartje
@@ -5412,9 +5414,7 @@ in
 staat,
 zal
 zün
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>eenige
+eenige
 staatkundige
 tegenstanders
 door
@@ -7270,7 +7270,9 @@ zich
 tot
 den
 minister
-van
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>van
 finantiën
 gewend
 met
@@ -7841,9 +7843,7 @@ tijdig
 te
 doen
 behandflen.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hij
+Hij
 heeft
 ook
 met
@@ -12690,7 +12690,9 @@ artikel WEERKUNDIGE WAARNEMINGEN. http://resolver.kb.nl/resolve?urn=ddd:01009793
 artikel Gouden en Zilveren Specien. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0010
 artikel PROCES TRAUPMANN. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0011
 artikel HANDELSBERIGTEN. AMSTERDAM, Vrijdag 31 December. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0012
-artikel Scheepstijdingen. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0013
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>artikel Scheepstijdingen. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0013
 artikel BINNENGEKOMEN. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0014
 artikel UITGEZEILD. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0015
 artikel IN LADING. http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0016
@@ -12722,9 +12724,7 @@ advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0042
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0043
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0044
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0045
+advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0045
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0046
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0047
 advertentie Advertentie http://resolver.kb.nl/resolve?urn=ddd:010097934:mpeg21:a0048
@@ -13077,10 +13077,10 @@ the element ‘Resource , it becomes possible to filter out those elements whose
             <p class="prev-next-title">6. Introduction to the Alto/Didle, TEI and Page format</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="8_page_ET.html" title="next page">
+    <a class='right-next' id="next-link" href="8_alto_BS.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">8. Practical session: Page and Elementree</p>
+        <p class="prev-next-title">9. Practical lesson: Alto/Didle and Beautiful Soup</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

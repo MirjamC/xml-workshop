@@ -111,7 +111,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="3_introduction_packages.html">
-   3. Introduction to the packages ElemenTree and Beautiful Soup
+   3. Introduction to the packages ElementTree and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
@@ -131,32 +131,32 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="7_alto_ET.html">
-   7. Practical: Extract information from the Alto format with ElemenTree
+   7. Practical lesson: Alto/Didle and ElementTree
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="8_page_ET.html">
-   8. Practical session: Page and Elementree
+  <a class="reference internal" href="8_alto_BS.html">
+   9. Practical lesson: Alto/Didle and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="9_alto_BS.html">
-   9. Practical session: Alto and Beautiful Soup
+  <a class="reference internal" href="9_page_ET.html">
+   8. Practical lesson: Page and Elementree
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="10_tei_BS.html">
-   10. Practical session: TEI and Beautiful Soup
+  <a class="reference internal" href="10_page_BS.html">
+   11. Practical lesson: Page and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="11_page_BS.html">
-   11. Practical session: Page and Beautiful Soup
+  <a class="reference internal" href="11_tei_BS.html">
+   10. Practical lesson: TEI and Beautiful Soup
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="12_auto_batch.html">
-   12. Practical session: Automatically extract information from a batch of files
+   12. Practical lesson: Automatically extract information from a batch of files
   </a>
  </li>
  <li class="toctree-l1">
@@ -506,14 +506,16 @@ Code cells are used to write and execute code. In our case Python. When a code c
 <p>The moment a cell generates <em>output</em> the output is displayed beneath the cell, keeping code and output together.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a code cell in your Notebook and run the cell.</p>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span><span class="o">*</span><span class="mi">8</span>
+<p>Type the code below in a new code cell in your Notebook and run the cell.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2</span><span class="o">*</span><span class="mi">8</span>
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Python will simply multiply the numbers and display the answer below the code cell.</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>16
 </pre></div>
@@ -548,14 +550,10 @@ Code cells are used to write and execute code. In our case Python. When a code c
 <p>The moment a # is typed in a code cell, everything after it <em>on the same line</em> will be regarded as a comment. Lines that have been marked as a comment will <strong>not</strong> be executed by Python when the cell is run.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a cell in your Notebook and run the cell. Does Python return output?</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#print(&quot;The solution to 35+12 is:&quot;)</span>
+<p>Type the code below in a new cell in your Notebook and run the cell. Does Python return output?</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1">#print(&quot;The solution to 35+12 is:&quot;)</span>
 <span class="c1">#print(35+12)</span>
 </pre></div>
-</div>
 </div>
 </div>
 <div class="tip dropdown admonition">
@@ -569,8 +567,13 @@ Code cells are used to write and execute code. In our case Python. When a code c
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
-<p>Removing the # from the code should enable Python to recognize the code return output when the cell is run</p>
+<p>Removing the # from the code should enable Python to recognize the code and return output when the cell is run.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The solution to 35+12 is:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="mi">35</span><span class="o">+</span><span class="mi">12</span><span class="p">)</span>
+</pre></div>
 </div>
+</div>
+<p>This should then print:</p>
 <div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The solution to 35+12 is: 
@@ -597,34 +600,41 @@ Python remembers which input was loaded into which variable. This means that the
 <em>str</em> indicates a variable contains a string, a piece of text.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a cell in your Notebook and run the cell.</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number</span> <span class="o">=</span> <span class="mi">9</span>
-<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;this is a text&quot;</span>
+<p>Type the code below in a newcell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This stores the data in the variable</span>
+<span class="n">number</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="c1"># This determines its type</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Python will return the type of the variable.</p>
 </div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>int
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<p>Now let’s repeat that for another data type.</p>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Type the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># This stores the data in the variable</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;this is a text&quot;</span>
+<span class="c1"># This determines its type</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Python will return the type of the variable.</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>str
 </pre></div>
@@ -637,8 +647,8 @@ Python remembers which input was loaded into which variable. This means that the
 </div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the following code in a cell in your Notebook and run the cell. What data type is the number?</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">number_but_wrong</span> <span class="o">=</span> <span class="s2">&quot;9&quot;</span>
+<p>Type the following code in a new cell in your Notebook and run the cell. What data type is the number?</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">number_but_wrong</span> <span class="o">=</span> <span class="s2">&quot;9&quot;</span>
 <span class="nb">type</span><span class="p">(</span><span class="n">number_but_wrong</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -655,31 +665,29 @@ Python remembers which input was loaded into which variable. This means that the
 This makes it possible to input a value just one time when it is needed more than once in the code.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a cell in your Notebook and run the cell.</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">number_1</span> <span class="o">=</span> <span class="mi">3</span>
+<p>Type the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">number_1</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">number_2</span> <span class="o">=</span> <span class="mi">6</span>
 
 <span class="n">number_1</span> <span class="o">+</span> <span class="n">number_2</span> 
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Python simply adds the original numbers as it remembers which input belongs to which variable.</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9
 </pre></div>
 </div>
 </div>
 </div>
-<p>Python simply adds the original numbers as it remembers which input belongs to which variable.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Using Python variables, calculate the sum of “35 + 69” in the cell below. Start with making two variables to assign the numbers <em>35</em> and <em>69</em> to. Calculate the sum using these variables.</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a variable for the number 35</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a variable for the number 35</span>
 
 <span class="c1"># Make a variable for the number 69</span>
 
@@ -687,13 +695,12 @@ This makes it possible to input a value just one time when it is needed more tha
 </pre></div>
 </div>
 </div>
-</div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <p>Your code should look a bit like this:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>number_1 = 35
-number_2 = 69
-number_1 + number_2 
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">number_1</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="n">number_2</span> <span class="o">=</span> <span class="mi">69</span>
+<span class="n">number_1</span> <span class="o">+</span> <span class="n">number_2</span> 
 </pre></div>
 </div>
 </div>
@@ -707,42 +714,38 @@ number_1 + number_2
 <p>The plus sign can be used to calculate sums, as you did in the above exercise. However, the plus sign can also be used to stick different strings together.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a cell in your Notebook and run the cell.</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;This is a &quot;</span>
+<p>Type the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;This is a &quot;</span>
 <span class="n">line_2</span> <span class="o">=</span> <span class="s2">&quot;stuck together text&quot;</span>
-
 <span class="n">line_1</span> <span class="o">+</span> <span class="n">line_2</span>
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>As you can see Python adds the text elements together to form a longer sentence. This also works with multiple variables.</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;This is a stuck together text&#39;
 </pre></div>
 </div>
 </div>
 </div>
-<p>As you can see Python adds the text elements together to form a longer sentence. This also works with multiple variables.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Ensure that the four lines below are printed as one sentence in the output.</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;Because of this Notebook &quot;</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;Because of this Notebook &quot;</span>
 <span class="n">line_2</span> <span class="o">=</span> <span class="s2">&quot;I now know &quot;</span>
 <span class="n">line_3</span> <span class="o">=</span> <span class="s2">&quot;that programming with Python &quot;</span>
 <span class="n">line_4</span> <span class="o">=</span> <span class="s2">&quot;is very fun!&quot;</span>
 </pre></div>
 </div>
 </div>
-</div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <p>Your code should look like this:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>line_1 + line_2 + line_3 + line_4
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">+</span> <span class="n">line_2</span> <span class="o">+</span> <span class="n">line_3</span> <span class="o">+</span> <span class="n">line_4</span>
 </pre></div>
 </div>
 </div>
@@ -757,19 +760,25 @@ number_1 + number_2
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>Type the code below in a cell in your Notebook and see what happens when you run the code.</p>
-</div>
-<div class="cell tag_hide-output tag_raises-exception docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;The amount of abstracts for DHBenelux is: &quot;</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;The amount of abstracts for DHBenelux is: &quot;</span>
 <span class="n">amount_1</span> <span class="o">=</span> <span class="mi">43</span>
 <span class="n">line_1</span> <span class="o">+</span> <span class="n">amount_1</span>
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>This gives an error:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="ne">TypeError</span><span class="p">:</span> <span class="n">can</span> <span class="n">only</span> <span class="n">concatenate</span> <span class="nb">str</span> <span class="p">(</span><span class="ow">not</span> <span class="s2">&quot;int&quot;</span><span class="p">)</span> <span class="n">to</span> <span class="nb">str</span>
+</pre></div>
+</div>
+<p>Just adding numbers and text does not work. Some extra work needs to be done in order for Python to correctly return output without errors</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output tag_raises-exception docutils container">
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="nn">Input In [14],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
+<span class="nn">Input In [10],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;The amount of abstracts for DHBenelux is: &quot;</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">amount_1</span> <span class="o">=</span> <span class="mi">43</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="n">line_1</span> <span class="o">+</span> <span class="n">amount_1</span>
@@ -779,14 +788,6 @@ number_1 + number_2
 </div>
 </div>
 </div>
-<div class="tip dropdown admonition">
-<p class="admonition-title">Solution</p>
-<p>This gives an error:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>TypeError: unsupported operand type(s) for +: &#39;int&#39; and &#39;str&#39;
-</pre></div>
-</div>
-<p>Just adding numbers and text does not work. Some extra work needs to be done in order for Python to correctly return output without errors</p>
-</div>
 <p>There are multiple options to convince Python to return combinations of numbers and  text:</p>
 <ul class="simple">
 <li><p>force numbers to text with <em>str()</em></p></li>
@@ -795,36 +796,40 @@ number_1 + number_2
 <p>To force Python to interpret a number as text its type can be changed with str(number).</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a cell in your Notebook and run the cell.</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;The amount of abstracts for DHBenelux is: &quot;</span>
+<p>Type the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;The amount of abstracts for DHBenelux is: &quot;</span>
 <span class="n">amount_1</span> <span class="o">=</span> <span class="mi">43</span>
 <span class="n">line_1</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">amount_1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;The amount of abstracts for DHBenelux is: 43&#39;
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Now the text and number are succesfully stuck together.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```{code-cell} 
+:tags: [remove-output,hide-output]
+line_1 = &quot;The amount of abstracts for DHBenelux is: &quot;
+amount_1 = 43
+line_1 + str(amount_1)
 </pre></div>
-</div>
 </div>
 </div>
 <p>This also works with multiple variabeles and pieces of text outside of variables.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a cell in your Notebook and run the cell.</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;coffee breaks &quot;</span>
+<p>Type the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;coffee breaks &quot;</span>
 <span class="n">amount_1</span> <span class="o">=</span> <span class="mi">2</span>
  
 <span class="s2">&quot;The amount of &quot;</span> <span class="o">+</span> <span class="n">line_1</span> <span class="o">+</span> <span class="s2">&quot;in this workshop is: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">amount_1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>Python will stick anything together, as long as it is of type text.</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;The amount of coffee breaks in this workshop is: 2&#39;
 </pre></div>
@@ -843,23 +848,26 @@ Try removing it to see what happens</p>
 </div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a cell in your Notebook and run the cell.</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;coffee breaks &quot;</span>
+<p>Type the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span> <span class="o">=</span> <span class="s2">&quot;coffee breaks &quot;</span>
 <span class="n">amount_1</span> <span class="o">=</span> <span class="mi">2</span>
  
 <span class="sa">f</span><span class="s2">&quot;The amount of </span><span class="si">{</span><span class="n">line_1</span><span class="si">}</span><span class="s2"> in this workshop is: </span><span class="si">{</span><span class="n">amount_1</span><span class="si">}</span><span class="s2">&quot;</span>
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>This gives the same output as simply sticking strings together with the + sign.</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;The amount of coffee breaks  in this workshop is: 2&#39;
 </pre></div>
 </div>
 </div>
 </div>
+<p><em>f strings</em> can be very powerful for making dynamic strings, such as automatically numbered filenames.</p>
 </div>
 <div class="section" id="output">
 <h3>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
@@ -878,7 +886,7 @@ Not all code will produce output, so don’t be alarmed.</p>
 </div>
 </div>
 </div>
-<p>Text must be put between quotes or Python will assume you are wishing to print variables.</p>
+<p>Text must be put between quotes or Python will assume you wish to print variables.</p>
 <p>Variables can be printed the same way as text, but must <strong>not</strong> have quotation marks.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
@@ -904,8 +912,13 @@ print(print_me)
 <p>To demonstrate this, let’s reuse some of our variabeles.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>In a new code cell, type out the variables <em>line_1</em>, <em>amount_1</em>, <em>print_me</em> below each other. Run the cell.
-Which variable is printed to the output?</p>
+<p>In a new code cell, type out the following code and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">line_1</span>
+<span class="n">amount_1</span>
+<span class="n">print_me</span>
+</pre></div>
+</div>
+<p>Which variable is printed to the output?</p>
 </div>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
@@ -920,8 +933,8 @@ Try changing the order and see if this behaviour is consistent.</p>
 </div>
 </div>
 <p>These two ways of printing output are not completely the same. Printing using the print() function removes some of the layout that Jupyter creates for you.
-This is very noticible when printing tables (which we call ‘dataframes’).</p>
-<p>We have created a variable table for you that contains a table of numbers. Which we will use to demonstrate the difference in printing.</p>
+This is very noticable when printing tables (which we call ‘Dataframes’).</p>
+<p>We have created a variable <em>table_1</em> for you that contains a table of numbers. Which we will use to demonstrate the difference in printing.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
 <p>In a new code cell, print out the variable <em>table</em> using the print() function and by executing the variabel
@@ -930,12 +943,12 @@ Which variable is printed to the output?</p>
 <div class="tip dropdown admonition">
 <p class="admonition-title">Solution</p>
 <p>You will have used
-<code class="docutils literal notranslate"><span class="pre">print(table)</span></code>
+<code class="docutils literal notranslate"><span class="pre">print(table_1)</span></code>
 or
-<code class="docutils literal notranslate"><span class="pre">table</span></code>
+<code class="docutils literal notranslate"><span class="pre">table_1</span></code>
 to print out the table. You can check below of the output matches yours.</p>
 </div>
-<p>The output of <code class="docutils literal notranslate"><span class="pre">print(table)</span></code></p>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">print(table_1)</span></code></p>
 <div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This was printed with the print() function.
@@ -948,10 +961,10 @@ to print out the table. You can check below of the output matches yours.</p>
 </div>
 </div>
 </div>
-<p>The output of <code class="docutils literal notranslate"><span class="pre">table</span></code></p>
+<p>The output of <code class="docutils literal notranslate"><span class="pre">table_1</span></code></p>
 <div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This was printed by executing table
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This was printed by executing table_1
 </pre></div>
 </div>
 <div class="output text_html"><div>
@@ -1021,7 +1034,7 @@ to print out the table. You can check below of the output matches yours.</p>
 </table>
 </div></div></div>
 </div>
-<p>While this diffence is purely aesthetic, it is good to know, especially when working with table formatted data.</p>
+<p>While this difference is purely aesthetic, it is good to know, especially when working with table formatted data.</p>
 </div>
 <div class="section" id="functions">
 <h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
@@ -1030,15 +1043,17 @@ to print out the table. You can check below of the output matches yours.</p>
 <p>You can find some examples below.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a cell in your Notebook and run the cell</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the highest number using the max() function.</span>
+<p>Type the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the highest number using the max() function.</span>
 <span class="nb">max</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>See how this function finds the highest number for you?</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>75
 </pre></div>
@@ -1047,14 +1062,16 @@ to print out the table. You can check below of the output matches yours.</p>
 </div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Round the number below using the round() function. The first parameter is the number to round. The second number is the required number of decimals. Type the code below in a cell in your Notebook and run the cell</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="mf">36.53343</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<p>Round the number below using the round() function. The first parameter is the number to round. The second number is the required number of decimals. Type the code below in a new cell in your Notebook and run the cell</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="nb">round</span><span class="p">(</span><span class="mf">36.53343</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>This function neatly rounds the number to the amount of digits you specified. You can try inputting a different amount of digits.</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>36.53
 </pre></div>
@@ -1072,7 +1089,13 @@ Use the following numbers: 6, 24, 8, 2, 14.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">min</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">14</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>and the min() function should return <strong>2</strong></p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="conditional-statements-if-else">
@@ -1111,7 +1134,7 @@ Use the following numbers: 6, 24, 8, 2, 14.</p>
 </div>
 </div>
 </div>
-<p>It we would now print the contents of the variable <em>to_do</em> we would get:</p>
+<p>If we would now print the contents of the variable <em>to_do</em> we would get:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">to_do</span><span class="p">)</span>
@@ -1132,8 +1155,8 @@ Use the following numbers: 6, 24, 8, 2, 14.</p>
 Afterwards the package needs to be <em>imported</em> into the Notebook. After importing the package is ready for use.</p>
 <p>To demonstrate this we will install, import and use a package to display some information about the contents of the presentations during DHBenelux 2022.</p>
 <p>First you will need to download the dataset. The dataset can be <a class="reference external" href="https://github.com/MirjamC/xml-workshop/blob/master/data/wordcloud_dataset.csv">downloaded here</a>.
-To be able to install wordcloud correctly, you preferably have Anaconda installed, as installing can be difficult otherwise.</p>
-<p>Now lets install and import the packages we need.
+To be able to install wordcloud correctly, you preferably have Anaconda installed, as installing it can be difficult otherwise.</p>
+<p>Now let’s install and import the packages we need.
 We will need three packages:</p>
 <ul class="simple">
 <li><p>Pandas, for easy data manipulation;</p></li>
@@ -1142,73 +1165,80 @@ We will need three packages:</p>
 </ul>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Open “Anaconda promp” through the start menu and install the packages with the following code. Install them sequently and wait untill a pacakge is installed
+<p>Open “Anaconda prompt” through the start menu and install the packages with the following code. Install them sequentially and wait until a package is installed
 before installing the next one.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pandas</span>
 <span class="n">conda</span> <span class="n">install</span> <span class="o">-</span><span class="n">c</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="n">wordcloud</span> 
 <span class="n">pip</span> <span class="n">install</span> <span class="n">matplotlib</span>
 </pre></div>
 </div>
 </div>
-<p>—- voorbeeld plaatje toevoegen.</p>
+<div class="figure align-default" id="open-anaconda-prompt">
+<a class="reference internal image-reference" href="_images/anacondaprompt.png"><img alt="_images/anacondaprompt.png" src="_images/anacondaprompt.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 10 </span><span class="caption-text">Open Anaconda prompt.</span><a class="headerlink" href="#open-anaconda-prompt" title="Permalink to this image">¶</a></p>
+</div>
+<div class="figure align-default" id="the-anaconda-commandline">
+<a class="reference internal image-reference" href="_images/anacondaprompt3.png"><img alt="_images/anacondaprompt3.png" src="_images/anacondaprompt3.png" style="height: 200px;" /></a>
+<p class="caption"><span class="caption-number">Fig. 11 </span><span class="caption-text">Type out the install code.</span><a class="headerlink" href="#the-anaconda-commandline" title="Permalink to this image">¶</a></p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The exclamation mark before <em>pip</em> is needed to activate <em>pip</em> within the Notebook enviroment. When installing from the command line this is not needed.</p>
+<p>When installing packages within a Jupyter Notebook, an exlamation mark is needed to activate <em>pip</em> within the Notebook enviroment. When installing from the command line this is not needed.
+For example:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span>!pip install pandas
+</pre></div>
 </div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the packages</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
+</div>
+<div class="attention admonition">
+<p class="admonition-title">Exercise</p>
+<p>Now let’s import the packages. Type the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import the packages</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 </pre></div>
 </div>
 </div>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There is a difference between the import statements of the three packages. In the case of <em>pandas</em> and <em>wordcloud</em> we import the whole package.
-For <em>matplotlib</em> we only want the <em>pyplot</em> module, so we added this explicitly after the package name. This ensures that ony that module is imported. The <em>as plt</em> statement renames package to a shorter and easier typable code. You will see this used below.</p>
+For <em>matplotlib</em> we only want the <em>pyplot</em> module, so we added this explicitly after the package name. This ensures that ony that module is imported. The <em>as plt</em> and <em>as pd</em> statement renames package to a shorter and easier typable code. You will see this used below.</p>
 </div>
 <p>A package can be used in the same way as a function.
 We will use the <em>pandas</em> package to load data into the Notebook in a way that is digestable for the creation of a wordcloud.
-Many packages feature multiple functions for data manipulation, calculation or visualisation. The function you wish to use is added after the package name.</p>
-<p>Syntax: <em>packagename.function(parameters)</em></p>
-<p>The package name points Python to the location of the function.</p>
+Many packages feature multiple functions for data manipulation, calculation or visualisation. The function you wish to use is added after the package name. The package name points Python to the location of the function.</p>
+<p>Syntax:</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">packagename</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="n">parameters</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Type the code below in a cell in your Notebook and run the cell</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read the dataset into Python using pandas</span>
+<p>Type the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read the dataset into Python using pandas</span>
 <span class="n">wordcloud</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;data/wordcloud_dataset.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">squeeze</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="c1"># Transform into dictionary for use in the WordCloud</span>
 <span class="n">wordcloud_dict</span> <span class="o">=</span> <span class="n">wordcloud</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+<span class="c1"># It is good practice to check if the data is loaded correctly</span>
+<span class="n">wordcloud_dict</span>
 </pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\mirjam\AppData\Local\Temp\ipykernel_16088\4095904599.py:2: FutureWarning: The squeeze argument has been deprecated and will be removed in a future version. Append .squeeze(&quot;columns&quot;) to the call to squeeze.
-
-
-  wordcloud = pd.read_csv(&quot;data/wordcloud_dataset.csv&quot;, header=None, index_col=0, squeeze=True)
-</pre></div>
-</div>
 </div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>As you can see, the <em>pandas</em> name ‘pd’ precedes the option <em>read_csv</em>.</p>
 </div>
-<p>Now we have data it is good practice to have a quick look at it to ensure the data is loaded correctly.</p>
-<div class="attention admonition">
-<p class="admonition-title">Exercise</p>
-<p>Type the name of the dataset in a cell and run the cell</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>This should have loaded the data into your Notebook. As stated in the comment it is good practice to check what you have loaded. See if the output matches that below.</p>
 </div>
-<p>The data should look like the example below.</p>
-<div class="cell tag_remove-input tag_output_scroll docutils container">
+<div class="cell tag_remove-input tag_hide-output tag_output_scroll docutils container">
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\mirjam\AppData\Local\Temp\ipykernel_26176\1470747503.py:1: FutureWarning: The squeeze argument has been deprecated and will be removed in a future version. Append .squeeze(&quot;columns&quot;) to the call to squeeze.
+
+
+  wordcloud = pd.read_csv(&quot;data/wordcloud_dataset.csv&quot;, header=None, index_col=0, squeeze=True)
+</pre></div>
+</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;machine&#39;: 1,
  &#39;learning&#39;: 1,
  &#39;read&#39;: 1,
@@ -1528,14 +1558,11 @@ Many packages feature multiple functions for data manipulation, calculation or v
 </div>
 </div>
 </div>
-<p>When the data is correctly loaded we can use the <em>WordCloud</em> and <em>matplotlib</em> packages to create a wordcloud from the data.</p>
+<p>When the data is loaded correctly we can use the <em>WordCloud</em> and <em>matplotlib</em> packages to create a wordcloud from the data.</p>
 <div class="attention admonition">
 <p class="admonition-title">Exercise</p>
-<p>Copy the code below in a cell in your Notebook and run the cell</p>
-</div>
-<div class="cell tag_hide-output docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialise the wordcloud</span>
+<p>Copy the code below in a new cell in your Notebook and run the cell.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># initialise the wordcloud</span>
 <span class="n">wc</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span><span class="n">background_color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">max_words</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="c1"># generate the wordcloud </span>
 <span class="n">wc</span><span class="o">.</span><span class="n">generate_from_frequencies</span><span class="p">(</span><span class="n">wordcloud_dict</span><span class="p">)</span>
@@ -1547,12 +1574,16 @@ Many packages feature multiple functions for data manipulation, calculation or v
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="_images/1_introduction_python_57_0.png" src="_images/1_introduction_python_57_0.png" />
-</div>
-</div>
-<p>This should plot a wordcloud showing maximally 20 word in different sizes. Each word is sized by the amount of times it occurs in the titles of the DHBenelux 2022 abstract. Common words have already been removed.
+<div class="tip dropdown admonition">
+<p class="admonition-title">Solution</p>
+<p>This should plot a wordcloud showing maximally 20 word in different sizes. Each word is sized by the amount of times it occurs in the titles of the DHBenelux 2022 abstract. Common words like ‘the’ and ‘of’ have already been removed.
 This visualiation can give quick insight to which items are popular at the moment.</p>
+</div>
+<div class="cell tag_remove-input tag_hide-output docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/1_introduction_python_49_0.png" src="_images/1_introduction_python_49_0.png" />
+</div>
+</div>
 <p>Well done! Now you know the basics of working with Jupyter Notebooks and Python. We will use this in the coming chapters.</p>
 </div>
 </div>

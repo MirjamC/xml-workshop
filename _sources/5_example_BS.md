@@ -15,14 +15,18 @@ kernelspec:
 
 # 5. Practical session: Working with Beautiful Soup
 
-This lesson is divided into three sessions, where every session demonstrates one of the Python packages that was introduced in lesson **3**.
-With every package, we follow these steps:
+
+In this lesson, we are going to explore how we can use the package Beautiful Soup to extract content from XML files. 
+We use the same example file that was used in lesson **2** ([download here](https://github.com/MirjamC/xml-workshop/tree/master/data).
+
+This lesson is divided into the following steps:
 - Load the XML file;
 - Examine the structure of the XML file;
 - Extract the booktitles and descriptions;
 - Extract name and surname of the author;
 - Extract the book identifier;
 - Structure all information;
+- Explore namespaces;
 - Extra: Filter information
 
 Open a new Jupyter Notebook and type all the code examples and code exercises in your Notebook. 
@@ -36,7 +40,7 @@ This can be done directly in the Jupyter Notebook using:
 !pip install beautifulsoup4
 ```
 
-or through the command line (see lesson one)
+or through the command line (see lesson *1*)
 
 ```
 pip install beautifulsoup4
@@ -56,7 +60,7 @@ Now we can use the package to extract data from the XML.
 ## Examine the structure of the file
 
 
-We will first need to load the XML file from which we want to extract information and pass it to BeautifulSoup.
+Now we want to open the XML file from which we want to extract information. 
 Add a new code cell and type:
 
 ```{code-cell}
@@ -67,7 +71,7 @@ with open("data/example.xml") as f:
 In the code above, alter the 'data/example' with the path to the folder and the filename of where you stored the file. 
 ```
 
-When you want to extract information from an XML file, it is important that you are familair with the structure of the file. 
+When you want to extract information from an XML file, it is important that you are familiar with the structure of the file. 
 There are two ways to do this. 
 
 1. You can open the file in a program like Notepad++ or open it in your browser
@@ -79,8 +83,6 @@ There are two ways to do this.
 print(root)
 ```
 
-## Wat vragen over de structuur bedenken
-
 ## Extract the book titles and descriptions
 
 ```{admonition} Exercise
@@ -91,10 +93,9 @@ Look at the XML structure. Which elements do we need to extract the title and th
 
 ```{admonition} Solution
 :class: tip, dropdown
-We need the child element 'book', and its subchildren 'title' and 'description'. 
+We need the element 'book', and its children 'title' and 'description'. 
 ```
 
-Having explored the structure of the XML a bit, we can now get to work with extracting the data.
 First, type the following code in your Jupyter Notebook to get the *title* from every book:
 
 ```{code-cell}
@@ -106,23 +107,33 @@ for book in root.find_all('book'):
 ```
 
 ````{note}
-Explanation of the code.
-The line:
-	```
-	for book in root.find_all('book'):
-	```
-starts a loop that iterates through all 'book' elements in the XML. For each elements, it executes the rest of the code.
-	```	
-	title = book.find('title').text
-	```
-This line creates a new variabele called 'title'. The content of the variable is content from the XML. For every 'book' element, it searches for 
-a child element with the name 'title'. Then, it extracts the content from the 'title' element. To extract content from elements, we use .text. 
-	```
-	print(title)
-	```
-This line displays the output. In this case, it shows the title of every book. 
+Although the basic *for loop* for ElementTree en Beautiful Soup look identical, please note that
+there is a small difference: ElementTree uses 'findall' and Beautiful Soup 'find_all' (with an underscore).
 ````
-	
+We shall explain what every line of the code does.
+
+First, we iterate through the complete XML file and search for every element with the tag name 'book'. 
+
+```
+for book in root.find_all('book'):
+```
+
+Then, for every book element that exist, we create a temporarly new variable with the name 'title'. 
+As value for this variable, we use the content of the tag 'title' (which is a direct child of the element 'book'). 
+we add '.text'. to let Python know that we are interested in the value between the tags. 
+Without the '.text' addition, Python would simply present us the tag in its location, like '<Element 'title' at 0x000001995B4718B0>'
+
+```
+title = book.find('title').text
+```
+
+Then, we print the output of the title
+```
+print(title)
+```
+
+After this, the loop proceeds to the following book elements, extraxts the title and print the title etc. 
+
 We can get the description of each book in the same way.
 
 ```{admonition} Exercise
@@ -138,9 +149,9 @@ for book in root.find_all('book'):
 	print(description)
 ```	
 ````
-
+This leads to the following output:
 ```{code-cell}
-:tags: ["remove-input"]
+:tags: [remove-input, hide-output]
 for book in root.find_all('book'):
 	description = book.find('description').text
 	print(description)
@@ -165,7 +176,8 @@ for book in root.find_all('book'):
 
 ## Extract name and surname of the author
 You can use the same method as described above to extract all the names and surnames from the authors from the example XML. 
-However, if we look at the structure of the XML file, there is a difference between the placement of the elements 'title' and 'description', and the elements 'name' and 'surname' in the XML structure. 
+However, if we look at the structure of the XML file, there is a difference between the placement of the elements 'title' and 'description', and the 
+elements 'name' and 'surname' in the XML structure. 
 
 ```XML
 <catalog>
@@ -196,8 +208,14 @@ The element 'name' however, is a child of the element 'author' and a *sub*child 
 	
 ```
 
-Because of the difference in the place between elements, we need to alter our code a bit. Instead of a single *for loop* that iterates through all the 'book' elements, 
+Because of the difference in the place between elements, we need to alter our code a bit. 
+We can use two approaches:
+* Add another *for loop* inside or first loop;
+* 'escape' the element hierarchie. 
+
+For the first approach, instead of a single *for loop* that iterates through all the 'book' elements, 
 we also need a second *for loop* that runs through the 'author' element of 'book'. We can do this with the following code:
+
 
 ```{code-cell}
 :tags: [hide-output]
@@ -232,10 +250,9 @@ for book in root.find_all('book'):
 		surname = author.find('surname').text
 		print(name, surname) 
 ```
-Another option is to just look for the element 'Author' and then extract the content from the subelements 'name' and 'surname'. 
-This is useful if you have an XML with a lot of children where you want to extract only specific content. 
-However, keep in mind that the connection between the book and the authors is lost with this code. 
-The code looks like this: 
+The second approach is to ‘escape’ the element hiearchy and directly select all subelements, 
+on all levels beneath the current element. This is usefull if you have an XML with a lot of 
+As explained in lesson *3*, you can just insert the name of the subchild, as shown in the following code:
 
 ```{code-cell}
 :tags: [hide-output]
@@ -248,7 +265,8 @@ for book in root.find_all('author'):
 
 ## Extract the book identifier
 
-As you can see in the XML, each book has its own ***identifier***. As books can have the same name, and authors can have written multiple books, it is good practise to always use the identifier to point to a specific item. 
+As you can see in the XML, each book has its own ***identifier***. 
+As books can have the same name, and authors can have written multiple books, it is good practise to always use the identifier to point to a specific item. 
 
 In the previous exercises, we extracted the content that was presented between the tags of an element.
 For example:
@@ -262,7 +280,8 @@ In this example, you see that the title 'XML Developer's guide' is stored betwee
 
 ````{admonition} Exercise
 :class: attention
-Look at this example of the 'book' element with its identifier. Compare it to the title element above. What is the difference between the place of the content of the identifier and the place of the content of the title?
+Look at this example of the 'book' element with its identifier. 
+What is the difference between the place of the content of the identifier and the place of the content of the title?
 
 ```XML
 	<book id="bk101">
@@ -325,7 +344,7 @@ for book in root.find_all('book'):
 
 This leads to the following output:
 ```{code-cell} 
-:tags: ["remove-input","output_scroll"]
+:tags: [remove-input,hide-output]
 for book in root.find_all('book'):
 	identifier = book.get('id')
 	title = book.find('title').text
@@ -336,9 +355,11 @@ for book in root.find_all('book'):
 	print(identifier, title, description, name, surname)
 ```
 
-As you can see, it displays all information we wanted, but the output is quite unreadable. For example, it is not clear which part of the content belongs to the title, and which to the description. 
+As you can see, it displays all information we wanted, but the output is quite unreadable. 
+For example, it is not clear which part of the content belongs to the title, and which to the description. 
 
-To make the output more readable, we can put text before our output variables. In Python, this can be done like this:
+To make the output more readable, we can put text before our output variables. 
+In Python, this can be done like this:
 ```Python
 print(f"This is the string we type and {this_is_the_variable}")
 ```
@@ -346,7 +367,7 @@ print(f"This is the string we type and {this_is_the_variable}")
 So in our example, we could add the following:
 
 ```{code-cell}
-:tags: ["hide-output"]
+:tags: [hide-output]
 
 for book in root.find_all('book'):
     identifier = book.get('id')
@@ -359,12 +380,14 @@ for book in root.find_all('book'):
     print(f"Identifier= {identifier} title= {title} description= {description} name= {name} {surname}")
 ```
 
-As you can see, we can now detect the various parts that we extracted. However, it is still not easy to read.
-To resolve this, we can add linebreaks between each variable and between the different books. We add a line break by adding '\n' after each variable, 
+As you can see, we can now detect the various parts that we extracted. 
+However, it is still not easy to read.
+To resolve this, we can add linebreaks between each variable and between the different books. W
+e add a line break by adding '\n' after each variable, 
 leading to the following code:
 
 ```{code-cell}
-:tags: ["hide-output"]
+:tags: [hide-output]
 
 for book in root.find_all('book'):
     identifier = book.get('id')
@@ -378,11 +401,12 @@ for book in root.find_all('book'):
 
 ```
 
-Well, that output looks way better, does it not? Now having this information as printout on screen is useful, but preferably we should be able to use it in further analysis. This means that we need to be able to store it somewhere.
+Well, that output looks way better, does it not? 
 
 ## Store the information in a .csv or .txt file.
-
-Here we show you how to store the output in two different ways:
+In a lot of cases, you not only want the extracted content in your Jupyter Notebook, but you also want to store them 
+for future use. 
+We will show you how to store the output in two different ways:
 - as one file with the information of all books in .csv format (which, for example, can be opened in Excel)
 - as one textfile per book. 
 
@@ -398,7 +422,7 @@ booklist = []
 Now, we alter our *for loop* a bit. Instead of printing the output to the screen, as we did above, we store our output in a list. 
 We can use the following code:
 ```{code-cell}
-:tags: ["hide-output"]
+:tags: [hide-output]
 
 booklist = []
 
@@ -412,14 +436,8 @@ for book in root.find_all('book'):
     booklist.append([identifier, title, description, name+" "+surname])
 ```
 This leads to a list, called 'booklist', in which for every book all extracted information is stored. 
-
-We can check the content of the booklist by printing it with:
-
-```{code-cell} 
-:tags: ["hide-output"]
-print(booklist)
-```
-Having verified the list contains what we wanted to extract, we can then easily transform this list to a Pandas Dataframe. To do so, we need to first import pandas using the code:
+We can then easily transform this list to a pandas DataFrame. 
+To do so, we need to import pandas first with the code
 ```
 import pandas as pd
 ```
@@ -429,7 +447,11 @@ Then we type:
 books = pd.DataFrame(booklist, columns=["identifier", "title", "description", "name"])
 ```
 
-This code works as follows. You declare the variable 'books', which will be used to store all the information. Then you let Python know that you want to create a Dataframe. The content of this Dataframe is the list 'booklist', which we just created. We then tell Python how we want to name the columns (this should be in the same order as the order of the variables in the list). 
+
+This code works as follows. You declare the variable 'books', which will be used to store all 
+the information. Then you let Python know that you want to create a Dataframe. 
+The content of this Dataframe is the list 'booklist', which we just created. 
+We then tell Python how we want to name the columns (this should be in the same order as the order of the variables in the list). 
 
 You can show the dataframe you just created by typing:
 ``` 
@@ -438,9 +460,9 @@ books
 
 This results in the following output:
 ```{code-cell}
-:tags: ["remove-input"]
+:tags: [remove-input, hide-output]
 
-# This cell should have its input hidden!
+
 import pandas as pd
 books = pd.DataFrame(booklist, columns=["identifier","title", "description", "name"])
 books
@@ -450,6 +472,15 @@ Now we can save this dataframe into a csv file by typing:
 ```
 books.to_csv('book.csv')
 ``` 
+
+```{note}
+This saves the csv in the root folder of your jupyter installation. 
+If you want it saved in a specific location you need to specify the path before the filename followed by a '/,
+for example ```books.to_csv('C:/Users/Documents/book.csv')```
+Please remember to use a backward slash ('/') between the folders
+```
+
+
 ### Create a textfile per book
 
 If you want to create a textfile for every book, you can add the code directly in your *for loop*. 
@@ -458,14 +489,14 @@ First, you have to declare a textfile in Python and give it a name. Then, you op
 You can try this with the following code:
 
 ```
-myfile = open('test.txt', 'w')
-myfile.write('This is just a test file')
-myfile.close()
+with open("test.txt", "w") as f:
+    f.write("This is just a test file")
 ```
 
 ````{note}
 By default, Python stores the text file in the same folder as where you run your Jupyter Notebook. You can alter this by adding a path to your textfile, for example:
-``` myfile = open('C:/Users/Documents/test.txt', 'w') 
+```
+ myfile = open('C:/Users/Documents/test.txt', 'w') 
 ```
 Please remember to use a backward slash (/) between the folders
 ````
@@ -473,12 +504,12 @@ Please remember to use a backward slash (/) between the folders
 With a few alterations, we can use this code to save our book information to a seperate file per book. 
 First, we give the text file the name of the book identifier. We can do that by adding the variable into the name of the file like this:
 ```
- myfile = open(identifier + '.txt', 'w')
+with open(f"{identfier}.txt", "w") as f:
 ```
 
 Then, we create the content of the file based on the content we extracted from the book. 
 ```
-myfile.write(name + " " + surname + "\n" + title + "\n" + description)
+f.write(name + " " + surname + "\n" + title + "\n" + description)
 ```
 
 If we put these lines into our *for loop*, Python will save every book with its own name and information. 
@@ -491,14 +522,16 @@ for book in root.find_all('book'):
     for author in book.find_all('author'):
         name = author.find('name').text
         surname = author.find('surname').text
-    myfile = open(identifier + '.txt', 'w')
-    myfile.write(name + " " + surname + "\n" + title + "\n" + description)
-    myfile.close()
+    with open(f"{identfier}.txt", "w") as f:
+		f.write(name + " " + surname + "\n" + title + "\n" + description)
 ```
 
-## Extra: Filter information
+## Filter information
 
-You can also search for specific elements in your XML. For example, just the title information from the book 'bk109'. To do so, you can start with the same *for loop* as we created in this lesson. However, before you print the output, you first check if you have the element you want (in this case: book 109). This can be done with an 'if' statement and it looks like this:
+You can also search for specific elements in your XML. 
+For example, just the title information from the book 'bk109'. 
+To do so, you can start with the same *for loop* as we created in this lesson. 
+However, before you print the output, you first check if you have the element you want (in this case: book 109). This can be done with an 'if' statement and it looks like this:
 
 ```{code-cell}
 for book in root.find_all('book'):
@@ -539,13 +572,69 @@ for book in root.find_all('book'):
 ````	
 
 ```{code-cell}
-:tags: ["remove-input"]
+:tags: [remove-input, hide-output]
 for book in root.find_all('book'):
 	description = book.find('description').text
 	if "England" in description:
 		print(book.find('description').text)
 ```	
 		
+### Namespaces  
+
+As we mentioned in lesson *2* during our introduction to XML, some XML files contain namespaces. 
+In lesson *3*,we mentioned that Beautiful Soup omits these namespaces in elements, so you don't have to declare them. 
+
+Let's look at the example with namespaces from lesson 2:
+
+```XML
+<p:student xmlns:p="http//www.imaginarypythoncourses.com/student">
+  <p:id>3235329</p:id>
+  <p:name>Jeff Smith</p:name>
+  <p:language>Python</p:language>
+  <p:rating>9.5</p:rating>
+</p:student>
+```
+
+Imagine, we want to extract the name of the student from this XML file. 
+
+First, we load the file into our Notebook (the file is called 'namespaces.xml' and can be [downloaded here](https://github.com/MirjamC/xml-workshop/tree/master/data)
+
+```{code-cell} Python
+with open("data/namespaces.xml") as f:
+    root_ns = BeautifulSoup(f, 'xml')
+```
+
+Then, we create a *for loop* that iterates through the file and returns the values of all 'name' elements. 
+
+```{code-cell} Python
+for student in root_ns.find_all('name'):
+    print(student.text)
+```
+
+As you can see, Beautiful Soup has no problem with printing the name of the student. 
+
+However, in some XML documents, *attributes* can have a namespace. 
+In such cases, you have to put the namespace identifier in your code. 
+
+Let's imagine the XML looks as follows:
+
+```XML
+<p:student xmlns:p="http//www.imaginarypythoncourses.com/student">
+  <p:name p:id='3235329'>Jeff Smith</p:name>
+  <p:language>Python</p:language>
+  <p:rating>9.5</p:rating>
+</p:student>
+```
+
+Imagine we want to extract the attribute 'id'. We see that this attribute has a namespace, so we need to declare it in the code. 
+This can only be done by putting the identifier into curly brackets before the attribute name. 
+
+The code should looks as follows:
+```
+for student in root.find_all('name'):
+    identifier = student.get('{http//www.imaginarypythoncourses.com/student}id')
+```
+
 We now have a good basis to try exploring some reallife examples of XML files used in Digital Humanities research. We will introduce some of these formats in the following section.
 
 

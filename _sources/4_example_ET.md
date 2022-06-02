@@ -40,6 +40,7 @@ Type the following in a code cell:
 ```{code-cell}
 import xml.etree.ElementTree as ET
 ```
+Now we can use the package to extract data from the XML. 
 
 ## Examine the structure of the file
 
@@ -102,7 +103,7 @@ we add '.text'. to let Python know that we are interested in the value between t
 Without the '.text' addition, Python would simply present us the tag in its location, like '<Element 'title' at 0x000001995B4718B0>'
 
 ```
-for book in root.findall('book'):
+title = book.find('title').text
 ```
 
 Then, we print the output of the title
@@ -138,7 +139,7 @@ for book in root.findall('book'):
     print(description)
 ```
 
-We can use one *for loop* to extract both the book title and description from the XML file. 
+We can use one *for loop* to extract both the book title *and* description from the XML file. 
 Combining multiple items is preferable because it saves unnecessary lines of codes and merges the part of the code which does the same thing.
 This makes the code more readable and maintainable. 
 
@@ -630,7 +631,7 @@ for student in root_ns.findall('{http//www.imaginarypythoncourses.com/student}na
     print(student.text)
 ```
 
-2. Declare the namespace in elementTree. You therefore create a Python dictionary with the namespace abbreviation and the uri *without* the curly brackets. 
+2. Declare the namespace in elementTree. You therefore create a Python dictionary with the namespace abbreviation and the identifier *without* the curly brackets. 
 
 ```{important}
 When you want to declare namespaces in Python, you can not blindly use the namespaces as you see them in your XML file when
